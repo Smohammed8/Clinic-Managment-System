@@ -141,13 +141,13 @@
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $labTestRequest)
                                                 <a href="{{ route('lab-test-requests.edit', $labTestRequest) }}">
-                                                    <button type="button" class="btn btn-light">
-                                                        <i class="icon ion-md-create"></i>
+                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                        <i class="fa fa-edit"></i>
                                                     </button>
                                                 </a>
                                                 @endcan @can('view', $labTestRequest)
                                                 <a href="{{ route('lab-test-requests.show', $labTestRequest) }}">
-                                                    <button type="button" class="btn btn-light">
+                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                         <i class="icon ion-md-eye"></i>
                                                     </button>
                                                 </a>
@@ -156,7 +156,7 @@
                                                     method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
-                                                    <button type="submit" class="btn btn-light text-danger">
+                                                     <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
                                                         <i class="icon ion-md-trash"></i>
                                                     </button>
                                                 </form>

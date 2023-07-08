@@ -77,7 +77,7 @@
                                             type="button"
                                             class="btn btn-light"
                                         >
-                                            <i class="icon ion-md-create"></i>
+                                            <i class="fa fa-edit"></i>
                                         </button>
                                     </a>
                                     @endcan @can('view', $stockUnit)

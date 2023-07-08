@@ -126,7 +126,7 @@
                                 class="btn btn-light"
                                 wire:click="editProgram({{ $program->id }})"
                             >
-                                <i class="icon ion-md-create"></i>
+                                <i class="fa fa-edit"></i>
                             </button>
                             @endcan
                         </div>

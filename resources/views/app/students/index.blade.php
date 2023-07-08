@@ -85,13 +85,13 @@
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $student)
                                                 <a href="{{ route('students.edit', $student) }}">
-                                                    <button type="button" class="btn btn-light">
-                                                        <i class="icon ion-md-create"></i>
+                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                        <i class="fa fa-edit"></i>
                                                     </button>
                                                 </a>
                                                 @endcan @can('view', $student)
                                                 <a href="{{ route('students.show', $student) }}">
-                                                    <button type="button" class="btn btn-light">
+                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                         <i class="icon ion-md-eye"></i>
                                                     </button>
                                                 </a>
@@ -99,7 +99,7 @@
                                                 <form action="{{ route('students.destroy', $student) }}" method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
-                                                    <button type="submit" class="btn btn-light text-danger">
+                                                     <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
                                                         <i class="icon ion-md-trash"></i>
                                                     </button>
                                                 </form>
