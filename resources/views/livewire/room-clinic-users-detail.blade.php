@@ -58,7 +58,7 @@
     </x-modal>
 
     <div class="table-responsive">
-        <table class="table table-borderless table-hover">
+        <table class="table table-hover table-condensed">
             <thead>
                 <tr>
                     <th class="text-left">

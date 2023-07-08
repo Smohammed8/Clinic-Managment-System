@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="">
     <div class="searchbar mt-0 mb-4">
         <div class="row">
             <div class="col-md-6">
@@ -46,9 +46,10 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-borderless table-hover">
+                <table class="table table-hover table-condensed">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th class="text-left">
                                 @lang('crud.lab_catagories.inputs.lab_name')
                             </th>
@@ -61,9 +62,10 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse($labCatagories as $labCatagory)
+                        @forelse($labCatagories  as $key =>  $labCatagory)
                         <tr>
-                            <td>{{ $labCatagory->lab_name ?? '-' }}</td>
+                            
+                            <td> {{ $key + 1}}<td>{{ $labCatagory->lab_name ?? '-' }}</td>
                             <td>{{ $labCatagory->lab_desc ?? '-' }}</td>
                             <td class="text-center" style="width: 134px;">
                                 <div
