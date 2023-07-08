@@ -24,7 +24,7 @@ class LabTestStoreRequest extends FormRequest
             'test_desc' => ['nullable', 'max:255', 'string'],
             'lab_catagory_id' => ['nullable', 'exists:lab_catagories,id'],
             'status' => ['nullable', 'max:255'],
-            'is_available ' => ['nullable', 'boolean'],
+            'is_available' => ['nullable', 'boolean'],
             'price' => ['nullable', 'numeric'],
         ];
     }

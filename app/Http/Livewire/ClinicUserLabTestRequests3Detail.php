@@ -50,11 +50,11 @@ class ClinicUserLabTestRequests3Detail extends Component
             'nullable',
             'exists:lab_test_request_groups,id',
         ],
-        'labTestRequest.sample_collected_by_id ' => [
+        'labTestRequest.sample_collected_by_id' => [
             'nullable',
             'exists:clinic_users,id',
         ],
-        'labTestRequest.sample_analyzed_by_id ' => [
+        'labTestRequest.sample_analyzed_by_id' => [
             'nullable',
             'exists:clinic_users,id',
         ],
@@ -85,8 +85,8 @@ class ClinicUserLabTestRequests3Detail extends Component
         $this->labTestRequestApprovedAt = null;
         $this->labTestRequestOrderedOn = null;
         $this->labTestRequest->lab_test_request_group_id = null;
-        $this->labTestRequest->sample_collected_by_id = null;
-        $this->labTestRequest->sample_analyzed_by_id = null;
+        $this->labTestRequest->sample_collected_by_id= null;
+        $this->labTestRequest->sample_analyzed_by_id= null;
         $this->labTestRequest->lab_catagory_id = null;
 
         $this->dispatchBrowserEvent('refresh');
@@ -147,7 +147,7 @@ class ClinicUserLabTestRequests3Detail extends Component
         if (!$this->labTestRequest->approved_by_id) {
             $this->authorize('create', LabTestRequest::class);
 
-            $this->labTestRequest->approved_by_id = $this->clinicUser->id;
+            $this->labTestRequest->approved_by_id= $this->clinicUser->id;
         } else {
             $this->authorize('update', $this->labTestRequest);
         }

@@ -138,10 +138,10 @@ class LabTestRequestControllerTest extends TestCase
             'sample_id' => $this->faker->text(255),
             'ordered_on' => $this->faker->dateTime(),
             'lab_test_request_group_id' => $labTestRequestGroup->id,
-            'sample_collected_by_id ' => $clinicUser->id,
-            'sample_analyzed_by_id ' => $clinicUser->id,
+            'sample_collected_by_id' => $clinicUser->id,
+            'sample_analyzed_by_id' => $clinicUser->id,
             'lab_catagory_id' => $labCatagory->id,
-            'approved_by_id ' => $clinicUser->id,
+            'approved_by_id' => $clinicUser->id,
         ];
 
         $response = $this->put(

@@ -36,10 +36,10 @@ class LabTestRequestFactory extends Factory
             'sample_id' => $this->faker->text(255),
             'ordered_on' => $this->faker->dateTime(),
             'lab_test_request_group_id' => \App\Models\LabTestRequestGroup::factory(),
-            'sample_collected_by_id ' => \App\Models\ClinicUser::factory(),
-            'sample_analyzed_by_id ' => \App\Models\ClinicUser::factory(),
+            'sample_collected_by_id' => \App\Models\ClinicUser::factory(),
+            'sample_analyzed_by_id' => \App\Models\ClinicUser::factory(),
             'lab_catagory_id' => \App\Models\LabCatagory::factory(),
-            'approved_by_id ' => \App\Models\ClinicUser::factory(),
+            'approved_by_id' => \App\Models\ClinicUser::factory(),
         ];
     }
 }

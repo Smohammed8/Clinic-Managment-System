@@ -26,7 +26,7 @@ class LabTestFactory extends Factory
             'test_name' => $this->faker->text(255),
             'test_desc' => $this->faker->text(),
             'status' => $this->faker->numberBetween(0, 127),
-            'is_available ' => $this->faker->boolean(),
+            'is_available' => $this->faker->boolean(),
             'price' => $this->faker->randomFloat(2, 0, 9999),
             'lab_catagory_id' => \App\Models\LabCatagory::factory(),
         ];

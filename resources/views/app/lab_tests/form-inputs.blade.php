@@ -40,9 +40,9 @@
 
     <x-inputs.group class="col-sm-12">
         <x-inputs.checkbox
-            name="is_available "
+            name="is_available"
             label="Is Available"
-            :checked="old('is_available ', ($editing ? $labTest->is_available  : 0))"
+            :checked="old('is_available', ($editing ? $labTest->is_available : 0))"
         ></x-inputs.checkbox>
     </x-inputs.group>
 

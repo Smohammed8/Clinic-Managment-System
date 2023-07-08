@@ -28,7 +28,7 @@ class LabCatagoryLabTestsDetail extends Component
         'labTest.test_name' => ['nullable', 'max:255', 'string'],
         'labTest.test_desc' => ['nullable', 'max:255', 'string'],
         'labTest.status' => ['nullable', 'max:255'],
-        'labTest.is_available ' => ['nullable', 'boolean'],
+        'labTest.is_available' => ['nullable', 'boolean'],
         'labTest.price' => ['nullable', 'numeric'],
     ];
 

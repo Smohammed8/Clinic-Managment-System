@@ -49,15 +49,15 @@ class LabCatagoryLabTestRequestsDetail extends Component
             'nullable',
             'exists:lab_test_request_groups,id',
         ],
-        'labTestRequest.sample_collected_by_id ' => [
+        'labTestRequest.sample_collected_by_id' => [
             'nullable',
             'exists:clinic_users,id',
         ],
-        'labTestRequest.sample_analyzed_by_id ' => [
+        'labTestRequest.sample_analyzed_by_id' => [
             'nullable',
             'exists:clinic_users,id',
         ],
-        'labTestRequest.approved_by_id ' => [
+        'labTestRequest.approved_by_id' => [
             'nullable',
             'exists:clinic_users,id',
         ],
@@ -83,9 +83,9 @@ class LabCatagoryLabTestRequestsDetail extends Component
         $this->labTestRequestApprovedAt = null;
         $this->labTestRequestOrderedOn = null;
         $this->labTestRequest->lab_test_request_group_id = null;
-        $this->labTestRequest->sample_collected_by_id = null;
-        $this->labTestRequest->sample_analyzed_by_id = null;
-        $this->labTestRequest->approved_by_id = null;
+        $this->labTestRequest->sample_collected_by_id= null;
+        $this->labTestRequest->sample_analyzed_by_id= null;
+        $this->labTestRequest->approved_by_id= null;
 
         $this->dispatchBrowserEvent('refresh');
     }

@@ -60,7 +60,7 @@
                                 @lang('crud.lab_tests.inputs.status')
                             </th>
                             <th class="text-left">
-                                @lang('crud.lab_tests.inputs.is_available ')
+                                @lang('crud.lab_tests.inputs.is_available')
                             </th>
                             <th class="text-right">
                                 @lang('crud.lab_tests.inputs.price')
@@ -80,7 +80,7 @@
                                 '-' }}
                             </td>
                             <td>{{ $labTest->status ?? '-' }}</td>
-                            <td>{{ $labTest->is_available ?? '-' }}</td>
+                            <td>{{ $labTest->is_available?? '-' }}</td>
                             <td>{{ $labTest->price ?? '-' }}</td>
                             <td class="text-center" style="width: 134px;">
                                 <div

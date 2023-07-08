@@ -47,9 +47,9 @@
 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.number
-                            name="vitalSign.blood_pressure "
+                            name="vitalSign.blood_pressure"
                             label="Blood Pressure"
-                            wire:model="vitalSign.blood_pressure "
+                            wire:model="vitalSign.blood_pressure"
                             max="255"
                             step="0.01"
                             placeholder="Blood Pressure"
@@ -175,7 +175,7 @@
                         @lang('crud.student_vital_signs.inputs.temp')
                     </th>
                     <th class="text-right">
-                        @lang('crud.student_vital_signs.inputs.blood_pressure ')
+                        @lang('crud.student_vital_signs.inputs.blood_pressure')
                     </th>
                     <th class="text-right">
                         @lang('crud.student_vital_signs.inputs.pulse_rate')
@@ -213,7 +213,7 @@
                     </td>
                     <td class="text-right">{{ $vitalSign->temp ?? '-' }}</td>
                     <td class="text-right">
-                        {{ $vitalSign->blood_pressure ?? '-' }}
+                        {{ $vitalSign->blood_pressure?? '-' }}
                     </td>
                     <td class="text-right">
                         {{ $vitalSign->pulse_rate ?? '-' }}

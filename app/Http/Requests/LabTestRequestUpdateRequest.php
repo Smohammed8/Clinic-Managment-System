@@ -36,10 +36,10 @@ class LabTestRequestUpdateRequest extends FormRequest
                 'nullable',
                 'exists:lab_test_request_groups,id',
             ],
-            'sample_collected_by_id ' => ['nullable', 'exists:clinic_users,id'],
-            'sample_analyzed_by_id ' => ['nullable', 'exists:clinic_users,id'],
+            'sample_collected_by_id' => ['nullable', 'exists:clinic_users,id'],
+            'sample_analyzed_by_id' => ['nullable', 'exists:clinic_users,id'],
             'lab_catagory_id' => ['nullable', 'exists:lab_catagories,id'],
-            'approved_by_id ' => ['nullable', 'exists:clinic_users,id'],
+            'approved_by_id' => ['nullable', 'exists:clinic_users,id'],
         ];
     }
 }

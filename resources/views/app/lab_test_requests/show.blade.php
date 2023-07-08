@@ -110,7 +110,7 @@
                 </div>
                 <div class="mb-4">
                     <h5>
-                        @lang('crud.lab_test_requests.inputs.approved_by_id ')
+                        @lang('crud.lab_test_requests.inputs.approved_by_id')
                     </h5>
                     <span
                         >{{ optional($labTestRequest->approvedBy)->id ?? '-'

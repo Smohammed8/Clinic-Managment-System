@@ -65,9 +65,9 @@
 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.checkbox
-                            name="labTest.is_available "
+                            name="labTest.is_available"
                             label="Is Available"
-                            wire:model="labTest.is_available "
+                            wire:model="labTest.is_available"
                         ></x-inputs.checkbox>
                     </x-inputs.group>
 
@@ -149,7 +149,7 @@
                     <td class="text-left">{{ $labTest->test_desc ?? '-' }}</td>
                     <td class="text-left">{{ $labTest->status ?? '-' }}</td>
                     <td class="text-left">
-                        {{ $labTest->is_available ?? '-' }}
+                        {{ $labTest->is_available?? '-' }}
                     </td>
                     <td class="text-right">{{ $labTest->price ?? '-' }}</td>
                     <td class="text-right" style="width: 134px;">

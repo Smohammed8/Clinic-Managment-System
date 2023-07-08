@@ -53,7 +53,7 @@
                                 @lang('crud.vital_signs.inputs.temp')
                             </th>
                             <th class="text-right">
-                                @lang('crud.vital_signs.inputs.blood_pressure ')
+                                @lang('crud.vital_signs.inputs.blood_pressure')
                             </th>
                             <th class="text-right">
                                 @lang('crud.vital_signs.inputs.pulse_rate')
@@ -88,7 +88,7 @@
                         @forelse($vitalSigns as $vitalSign)
                         <tr>
                             <td>{{ $vitalSign->temp ?? '-' }}</td>
-                            <td>{{ $vitalSign->blood_pressure ?? '-' }}</td>
+                            <td>{{ $vitalSign->blood_pressure?? '-' }}</td>
                             <td>{{ $vitalSign->pulse_rate ?? '-' }}</td>
                             <td>{{ $vitalSign->rr ?? '-' }}</td>
                             <td>{{ $vitalSign->weight ?? '-' }}</td>

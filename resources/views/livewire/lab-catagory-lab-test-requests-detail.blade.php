@@ -166,9 +166,9 @@
 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.select
-                            name="labTestRequest.sample_collected_by_id "
+                            name="labTestRequest.sample_collected_by_id"
                             label="Sample Ccollected By"
-                            wire:model="labTestRequest.sample_collected_by_id "
+                            wire:model="labTestRequest.sample_collected_by_id"
                         >
                             <option value="null" disabled>Please select the Clinic User</option>
                             @foreach($clinicUsersForSelect as $value => $label)
@@ -179,9 +179,9 @@
 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.select
-                            name="labTestRequest.sample_analyzed_by_id "
+                            name="labTestRequest.sample_analyzed_by_id"
                             label="Sample Analyzed By"
-                            wire:model="labTestRequest.sample_analyzed_by_id "
+                            wire:model="labTestRequest.sample_analyzed_by_id"
                         >
                             <option value="null" disabled>Please select the Clinic User</option>
                             @foreach($clinicUsersForSelect as $value => $label)
@@ -192,9 +192,9 @@
 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.select
-                            name="labTestRequest.approved_by_id "
+                            name="labTestRequest.approved_by_id"
                             label="Approved By"
-                            wire:model="labTestRequest.approved_by_id "
+                            wire:model="labTestRequest.approved_by_id"
                         >
                             <option value="null" disabled>Please select the Clinic User</option>
                             @foreach($clinicUsersForSelect as $value => $label)

@@ -124,10 +124,10 @@
 
     <x-inputs.group class="col-sm-12">
         <x-inputs.select
-            name="sample_collected_by_id "
+            name="sample_collected_by_id"
             label="Sample Ccollected By"
         >
-            @php $selected = old('sample_collected_by_id ', ($editing ? $labTestRequest->sample_collected_by_id  : '')) @endphp
+            @php $selected = old('sample_collected_by_id', ($editing ? $labTestRequest->sample_collected_by_id : '')) @endphp
             <option disabled {{ empty($selected) ? 'selected' : '' }}>Please select the Clinic User</option>
             @foreach($clinicUsers as $value => $label)
             <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
@@ -137,10 +137,10 @@
 
     <x-inputs.group class="col-sm-12">
         <x-inputs.select
-            name="sample_analyzed_by_id "
+            name="sample_analyzed_by_id"
             label="Sample Analyzed By"
         >
-            @php $selected = old('sample_analyzed_by_id ', ($editing ? $labTestRequest->sample_analyzed_by_id  : '')) @endphp
+            @php $selected = old('sample_analyzed_by_id', ($editing ? $labTestRequest->sample_analyzed_by_id : '')) @endphp
             <option disabled {{ empty($selected) ? 'selected' : '' }}>Please select the Clinic User</option>
             @foreach($clinicUsers as $value => $label)
             <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
@@ -159,8 +159,8 @@
     </x-inputs.group>
 
     <x-inputs.group class="col-sm-12">
-        <x-inputs.select name="approved_by_id " label="Approved By">
-            @php $selected = old('approved_by_id ', ($editing ? $labTestRequest->approved_by_id  : '')) @endphp
+        <x-inputs.select name="approved_by_id" label="Approved By">
+            @php $selected = old('approved_by_id', ($editing ? $labTestRequest->approved_by_id : '')) @endphp
             <option disabled {{ empty($selected) ? 'selected' : '' }}>Please select the Clinic User</option>
             @foreach($clinicUsers as $value => $label)
             <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>

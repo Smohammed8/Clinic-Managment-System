@@ -27,7 +27,7 @@ class UserFactory extends Factory
             'username' => $this->faker->unique->text(255),
             'email' => $this->faker->unique->email,
             'email_verified_at' => now(),
-            'password' => \Hash::make('password'),
+            'password' => "$2y$10$/gJU7MfRKPloirFg0m0lcOukTo/NwmPLRuARlWnu5FTqPmRsBNKKC",
             'remember_token' => Str::random(10),
         ];
     }

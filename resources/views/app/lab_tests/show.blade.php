@@ -32,8 +32,8 @@
                     <span>{{ $labTest->status ?? '-' }}</span>
                 </div>
                 <div class="mb-4">
-                    <h5>@lang('crud.lab_tests.inputs.is_available ')</h5>
-                    <span>{{ $labTest->is_available ?? '-' }}</span>
+                    <h5>@lang('crud.lab_tests.inputs.is_available')</h5>
+                    <span>{{ $labTest->is_available?? '-' }}</span>
                 </div>
                 <div class="mb-4">
                     <h5>@lang('crud.lab_tests.inputs.price')</h5>

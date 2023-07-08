@@ -54,17 +54,17 @@ class ClinicUser extends Model
 
     public function labTestRequests()
     {
-        return $this->hasMany(LabTestRequest::class, 'sample_collected_by_id ');
+        return $this->hasMany(LabTestRequest::class, 'sample_collected_by_id');
     }
 
     public function labTestRequests2()
     {
-        return $this->hasMany(LabTestRequest::class, 'sample_analyzed_by_id ');
+        return $this->hasMany(LabTestRequest::class, 'sample_analyzed_by_id');
     }
 
     public function labTestRequests3()
     {
-        return $this->hasMany(LabTestRequest::class, 'approved_by_id ');
+        return $this->hasMany(LabTestRequest::class, 'approved_by_id');
     }
 
     public function mainDiagnoses()

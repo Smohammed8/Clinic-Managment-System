@@ -30,7 +30,7 @@ class StudentVitalSignsDetail extends Component
 
     protected $rules = [
         'vitalSign.temp' => ['nullable', 'numeric'],
-        'vitalSign.blood_pressure ' => ['nullable', 'numeric'],
+        'vitalSign.blood_pressure' => ['nullable', 'numeric'],
         'vitalSign.pulse_rate' => ['nullable', 'numeric'],
         'vitalSign.rr' => ['nullable', 'numeric'],
         'vitalSign.weight' => ['nullable', 'numeric'],

@@ -17,8 +17,8 @@
                     <span>{{ $vitalSign->temp ?? '-' }}</span>
                 </div>
                 <div class="mb-4">
-                    <h5>@lang('crud.vital_signs.inputs.blood_pressure ')</h5>
-                    <span>{{ $vitalSign->blood_pressure ?? '-' }}</span>
+                    <h5>@lang('crud.vital_signs.inputs.blood_pressure')</h5>
+                    <span>{{ $vitalSign->blood_pressure?? '-' }}</span>
                 </div>
                 <div class="mb-4">
                     <h5>@lang('crud.vital_signs.inputs.pulse_rate')</h5>

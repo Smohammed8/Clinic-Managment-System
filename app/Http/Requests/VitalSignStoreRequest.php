@@ -21,7 +21,7 @@ class VitalSignStoreRequest extends FormRequest
     {
         return [
             'temp' => ['nullable', 'numeric'],
-            'blood_pressure ' => ['nullable', 'numeric'],
+            'blood_pressure' => ['nullable', 'numeric'],
             'pulse_rate' => ['nullable', 'numeric'],
             'rr' => ['nullable', 'numeric'],
             'weight' => ['nullable', 'numeric'],

@@ -56,9 +56,9 @@ return new class extends Migration {
         Schema::table('lab_test_requests', function (Blueprint $table) {
             $table->dropForeign(['lab_test_request_group_id']);
             $table->dropForeign(['sample_collected_by_id']);
-            $table->dropForeign(['sample_analyzed_by_id ']);
+            $table->dropForeign(['sample_analyzed_by_id']);
             $table->dropForeign(['lab_catagory_id']);
-            $table->dropForeign(['approved_by_id ']);
+            $table->dropForeign(['approved_by_id']);
         });
     }
 };

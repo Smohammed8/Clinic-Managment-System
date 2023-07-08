@@ -24,7 +24,7 @@ class VitalSignFactory extends Factory
     {
         return [
             'temp' => $this->faker->randomNumber(1),
-            'blood_pressure ' => $this->faker->randomNumber(1),
+            'blood_pressure' => $this->faker->randomNumber(1),
             'pulse_rate' => $this->faker->randomNumber(1),
             'rr' => $this->faker->randomNumber(1),
             'weight' => $this->faker->randomFloat(2, 0, 9999),

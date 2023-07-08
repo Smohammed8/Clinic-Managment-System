@@ -25,10 +25,10 @@ class LabTestRequest extends Model
         'sample_id',
         'ordered_on',
         'lab_test_request_group_id',
-        'sample_collected_by_id ',
-        'sample_analyzed_by_id ',
+        'sample_collected_by_id',
+        'sample_analyzed_by_id',
         'lab_catagory_id',
-        'approved_by_id ',
+        'approved_by_id',
     ];
 
     protected $searchableFields = ['*'];

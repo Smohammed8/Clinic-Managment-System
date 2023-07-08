@@ -14,9 +14,9 @@
 
     <x-inputs.group class="col-sm-12">
         <x-inputs.number
-            name="blood_pressure "
+            name="blood_pressure"
             label="Blood Pressure"
-            :value="old('blood_pressure ', ($editing ? $vitalSign->blood_pressure  : ''))"
+            :value="old('blood_pressure', ($editing ? $vitalSign->blood_pressure : ''))"
             max="255"
             step="0.01"
             placeholder="Blood Pressure"
