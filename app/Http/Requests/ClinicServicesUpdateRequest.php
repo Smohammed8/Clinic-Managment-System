@@ -21,7 +21,7 @@ class ClinicServicesUpdateRequest extends FormRequest
     {
         return [
             'service_name' => ['nullable', 'max:255', 'string'],
-            'service_ description' => ['nullable', 'max:255', 'string'],
+            'service_description' => ['nullable', 'max:255', 'string'],
             'clinics' => ['array'],
         ];
     }

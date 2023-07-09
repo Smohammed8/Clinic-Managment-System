@@ -9,7 +9,8 @@
     </a>
 
     <!-- Sidebar -->
-    <div class="sidebar">
+    <div class="sidebar" style="overflow-y: auto; max-height: calc(100vh - 84px);">
+
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">

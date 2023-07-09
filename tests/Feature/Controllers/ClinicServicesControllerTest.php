@@ -116,7 +116,7 @@ class ClinicServicesControllerTest extends TestCase
 
         $data = [
             'service_name' => $this->faker->text(255),
-            'service_ description' => $this->faker->text(255),
+            'service_description' => $this->faker->text(255),
         ];
 
         $response = $this->put(

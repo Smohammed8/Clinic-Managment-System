@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('clinic_services', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('service_name')->nullable();
-            $table->string('service_ description')->nullable();
+            $table->string('service_description')->nullable();
 
             $table->timestamps();
         });

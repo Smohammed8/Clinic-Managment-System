@@ -62,7 +62,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($rooms   as $key =>  $ $room)
+                            @forelse($rooms as $key => $room)
                                 <tr>
 
                                     <td> {{ $key + 1 }}
@@ -76,13 +76,13 @@
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $room)
                                                 <a href="{{ route('rooms.edit', $room) }}">
-                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                         <i class="fa fa-edit"></i>
                                                     </button>
                                                 </a>
                                                 @endcan @can('view', $room)
                                                 <a href="{{ route('rooms.show', $room) }}">
-                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                         <i class="icon ion-md-eye"></i>
                                                     </button>
                                                 </a>

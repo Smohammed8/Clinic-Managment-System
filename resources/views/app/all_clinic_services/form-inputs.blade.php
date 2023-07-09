@@ -13,9 +13,9 @@
 
     <x-inputs.group class="col-sm-12">
         <x-inputs.text
-            name="service_ description"
+            name="service_description"
             label="Service Description"
-            :value="old('service_ description', ($editing ? $clinicServices->service_ description : ''))"
+            :value="old('service_description', ($editing ? $clinicServices->service_description : ''))"
             maxlength="255"
             placeholder="Service Description"
         ></x-inputs.text>
