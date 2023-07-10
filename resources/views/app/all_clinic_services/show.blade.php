@@ -24,7 +24,7 @@
                         description')
                     </h5>
                     <span
-                        >{{ $clinicServices->service_ description ?? '-'
+                        >{{ $clinicServices->service_description ?? '-'
                         }}</span
                     >
                 </div>

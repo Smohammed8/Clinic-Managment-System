@@ -68,8 +68,7 @@
                             
                             <td> {{ $key + 1}}<td>{{ $clinicServices->service_name ?? '-' }}</td>
                             <td>
-                                {{ $clinicServices->service_ description ?? '-'
-                                }}
+                                {{ $clinicServices->service_description ?? '-' }}
                             </td>
                             <td class="text-center" style="width: 134px;">
                                 <div

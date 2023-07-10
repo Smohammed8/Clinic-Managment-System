@@ -15,7 +15,7 @@
         <x-inputs.text
             name="service_ description"
             label="Service Description"
-            :value="old('service_ description', ($editing ? $clinicServices->service_ description : ''))"
+            :value="old('service_ description', ($editing ? $clinicServices->service_description : ''))"
             maxlength="255"
             placeholder="Service Description"
         ></x-inputs.text>
