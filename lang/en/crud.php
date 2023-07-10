@@ -144,7 +144,7 @@ return [
         'show_title' => 'Show ClinicServices',
         'inputs' => [
             'service_name' => 'Service Name',
-            'service_ description' => 'Service Description',
+            'service_description' => 'Service Description',
         ],
     ],
 

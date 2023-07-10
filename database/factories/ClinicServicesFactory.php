@@ -24,7 +24,7 @@ class ClinicServicesFactory extends Factory
     {
         return [
             'service_name' => $this->faker->text(255),
-            'service_ description' => $this->faker->text(255),
+            'service_description' => $this->faker->text(255),
         ];
     }
 }

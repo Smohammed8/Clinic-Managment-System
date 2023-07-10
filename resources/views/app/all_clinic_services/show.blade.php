@@ -20,8 +20,7 @@
                 </div>
                 <div class="mb-4">
                     <h5>
-                        @lang('crud.all_clinic_services.inputs.service_
-                        description')
+                        @lang('crud.all_clinic_services.inputs.service_description')
                     </h5>
                     <span
                         >{{ $clinicServices->service_description ?? '-'

@@ -11,7 +11,7 @@ class ClinicServices extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['service_name', 'service_ description'];
+    protected $fillable = ['service_name', 'service_description'];
 
     protected $searchableFields = ['*'];
 
