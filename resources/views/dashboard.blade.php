@@ -29,7 +29,7 @@
                                   <div class="info-box-content">
                                     <span class="info-box-text">Users</span>
                                     <span class="info-box-number">
-                                      1
+                                      {{ $users  }}
                                   
                                     </span>
                                   </div>
@@ -44,7 +44,7 @@
                       
                                   <div class="info-box-content">
                                     <span class="info-box-text"> Students </span>
-                                    <span class="info-box-number">3</span>
+                                    <span class="info-box-number">       {{ $students  }} </span>
                                   </div>
                                   <!-- /.info-box-content -->
                                 </div>
@@ -61,7 +61,7 @@
                       
                                   <div class="info-box-content">
                                     <span class="info-box-text"> Clinics </span>
-                                    <span class="info-box-number">4</span>
+                                    <span class="info-box-number">  {{ $clinics }}  </span>
                                   </div>
                                   <!-- /.info-box-content -->
                                 </div>
@@ -74,7 +74,7 @@
                       
                                   <div class="info-box-content">
                                     <span class="info-box-text"> Programs  </span>
-                                    <span class="info-box-number">40</span>
+                                    <span class="info-box-number"> {{ $programs }} </span>
                                   </div>
                                   <!-- /.info-box-content -->
                                 </div>
@@ -108,7 +108,7 @@
                     
                                 <div class="info-box-content">
                                   <span class="info-box-text"> Health worker
-                                  <span class="info-box-number">0</span>
+                                  <span class="info-box-number">  {{ $clinic_users }} </span>
                                 </div>
                                 <!-- /.info-box-content -->
                               </div>
@@ -124,8 +124,8 @@
                                 <span class="info-box-icon bg-success elevation-1"><i class="fas fa-graduation-cap"></i></span>
                     
                                 <div class="info-box-content">
-                                  <span class="info-box-text"> Queue list </span>
-                                  <span class="info-box-number">0</span>
+                                  <span class="info-box-text"> Encounters </span>
+                                  <span class="info-box-number">{{ $encounters }}</span>
                                 </div>
                                 <!-- /.info-box-content -->
                               </div>
