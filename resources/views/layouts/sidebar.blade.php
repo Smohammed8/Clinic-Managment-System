@@ -5,7 +5,14 @@
         <img src="https://upload.wikimedia.org/wikipedia/en/f/fe/Current_Logo_of_Jimma_University.png" alt="JU Logo" class="brand-image">
         <span class="brand-text font-weight-light" style="color: white"><strong style="font-size:20px;">JU SIS</strong></span>
     </a>
+<style>
+.nav-pills .nav-link.active {
+    color: #fff;
+background-color: gray !important;
 
+
+}
+</style>
     <!-- Sidebar -->
     <div class="sidebar" style="overflow-y: auto; max-height: calc(100vh - 84px);">
         <!-- Sidebar Menu -->
