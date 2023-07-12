@@ -2,6 +2,15 @@
 
 <div class="row">
     <x-inputs.group class="col-sm-12">
+        <x-inputs.select name="student_id" label="Student">
+            @php $selected = old('student_id', ($editing ? $encounter->student_id : '')) @endphp
+            <option disabled {{ empty($selected) ? 'selected' : '' }}>Please select the Student</option>
+            @foreach($student as $value => $label)
+            <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
+            @endforeach
+        </x-inputs.select>
+    </x-inputs.group>
+    <x-inputs.group class="col-sm-12">
         <x-inputs.datetime
             name="check_in_time"
             label="Check In Time"
