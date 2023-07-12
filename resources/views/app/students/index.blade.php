@@ -5,10 +5,30 @@
         <div class="searchbar mt-0 mb-4">
             <div class="row">
                 <div class="col-md-6">
+                    <!-- app/resources/views/app/students/index.blade.php -->
+
+                    <!-- app/resources/views/app/students/index.blade.php -->
+
+                    <!-- app/resources/views/app/students/index.blade.php -->
+
+                    @if ($searchError)
+                        <div class="alert alert-danger">
+                            <strong>Error:</strong> {{ $searchError }}
+                        </div>
+                    @endif
+
+                    <!-- Rest of your view content -->
+
+
+                    <!-- Rest of your view content -->
+
+
+                    <!-- Rest of your view content -->
+
                     <form>
                         <div class="input-group">
                             <input id="indexSearch" type="text" name="search" placeholder="{{ __('crud.common.search') }}"
-                                value="{{ $search ?? '' }}" class="form-control" autocomplete="off" />
+                                value="{{ $search ?? '' }}" class="form-control" autocomplete="off" required />
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="icon ion-md-search"></i>
@@ -65,49 +85,51 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($students as $key => $student)
-                                <tr>
+                            @if ($search)
+                                @forelse($students as $key => $student)
+                                    <tr>
 
-                                    <td> {{ $key + 1 }}
-                                    <td>{{ $student->first_name ?? '-' }}</td>
-                                    <td>{{ $student->middle_name ?? '-' }}</td>
-                                    <td>{{ $student->last_name ?? '-' }}</td>
-                                    <td>{{ $student->sex ?? '-' }}</td>
-                                    <td>
-                                        <x-partials.thumbnail
-                                            src="{{ $student->photo ? \Storage::url($student->photo) : '' }}" />
-                                    </td>
-                                    <td>{{ $student->id_number ?? '-' }}</td>
-                                    <td>
-                                        {{ optional($student->encounter)->id ?? '-' }}
-                                    </td>
-                                    <td class="text-center" style="width: 134px;">
-                                        <div role="group" aria-label="Row Actions" class="btn-group">
-                                            @can('update', $student)
-                                                <a href="{{ route('students.edit', $student) }}">
-                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="fa fa-edit"></i>
-                                                    </button>
-                                                </a>
-                                                @endcan @can('view', $student)
-                                                <a href="{{ route('students.show', $student) }}">
-                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="icon ion-md-eye"></i>
-                                                    </button>
-                                                </a>
-                                                @endcan @can('delete', $student)
-                                                <form action="{{ route('students.destroy', $student) }}" method="POST"
-                                                    onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                                    @csrf @method('DELETE')
-                                                     <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
-                                                        <i class="icon ion-md-trash"></i>
-                                                    </button>
-                                                </form>
-                                            @endcan
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
+                                        <td> {{ $key + 1 }}
+                                        <td>{{ $student->first_name ?? '-' }}</td>
+                                        <td>{{ $student->middle_name ?? '-' }}</td>
+                                        <td>{{ $student->last_name ?? '-' }}</td>
+                                        <td>{{ $student->sex ?? '-' }}</td>
+                                        <td>
+                                            <x-partials.thumbnail
+                                                src="{{ $student->photo ? \Storage::url($student->photo) : '' }}" />
+                                        </td>
+                                        <td>{{ $student->id_number ?? '-' }}</td>
+                                        <td>
+                                            {{-- {{ optional($student->encounter)->id ?? '-' }} --}}
+                                        </td>
+                                        <td class="text-center" style="width: 134px;">
+                                            <div role="group" aria-label="Row Actions" class="btn-group">
+                                                @can('update', $student)
+                                                    <a href="{{ route('students.edit', $student) }}">
+                                                        <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                    </a>
+                                                    @endcan @can('view', $student)
+                                                    <a href="{{ route('students.show', $student) }}">
+                                                        <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                            <i class="icon ion-md-eye"></i>
+                                                        </button>
+                                                    </a>
+                                                    @endcan @can('delete', $student)
+                                                    <form action="{{ route('students.destroy', $student) }}" method="POST"
+                                                        onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                        @csrf @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
+                                                            <i class="icon ion-md-trash"></i>
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                @endif
                                 <tr>
                                     <td colspan="8">
                                         @lang('crud.common.no_items_found')
@@ -116,9 +138,11 @@
                             @endforelse
                         </tbody>
                         <tfoot>
-                            <tr>
-                                <td colspan="8">{!! $students->render() !!}</td>
-                            </tr>
+                            @if ($search)
+                                <tr>
+                                    <td colspan="8">{!! $students->render() !!}</td>
+                                </tr>
+                            @endif
                         </tfoot>
                     </table>
                 </div>

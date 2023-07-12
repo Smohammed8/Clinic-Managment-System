@@ -31,7 +31,7 @@ class ClinicUserMainDiagnosesDetail extends Component
     public $modalTitle = 'New MainDiagnosis';
 
     protected $rules = [
-        'mainDiagnosis.student_id' => ['nullable', 'exists:student,id'],
+        'mainDiagnosis.student_id' => ['nullable', 'exists:students,id'],
         'mainDiagnosis.encounter_id' => ['nullable', 'exists:encounters,id'],
         'mainDiagnosis.diagnosis_id' => ['required', 'exists:diagnoses,id'],
     ];

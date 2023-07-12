@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -17,6 +18,12 @@ return new class extends Migration {
                 ->on('clinic')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
+            $table
+                ->foreign('student_id')
+                ->references('id')
+                ->on('students')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
         });
     }
 
@@ -27,6 +34,7 @@ return new class extends Migration {
     {
         Schema::table('encounters', function (Blueprint $table) {
             $table->dropForeign(['clinic_id']);
+            $table->dropForeign(['student_id']);
         });
     }
 };

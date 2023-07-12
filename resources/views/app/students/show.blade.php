@@ -39,10 +39,10 @@
                     <h5>@lang('crud.students.inputs.id_number')</h5>
                     <span>{{ $student->id_number ?? '-' }}</span>
                 </div>
-                <div class="mb-4">
+                {{-- <div class="mb-4">
                     <h5>@lang('crud.students.inputs.encounter_id')</h5>
                     <span>{{ optional($student->encounter)->id ?? '-' }}</span>
-                </div>
+                </div> --}}
             </div>
 
             <div class="mt-4">

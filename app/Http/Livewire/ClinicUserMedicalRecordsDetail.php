@@ -34,7 +34,7 @@ class ClinicUserMedicalRecordsDetail extends Component
         'medicalRecord.assessment' => ['nullable', 'max:255', 'string'],
         'medicalRecord.plan' => ['nullable', 'max:255', 'string'],
         'medicalRecord.encounter_id' => ['nullable', 'exists:encounters,id'],
-        'medicalRecord.student_id' => ['nullable', 'exists:student,id'],
+        'medicalRecord.student_id' => ['nullable', 'exists:students,id'],
     ];
 
     public function mount(ClinicUser $clinicUser): void
