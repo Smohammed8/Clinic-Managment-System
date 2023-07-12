@@ -1,18 +1,16 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-light elevation-4">
     <!-- Brand Logo -->
-    <<<<<<< HEAD <a href="{{ url('/') }}" class="brand-link text-dark" style="background-color: #0067ba;">
+    <a href="{{ url('/') }}" class="brand-link text-dark" style="background-color: #0067ba;">
         <img src="https://upload.wikimedia.org/wikipedia/en/f/fe/Current_Logo_of_Jimma_University.png" alt="JU Logo"
             class="brand-image">
         <span class="brand-text font-weight-light" style="color: white"><strong style="font-size:20px;">JU
                 SIS</strong></span>
-        =======
         <a href="{{ url('/') }}" class="brand-link text-dark" style="background-color:#3c8dbc;">
             <img src="https://upload.wikimedia.org/wikipedia/en/f/fe/Current_Logo_of_Jimma_University.png"
                 alt="JU Logo" class="brand-image">
             <span class="brand-text font-weight-light" style="color: white"><strong style="font-size:20px;">JU
                     SIS</strong></span>
-            >>>>>>> 9dfbd8e56236999a25d2b151e441d4e04fce928c
         </a>
         <style>
             .nav-pills .nav-link.active {
