@@ -20,15 +20,28 @@ class StudentController extends Controller
     {
         $this->authorize('view-any', Student::class);
 
+        $request->validate([
+            'search' => 'nullable|string|min:5',
+        ], [
+            'search.min' => 'The search term must be at least 5 characters.',
+        ]);
+
         $search = $request->get('search', '');
+        $searchError = '';
 
-        $students = Student::search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
+        if ($request->has('search') && strlen($search) < 5) {
+            $searchError = 'Search term must be at least 5 characters.';
+            $students = collect(); // Empty collection to avoid executing the search
+        } else {
+            $students = Student::search($search)
+                ->latest()
+                ->paginate(5)
+                ->withQueryString();
+        }
 
-        return view('app.students.index', compact('students', 'search'));
+        return view('app.students.index', compact('students', 'search', 'searchError'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -66,6 +79,7 @@ class StudentController extends Controller
      */
     public function show(Request $request, Student $student): View
     {
+        // dd($student->encounter);
         $this->authorize('view', $student);
 
         return view('app.students.show', compact('student'));

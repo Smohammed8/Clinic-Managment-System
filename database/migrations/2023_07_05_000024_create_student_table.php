@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -18,7 +19,6 @@ return new class extends Migration {
             $table->enum('sex', ['male', 'female', 'other'])->nullable();
             $table->string('photo')->nullable();
             $table->string('id_number')->nullable();
-            $table->unsignedBigInteger('encounter_id')->nullable();
 
             $table->timestamps();
         });

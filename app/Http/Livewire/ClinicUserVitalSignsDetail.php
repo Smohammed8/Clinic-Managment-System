@@ -37,7 +37,7 @@ class ClinicUserVitalSignsDetail extends Component
         'vitalSign.height' => ['nullable', 'numeric'],
         'vitalSign.muac' => ['nullable', 'numeric'],
         'vitalSign.encounter_id' => ['required', 'exists:encounters,id'],
-        'vitalSign.student_id' => ['required', 'exists:student,id'],
+        'vitalSign.student_id' => ['required', 'exists:students,id'],
     ];
 
     public function mount(ClinicUser $clinicUser): void

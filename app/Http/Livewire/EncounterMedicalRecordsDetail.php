@@ -37,7 +37,7 @@ class EncounterMedicalRecordsDetail extends Component
             'nullable',
             'exists:clinic_users,id',
         ],
-        'medicalRecord.student_id' => ['nullable', 'exists:student,id'],
+        'medicalRecord.student_id' => ['nullable', 'exists:students,id'],
     ];
 
     public function mount(Encounter $encounter): void

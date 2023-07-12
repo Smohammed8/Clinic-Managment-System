@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -17,6 +18,7 @@ return new class extends Migration {
             $table->dateTime('closed_at')->nullable();
             $table->tinyInteger('priority')->nullable();
             $table->unsignedBigInteger('clinic_id')->nullable();
+            $table->unsignedBigInteger('student_id')->nullable();
 
             $table->timestamps();
         });

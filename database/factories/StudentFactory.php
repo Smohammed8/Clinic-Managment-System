@@ -28,7 +28,6 @@ class StudentFactory extends Factory
             'last_name' => $this->faker->lastName,
             'sex' => \Arr::random(['male', 'female', 'other']),
             'id_number' => $this->faker->text(255),
-            'encounter_id' => \App\Models\Encounter::factory(),
         ];
     }
 }
