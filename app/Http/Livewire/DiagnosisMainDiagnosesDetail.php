@@ -35,7 +35,7 @@ class DiagnosisMainDiagnosesDetail extends Component
             'nullable',
             'exists:clinic_users,id',
         ],
-        'mainDiagnosis.student_id' => ['nullable', 'exists:student,id'],
+        'mainDiagnosis.student_id' => ['nullable', 'exists:students,id'],
         'mainDiagnosis.encounter_id' => ['nullable', 'exists:encounters,id'],
     ];
 

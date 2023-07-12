@@ -29,7 +29,7 @@ class VitalSignUpdateRequest extends FormRequest
             'muac' => ['nullable', 'numeric'],
             'encounter_id' => ['required', 'exists:encounters,id'],
             'clinic_user_id' => ['required', 'exists:clinic_users,id'],
-            'student_id' => ['required', 'exists:student,id'],
+            'student_id' => ['required', 'exists:students,id'],
         ];
     }
 }

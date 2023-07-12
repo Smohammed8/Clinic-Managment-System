@@ -26,7 +26,7 @@ class MedicalRecordStoreRequest extends FormRequest
             'plan' => ['nullable', 'max:255', 'string'],
             'encounter_id' => ['nullable', 'exists:encounters,id'],
             'clinic_user_id' => ['nullable', 'exists:clinic_users,id'],
-            'student_id' => ['nullable', 'exists:student,id'],
+            'student_id' => ['nullable', 'exists:students,id'],
         ];
     }
 }

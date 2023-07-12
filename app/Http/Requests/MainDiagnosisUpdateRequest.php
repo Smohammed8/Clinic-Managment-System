@@ -21,7 +21,7 @@ class MainDiagnosisUpdateRequest extends FormRequest
     {
         return [
             'clinic_user_id' => ['nullable', 'exists:clinic_users,id'],
-            'student_id' => ['nullable', 'exists:student,id'],
+            'student_id' => ['nullable', 'exists:students,id'],
             'encounter_id' => ['nullable', 'exists:encounters,id'],
             'diagnosis_id' => ['required', 'exists:diagnoses,id'],
         ];

@@ -34,7 +34,7 @@ class EncounterAppointmentsDetail extends Component
         'appointment.reason' => ['nullable', 'max:255', 'string'],
         'appointment.status' => ['nullable', 'max:255'],
         'appointment.clinic_user_id' => ['nullable', 'exists:clinic_users,id'],
-        'appointment.student_id' => ['required', 'exists:student,id'],
+        'appointment.student_id' => ['required', 'exists:students,id'],
     ];
 
     public function mount(Encounter $encounter): void
