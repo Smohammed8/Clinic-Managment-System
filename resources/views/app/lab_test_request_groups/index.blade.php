@@ -41,26 +41,27 @@
                             <tr>
                                 <th>#</th>
                                 <th class="text-left">
+                                  Patient Name
+                                </th>
+                                <th class="text-left">
                                     @lang('crud.lab_test_request_groups.inputs.status')
                                 </th>
                                 <th class="text-left">
                                     @lang('crud.lab_test_request_groups.inputs.priority')
                                 </th>
                                 <th class="text-left">
-                                    @lang('crud.lab_test_request_groups.inputs.notification')
+                                  Total Requests
                                 </th>
                                 <th class="text-left">
                                     @lang('crud.lab_test_request_groups.inputs.call_status')
                                 </th>
                                 <th class="text-left">
-                                    @lang('crud.lab_test_request_groups.inputs.requested_at')
+                                    Date of sent
                                 </th>
                                 <th class="text-left">
-                                    @lang('crud.lab_test_request_groups.inputs.clinic_user_id')
+                                    Doctor 
                                 </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_request_groups.inputs.encounter_id')
-                                </th>
+
                                 <th class="text-center">
                                     @lang('crud.common.actions')
                                 </th>
@@ -71,45 +72,60 @@
                                 <tr>
 
                                     <td> {{ $key + 1 }}
-                                    <td>{{ $labTestRequestGroup->status ?? '-' }}</td>
-                                    <td>{{ $labTestRequestGroup->priority ?? '-' }}</td>
+                                    <td>{{ optional($labTestRequestGroup->encounter)->student->fullName ?? '-' }}</td>
+                                    <td>{{$labTestRequestGroup->status ? 'Pending' : 'Closed'}} </td>
+
+                                    
+
+
                                     <td>
-                                        {{ $labTestRequestGroup->notification ?? '-' }}
+                                    
+                                        {{$labTestRequestGroup->priority ? 'FCFS' : 'High'}} 
+                                    
                                     </td>
-                                    <td>
-                                        {{ $labTestRequestGroup->call_status ?? '-' }}
+                                    <td>{{ $labTestRequestGroup->labTestRequests->count() }}</td>
+                                    <td>{{$labTestRequestGroup->call_status  ? 'Waiting' : 'Called'}} 
+                                        
+                                    
                                     </td>
-                                    <td>
-                                        {{ $labTestRequestGroup->requested_at ?? '-' }}
-                                    </td>
-                                    <td>
-                                        {{ optional($labTestRequestGroup->Requestedby)->id ?? '-' }}
-                                    </td>
-                                    <td>
-                                        {{ optional($labTestRequestGroup->encounter)->id ?? '-' }}
-                                    </td>
-                                    <td class="text-center" style="width: 134px;">
+                                    <td>{{ $labTestRequestGroup->requested_at ?? '-' }}</td>
+                                    <td>{{ $labTestRequestGroup->clinic_user_id->user->name ?? '-' }}</td>
+                                  
+                                    <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
-                                            @can('update', $labTestRequestGroup)
+                                                @can('update', $labTestRequestGroup)
                                                 <a href="{{ route('lab-test-request-groups.edit', $labTestRequestGroup) }}">
-                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="fa fa-edit"></i>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                      <i class="fa fa-plus"></i> Take Sample
                                                     </button>
-                                                </a>
-                                                @endcan @can('view', $labTestRequestGroup)
+                                                  </button>
+                                              </a>
+                                              @endcan
+
+                                               @can('view', $labTestRequestGroup)
                                                 <a href="{{ route('lab-test-request-groups.show', $labTestRequestGroup) }}">
                                                       <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="icon ion-md-eye"></i>
+                                                        <i class="fa fa-list"></i> Add Result
                                                     </button>
                                                 </a>
-                                                @endcan @can('delete', $labTestRequestGroup)
+                                                @endcan
+                                                @can('update', $labTestRequestGroup)
+                                                <a href="{{ route('lab-test-request-groups.edit', $labTestRequestGroup) }}">
+                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                        <i class="fa fa-edit"></i> Edit
+                                                    </button>
+                                                </a>
+                                                @endcan
+
+                                            
+                                                 @can('delete', $labTestRequestGroup)
                                                 <form
                                                     action="{{ route('lab-test-request-groups.destroy', $labTestRequestGroup) }}"
                                                     method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
                                                      <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
-                                                        <i class="icon ion-md-trash"></i>
+                                                        <i class="icon ion-md-trash"></i> Delete
                                                     </button>
                                                 </form>
                                             @endcan

@@ -17,6 +17,10 @@ class ClinicUser extends Model
 
     protected $table = 'clinic_users';
 
+
+ 
+
+    
     public function user()
     {
         return $this->belongsTo(User::class);

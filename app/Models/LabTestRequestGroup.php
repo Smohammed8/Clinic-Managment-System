@@ -29,6 +29,8 @@ class LabTestRequestGroup extends Model
         'requested_at' => 'datetime',
     ];
 
+
+
     public function Requestedby()
     {
         return $this->belongsTo(ClinicUser::class, 'clinic_user_id');

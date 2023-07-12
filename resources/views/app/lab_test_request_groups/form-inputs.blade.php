@@ -62,8 +62,8 @@
 
     <x-inputs.group class="col-sm-12">
         <x-inputs.select name="encounter_id" label="Encounter">
-            @php $selected = old('encounter_id', ($editing ? $labTestRequestGroup->encounter_id : '')) @endphp
-            <option disabled {{ empty($selected) ? 'selected' : '' }}>Please select the Encounter</option>
+            @php $selected = old('encounter_id', ($editing ? $labTestRequestGroup->encounter->id	 : '')) @endphp
+            <option disabled {{ empty($selected) ? 'selected' : '' }}>Select encounter</option>
             @foreach($encounters as $value => $label)
             <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
             @endforeach
