@@ -2,8 +2,10 @@
 <aside class="main-sidebar sidebar-light elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link text-dark" style="background-color: #0067ba;">
-        <img src="https://upload.wikimedia.org/wikipedia/en/f/fe/Current_Logo_of_Jimma_University.png" alt="JU Logo" class="brand-image">
-        <span class="brand-text font-weight-light" style="color: white"><strong style="font-size:20px;">JU SIS</strong></span>
+        <img src="https://upload.wikimedia.org/wikipedia/en/f/fe/Current_Logo_of_Jimma_University.png" alt="JU Logo"
+            class="brand-image">
+        <span class="brand-text font-weight-light" style="color: white"><strong style="font-size:20px;">JU
+                SIS</strong></span>
     </a>
 
     <!-- Sidebar -->
@@ -32,8 +34,10 @@
 
                     @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) ||
                             Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))
-                        <li class="nav-item has-treeview {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'menu-open' : '' }}">
-                            <a href="#" class="nav-link {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'active' : '' }}">
+                        <li
+                            class="nav-item has-treeview {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'menu-open' : '' }}">
+                            <a href="#"
+                                class="nav-link {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'active' : '' }}">
                                 <i class="nav-icon icon ion-md-key"></i>
                                 <p>
                                     Access Management
@@ -43,7 +47,8 @@
                             <ul class="nav nav-treeview">
                                 @can('view-any', Spatie\Permission\Models\Role::class)
                                     <li class="nav-item">
-                                        <a href="{{ route('roles.index') }}" class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
+                                        <a href="{{ route('roles.index') }}"
+                                            class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
                                             <i class="nav-icon icon ion-md-radio-button-off"></i>
                                             <p>Roles</p>
                                         </a>
@@ -52,7 +57,8 @@
 
                                 @can('view-any', Spatie\Permission\Models\Permission::class)
                                     <li class="nav-item">
-                                        <a href="{{ route('permissions.index') }}" class="nav-link {{ Request::is('permissions*') ? 'active' : '' }}">
+                                        <a href="{{ route('permissions.index') }}"
+                                            class="nav-link {{ Request::is('permissions*') ? 'active' : '' }}">
                                             <i class="nav-icon icon ion-md-radio-button-off"></i>
                                             <p>Permissions</p>
                                         </a>
@@ -61,7 +67,8 @@
 
                                 @can('view-any', App\Models\User::class)
                                     <li class="nav-item">
-                                        <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
+                                        <a href="{{ route('users.index') }}"
+                                            class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
                                             <i class="fas fa-user"></i>
                                             <p>Users</p>
                                         </a>
@@ -70,7 +77,8 @@
 
                                 @can('view-any', App\Models\ClinicUser::class)
                                     <li class="nav-item">
-                                        <a href="{{ route('clinic-users.index') }}" class="nav-link {{ Request::is('clinic-users*') ? 'active' : '' }}">
+                                        <a href="{{ route('clinic-users.index') }}"
+                                            class="nav-link {{ Request::is('clinic-users*') ? 'active' : '' }}">
                                             <i class="fas fa-user-md"></i>
                                             <p>Clinic Users</p>
                                         </a>
@@ -81,8 +89,10 @@
                     @endif
                 @endauth
 
-                <li class="nav-item has-treeview {{ Request::is('encounters*', 'appointments*', 'lab-test-requests*', 'lab-test-request-groups*', 'main-diagnoses*', 'medical-records*', 'prescriptions*', 'programs*', 'stocks*', 'students*', 'vital-signs*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ Request::is('encounters*', 'appointments*', 'lab-test-requests*', 'lab-test-request-groups*', 'main-diagnoses*', 'medical-records*', 'prescriptions*', 'programs*', 'stocks*', 'students*', 'vital-signs*') ? 'active' : '' }}">
+                <li
+                    class="nav-item has-treeview {{ Request::is('encounters*', 'appointments*', 'lab-test-requests*', 'lab-test-request-groups*', 'main-diagnoses*', 'medical-records*', 'prescriptions*', 'programs*', 'stocks*', 'students*', 'vital-signs*') ? 'menu-open' : '' }}">
+                    <a href="#"
+                        class="nav-link {{ Request::is('encounters*', 'appointments*', 'lab-test-requests*', 'lab-test-request-groups*', 'main-diagnoses*', 'medical-records*', 'prescriptions*', 'programs*', 'stocks*', 'students*', 'vital-signs*') ? 'active' : '' }}">
                         <i class="fas fa-clinic-medical"></i>
                         <p>
                             Student Clinic
@@ -90,18 +100,51 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        @can('view-any', App\Models\Encounter::class)
+                        {{-- @can('view-any', App\Models\Encounter::class)
                             <li class="nav-item">
-                                <a href="{{ route('encounters.index') }}" class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
+                                <a href="{{ route('encounters.index') }}"
+                                    class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
                                     <i class="fad fa-watch-fitness"></i>
                                     <p>Encounters</p>
                                 </a>
                             </li>
+                        @endcan --}}
+
+                        @can('view-any', App\Models\Encounter::class)
+                            <li class="nav-item">
+                                <a href="{{ route('encounters.index') }}"
+                                    class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
+                                    <i class="fad fa-watch-fitness"></i>
+                                    <p>Patient List</p>
+                                </a>
+                            </li>
                         @endcan
+
+                        @can('view-any', App\Models\Student::class)
+                            <li class="nav-item">
+                                <a href="{{ route('students.index') }}"
+                                    class="nav-link {{ Request::is('students*') ? 'active' : '' }}">
+                                    <i class="fas fa-user-graduate"></i>
+                                    <p>Patient registration</p>
+                                </a>
+                            </li>
+                        @endcan
+
+                        @can('view-any', App\Models\Encounter::class)
+                            <li class="nav-item">
+                                <a href="{{ route('encounters.index') }}"
+                                    class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
+                                    <i class="fad fa-watch-fitness"></i>
+                                    <p>ODP</p>
+                                </a>
+                            </li>
+                        @endcan
+
 
                         @can('view-any', App\Models\Appointment::class)
                             <li class="nav-item">
-                                <a href="{{ route('appointments.index') }}" class="nav-link {{ Request::is('appointments*') ? 'active' : '' }}">
+                                <a href="{{ route('appointments.index') }}"
+                                    class="nav-link {{ Request::is('appointments*') ? 'active' : '' }}">
                                     <i class="fas fa-calendar-check"></i>
                                     <p>Appointments</p>
                                 </a>
@@ -168,7 +211,7 @@
                             </li>
                         @endcan
 
-                        @can('view-any', App\Models\Student::class)
+                        {{-- @can('view-any', App\Models\Student::class)
                             <li class="nav-item">
                                 <a href="{{ route('students.index') }}"
                                     class="nav-link {{ Request::is('students*') ? 'active' : '' }}">
@@ -176,7 +219,7 @@
                                     <p>Students</p>
                                 </a>
                             </li>
-                        @endcan
+                        @endcan --}}
 
                         @can('view-any', App\Models\VitalSign::class)
                             <li class="nav-item">
@@ -190,8 +233,10 @@
                     </ul>
                 </li>
 
-                <li class="nav-item has-treeview {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*', 'collages*', 'diagnoses*', 'lab-catagories*', 'lab-tests*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'menu-open' : '' }}">
-                    <a href="#" class="nav-link {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*',  'collages*', 'diagnoses*', 'lab-catagories*', 'lab-tests*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'active' : '' }}">
+                <li
+                    class="nav-item has-treeview {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*', 'collages*', 'diagnoses*', 'lab-catagories*', 'lab-tests*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'menu-open' : '' }}">
+                    <a href="#"
+                        class="nav-link {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*', 'collages*', 'diagnoses*', 'lab-catagories*', 'lab-tests*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'active' : '' }}">
                         <i class="fas fa-clinic-medical"></i>
                         <p>
                             Clinic Setting
@@ -229,7 +274,7 @@
                             </li>
                         @endcan
 
-                       
+
 
                         @can('view-any', App\Models\Collage::class)
                             <li class="nav-item">
