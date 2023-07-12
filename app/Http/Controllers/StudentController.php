@@ -79,6 +79,7 @@ class StudentController extends Controller
      */
     public function show(Request $request, Student $student): View
     {
+        // dd($student->encounter);
         $this->authorize('view', $student);
 
         return view('app.students.show', compact('student'));

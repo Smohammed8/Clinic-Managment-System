@@ -27,7 +27,7 @@ class Student extends Model
 
     public function encounter()
     {
-        return $this->belongsTo(Encounter::class);
+        return $this->hasMany(Encounter::class);
     }
 
     public function vitalSigns()

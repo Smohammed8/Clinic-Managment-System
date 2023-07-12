@@ -100,7 +100,7 @@
                                         </td>
                                         <td>{{ $student->id_number ?? '-' }}</td>
                                         <td>
-                                            {{ optional($student->encounter)->id ?? '-' }}
+                                            {{-- {{ optional($student->encounter)->id ?? '-' }} --}}
                                         </td>
                                         <td class="text-center" style="width: 134px;">
                                             <div role="group" aria-label="Row Actions" class="btn-group">
