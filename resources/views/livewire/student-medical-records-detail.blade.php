@@ -126,6 +126,20 @@
                             </a>
                         </li>
                     </ul>
+                    <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
+                        @can('update', $medicalRecord)
+                            <button type="button" class="btn btn-sm btn-outline-primary mx-1"
+                                wire:click="editMedicalRecord({{ $medicalRecord->id }})">
+                                <i class="fa fa-edit"></i> Edit
+                            </button>
+
+                            <a href="{{ route('medical-records.show', $medicalRecord) }}">
+                                <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                    <i class="icon ion-md-eye"></i> Show
+                                </button>
+                            </a>
+                        @endcan
+                    </div>
                 </div>
             </div>
         @endforeach
