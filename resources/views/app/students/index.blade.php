@@ -68,9 +68,7 @@
                                 <th class="text-left">
                                     @lang('crud.students.inputs.sex')
                                 </th>
-                                <th class="text-left">
-                                    @lang('crud.students.inputs.photo')
-                                </th>
+
                                 <th class="text-left">
                                     @lang('crud.students.inputs.id_number')
                                 </th>
@@ -92,13 +90,10 @@
                                         <td>{{ $student->middle_name ?? '-' }}</td>
                                         <td>{{ $student->last_name ?? '-' }}</td>
                                         <td>{{ $student->sex ?? '-' }}</td>
-                                        <td>
-                                            <x-partials.thumbnail
-                                                src="{{ $student->photo ? \Storage::url($student->photo) : '' }}" />
-                                        </td>
+
                                         <td>{{ $student->id_number ?? '-' }}</td>
                                         <td>
-                                            {{-- {{ optional($student->encounter)->id ?? '-' }} --}}
+                                            {{ optional($student->encounter->first())->id ?? '-' }}
                                         </td>
                                         <td class="text-center">
                                             <div role="group" aria-label="Row Actions" class="btn-group">
