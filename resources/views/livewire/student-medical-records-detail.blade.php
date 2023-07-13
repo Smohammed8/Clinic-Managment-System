@@ -90,7 +90,10 @@
         @foreach ($medicalRecords as $medicalRecord)
             <div class="card collapsed-card">
                 <div class="card-header">
-                    <h3 class="card-title">Medical Record</h3>
+                    <h3 class="card-title">
+                        <input type="checkbox" value="{{ $medicalRecord->id }}" wire:model="selected" />
+                        Medical Record
+                    </h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <i class="fas fa-plus"></i>
@@ -143,5 +146,6 @@
                 </div>
             </div>
         @endforeach
+
     </div>
 </div>
