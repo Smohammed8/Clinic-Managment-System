@@ -10,7 +10,7 @@
 
             <div class="card-header">
        
-                <b>  <i  class="fas fa-list"></i> Incounter Information  </b>
+                <b>  <i  class="fas fa-list"></i> Encounter Information  </b>
                 <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus   "></i>
                     </button>

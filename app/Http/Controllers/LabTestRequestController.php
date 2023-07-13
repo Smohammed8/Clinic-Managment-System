@@ -45,8 +45,7 @@ class LabTestRequestController extends Controller
         $clinicUsers = ClinicUser::pluck('id', 'id');
         $labCatagories = LabCatagory::pluck('lab_name', 'id');
 
-        return view(
-            'app.lab_test_requests.create',
+        return view('app.lab_test_requests.create',
             compact(
                 'labTestRequestGroups',
                 'clinicUsers',
@@ -68,9 +67,7 @@ class LabTestRequestController extends Controller
 
         $labTestRequest = LabTestRequest::create($validated);
 
-        return redirect()
-            ->route('lab-test-requests.edit', $labTestRequest)
-            ->withSuccess(__('crud.common.created'));
+        return redirect()->route('lab-test-requests.edit', $labTestRequest)->withSuccess(__('crud.common.created'));
     }
 
     /**

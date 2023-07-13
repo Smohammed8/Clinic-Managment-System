@@ -1,7 +1,7 @@
 @php $editing = isset($labTestRequest) @endphp
 
 <div class="row">
-    <x-inputs.group class="col-sm-12">
+    {{-- <x-inputs.group class="col-sm-12">
         <x-inputs.datetime
             name="sample_collected_at"
             label="Sample Collected At"
@@ -17,7 +17,7 @@
             value="{{ old('sample_analyzed_at', ($editing ? optional($labTestRequest->sample_analyzed_at)->format('Y-m-d\TH:i:s') : '')) }}"
             max="255"
         ></x-inputs.datetime>
-    </x-inputs.group>
+    </x-inputs.group> --}}
 
     <x-inputs.group class="col-sm-12">
         <x-inputs.text
