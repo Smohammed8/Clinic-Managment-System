@@ -26,10 +26,11 @@
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
     <script src="https://unpkg.com/alpinejs@3.10.2/dist/cdn.min.js" defer></script>
 
+    {{-- cke editor --}}
+    <script src="https://cdn.ckeditor.com/4.22.1/standard/ckeditor.js"></script>
 
     <!-- Select2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -55,7 +56,6 @@
             width: 25px;
         }
     </style>
-
 
     @livewireStyles
 </head>

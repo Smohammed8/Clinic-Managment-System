@@ -449,6 +449,7 @@ return [
         'inputs' => [
             'check_in_time' => 'Check In Time',
             'status' => 'Status',
+            'student_id' => 'Student Id',
             'closed_at' => 'Closed At',
             'priority' => 'Priority',
             'clinic_id' => 'Clinic',
