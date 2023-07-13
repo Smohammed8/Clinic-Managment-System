@@ -22,6 +22,7 @@
                         <a href="{{ route('lab-test-request-groups.create') }}" class="btn btn-primary">
                             <i class="icon ion-md-add"></i> @lang('crud.common.create')
                         </a>
+                        
                     @endcan
                 </div>
             </div>
