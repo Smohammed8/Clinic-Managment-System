@@ -86,80 +86,48 @@
     </x-modal>
 
     <div class="table-responsive">
-        <table class="table table-hover table-condensed">
-            <thead>
-                <tr>
-                    <th>
-                        <input type="checkbox" wire:model="allSelected" wire:click="toggleFullSelection"
-                            title="{{ trans('crud.common.select_all') }}" />
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.student_medical_records.inputs.subjective')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.student_medical_records.inputs.objective')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.student_medical_records.inputs.assessment')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.student_medical_records.inputs.plan')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.student_medical_records.inputs.encounter_id')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.student_medical_records.inputs.clinic_user_id')
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-600">
-                @foreach ($medicalRecords as $medicalRecord)
-                    <tr class="hover:bg-gray-100">
-                        <td class="text-left">
-                            <input type="checkbox" value="{{ $medicalRecord->id }}" wire:model="selected" />
-                        </td>
-                        <td class="text-left">
-                            {{ $medicalRecord->subjective ?? '-' }}
-                        </td>
-                        <td class="text-left">
-                            {{ $medicalRecord->objective ?? '-' }}
-                        </td>
-                        <td class="text-left">
-                            {{ $medicalRecord->assessment ?? '-' }}
-                        </td>
-                        <td class="text-left">{{ $medicalRecord->plan ?? '-' }}</td>
-                        <td class="text-left">
-                            {{ optional($medicalRecord->encounter)->id ?? '-' }}
-                        </td>
-                        <td class="text-left">
-                            {{ optional($medicalRecord->Doctor)->id ?? '-' }}
-                        </td>
-                        <td class="text-right">
-                            <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
-                                @can('update', $medicalRecord)
-                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1"
-                                        wire:click="editMedicalRecord({{ $medicalRecord->id }})">
-                                        <i class="fa fa-edit"></i> Edit
-                                    </button>
 
-                                    <a href="{{ route('medical-records.show', $medicalRecord) }}">
-                                        <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                            <i class="icon ion-md-eye"></i> Show
-                                        </button>
-                                    </a>
-                                @endcan
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="7">{{ $medicalRecords->render() }}</td>
-                </tr>
-            </tfoot>
-        </table>
+        @foreach ($medicalRecords as $medicalRecord)
+            <div class="card collapsed-card">
+                <div class="card-header">
+                    <h3 class="card-title">Medical Record</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0" style="display: none;">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-file-alt"></i> Subjective: {{ $medicalRecord->subjective ?? '-' }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-file-alt"></i> Objective: {{ $medicalRecord->objective ?? '-' }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-file-alt"></i> Assessment: {{ $medicalRecord->assessment ?? '-' }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-file-alt"></i> Plan: {{ $medicalRecord->plan ?? '-' }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-user-md"></i> Doctor ID:
+                                {{ optional($medicalRecord->Doctor)->id ?? '-' }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        @endforeach
     </div>
 </div>
