@@ -45,7 +45,7 @@
                                 </th>
                                 <th class="text-left">
                                     @lang('crud.all_clinic_services.inputs.service_
-                                                                    description')
+                                                                                                                                                                                                                    description')
                                 </th>
                                 <th class="text-center">
                                     @lang('crud.common.actions')
@@ -61,18 +61,18 @@
                                     <td>
                                         {{ $clinicServices->service_description ?? '-' }}
                                     </td>
-                                    <td class="text-center" style="width: 134px;">
+                                    <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $clinicServices)
                                                 <a href="{{ route('all-clinic-services.edit', $clinicServices) }}">
                                                     <button type="button" class="btn btn-light">
-                                                        <i class="fa fa-edit"></i>
+                                                        <i class="fa fa-edit"></i> Edit
                                                     </button>
                                                 </a>
                                                 @endcan @can('view', $clinicServices)
                                                 <a href="{{ route('all-clinic-services.show', $clinicServices) }}">
                                                     <button type="button" class="btn btn-light">
-                                                        <i class="icon ion-md-eye"></i>
+                                                        <i class="icon ion-md-eye"></i> Show
                                                     </button>
                                                 </a>
                                                 @endcan @can('delete', $clinicServices)
@@ -81,7 +81,7 @@
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
                                                     <button type="submit" class="btn btn-light text-danger">
-                                                        <i class="icon ion-md-trash"></i>
+                                                        <i class="icon ion-md-trash"></i> Delete
                                                     </button>
                                                 </form>
                                             @endcan

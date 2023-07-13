@@ -8,7 +8,7 @@
             @endcan @can('delete-any', App\Models\MedicalRecord::class)
             <button class="btn btn-danger" {{ empty($selected) ? 'disabled' : '' }}
                 onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="destroySelected">
-                <i class="icon ion-md-trash"></i>
+                <i class="icon ion-md-trash"></i> Delete
                 @lang('crud.common.delete_selected')
             </button>
         @endcan
@@ -136,17 +136,17 @@
                         <td class="text-left">
                             {{ optional($medicalRecord->Doctor)->id ?? '-' }}
                         </td>
-                        <td class="text-right" style="width: 134px;">
+                        <td class="text-right">
                             <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
                                 @can('update', $medicalRecord)
                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1"
                                         wire:click="editMedicalRecord({{ $medicalRecord->id }})">
-                                        <i class="fa fa-edit"></i>
+                                        <i class="fa fa-edit"></i> Edit
                                     </button>
 
                                     <a href="{{ route('medical-records.show', $medicalRecord) }}">
                                         <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                            <i class="icon ion-md-eye"></i>
+                                            <i class="icon ion-md-eye"></i> Show
                                         </button>
                                     </a>
                                 @endcan

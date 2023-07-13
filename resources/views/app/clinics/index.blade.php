@@ -88,26 +88,26 @@
                                     </td>
                                     <td>{{ $clinic->status ?? '-' }}</td>
                                     <td>{{ $clinic->is_active ?? '-' }}</td>
-                                    <td class="text-center" style="width: 134px;">
+                                    <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $clinic)
                                                 <a href="{{ route('clinics.edit', $clinic) }}">
-                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="fa fa-edit"></i>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                        <i class="fa fa-edit"></i> Edit
                                                     </button>
                                                 </a>
                                                 @endcan @can('view', $clinic)
                                                 <a href="{{ route('clinics.show', $clinic) }}">
-                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="icon ion-md-eye"></i>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                        <i class="icon ion-md-eye"></i> Show
                                                     </button>
                                                 </a>
                                                 @endcan @can('delete', $clinic)
                                                 <form action="{{ route('clinics.destroy', $clinic) }}" method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
-                                                     <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
-                                                        <i class="icon ion-md-trash"></i>
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
+                                                        <i class="icon ion-md-trash"></i> Delete
                                                     </button>
                                                 </form>
                                             @endcan

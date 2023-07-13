@@ -81,18 +81,18 @@
                                 </th>
                                 <th class="text-left">
                                     @lang('crud.lab_test_requests.inputs.sample_collected_by_id
-                                                                                                        ')
+                                                                                                                                                                                                                                                        ')
                                 </th>
                                 <th class="text-left">
                                     @lang('crud.lab_test_requests.inputs.sample_analyzed_by_id
-                                                                                                        ')
+                                                                                                                                                                                                                                                        ')
                                 </th>
                                 <th class="text-left">
                                     @lang('crud.lab_test_requests.inputs.lab_catagory_id')
                                 </th>
                                 <th class="text-left">
                                     @lang('crud.lab_test_requests.inputs.approved_by_id
-                                                                                                        ')
+                                                                                                                                                                                                                                                        ')
                                 </th>
                                 <th class="text-center">
                                     @lang('crud.common.actions')
@@ -137,18 +137,18 @@
                                     <td>
                                         {{ optional($labTestRequest->approvedBy)->id ?? '-' }}
                                     </td>
-                                    <td class="text-center" style="width: 134px;">
+                                    <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $labTestRequest)
                                                 <a href="{{ route('lab-test-requests.edit', $labTestRequest) }}">
-                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="fa fa-edit"></i>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                        <i class="fa fa-edit"></i> Edit
                                                     </button>
                                                 </a>
                                                 @endcan @can('view', $labTestRequest)
                                                 <a href="{{ route('lab-test-requests.show', $labTestRequest) }}">
-                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="icon ion-md-eye"></i>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                        <i class="icon ion-md-eye"></i> Show
                                                     </button>
                                                 </a>
                                                 @endcan @can('delete', $labTestRequest)
@@ -156,8 +156,8 @@
                                                     method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
-                                                     <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
-                                                        <i class="icon ion-md-trash"></i>
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
+                                                        <i class="icon ion-md-trash"></i> Delete
                                                     </button>
                                                 </form>
                                             @endcan
