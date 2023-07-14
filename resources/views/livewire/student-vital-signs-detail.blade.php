@@ -109,9 +109,14 @@
                         <input type="checkbox" wire:model="allSelected" wire:click="toggleFullSelection"
                             title="{{ trans('crud.common.select_all') }}" />
                     </th>
+
+                    <th class="text-right">
+                        @lang('crud.student_vital_signs.inputs.date')
+                    </th>
                     <th class="text-right">
                         @lang('crud.student_vital_signs.inputs.temp')
                     </th>
+
                     <th class="text-right">
                         @lang('crud.student_vital_signs.inputs.blood_pressure')
                     </th>
@@ -145,6 +150,8 @@
                         <td class="text-left">
                             <input type="checkbox" value="{{ $vitalSign->id }}" wire:model="selected" />
                         </td>
+                        <td class="text-right">
+                            {{ $vitalSign->created_at->format('d-M y') ?? '-' }} </td>
                         <td class="text-right">{{ $vitalSign->temp ?? '-' }}</td>
                         <td class="text-right">
                             {{ $vitalSign->blood_pressure ?? '-' }}
