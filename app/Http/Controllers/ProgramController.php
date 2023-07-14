@@ -24,7 +24,7 @@ class ProgramController extends Controller
 
         $programs = Program::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.programs.index', compact('programs', 'search'));

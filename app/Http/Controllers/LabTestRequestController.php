@@ -11,6 +11,9 @@ use App\Models\LabTestRequestGroup;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\LabTestRequestStoreRequest;
 use App\Http\Requests\LabTestRequestUpdateRequest;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class LabTestRequestController extends Controller
 {
@@ -24,9 +27,7 @@ class LabTestRequestController extends Controller
         $search = $request->get('search', '');
 
         $labTestRequests = LabTestRequest::search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
+            ->latest()->paginate(10)->withQueryString();
 
         return view(
             'app.lab_test_requests.index',
@@ -61,12 +62,17 @@ class LabTestRequestController extends Controller
      */
     public function store(LabTestRequestStoreRequest $request): RedirectResponse
     {
+        $now = Carbon::now();
         $this->authorize('create', LabTestRequest::class);
 
         $validated = $request->validated();
-
+        // $cdate = $request->group_id;
+    
+      
         $labTestRequest = LabTestRequest::create($validated);
-
+        $labTestRequest->user_id = Auth::user()->id;
+        $labTestRequest->created_at = $now;
+        $labTestRequest->updated_at = $now;
         return redirect()->route('lab-test-requests.edit', $labTestRequest)->withSuccess(__('crud.common.created'));
     }
 
@@ -103,23 +109,28 @@ class LabTestRequestController extends Controller
             )
         );
     }
-
     /**
      * Update the specified resource in storage.
      */
-    public function update(
-        LabTestRequestUpdateRequest $request,
-        LabTestRequest $labTestRequest
-    ): RedirectResponse {
+    public function update( LabTestRequestUpdateRequest $request,LabTestRequest $labTestRequest): RedirectResponse {
+      
+      //  dd( Auth::user()->id);
+       
         $this->authorize('update', $labTestRequest);
-
         $validated = $request->validated();
+        $now = Carbon::now();
+        $labTestRequest->sample_collected_by_id = Auth::user()->id;
+        $labTestRequest->sample_analyzed_by_id =Auth::user()->id; 
+        $labTestRequest->approved_by_id  = Auth::user()->id; 
+        $labTestRequest->status  = 1;
+        $labTestRequest->sample_collected_at  = $now;
+        $labTestRequest->sample_analyzed_at = $now;
+        $labTestRequest->$labTestRequest->approved_at = $now;
+        $labTestRequest->updated_at = $now;
 
         $labTestRequest->update($validated);
 
-        return redirect()
-            ->route('lab-test-requests.edit', $labTestRequest)
-            ->withSuccess(__('crud.common.saved'));
+        return redirect()->route('lab-test-requests.edit', $labTestRequest)->withSuccess(__('crud.common.saved'));
     }
 
     /**
@@ -133,8 +144,6 @@ class LabTestRequestController extends Controller
 
         $labTestRequest->delete();
 
-        return redirect()
-            ->route('lab-test-requests.index')
-            ->withSuccess(__('crud.common.removed'));
+        return redirect()->route('lab-test-requests.index')->withSuccess(__('crud.common.removed'));
     }
 }

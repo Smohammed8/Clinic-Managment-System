@@ -35,7 +35,7 @@ class StudentController extends Controller
         } else {
             $students = Student::search($search)
                 ->latest()
-                ->paginate(5)
+                ->paginate(10)
                 ->withQueryString();
         }
 

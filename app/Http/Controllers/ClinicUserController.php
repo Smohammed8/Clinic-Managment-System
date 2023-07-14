@@ -26,7 +26,7 @@ class ClinicUserController extends Controller
 
         $clinicUsers = ClinicUser::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.clinic_users.index', compact('clinicUsers', 'search'));

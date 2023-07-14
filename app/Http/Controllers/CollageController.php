@@ -23,7 +23,7 @@ class CollageController extends Controller
 
         $collages = Collage::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.collages.index', compact('collages', 'search'));

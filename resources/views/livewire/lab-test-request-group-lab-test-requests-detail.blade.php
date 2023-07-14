@@ -37,7 +37,7 @@
 
             <div class="modal-body">
                 <div>
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.datetime
                             name="labTestRequest.sample_collected_at"
                             label="Sample Collected At"
@@ -53,9 +53,9 @@
                             wire:model="labTestRequest.sample_analyzed_at"
                             max="255"
                         ></x-inputs.datetime>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.text
                             name="labTestRequest.status"
                             label="Status"
@@ -73,16 +73,16 @@
                             maxlength="255"
                             placeholder="Notification"
                         ></x-inputs.text>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.textarea
                             name="labTestRequest.note"
                             label="Note"
                             wire:model="labTestRequest.note"
                             maxlength="255"
                         ></x-inputs.textarea>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.textarea
@@ -102,7 +102,7 @@
                         ></x-inputs.textarea>
                     </x-inputs.group>
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.text
                             name="labTestRequest.analyser_result"
                             label="Analyser Result"
@@ -110,18 +110,18 @@
                             maxlength="255"
                             placeholder="Analyser Result"
                         ></x-inputs.text>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.datetime
                             name="labTestRequest.approved_at"
                             label="Approved At"
                             wire:model="labTestRequest.approved_at"
                             max="255"
                         ></x-inputs.datetime>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.number
                             name="labTestRequest.price"
                             label="Price"
@@ -130,7 +130,7 @@
                             step="0.01"
                             placeholder="Price"
                         ></x-inputs.number>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.text
@@ -142,16 +142,16 @@
                         ></x-inputs.text>
                     </x-inputs.group>
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.datetime
                             name="labTestRequest.ordered_on"
                             label="Ordered On"
                             wire:model="labTestRequest.ordered_on"
                             max="255"
                         ></x-inputs.datetime>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.select
                             name="labTestRequest.sample_collected_by_id"
                             label="Sample Ccollected By"
@@ -162,9 +162,9 @@
                             <option value="{{ $value }}"  >{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.select
                             name="labTestRequest.sample_analyzed_by_id"
                             label="Sample Analyzed By"
@@ -175,9 +175,9 @@
                             <option value="{{ $value }}"  >{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.select
                             name="labTestRequest.lab_catagory_id"
                             label="Lab Catagory"
@@ -188,9 +188,9 @@
                             <option value="{{ $value }}"  >{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.select
                             name="labTestRequest.approved_by_id"
                             label="Approved By"
@@ -201,7 +201,7 @@
                             <option value="{{ $value }}"  >{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
                 </div>
             </div>
 
@@ -289,14 +289,11 @@
                     <td class="text-left"> {{ optional($labTestRequest->approvedBy)->user->name ?? '-' }} </td>
                         <td class="text-right">
                         <div role="group" aria-label="Row Actions" class="btn-group">
-                                @can('update', $labTestRequestGroup)
-                                <a href="{{ route('lab-test-request-groups.edit', $labTestRequestGroup) }}">
-                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                      <i class="fa fa-plus"></i> Take Sample
-                                    </button>
-                                  </button>
-                              </a>
-                              @endcan
+                            @can('update', $labTestRequest)
+                            <button type="button" class="btn btn-sm btn-outline-primary mx-1"  wire:click="editLabTestRequest({{ $labTestRequest->id }})" >
+                                <i class="fa fa-plus"></i> Take sample
+                            </button>
+                            @endcan
 
                               @can('update', $labTestRequestGroup)
                               <a href="{{ route('lab-test-request-groups.edit', $labTestRequestGroup) }}">

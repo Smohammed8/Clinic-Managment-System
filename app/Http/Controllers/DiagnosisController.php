@@ -22,7 +22,7 @@ class DiagnosisController extends Controller
 
         $diagnoses = Diagnosis::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.diagnoses.index', compact('diagnoses', 'search'));

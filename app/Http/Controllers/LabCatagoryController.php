@@ -22,7 +22,7 @@ class LabCatagoryController extends Controller
 
         $labCatagories = LabCatagory::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view(

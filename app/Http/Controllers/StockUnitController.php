@@ -22,7 +22,7 @@ class StockUnitController extends Controller
 
         $stockUnits = StockUnit::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.stock_units.index', compact('stockUnits', 'search'));

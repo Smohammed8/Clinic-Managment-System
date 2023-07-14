@@ -24,7 +24,7 @@ class EncounterController extends Controller
 
         $encounters = Encounter::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.encounters.index', compact('encounters', 'search'));

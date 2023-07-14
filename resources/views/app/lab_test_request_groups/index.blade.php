@@ -32,10 +32,10 @@
             <div class="card-body">
                 <div style="display: flex; justify-content: space-between;">
                     <h4 class="card-title">
-                        @lang('crud.lab_test_request_groups.index_title')
+                    <b>  Lab request Group -[ First come first Served(FCFS)] </b>
                     </h4>
                 </div>
-
+<br>
                 <div class="table-responsive">
                     <table class="table table-hover table-condensed">
                         <thead>
