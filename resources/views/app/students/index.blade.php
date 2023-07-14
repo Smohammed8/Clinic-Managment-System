@@ -19,9 +19,7 @@
 
                     <!-- Rest of your view content -->
 
-
                     <!-- Rest of your view content -->
-
 
                     <!-- Rest of your view content -->
 
@@ -70,9 +68,7 @@
                                 <th class="text-left">
                                     @lang('crud.students.inputs.sex')
                                 </th>
-                                <th class="text-left">
-                                    @lang('crud.students.inputs.photo')
-                                </th>
+
                                 <th class="text-left">
                                     @lang('crud.students.inputs.id_number')
                                 </th>
@@ -94,26 +90,23 @@
                                         <td>{{ $student->middle_name ?? '-' }}</td>
                                         <td>{{ $student->last_name ?? '-' }}</td>
                                         <td>{{ $student->sex ?? '-' }}</td>
-                                        <td>
-                                            <x-partials.thumbnail
-                                                src="{{ $student->photo ? \Storage::url($student->photo) : '' }}" />
-                                        </td>
+
                                         <td>{{ $student->id_number ?? '-' }}</td>
                                         <td>
-                                            {{-- {{ optional($student->encounter)->id ?? '-' }} --}}
+                                            {{ optional($student->encounter->first())->id ?? '-' }}
                                         </td>
-                                        <td class="text-center" style="width: 134px;">
+                                        <td class="text-center">
                                             <div role="group" aria-label="Row Actions" class="btn-group">
                                                 @can('update', $student)
                                                     <a href="{{ route('students.edit', $student) }}">
                                                         <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                            <i class="fa fa-edit"></i>
+                                                            <i class="fa fa-edit"></i> Edit
                                                         </button>
                                                     </a>
                                                     @endcan @can('view', $student)
                                                     <a href="{{ route('students.show', $student) }}">
                                                         <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                            <i class="icon ion-md-eye"></i>
+                                                            <i class="icon ion-md-eye"></i> Show
                                                         </button>
                                                     </a>
                                                     @endcan @can('delete', $student)
@@ -121,7 +114,7 @@
                                                         onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                         @csrf @method('DELETE')
                                                         <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
-                                                            <i class="icon ion-md-trash"></i>
+                                                            <i class="icon ion-md-trash"></i> Delete
                                                         </button>
                                                     </form>
                                                 @endcan

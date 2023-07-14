@@ -72,18 +72,18 @@
                                     <td>{{ $room->is_active ?? '-' }}</td>
                                     <td>{{ optional($room->clinic)->name ?? '-' }}</td>
                                     <td>{{ optional($room->encounter)->id ?? '-' }}</td>
-                                    <td class="text-center" style="width: 134px;">
+                                    <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $room)
                                                 <a href="{{ route('rooms.edit', $room) }}">
                                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="fa fa-edit"></i>
+                                                        <i class="fa fa-edit"></i> Edit
                                                     </button>
                                                 </a>
                                                 @endcan @can('view', $room)
                                                 <a href="{{ route('rooms.show', $room) }}">
                                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="icon ion-md-eye"></i>
+                                                        <i class="icon ion-md-eye"></i> Show
                                                     </button>
                                                 </a>
                                                 @endcan @can('delete', $room)
@@ -91,7 +91,7 @@
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
-                                                        <i class="icon ion-md-trash"></i>
+                                                        <i class="icon ion-md-trash"></i> Delete
                                                     </button>
                                                 </form>
                                             @endcan

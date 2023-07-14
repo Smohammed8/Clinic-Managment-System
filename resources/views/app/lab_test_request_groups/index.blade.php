@@ -89,15 +89,31 @@
                                         
                                     
                                     </td>
+<<<<<<< HEAD
                                     <td>{{ $labTestRequestGroup->requested_at ?? '-' }}</td>
                                     <td>{{ $labTestRequestGroup->clinic_user_id->user->name ?? '-' }}</td>
                                   
+=======
+                                    <td>
+                                        {{ $labTestRequestGroup->requested_at ?? '-' }}
+                                    </td>
+                                    <td>
+                                        {{ optional($labTestRequestGroup->Requestedby)->id ?? '-' }}
+                                    </td>
+                                    <td>
+                                        {{ optional($labTestRequestGroup->encounter)->id ?? '-' }}
+                                    </td>
+>>>>>>> 0c23c7f9b50eedfc47dd773ee98fcc66be29a4ab
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                                 @can('update', $labTestRequestGroup)
                                                 <a href="{{ route('lab-test-request-groups.edit', $labTestRequestGroup) }}">
                                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+<<<<<<< HEAD
                                                       <i class="fa fa-plus"></i> Take Sample
+=======
+                                                        <i class="fa fa-edit"></i> Edit
+>>>>>>> 0c23c7f9b50eedfc47dd773ee98fcc66be29a4ab
                                                     </button>
                                                   </button>
                                               </a>
@@ -105,8 +121,13 @@
 
                                                @can('view', $labTestRequestGroup)
                                                 <a href="{{ route('lab-test-request-groups.show', $labTestRequestGroup) }}">
+<<<<<<< HEAD
                                                       <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                         <i class="fa fa-list"></i> Add Result
+=======
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                        <i class="icon ion-md-eye"></i> Show
+>>>>>>> 0c23c7f9b50eedfc47dd773ee98fcc66be29a4ab
                                                     </button>
                                                 </a>
                                                 @endcan
@@ -125,7 +146,11 @@
                                                     method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
+<<<<<<< HEAD
                                                      <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
+=======
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
+>>>>>>> 0c23c7f9b50eedfc47dd773ee98fcc66be29a4ab
                                                         <i class="icon ion-md-trash"></i> Delete
                                                     </button>
                                                 </form>

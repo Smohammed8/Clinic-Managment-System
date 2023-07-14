@@ -1,36 +1,24 @@
 <div>
     <div class="mb-4">
         @can('create', App\Models\LabTestRequest::class)
-        <button class="btn btn-primary" wire:click="newLabTestRequest">
-            <i class="icon ion-md-add"></i>
-            @lang('crud.common.new')
-        </button>
-        @endcan @can('delete-any', App\Models\LabTestRequest::class)
-        <button
-            class="btn btn-danger"
-             {{ empty($selected) ? 'disabled' : '' }} 
-            onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
-            wire:click="destroySelected"
-        >
-            <i class="icon ion-md-trash"></i>
-            @lang('crud.common.delete_selected')
-        </button>
+            <button class="btn btn-primary" wire:click="newLabTestRequest">
+                <i class="icon ion-md-add"></i>
+                @lang('crud.common.new')
+            </button>
+            @endcan @can('delete-any', App\Models\LabTestRequest::class)
+            <button class="btn btn-danger" {{ empty($selected) ? 'disabled' : '' }}
+                onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="destroySelected">
+                <i class="icon ion-md-trash"></i> Delete
+                @lang('crud.common.delete_selected')
+            </button>
         @endcan
     </div>
 
-    <x-modal
-        id="lab-test-request-group-lab-test-requests-modal"
-        wire:model="showingModal"
-    >
+    <x-modal id="lab-test-request-group-lab-test-requests-modal" wire:model="showingModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">{{ $modalTitle }}</h5>
-                <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                >
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -85,21 +73,13 @@
                     </x-inputs.group> --}}
 
                     <x-inputs.group class="col-sm-12">
-                        <x-inputs.textarea
-                            name="labTestRequest.result"
-                            label="Result"
-                            wire:model="labTestRequest.result"
-                            maxlength="255"
-                        ></x-inputs.textarea>
+                        <x-inputs.textarea name="labTestRequest.result" label="Result"
+                            wire:model="labTestRequest.result" maxlength="255"></x-inputs.textarea>
                     </x-inputs.group>
 
                     <x-inputs.group class="col-sm-12">
-                        <x-inputs.textarea
-                            name="labTestRequest.comment"
-                            label="Comment"
-                            wire:model="labTestRequest.comment"
-                            maxlength="255"
-                        ></x-inputs.textarea>
+                        <x-inputs.textarea name="labTestRequest.comment" label="Comment"
+                            wire:model="labTestRequest.comment" maxlength="255"></x-inputs.textarea>
                     </x-inputs.group>
 
                     {{-- <x-inputs.group class="col-sm-12">
@@ -133,13 +113,9 @@
                     </x-inputs.group> --}}
 
                     <x-inputs.group class="col-sm-12">
-                        <x-inputs.text
-                            name="labTestRequest.sample_id"
-                            label="Sample Id"
-                            wire:model="labTestRequest.sample_id"
-                            maxlength="255"
-                            placeholder="Sample Id"
-                        ></x-inputs.text>
+                        <x-inputs.text name="labTestRequest.sample_id" label="Sample Id"
+                            wire:model="labTestRequest.sample_id" maxlength="255" placeholder="Sample Id">
+                        </x-inputs.text>
                     </x-inputs.group>
 
                     {{-- <x-inputs.group class="col-sm-12">
@@ -158,8 +134,8 @@
                             wire:model="labTestRequest.sample_collected_by_id"
                         >
                             <option value="null" disabled>Please select the Clinic User</option>
-                            @foreach($clinicUsersForSelect as $value => $label)
-                            <option value="{{ $value }}"  >{{ $label }}</option>
+                            @foreach ($clinicUsersForSelect as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
                     </x-inputs.group> --}}
@@ -171,8 +147,8 @@
                             wire:model="labTestRequest.sample_analyzed_by_id"
                         >
                             <option value="null" disabled>Please select the Clinic User</option>
-                            @foreach($clinicUsersForSelect as $value => $label)
-                            <option value="{{ $value }}"  >{{ $label }}</option>
+                            @foreach ($clinicUsersForSelect as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
                     </x-inputs.group> --}}
@@ -184,8 +160,8 @@
                             wire:model="labTestRequest.lab_catagory_id"
                         >
                             <option value="null" disabled>Please select the Lab Catagory</option>
-                            @foreach($labCatagoriesForSelect as $value => $label)
-                            <option value="{{ $value }}"  >{{ $label }}</option>
+                            @foreach ($labCatagoriesForSelect as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
                     </x-inputs.group> --}}
@@ -197,22 +173,19 @@
                             wire:model="labTestRequest.approved_by_id"
                         >
                             <option value="null" disabled>Please select the Clinic User</option>
-                            @foreach($clinicUsersForSelect as $value => $label)
-                            <option value="{{ $value }}"  >{{ $label }}</option>
+                            @foreach ($clinicUsersForSelect as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
                     </x-inputs.group> --}}
                 </div>
             </div>
 
-            @if($editing) @endif
+            @if ($editing)
+            @endif
 
             <div class="modal-footer">
-                <button
-                    type="button"
-                    class="btn btn-light float-left"
-                    wire:click="$toggle('showingModal')"
-                >
+                <button type="button" class="btn btn-light float-left" wire:click="$toggle('showingModal')">
                     <i class="icon ion-md-close"></i>
                     @lang('crud.common.cancel')
                 </button>

@@ -1,130 +1,101 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="">
-    <div class="searchbar mt-0 mb-4">
-        <div class="row">
-            <div class="col-md-6">
-                <form>
-                    <div class="input-group">
-                        <input
-                            id="indexSearch"
-                            type="text"
-                            name="search"
-                            placeholder="{{ __('crud.common.search') }}"
-                            value="{{ $search ?? '' }}"
-                            class="form-control"
-                            autocomplete="off"
-                        />
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="icon ion-md-search"></i>
-                            </button>
+    <div class="">
+        <div class="searchbar mt-0 mb-4">
+            <div class="row">
+                <div class="col-md-6">
+                    <form>
+                        <div class="input-group">
+                            <input id="indexSearch" type="text" name="search" placeholder="{{ __('crud.common.search') }}"
+                                value="{{ $search ?? '' }}" class="form-control" autocomplete="off" />
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="icon ion-md-search"></i>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
+                <div class="col-md-6 text-right">
+                    @can('create', App\Models\StockUnit::class)
+                        <a href="{{ route('stock-units.create') }}" class="btn btn-primary">
+                            <i class="icon ion-md-add"></i> @lang('crud.common.create')
+                        </a>
+                    @endcan
+                </div>
             </div>
-            <div class="col-md-6 text-right">
-                @can('create', App\Models\StockUnit::class)
-                <a
-                    href="{{ route('stock-units.create') }}"
-                    class="btn btn-primary"
-                >
-                    <i class="icon ion-md-add"></i> @lang('crud.common.create')
-                </a>
-                @endcan
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div style="display: flex; justify-content: space-between;">
+                    <h4 class="card-title">
+                        @lang('crud.stock_units.index_title')
+                    </h4>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-hover table-condensed">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th class="text-left">
+                                    @lang('crud.stock_units.inputs.unit_name')
+                                </th>
+                                <th class="text-center">
+                                    @lang('crud.common.actions')
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse($stockUnits as $key => $stockUnit)
+                                <tr>
+
+                                    <td> {{ $key + 1 }}
+                                    <td>{{ $stockUnit->unit_name ?? '-' }}</td>
+                                    <td class="text-center">
+                                        <div role="group" aria-label="Row Actions" class="btn-group">
+                                            @can('update', $stockUnit)
+                                                <a href="{{ route('stock-units.edit', $stockUnit) }}">
+                                                    <button type="button" class="btn btn-light">
+                                                        <i class="fa fa-edit"></i> Edit
+                                                    </button>
+                                                </a>
+                                                @endcan @can('view', $stockUnit)
+                                                <a href="{{ route('stock-units.show', $stockUnit) }}">
+                                                    <button type="button" class="btn btn-light">
+                                                        <i class="icon ion-md-eye"></i> Show
+                                                    </button>
+                                                </a>
+                                                @endcan @can('delete', $stockUnit)
+                                                <form action="{{ route('stock-units.destroy', $stockUnit) }}" method="POST"
+                                                    onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                    @csrf @method('DELETE')
+                                                    <button type="submit" class="btn btn-light text-danger">
+                                                        <i class="icon ion-md-trash"></i> Delete
+                                                    </button>
+                                                </form>
+                                            @endcan
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="2">
+                                        @lang('crud.common.no_items_found')
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2">{!! $stockUnits->render() !!}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="card">
-        <div class="card-body">
-            <div style="display: flex; justify-content: space-between;">
-                <h4 class="card-title">
-                    @lang('crud.stock_units.index_title')
-                </h4>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table table-hover table-condensed">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th class="text-left">
-                                @lang('crud.stock_units.inputs.unit_name')
-                            </th>
-                            <th class="text-center">
-                                @lang('crud.common.actions')
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($stockUnits as $key => $stockUnit)
-                        <tr>
-                            
-                            <td> {{ $key + 1}}<td>{{ $stockUnit->unit_name ?? '-' }}</td>
-                            <td class="text-center" style="width: 134px;">
-                                <div
-                                    role="group"
-                                    aria-label="Row Actions"
-                                    class="btn-group"
-                                >
-                                    @can('update', $stockUnit)
-                                    <a
-                                        href="{{ route('stock-units.edit', $stockUnit) }}"
-                                    >
-                                        <button
-                                            type="button"
-                                            class="btn btn-light"
-                                        >
-                                            <i class="fa fa-edit"></i>
-                                        </button>
-                                    </a>
-                                    @endcan @can('view', $stockUnit)
-                                    <a
-                                        href="{{ route('stock-units.show', $stockUnit) }}"
-                                    >
-                                        <button
-                                            type="button"
-                                            class="btn btn-light"
-                                        >
-                                            <i class="icon ion-md-eye"></i>
-                                        </button>
-                                    </a>
-                                    @endcan @can('delete', $stockUnit)
-                                    <form
-                                        action="{{ route('stock-units.destroy', $stockUnit) }}"
-                                        method="POST"
-                                        onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')"
-                                    >
-                                        @csrf @method('DELETE')
-                                        <button
-                                            type="submit"
-                                            class="btn btn-light text-danger"
-                                        >
-                                            <i class="icon ion-md-trash"></i>
-                                        </button>
-                                    </form>
-                                    @endcan
-                                </div>
-                            </td>
-                        </tr>
-                        @empty
-                        <tr>
-                            <td colspan="2">
-                                @lang('crud.common.no_items_found')
-                            </td>
-                        </tr>
-                        @endforelse
-                    </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="2">{!! $stockUnits->render() !!}</td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
 @endsection

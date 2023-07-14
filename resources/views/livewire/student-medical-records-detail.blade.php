@@ -1,20 +1,16 @@
 <div>
     <div class="mb-4">
         @can('create', App\Models\MedicalRecord::class)
-        <button class="btn btn-primary" wire:click="newMedicalRecord">
-            <i class="icon ion-md-add"></i>
-            @lang('crud.common.new')
-        </button>
-        @endcan @can('delete-any', App\Models\MedicalRecord::class)
-        <button
-            class="btn btn-danger"
-             {{ empty($selected) ? 'disabled' : '' }} 
-            onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
-            wire:click="destroySelected"
-        >
-            <i class="icon ion-md-trash"></i>
-            @lang('crud.common.delete_selected')
-        </button>
+            <button class="btn btn-primary" wire:click="newMedicalRecord">
+                <i class="icon ion-md-add"></i>
+                @lang('crud.common.new')
+            </button>
+            @endcan @can('delete-any', App\Models\MedicalRecord::class)
+            <button class="btn btn-danger" {{ empty($selected) ? 'disabled' : '' }}
+                onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="destroySelected">
+                <i class="icon ion-md-trash"></i> Delete
+                @lang('crud.common.delete_selected')
+            </button>
         @endcan
     </div>
 
@@ -22,12 +18,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">{{ $modalTitle }}</h5>
-                <button
-                    type="button"
-                    class="close"
-                    data-dismiss="modal"
-                    aria-label="Close"
-                >
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -35,77 +26,52 @@
             <div class="modal-body">
                 <div>
                     <x-inputs.group class="col-sm-12">
-                        <x-inputs.textarea
-                            name="medicalRecord.subjective"
-                            label="Subjective"
-                            wire:model="medicalRecord.subjective"
-                            maxlength="255"
-                        ></x-inputs.textarea>
+                        <x-inputs.textarea name="medicalRecord.subjective" label="Subjective"
+                            wire:model="medicalRecord.subjective" maxlength="255"></x-inputs.textarea>
                     </x-inputs.group>
 
                     <x-inputs.group class="col-sm-12">
-                        <x-inputs.textarea
-                            name="medicalRecord.objective"
-                            label="Objective"
-                            wire:model="medicalRecord.objective"
-                            maxlength="255"
-                        ></x-inputs.textarea>
+                        <x-inputs.textarea name="medicalRecord.objective" label="Objective"
+                            wire:model="medicalRecord.objective" maxlength="255"></x-inputs.textarea>
                     </x-inputs.group>
 
                     <x-inputs.group class="col-sm-12">
-                        <x-inputs.textarea
-                            name="medicalRecord.assessment"
-                            label="Assessment"
-                            wire:model="medicalRecord.assessment"
-                            maxlength="255"
-                        ></x-inputs.textarea>
+                        <x-inputs.textarea name="medicalRecord.assessment" label="Assessment"
+                            wire:model="medicalRecord.assessment" maxlength="255"></x-inputs.textarea>
                     </x-inputs.group>
 
                     <x-inputs.group class="col-sm-12">
-                        <x-inputs.textarea
-                            name="medicalRecord.plan"
-                            label="Plan"
-                            wire:model="medicalRecord.plan"
-                            maxlength="255"
-                        ></x-inputs.textarea>
+                        <x-inputs.textarea name="medicalRecord.plan" label="Plan" wire:model="medicalRecord.plan"
+                            maxlength="255"></x-inputs.textarea>
                     </x-inputs.group>
 
                     <x-inputs.group class="col-sm-12">
-                        <x-inputs.select
-                            name="medicalRecord.encounter_id"
-                            label="Encounter"
-                            wire:model="medicalRecord.encounter_id"
-                        >
+                        <x-inputs.select name="medicalRecord.encounter_id" label="Encounter"
+                            wire:model="medicalRecord.encounter_id">
                             <option value="null" disabled>Please select the Encounter</option>
-                            @foreach($encountersForSelect as $value => $label)
-                            <option value="{{ $value }}"  >{{ $label }}</option>
+                            @foreach ($encountersForSelect as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
                     </x-inputs.group>
 
                     <x-inputs.group class="col-sm-12">
-                        <x-inputs.select
-                            name="medicalRecord.clinic_user_id"
-                            label="Doctor"
-                            wire:model="medicalRecord.clinic_user_id"
-                        >
+                        <x-inputs.select name="medicalRecord.clinic_user_id" label="Doctor"
+                            wire:model="medicalRecord.clinic_user_id">
                             <option value="null" disabled>Please select the Clinic User</option>
-                            @foreach($clinicUsersForSelect as $value => $label)
-                            <option value="{{ $value }}"  >{{ $label }}</option>
+                            @foreach ($clinicUsersForSelect as $value => $label)
+                                <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
                     </x-inputs.group>
                 </div>
             </div>
 
-            @if($editing) @endif
+            @if ($editing)
+            @endif
 
             <div class="modal-footer">
-                <button
-                    type="button"
-                    class="btn btn-light float-left"
-                    wire:click="$toggle('showingModal')"
-                >
+                <button type="button" class="btn btn-light float-left" wire:click="$toggle('showingModal')">
                     <i class="icon ion-md-close"></i>
                     @lang('crud.common.cancel')
                 </button>
@@ -114,94 +80,68 @@
                     <i class="icon ion-md-save"></i>
                     @lang('crud.common.save')
                 </button>
+
             </div>
         </div>
     </x-modal>
 
     <div class="table-responsive">
-        <table class="table table-hover table-condensed">
-            <thead>
-                <tr>
-                    <th>
-                        <input
-                            type="checkbox"
-                            wire:model="allSelected"
-                            wire:click="toggleFullSelection"
-                            title="{{ trans('crud.common.select_all') }}"
-                        />
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.student_medical_records.inputs.subjective')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.student_medical_records.inputs.objective')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.student_medical_records.inputs.assessment')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.student_medical_records.inputs.plan')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.student_medical_records.inputs.encounter_id')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.student_medical_records.inputs.clinic_user_id')
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-600">
-                @foreach ($medicalRecords as $medicalRecord)
-                <tr class="hover:bg-gray-100">
-                    <td class="text-left">
-                        <input
-                            type="checkbox"
-                            value="{{ $medicalRecord->id }}"
-                            wire:model="selected"
-                        />
-                    </td>
-                    <td class="text-left">
-                        {{ $medicalRecord->subjective ?? '-' }}
-                    </td>
-                    <td class="text-left">
-                        {{ $medicalRecord->objective ?? '-' }}
-                    </td>
-                    <td class="text-left">
-                        {{ $medicalRecord->assessment ?? '-' }}
-                    </td>
-                    <td class="text-left">{{ $medicalRecord->plan ?? '-' }}</td>
-                    <td class="text-left">
-                        {{ optional($medicalRecord->encounter)->id ?? '-' }}
-                    </td>
-                    <td class="text-left">
-                        {{ optional($medicalRecord->Doctor)->id ?? '-' }}
-                    </td>
-                    <td class="text-right" style="width: 134px;">
-                        <div
-                            role="group"
-                            aria-label="Row Actions"
-                            class="relative inline-flex align-middle"
-                        >
-                            @can('update', $medicalRecord)
-                            <button
-                                type="button"
-                                class="btn btn-light"
-                                wire:click="editMedicalRecord({{ $medicalRecord->id }})"
-                            >
-                                <i class="fa fa-edit"></i>
+
+        @foreach ($medicalRecords as $medicalRecord)
+            <div class="card collapsed-card">
+                <div class="card-header">
+                    <h3 class="card-title">Medical Record</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0" style="display: none;">
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-file-alt"></i> Subjective: {{ $medicalRecord->subjective ?? '-' }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-file-alt"></i> Objective: {{ $medicalRecord->objective ?? '-' }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-file-alt"></i> Assessment: {{ $medicalRecord->assessment ?? '-' }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-file-alt"></i> Plan: {{ $medicalRecord->plan ?? '-' }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-user-md"></i> Doctor ID:
+                                {{ optional($medicalRecord->Doctor)->id ?? '-' }}
+                            </a>
+                        </li>
+                    </ul>
+                    <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
+                        @can('update', $medicalRecord)
+                            <button type="button" class="btn btn-sm btn-outline-primary mx-1"
+                                wire:click="editMedicalRecord({{ $medicalRecord->id }})">
+                                <i class="fa fa-edit"></i> Edit
                             </button>
-                            @endcan
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="7">{{ $medicalRecords->render() }}</td>
-                </tr>
-            </tfoot>
-        </table>
+
+                            <a href="{{ route('medical-records.show', $medicalRecord) }}">
+                                <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                    <i class="icon ion-md-eye"></i> Show
+                                </button>
+                            </a>
+                        @endcan
+                    </div>
+                </div>
+            </div>
+        @endforeach
     </div>
 </div>

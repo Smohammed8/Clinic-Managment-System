@@ -53,4 +53,13 @@ class Student extends Model
     {
         return $this->hasMany(Appointment::class);
     }
+
+    public function campus()
+    {
+        return $this->belongsTo(Campus::class);
+    }
+    public function program()
+    {
+        return $this->belongsTo(Program::class);
+    }
 }

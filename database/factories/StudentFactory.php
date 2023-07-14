@@ -26,7 +26,7 @@ class StudentFactory extends Factory
             'first_name' => $this->faker->firstName,
             'middle_name' => $this->faker->text(255),
             'last_name' => $this->faker->lastName,
-            'sex' => \Arr::random(['male', 'female', 'other']),
+            'sex' => \Arr::random(['male', 'female']),
             'id_number' => $this->faker->text(255),
         ];
     }

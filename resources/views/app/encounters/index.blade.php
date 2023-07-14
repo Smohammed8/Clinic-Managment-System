@@ -42,6 +42,9 @@
                                     @lang('crud.encounters.inputs.check_in_time')
                                 </th>
                                 <th class="text-left">
+                                    @lang('crud.encounters.inputs.student_id')
+                                </th>
+                                <th class="text-left">
                                     @lang('crud.encounters.inputs.status')
                                 </th>
                                 <th class="text-left">
@@ -64,32 +67,34 @@
 
                                     <td> {{ $key + 1 }}
                                     <td>{{ $encounter->check_in_time ?? '-' }}</td>
+                                    <td>{{ $encounter->student->id_number ?? '-' }}</td>
+
                                     <td>{{ $encounter->status ?? '-' }}</td>
                                     <td>{{ $encounter->closed_at ?? '-' }}</td>
                                     <td>{{ $encounter->priority ?? '-' }}</td>
                                     <td>
                                         {{ optional($encounter->clinic)->name ?? '-' }}
                                     </td>
-                                    <td class="text-center" style="width: 134px;">
+                                    <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $encounter)
                                                 <a href="{{ route('encounters.edit', $encounter) }}">
-                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="fa fa-edit"></i>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                        <i class="fa fa-edit"></i> Edit
                                                     </button>
                                                 </a>
                                                 @endcan @can('view', $encounter)
                                                 <a href="{{ route('encounters.show', $encounter) }}">
-                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="icon ion-md-eye"></i>
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                        <i class="icon ion-md-eye"></i> Show
                                                     </button>
                                                 </a>
                                                 @endcan @can('delete', $encounter)
                                                 <form action="{{ route('encounters.destroy', $encounter) }}" method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
-                                                     <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
-                                                        <i class="icon ion-md-trash"></i>
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
+                                                        <i class="icon ion-md-trash"></i> Delete
                                                     </button>
                                                 </form>
                                             @endcan
