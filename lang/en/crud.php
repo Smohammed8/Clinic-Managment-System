@@ -923,6 +923,7 @@ return [
         'show_title' => 'Show VitalSign',
         'inputs' => [
             'temp' => 'Temp',
+            'date' => 'Date',
             'blood_pressure' => 'Blood Pressure',
             'pulse_rate' => 'Pulse Rate',
             'rr' => 'Rr',

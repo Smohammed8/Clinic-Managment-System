@@ -19,6 +19,7 @@ class MedicalRecord extends Model
         'encounter_id',
         'clinic_user_id',
         'student_id',
+        'vital_sign_id',
     ];
 
     protected $searchableFields = ['*'];
@@ -38,5 +39,9 @@ class MedicalRecord extends Model
     public function student()
     {
         return $this->belongsTo(Student::class);
+    }
+    public function vitalSign()
+    {
+        return $this->belongsTo(vitalSign::class, 'vital_sign_id');
     }
 }
