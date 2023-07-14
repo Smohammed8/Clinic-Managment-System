@@ -105,16 +105,23 @@
             
 
                 <div class="mt-4">
+                
+
+                    <a href="{{ route('lab-test-request-groups.index') }}" class="btn btn-sm btn-outline-primary float-right mx-1">
+                        <i class="icon fa fa-user"></i>
+                        Call now
+                    </a>
                     <a href="{{ route('lab-test-request-groups.index') }}" class="btn btn-sm btn-outline-primary float-right mx-1">
                         <i class="icon ion-md-return-left"></i>
                         @lang('crud.common.back')
                     </a>
 
-                    @can('create', App\Models\LabTestRequestGroup::class)
+
+                    {{-- @can('create', App\Models\LabTestRequestGroup::class)
                         <a href="{{ route('lab-test-request-groups.create') }}" class="btn btn-sm btn-outline-primary float-right mx-1">
                             <i class="icon ion-md-add"></i> @lang('crud.common.create')
                         </a>
-                    @endcan
+                    @endcan --}}
                 </div>
             </div>
         </div>
