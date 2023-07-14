@@ -25,7 +25,7 @@ class RoomController extends Controller
 
         $rooms = Room::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.rooms.index', compact('rooms', 'search'));

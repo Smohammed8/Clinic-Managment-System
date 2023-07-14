@@ -14,8 +14,7 @@
             <x-form
                 method="PUT"
                 action="{{ route('roles.update', $role) }}"
-                class="mt-4"
-            >
+                class="mt-4">
                 @include('app.roles.form-inputs')
 
                 <div class="mt-4">

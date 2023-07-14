@@ -25,7 +25,7 @@ class StockController extends Controller
 
         $stocks = Stock::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.stocks.index', compact('stocks', 'search'));

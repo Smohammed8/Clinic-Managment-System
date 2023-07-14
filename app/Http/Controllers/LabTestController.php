@@ -23,7 +23,7 @@ class LabTestController extends Controller
 
         $labTests = LabTest::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.lab_tests.index', compact('labTests', 'search'));

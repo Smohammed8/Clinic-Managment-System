@@ -22,7 +22,7 @@ class StockCategoryController extends Controller
 
         $stockCategories = StockCategory::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view(

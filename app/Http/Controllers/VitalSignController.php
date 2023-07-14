@@ -25,7 +25,7 @@ class VitalSignController extends Controller
 
         $vitalSigns = VitalSign::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.vital_signs.index', compact('vitalSigns', 'search'));

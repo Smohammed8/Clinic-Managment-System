@@ -11,26 +11,16 @@
                 @lang('crud.lab_test_requests.edit_title')
             </h4>
 
-            <x-form
-                method="PUT"
-                action="{{ route('lab-test-requests.update', $labTestRequest) }}"
-                class="mt-4"
-            >
+            <x-form method="PUT" action="{{ route('lab-test-requests.update', $labTestRequest) }}" class="mt-4">
                 @include('app.lab_test_requests.form-inputs')
 
                 <div class="mt-4">
-                    <a
-                        href="{{ route('lab-test-requests.index') }}"
-                        class="btn btn-light"
-                    >
+                    <a href="{{ route('lab-test-requests.index') }}" class="btn btn-light" >
                         <i class="icon ion-md-return-left text-primary"></i>
                         @lang('crud.common.back')
                     </a>
 
-                    <a
-                        href="{{ route('lab-test-requests.create') }}"
-                        class="btn btn-light"
-                    >
+                    <a href="{{ route('lab-test-requests.create') }}" class="btn btn-light">
                         <i class="icon ion-md-add text-primary"></i>
                         @lang('crud.common.create')
                     </a>

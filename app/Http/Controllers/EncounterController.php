@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\EncounterStoreRequest;
 use App\Http\Requests\EncounterUpdateRequest;
+use App\Models\Student;
 
 class EncounterController extends Controller
 {
@@ -23,7 +24,7 @@ class EncounterController extends Controller
 
         $encounters = Encounter::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.encounters.index', compact('encounters', 'search'));
@@ -37,8 +38,9 @@ class EncounterController extends Controller
         $this->authorize('create', Encounter::class);
 
         $clinics = Clinic::pluck('name', 'id');
+        $student = Student::pluck('first_name', 'id');
 
-        return view('app.encounters.create', compact('clinics'));
+        return view('app.encounters.create', compact('clinics', 'student'));
     }
 
     /**

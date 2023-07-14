@@ -25,7 +25,7 @@ class MedicalRecordController extends Controller
 
         $medicalRecords = MedicalRecord::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view(

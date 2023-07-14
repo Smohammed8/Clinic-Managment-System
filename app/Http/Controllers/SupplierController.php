@@ -22,7 +22,7 @@ class SupplierController extends Controller
 
         $suppliers = Supplier::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view('app.suppliers.index', compact('suppliers', 'search'));

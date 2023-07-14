@@ -17,10 +17,8 @@
 
         <!-- Right Side Of Navbar -->
         <ul class="navbar-nav ml-auto">
-            <!-- Authentication Links -->
-         
-        
-         
+          
+            @if (Auth::user()->hasRole('Lab_technician'))
               <li class="nav-item">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-comments"></i>
@@ -31,8 +29,7 @@
                     <span class="dropdown-item dropdown-header"><i class="far fa-bell mr-1"></i>Lab request Result </span>
             
                     <div class="dropdown-divider"></div>
-            
-            
+        
                       <a href="#" class="dropdown-item">
                         <!-- Message Start -->
                         <div class="media">
@@ -51,7 +48,7 @@
                       </a>
             </li>
 
-
+            @endif
             <li class="nav-item">
             
                        <a class="nav-link" data-toggle="dropdown" style="color:white; href="#">

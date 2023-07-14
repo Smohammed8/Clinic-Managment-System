@@ -23,7 +23,7 @@ class PrescriptionController extends Controller
 
         $prescriptions = Prescription::search($search)
             ->latest()
-            ->paginate(5)
+            ->paginate(10)
             ->withQueryString();
 
         return view(

@@ -25,6 +25,10 @@ class Student extends Model
 
     protected $table = 'students';
 
+    public function getFullNameAttribute() {
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->middle_name) . ' ' . ucfirst($this->last_name);
+    }
+
     public function encounter()
     {
         return $this->hasMany(Encounter::class);

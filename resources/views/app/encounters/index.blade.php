@@ -11,7 +11,7 @@
                                 value="{{ $search ?? '' }}" class="form-control" autocomplete="off" />
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-primary">
-                                    <i class="icon ion-md-search"></i>
+                                    <i class="icon io-md-search"></i>
                                 </button>
                             </div>
                         </div>

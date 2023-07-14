@@ -16,15 +16,13 @@
             <x-form
                 method="POST"
                 action="{{ route('lab-test-request-groups.store') }}"
-                class="mt-4"
-            >
+                class="mt-4">
                 @include('app.lab_test_request_groups.form-inputs')
 
                 <div class="mt-4">
                     <a
                         href="{{ route('lab-test-request-groups.index') }}"
-                        class="btn btn-light"
-                    >
+                        class="btn btn-light">
                         <i class="icon ion-md-return-left text-primary"></i>
                         @lang('crud.common.back')
                     </a>
