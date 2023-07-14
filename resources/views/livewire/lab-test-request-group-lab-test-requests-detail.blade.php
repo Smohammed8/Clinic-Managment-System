@@ -1,14 +1,14 @@
 <div>
     <div class="mb-4">
         @can('create', App\Models\LabTestRequest::class)
-            <button class="btn btn-primary" wire:click="newLabTestRequest">
+            <button class="btn btn-sm btn-outline-primary mx-1" wire:click="newLabTestRequest">
                 <i class="icon ion-md-add"></i>
                 @lang('crud.common.new')
             </button>
             @endcan @can('delete-any', App\Models\LabTestRequest::class)
-            <button class="btn btn-danger" {{ empty($selected) ? 'disabled' : '' }}
+            <button class="btn btn-sm btn-outline-danger mx-1" {{ empty($selected) ? 'disabled' : '' }}
                 onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="destroySelected">
-                <i class="icon ion-md-trash"></i> Delete
+                <i class="icon ion-md-trash"></i>
                 @lang('crud.common.delete_selected')
             </button>
         @endcan

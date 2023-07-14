@@ -29,17 +29,25 @@
 
                         <div class="row m-2">
                 
+                       
                    
+                        
+
                             <div class="input-group mb-3 col-md-4">
                                 <i class="fa fa-caret-right"> </i>&nbsp;
-                                <span title="">Encounter Status </span>
-                                <span>&nbsp;&nbsp;&nbsp;&nbsp; {{ $labTestRequestGroup->status ?? '-' }} </span>
-                
+                                <span title=""> Patient Name: &nbsp; </span>
+                                <span>&nbsp;<u>{{  optional($labTestRequestGroup->encounter)->student->fullName ?? '-' }} </u></span>
                             </div>
+
                             <div class="input-group mb-3 col-md-4">
                                 <i class="fa fa-caret-right"> </i>&nbsp;
-                                <span title="">Encounter priority </span>
-                                <span>{{ $labTestRequestGroup->priority ?? '-' }}</span>
+                                <span title="">Encounter Priority </span>
+                                <span>
+                                    @if($labTestRequestGroup->priority == 0) &nbsp;&nbsp;&nbsp;<span style= "color:green;">: FCFS</span> @else  &nbsp;&nbsp;&nbsp;<span style= "color:red;">: High </span>  @endif    
+                                    
+                                 
+                                
+                                </span>
                 
                             </div>
 
@@ -59,8 +67,11 @@
 
                             <div class="input-group mb-3 col-md-4">
                                 <i class="fa fa-caret-right"> </i>&nbsp;
-                                <span title="">Encounter call status </span>
-                                <span>{{ $labTestRequestGroup->call_status ?? '-' }}</span>
+                                <span title="">Encounter call status: </span>
+                                <span>                                
+                                    &nbsp;&nbsp;&nbsp; @if($labTestRequestGroup->call_status == 0) <span style= "color:red;"> waiting </span> @else Called  @endif
+                                
+                                </span>
                 
                             </div>
 
@@ -75,18 +86,17 @@
 
                             <div class="input-group mb-3 col-md-4">
                                 <i class="fa fa-caret-right"> </i>&nbsp;
-                                <span title="">Doctor </span>
-                                <span>{{ optional($labTestRequestGroup->Requestedby)->id ?? '-' }}</span>
+                                <span title="">Doctor: </span>
+                                <span>&nbsp;&nbsp;&nbsp;{{ optional($labTestRequestGroup->requestedby)->user->name }}</span>
                             </div>
 
 
                             <div class="input-group mb-3 col-md-4">
                                 <i class="fa fa-caret-right"> </i>&nbsp;
-                                <span title="">patient  </span>
-                                <span>{{  optional($labTestRequestGroup->encounter)->student->fullName ?? '-' }}</span>
+                                <span title="">Encounter Status </span>
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp; @if($labTestRequestGroup->status == 0) <span style= "color:red;"> Pending </span> @else <i class="fa fa-check"> </i>  @endif </span>
+                
                             </div>
-
-
 
 
                           
@@ -95,16 +105,23 @@
             
 
                 <div class="mt-4">
+                
+
+                    <a href="{{ route('lab-test-request-groups.index') }}" class="btn btn-sm btn-outline-primary float-right mx-1">
+                        <i class="icon fa fa-user"></i>
+                        Call now
+                    </a>
                     <a href="{{ route('lab-test-request-groups.index') }}" class="btn btn-sm btn-outline-primary float-right mx-1">
                         <i class="icon ion-md-return-left"></i>
                         @lang('crud.common.back')
                     </a>
 
-                    @can('create', App\Models\LabTestRequestGroup::class)
+
+                    {{-- @can('create', App\Models\LabTestRequestGroup::class)
                         <a href="{{ route('lab-test-request-groups.create') }}" class="btn btn-sm btn-outline-primary float-right mx-1">
                             <i class="icon ion-md-add"></i> @lang('crud.common.create')
                         </a>
-                    @endcan
+                    @endcan --}}
                 </div>
             </div>
         </div>
