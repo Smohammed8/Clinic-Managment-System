@@ -87,20 +87,32 @@
                                         Ongoing  </td>
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
-                                                  @can('update', $encounter)
+                                                
+                                            @can('view', $encounter)
+                                            <a href="{{ route('encounters.show', $encounter) }}">
+                                                <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                    <i class="icon fa fa-user"></i> Profile
+                                                </button>
+                                            </a>
+                                            @endcan 
+                                            
+                                            {{-- @can('update', $encounter) --}}
+                                            <a href="{{ route('encounters.edit', $encounter) }}">
+                                                <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                   <i class="fa fa-print"></i> Sick Leave
+                                               </button>
+                                           </a>
+                                           {{-- @endcan  --}}
+
+                                                @can('update', $encounter)
                                                  <a href="{{ route('encounters.edit', $encounter) }}">
                                                      <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                         <i class="fa fa-edit"></i> Edit
                                                     </button>
                                                 </a>
                                                 @endcan 
-                                                @can('view', $encounter)
-                                                <a href="{{ route('encounters.show', $encounter) }}">
-                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="icon ion-md-eye"></i> Show
-                                                    </button>
-                                                </a>
-                                                @endcan @can('delete', $encounter)
+                                            
+                                                @can('delete', $encounter)
                                                   <form action="{{ route('encounters.destroy', $encounter) }}" method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')

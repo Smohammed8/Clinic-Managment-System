@@ -251,6 +251,10 @@
 
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" id="vert-tabs-refer-tab" data-toggle="pill" href="#vert-tabs-refer" role="tab" aria-controls="vert-tabs-refer" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Referral Service</b> </a>
+                            </li>
+
+                            <li class="nav-item">
                                 <a class="nav-link" id="vert-tabs-history-tab" data-toggle="pill" href="#vert-tabs-history" role="tab" aria-controls="vert-tabs-history" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Visit History </b> </a>
                             </li>
                         </ul>
