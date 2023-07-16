@@ -222,9 +222,10 @@
                             <div class="col-5 col-sm-3">
                               <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                                
-                                <a class="nav-link active" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Medical Records </b></a>
+                                <a class="nav-link active" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Clinical Note </b></a>
+                                <a class="nav-link" id="vert-tabs-sign-tab" data-toggle="pill" href="#vert-tabs-sign" role="tab" aria-controls="vert-tabs-sign" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Vital Sign</b> </a>
                                 <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill" href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Main Diagnoses </b></a>
-                                <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-diagnosis" role="tab" aria-controls="vert-tabs-diagnosis" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Diagnosis </b> </a>
+                                <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-diagnosis" role="tab" aria-controls="vert-tabs-diagnosis" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Invistigation </b> </a>
                                
                                 <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-medication" role="tab" aria-controls="vert-tabs-medication" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Medication </b> </a>
                                 <a class="nav-link " id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-appointment" role="tab" aria-controls="vert-tabs-home" aria-selected="true">  <i class="fa fa-caret-right nav-icon"></i><b> Appointments </b></a>
@@ -280,12 +281,15 @@
                                 <div class="tab-pane fade" id="vert-tabs-medication" role="tabpanel" aria-labelledby="vert-tabs-medication-tab">
                                    Tab 5 medication
                                 </div>
-
-                                
-                            
                                 <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel" aria-labelledby="vert-tabs-history-tab">
                                    Tab 6 Visit history
                                 </div>
+
+                                <div class="tab-pane fade" id="vert-tabs-sign" role="tabpanel" aria-labelledby="vert-tabs-sign-tab">
+                                    Tab 6 Vital sign
+                                 </div>
+
+                             
                               </div>
                             </div>
                           </div>
