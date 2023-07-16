@@ -133,6 +133,17 @@
                     </div>
                 @endcan
 
+                @can('view-any', App\Models\VitalSign::class)
+                    <div class="tab-pane fade" id="vital-signs">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title w-100 mb-2">Vital Signs</h4>
+                                <livewire:encounter-vital-signs-detail :encounter="$encounter" />
+                            </div>
+                        </div>
+                    </div>
+                @endcan
+
                 @can('view-any', App\Models\Appointment::class)
                     <div class="tab-pane fade" id="appointments">
                         <div class="card">
