@@ -1,168 +1,2914 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>Hospital Queue</title>
-        <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.6.0/css/bootstrap.min.css"
-        />
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/css/adminlte.min.css"
-        />
-        <style>
-            * {
-                outline: solid 1px red;
-            }
-            .card-title,
-            .card-text {
-                font-size: 20px;
-                font-weight: bold;
-            }
+<div class="modal-content">
+    <div class="modal-header">
+        <h4 class="modal-title">Lab Test Order</h4>
+        <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+        >
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <form
+        method="post"
+        data-confirm="1"
+        data-question="You want to order laboratory investigations"
+    >
+        <input hidden="" name="labrequest" value="true" />
 
-            .table-patient-name {
-                font-size: 18px;
-                font-weight: bold;
-            }
+        <div class="modal-body">
+            <div class="row groups">
+                <div class="col-5 m-2 group">
+                    <fieldset class="border">
+                        <legend class="w-auto">
+                            &nbsp;Hematology &amp; Immunohematology&nbsp;
+                        </legend>
 
-            .room-number-div {
-                display: flex;
-                align-items: end;
-                align-content: end;
-                
-            }
-            /* Additional CSS for room number */
-            .card-room-number {
-                font-size: 60px;
-                font-weight: bold;
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 100%;
-                height: 100%;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                padding: 0 10px;
-                margin-left: auto;
-                /* background-color: aquamarine; */
-
-                
-
-                background-color: rgba(255, 255, 255, 0.7);
-            }
-        </style>
-    </head>
-    <body>
-        <div class="wrapper">
-            <!-- Main content -->
-            <section class="content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5 class="card-title">
-                                        Assigned Patients
-                                    </h5>
-                                </div>
-                                <div class="card-body">
-                                    <!-- Card list for assigned patients -->
-                                    <div class="card-list">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h6
-                                                    class="card-title text-primary"
-                                                >
-                                                    John Doe
-                                                </h6>
-                                                <!-- Move room number to the right side -->
-                                                <div class="room-number-div">
-                                                    <p
-                                                        class="card-room-number text-danger"
-                                                    >
-                                                        <span
-                                                            class="text-uppercase"
-                                                            >101</span
-                                                        >
-                                                    </p>
-                                                </div>
-                                                <p class="card-text">
-                                                    Doctor's Name: Dr. Smith
-                                                </p>
-                                                <p class="card-text">
-                                                    Patient ID: P12345
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h6
-                                                    class="card-title text-primary"
-                                                >
-                                                    Jane Smith
-                                                </h6>
-                                                <!-- Move room number to the right side -->
-                                                <p
-                                                    class="card-room-number text-danger"
-                                                >
-                                                    <span class="text-uppercase"
-                                                        >102</span
-                                                    >
-                                                </p>
-                                                <p class="card-text">
-                                                    Doctor's Name: Dr. Johnson
-                                                </p>
-                                                <p class="card-text">
-                                                    Patient ID: P67890
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <!-- Add more cards for other assigned patients -->
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test118"
+                                            value="118"
+                                        />
+                                        <label class="small" for="test118">
+                                            Blood Group
+                                        </label>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5 class="card-title">Waiting Patients</h5>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample118"
+                                        id="sample118"
+                                    />
+                                    <label class="small" for="sample118">
+                                        Sample collected
+                                    </label>
                                 </div>
-                                <div class="card-body">
-                                    <!-- Table for waiting patients -->
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>Patient Name</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="table-patient-name">
-                                                    Mark Johnson
-                                                </td>
-                                                <td>Waiting</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-patient-name">
-                                                    Sarah Thompson
-                                                </td>
-                                                <td>Waiting</td>
-                                            </tr>
-                                            <!-- Add more rows for other waiting patients -->
-                                        </tbody>
-                                    </table>
-                                </div>
+                                <textarea
+                                    name="note118"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
                             </div>
                         </div>
-                    </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test114"
+                                        ></label>
+                                        <strike>CBC</strike>&nbsp;<span
+                                            class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample114"
+                                        id="sample114"
+                                    />
+                                    <label class="small" for="sample114">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note114"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test151"
+                                            value="151"
+                                        />
+                                        <label class="small" for="test151">
+                                            Coagulation Profile
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample151"
+                                        id="sample151"
+                                    />
+                                    <label class="small" for="sample151">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note151"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test154"
+                                            value="154"
+                                        />
+                                        <label class="small" for="test154">
+                                            Cross-match
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample154"
+                                        id="sample154"
+                                    />
+                                    <label class="small" for="sample154">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note154"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test152"
+                                            value="152"
+                                        />
+                                        <label class="small" for="test152">
+                                            Direct Coomb's test (DAT)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample152"
+                                        id="sample152"
+                                    />
+                                    <label class="small" for="sample152">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note152"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test117"
+                                            value="117"
+                                        />
+                                        <label class="small" for="test117">
+                                            ESR
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample117"
+                                        id="sample117"
+                                    />
+                                    <label class="small" for="sample117">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note117"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test116"
+                                            value="116"
+                                        />
+                                        <label class="small" for="test116">
+                                            Hct
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample116"
+                                        id="sample116"
+                                    />
+                                    <label class="small" for="sample116">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note116"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test115"
+                                            value="115"
+                                        />
+                                        <label class="small" for="test115">
+                                            Hgb
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample115"
+                                        id="sample115"
+                                    />
+                                    <label class="small" for="sample115">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note115"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test153"
+                                            value="153"
+                                        />
+                                        <label class="small" for="test153">
+                                            Indirect Coomb's (IDAT)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample153"
+                                        id="sample153"
+                                    />
+                                    <label class="small" for="sample153">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note153"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test119"
+                                        ></label>
+                                        <strike>Peripheral morphology</strike
+                                        >&nbsp;<span class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample119"
+                                        id="sample119"
+                                    />
+                                    <label class="small" for="sample119">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note119"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
-            </section>
+
+                <div class="col-5 m-2 group">
+                    <fieldset class="border">
+                        <legend class="w-auto">
+                            &nbsp;Clinical Chemistry&nbsp;
+                        </legend>
+
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test158"
+                                        ></label>
+                                        <strike>Amylase</strike>&nbsp;<span
+                                            class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample158"
+                                        id="sample158"
+                                    />
+                                    <label class="small" for="sample158">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note158"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test122"
+                                            value="122"
+                                        />
+                                        <label class="small" for="test122">
+                                            FBS
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample122"
+                                        id="sample122"
+                                    />
+                                    <label class="small" for="sample122">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note122"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test157"
+                                            value="157"
+                                        />
+                                        <label class="small" for="test157">
+                                            LDH
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample157"
+                                        id="sample157"
+                                    />
+                                    <label class="small" for="sample157">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note157"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test123"
+                                        ></label>
+                                        <strike>LFT</strike>&nbsp;<span
+                                            class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample123"
+                                        id="sample123"
+                                    />
+                                    <label class="small" for="sample123">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note123"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test159"
+                                        ></label>
+                                        <strike>Lipase</strike>&nbsp;<span
+                                            class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample159"
+                                        id="sample159"
+                                    />
+                                    <label class="small" for="sample159">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note159"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test125"
+                                            value="125"
+                                        />
+                                        <label class="small" for="test125">
+                                            Lipid profile
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample125"
+                                        id="sample125"
+                                    />
+                                    <label class="small" for="sample125">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note125"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test121"
+                                            value="121"
+                                        />
+                                        <label class="small" for="test121">
+                                            RBS
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample121"
+                                        id="sample121"
+                                    />
+                                    <label class="small" for="sample121">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note121"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test124"
+                                            value="124"
+                                        />
+                                        <label class="small" for="test124">
+                                            RFT
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample124"
+                                        id="sample124"
+                                    />
+                                    <label class="small" for="sample124">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note124"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test155"
+                                            value="155"
+                                        />
+                                        <label class="small" for="test155">
+                                            Serum Albumin
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample155"
+                                        id="sample155"
+                                    />
+                                    <label class="small" for="sample155">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note155"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test128"
+                                            value="128"
+                                        />
+                                        <label class="small" for="test128">
+                                            Serum Electrolyte
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample128"
+                                        id="sample128"
+                                    />
+                                    <label class="small" for="sample128">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note128"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test127"
+                                            value="127"
+                                        />
+                                        <label class="small" for="test127">
+                                            Total Protein
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample127"
+                                        id="sample127"
+                                    />
+                                    <label class="small" for="sample127">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note127"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test126"
+                                            value="126"
+                                        />
+                                        <label class="small" for="test126">
+                                            Uric Acid
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample126"
+                                        id="sample126"
+                                    />
+                                    <label class="small" for="sample126">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note126"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test129"
+                                            value="129"
+                                        />
+                                        <label class="small" for="test129">
+                                            Urine Analysis
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample129"
+                                        id="sample129"
+                                    />
+                                    <label class="small" for="sample129">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note129"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test146"
+                                            value="146"
+                                        />
+                                        <label class="small" for="test146">
+                                            Urine HCG
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample146"
+                                        id="sample146"
+                                    />
+                                    <label class="small" for="sample146">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note146"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-5 m-2 group">
+                    <fieldset class="border">
+                        <legend class="w-auto">&nbsp;Parasitology&nbsp;</legend>
+
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test133"
+                                            value="133"
+                                        />
+                                        <label class="small" for="test133">
+                                            Blood film (for Hemoparasites)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample133"
+                                        id="sample133"
+                                    />
+                                    <label class="small" for="sample133">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note133"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test131"
+                                            value="131"
+                                        />
+                                        <label class="small" for="test131">
+                                            H.pylori Stool Ag test
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample131"
+                                        id="sample131"
+                                    />
+                                    <label class="small" for="sample131">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note131"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test135"
+                                            value="135"
+                                        />
+                                        <label class="small" for="test135">
+                                            Leshimaniasis skin test
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample135"
+                                        id="sample135"
+                                    />
+                                    <label class="small" for="sample135">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note135"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test132"
+                                            value="132"
+                                        />
+                                        <label class="small" for="test132">
+                                            Ocult blood test
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample132"
+                                        id="sample132"
+                                    />
+                                    <label class="small" for="sample132">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note132"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test160"
+                                            value="160"
+                                        />
+                                        <label class="small" for="test160">
+                                            Onchocercasis
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample160"
+                                        id="sample160"
+                                    />
+                                    <label class="small" for="sample160">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note160"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test192"
+                                            value="192"
+                                        />
+                                        <label class="small" for="test192">
+                                            S.typhi stool Ag test
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample192"
+                                        id="sample192"
+                                    />
+                                    <label class="small" for="sample192">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note192"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test134"
+                                            value="134"
+                                        />
+                                        <label class="small" for="test134">
+                                            Skin snip for Oncho cericiasis
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample134"
+                                        id="sample134"
+                                    />
+                                    <label class="small" for="sample134">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note134"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test136"
+                                        ></label>
+                                        <strike>Stool AFB</strike>&nbsp;<span
+                                            class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample136"
+                                        id="sample136"
+                                    />
+                                    <label class="small" for="sample136">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note136"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test130"
+                                            value="130"
+                                        />
+                                        <label class="small" for="test130">
+                                            Stool Examination
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample130"
+                                        id="sample130"
+                                    />
+                                    <label class="small" for="sample130">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note130"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-5 m-2 group">
+                    <fieldset class="border">
+                        <legend class="w-auto">
+                            &nbsp;Serological tests&nbsp;
+                        </legend>
+
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test139"
+                                            value="139"
+                                        />
+                                        <label class="small" for="test139">
+                                            ASO
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample139"
+                                        id="sample139"
+                                    />
+                                    <label class="small" for="sample139">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note139"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test191"
+                                            value="191"
+                                        />
+                                        <label class="small" for="test191">
+                                            CRP C-Reactive Protein
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample191"
+                                        id="sample191"
+                                    />
+                                    <label class="small" for="sample191">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note191"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test143"
+                                            value="143"
+                                        />
+                                        <label class="small" for="test143">
+                                            Hepatitis BsAg test
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample143"
+                                        id="sample143"
+                                    />
+                                    <label class="small" for="sample143">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note143"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test144"
+                                            value="144"
+                                        />
+                                        <label class="small" for="test144">
+                                            Hepatitis C Ab test
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample144"
+                                        id="sample144"
+                                    />
+                                    <label class="small" for="sample144">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note144"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test145"
+                                            value="145"
+                                        />
+                                        <label class="small" for="test145">
+                                            PICHT
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample145"
+                                        id="sample145"
+                                    />
+                                    <label class="small" for="sample145">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note145"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test140"
+                                            value="140"
+                                        />
+                                        <label class="small" for="test140">
+                                            RF
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample140"
+                                        id="sample140"
+                                    />
+                                    <label class="small" for="sample140">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note140"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test141"
+                                            value="141"
+                                        />
+                                        <label class="small" for="test141">
+                                            RPR
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample141"
+                                        id="sample141"
+                                    />
+                                    <label class="small" for="sample141">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note141"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test142"
+                                            value="142"
+                                        />
+                                        <label class="small" for="test142">
+                                            VDRL
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample142"
+                                        id="sample142"
+                                    />
+                                    <label class="small" for="sample142">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note142"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test138"
+                                            value="138"
+                                        />
+                                        <label class="small" for="test138">
+                                            Weil filex test
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample138"
+                                        id="sample138"
+                                    />
+                                    <label class="small" for="sample138">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note138"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test137"
+                                            value="137"
+                                        />
+                                        <label class="small" for="test137">
+                                            Widal test
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample137"
+                                        id="sample137"
+                                    />
+                                    <label class="small" for="sample137">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note137"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-5 m-2 group">
+                    <fieldset class="border">
+                        <legend class="w-auto">
+                            &nbsp;Bacterology( Microbiology)&nbsp;
+                        </legend>
+
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test149"
+                                            value="149"
+                                        />
+                                        <label class="small" for="test149">
+                                            AFB Sputem
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample149"
+                                        id="sample149"
+                                    />
+                                    <label class="small" for="sample149">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note149"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test162"
+                                            value="162"
+                                        />
+                                        <label class="small" for="test162">
+                                            Covid-19 Ag Test
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample162"
+                                        id="sample162"
+                                    />
+                                    <label class="small" for="sample162">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note162"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test150"
+                                        ></label>
+                                        <strike>Gene x-pert</strike>&nbsp;<span
+                                            class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample150"
+                                        id="sample150"
+                                    />
+                                    <label class="small" for="sample150">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note150"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test148"
+                                            value="148"
+                                        />
+                                        <label class="small" for="test148">
+                                            Gram's Stain
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample148"
+                                        id="sample148"
+                                    />
+                                    <label class="small" for="sample148">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note148"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test147"
+                                            value="147"
+                                        />
+                                        <label class="small" for="test147">
+                                            KOH test
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample147"
+                                        id="sample147"
+                                    />
+                                    <label class="small" for="sample147">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note147"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test161"
+                                            value="161"
+                                        />
+                                        <label class="small" for="test161">
+                                            Wet Film
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample161"
+                                        id="sample161"
+                                    />
+                                    <label class="small" for="sample161">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note161"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-5 m-2 group">
+                    <fieldset class="border">
+                        <legend class="w-auto">
+                            &nbsp;Hormonal Assay&nbsp;
+                        </legend>
+
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test174"
+                                            value="174"
+                                        />
+                                        <label class="small" for="test174">
+                                            AFP
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample174"
+                                        id="sample174"
+                                    />
+                                    <label class="small" for="sample174">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note174"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test175"
+                                            value="175"
+                                        />
+                                        <label class="small" for="test175">
+                                            BHCG
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample175"
+                                        id="sample175"
+                                    />
+                                    <label class="small" for="sample175">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note175"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test182"
+                                            value="182"
+                                        />
+                                        <label class="small" for="test182">
+                                            CA-125
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample182"
+                                        id="sample182"
+                                    />
+                                    <label class="small" for="sample182">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note182"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test181"
+                                        ></label>
+                                        <strike>CA-15-3</strike>&nbsp;<span
+                                            class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample181"
+                                        id="sample181"
+                                    />
+                                    <label class="small" for="sample181">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note181"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test183"
+                                        ></label>
+                                        <strike>CA-19</strike>&nbsp;<span
+                                            class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample183"
+                                        id="sample183"
+                                    />
+                                    <label class="small" for="sample183">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note183"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test184"
+                                        ></label>
+                                        <strike>CEA</strike>&nbsp;<span
+                                            class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample184"
+                                        id="sample184"
+                                    />
+                                    <label class="small" for="sample184">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note184"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test170"
+                                            value="170"
+                                        />
+                                        <label class="small" for="test170">
+                                            Estradiol II
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample170"
+                                        id="sample170"
+                                    />
+                                    <label class="small" for="sample170">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note170"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test168"
+                                            value="168"
+                                        />
+                                        <label class="small" for="test168">
+                                            FSH
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample168"
+                                        id="sample168"
+                                    />
+                                    <label class="small" for="sample168">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note168"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test176"
+                                            value="176"
+                                        />
+                                        <label class="small" for="test176">
+                                            Free PSA
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample176"
+                                        id="sample176"
+                                    />
+                                    <label class="small" for="sample176">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note176"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test166"
+                                        ></label>
+                                        <strike>FreeT3</strike>&nbsp;<span
+                                            class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample166"
+                                        id="sample166"
+                                    />
+                                    <label class="small" for="sample166">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note166"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test167"
+                                        ></label>
+                                        <strike>FreeT4</strike>&nbsp;<span
+                                            class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample167"
+                                        id="sample167"
+                                    />
+                                    <label class="small" for="sample167">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note167"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test180"
+                                            value="180"
+                                        />
+                                        <label class="small" for="test180">
+                                            HgbA1c
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample180"
+                                        id="sample180"
+                                    />
+                                    <label class="small" for="sample180">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note180"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test169"
+                                            value="169"
+                                        />
+                                        <label class="small" for="test169">
+                                            LH
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample169"
+                                        id="sample169"
+                                    />
+                                    <label class="small" for="sample169">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note169"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test171"
+                                            value="171"
+                                        />
+                                        <label class="small" for="test171">
+                                            Progestrone
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample171"
+                                        id="sample171"
+                                    />
+                                    <label class="small" for="sample171">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note171"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test173"
+                                            value="173"
+                                        />
+                                        <label class="small" for="test173">
+                                            Prolactin
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample173"
+                                        id="sample173"
+                                    />
+                                    <label class="small" for="sample173">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note173"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test164"
+                                            value="164"
+                                        />
+                                        <label class="small" for="test164">
+                                            T3
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample164"
+                                        id="sample164"
+                                    />
+                                    <label class="small" for="sample164">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note164"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test165"
+                                            value="165"
+                                        />
+                                        <label class="small" for="test165">
+                                            T4
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample165"
+                                        id="sample165"
+                                    />
+                                    <label class="small" for="sample165">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note165"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test190"
+                                            value="190"
+                                        />
+                                        <label class="small" for="test190">
+                                            TFT
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample190"
+                                        id="sample190"
+                                    />
+                                    <label class="small" for="sample190">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note190"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test177"
+                                            value="177"
+                                        />
+                                        <label class="small" for="test177">
+                                            TPSA
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample177"
+                                        id="sample177"
+                                    />
+                                    <label class="small" for="sample177">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note177"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test163"
+                                            value="163"
+                                        />
+                                        <label class="small" for="test163">
+                                            TSH
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample163"
+                                        id="sample163"
+                                    />
+                                    <label class="small" for="sample163">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note163"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test172"
+                                            value="172"
+                                        />
+                                        <label class="small" for="test172">
+                                            Testesterone
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample172"
+                                        id="sample172"
+                                    />
+                                    <label class="small" for="sample172">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note172"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test178"
+                                            value="178"
+                                        />
+                                        <label class="small" for="test178">
+                                            Troponin
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample178"
+                                        id="sample178"
+                                    />
+                                    <label class="small" for="sample178">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note178"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test179"
+                                            value="179"
+                                        />
+                                        <label class="small" for="test179">
+                                            Vitamin -D
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample179"
+                                        id="sample179"
+                                    />
+                                    <label class="small" for="sample179">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note179"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="col-5 m-2 group">
+                    <fieldset class="border">
+                        <legend class="w-auto">
+                            &nbsp;Body Fluid Analysis&nbsp;
+                        </legend>
+
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test186"
+                                        ></label>
+                                        <strike>CSF analysis</strike>&nbsp;<span
+                                            class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample186"
+                                        id="sample186"
+                                    />
+                                    <label class="small" for="sample186">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note186"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test187"
+                                            value="187"
+                                        />
+                                        <label class="small" for="test187">
+                                            Peritoneal Fluid Analysis
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample187"
+                                        id="sample187"
+                                    />
+                                    <label class="small" for="sample187">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note187"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test189"
+                                        ></label>
+                                        <strike>Pleural Fluid Analysis</strike
+                                        >&nbsp;<span class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample189"
+                                        id="sample189"
+                                    />
+                                    <label class="small" for="sample189">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note189"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <input
+                                            class="custom-control-input mycheckbox labtestCheckBox"
+                                            type="checkbox"
+                                            name="test[]"
+                                            id="test185"
+                                            value="185"
+                                        />
+                                        <label class="small" for="test185">
+                                            Semen Analysis
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample185"
+                                        id="sample185"
+                                    />
+                                    <label class="small" for="sample185">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note185"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="row">
+                            <div class="row col-12">
+                                <div class="form-check col-6 m-auto">
+                                    <div class="icheck-primary">
+                                        <label
+                                            class="small"
+                                            for="test188"
+                                        ></label>
+                                        <strike>Synovial Fluid Analysis</strike
+                                        >&nbsp;<span class="badge badge-danger"
+                                            >Not available</span
+                                        >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 p-1 d-none note">
+                                <div class="icheck-primary ml-3">
+                                    <input
+                                        class="custom-control-input mycheckbox"
+                                        type="checkbox"
+                                        name="sample188"
+                                        id="sample188"
+                                    />
+                                    <label class="small" for="sample188">
+                                        Sample collected
+                                    </label>
+                                </div>
+                                <textarea
+                                    name="note188"
+                                    placeholder="note"
+                                    class="form-control col-10 m-auto"
+                                ></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <hr />
         </div>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.0/js/bootstrap.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.1.0/js/adminlte.min.js"></script>
-    </body>
-</html>
+        <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">
+                Close
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <i class="fa"></i>
+                Order
+            </button>
+        </div>
+    </form>
+</div>

@@ -50,6 +50,10 @@
             <div class="card">
 
                 <ul class="nav nav-pills">
+                    @can('view-any', App\Models\Encounters::class)
+                        <li class="nav-item"><a class="nav-link" href="#encounters" data-toggle="tab">Encounters</a>
+                        </li>
+                    @endcan
                     @can('view-any', App\Models\MedicalRecord::class)
                         <li class="nav-item"><a class="nav-link" href="#medical-records" data-toggle="tab">Medical Records</a>
                         </li>
@@ -70,6 +74,17 @@
                 </ul>
 
                 <div class="tab-content">
+                    @can('view-any', App\Models\Encounter::class)
+                        <div class="tab-pane" id="encounter">
+                            <div class="card mt-4">
+                                <div class="card-body">
+                                    <h4 class="card-title w-100 mb-2">Medical Records</h4>
+                                    <livewire:student-medical-records-detail :student="$student" />
+                                </div>
+                            </div>
+                        </div>
+                    @endcan
+
                     @can('view-any', App\Models\MedicalRecord::class)
                         <div class="tab-pane" id="medical-records">
                             <div class="card mt-4">

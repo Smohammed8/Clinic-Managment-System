@@ -150,8 +150,9 @@
                         </li>
                     </ul>
 
-                    <div class="md-4">
-                        <div class="box box-primary">
+                    <div class="md-4 row">
+                        {{-- vital signes start  --}}
+                        <div class="box box-primary col-4">
                             <div class="box-header with-border" data-toggle="collapse"
                                 data-target="#vital_signe_medical_record">
                                 <h4 class="box-title">Vital Signes</h4>
@@ -189,6 +190,47 @@
 
                             </div>
                         </div>
+                        {{-- vital signes end  --}}
+                        {{-- main dignosis start  --}}
+                        <div class="box box-primary col-4">
+                            <div class="box-header with-border" data-toggle="collapse"
+                                data-target="#vital_signe_medical_record">
+                                <h4 class="box-title">Main Dignosis</h4>
+                            </div>
+
+                            <div id="vital_signe_medical_record" class="collapse">
+                                <div class="box-body">
+                                    <strong> @lang('crud.student_vital_signs.inputs.date')</strong>
+                                    <p class="text-muted">
+                                        <i class="fa fa-calendar"></i>
+                                        {{ $medicalRecord->vitalSign->created_at->format('d-M y') ?? '-' }}
+                                    </p>
+                                    <hr>
+                                    <strong>
+                                        @lang('crud.student_vital_signs.inputs.temp')</strong>
+                                    <p class="text-muted">
+                                        <i class="fa fa-thermometer-empty"></i>
+                                        {{ $medicalRecord->vitalSign->temp ?? '-' }}
+                                    </p>
+                                    <hr>
+                                    <strong>@lang('crud.student_vital_signs.inputs.blood_pressure')</strong>
+                                    <p>
+                                        <span class="label label-danger">
+                                            <i class="fa fa-heartbeat"></i>
+                                            {{ $medicalRecord->vitalSign->blood_pressure ?? '-' }}
+                                        </span>
+                                    </p>
+                                    <hr>
+                                    <strong> @lang('crud.student_vital_signs.inputs.pulse_rate')</strong>
+                                    <p>
+                                        <i class="fa fa-heartbeat"></i>
+                                        {{ $medicalRecord->vitalSign->pulse_rate ?? '-' }}
+                                    </p>
+                                </div>
+
+                            </div>
+                        </div>
+                        {{-- main dignosis end  --}}
                     </div>
 
                 </div>
