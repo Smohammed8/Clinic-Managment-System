@@ -8,8 +8,24 @@
                 <div class="card-header">
                     <h3 class="card-title w-full">
                         <a href="{{ route('encounters.index') }}" class="mr-4"><i class="icon ion-md-arrow-back"></i></a>
-                        @lang('crud.encounters.show_title')
+                        Current Encounter statu
                     </h3>
+                    <div class="row ">
+                        <span class="badge badge-info">Ongoing</span>
+                        <div class="small-1 float-right d-inline-block">
+                            <form method="post" action="" class="d-inline-block">
+                                <input hidden="" name="call_next" value="true">
+                                <button class="btn btn-sm btn-outline-primary">Call Next</button>
+                            </form>
+
+                            <button class="btn btn-sm d-inline-block btn-outline-primary" data-toggle="modal"
+                                data-target="#refer">
+                                <span class="fal fa-user-plus"></span>&nbsp;Refer</button>
+                            <button id="finish" class="btn btn-sm d-inline-block btn-outline-primary">
+                                <span class="fa fa-check d-inline-block"></span>&nbsp;Close Encounter</button>
+
+                        </div>
+                    </div>
 
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
