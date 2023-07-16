@@ -50,7 +50,7 @@
             <div class="card">
 
                 <ul class="nav nav-pills">
-                    @can('view-any', App\Models\Encounters::class)
+                    @can('view-any', App\Models\Encounter::class)
                         <li class="nav-item"><a class="nav-link" href="#encounters" data-toggle="tab">Encounters</a>
                         </li>
                     @endcan
@@ -75,11 +75,11 @@
 
                 <div class="tab-content">
                     @can('view-any', App\Models\Encounter::class)
-                        <div class="tab-pane" id="encounter">
+                        <div class="tab-pane" id="encounters">
                             <div class="card mt-4">
                                 <div class="card-body">
-                                    <h4 class="card-title w-100 mb-2">Medical Records</h4>
-                                    <livewire:student-medical-records-detail :student="$student" />
+                                    <h4 class="card-title w-100 mb-2">Encounters</h4>
+                                    <livewire:student-encounters :student="$student" />
                                 </div>
                             </div>
                         </div>
