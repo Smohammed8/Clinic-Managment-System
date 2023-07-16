@@ -84,7 +84,9 @@
 
 
 
-        <div class="card">
+    
+            <div class="card card-primary card-outline">
+
 
             <div class="card-header">
        
@@ -211,7 +213,7 @@
                           
                         </div>
                 
-                       <div class="card  sborder-primary-left-5  border border-primary">
+                       <div class="card  border-warning-left-5  border border-warning">
 
                         <div class="card-header">
                           <h3 class="card-title">
