@@ -83,30 +83,68 @@
 
         </div>
 
-        @can('view-any', App\Models\Appointment::class)
-            <div class="card mt-4">
-                <div class="card-body">
-                    <h4 class="card-title w-100 mb-2">Appointments</h4>
+        <div class="card">
+            <ul class="nav nav-pills">
+                @can('view-any', App\Models\MedicalRecord::class)
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#medical-records" data-toggle="tab">Medical Records</a>
+                    </li>
+                @endcan
 
-                    <livewire:encounter-appointments-detail :encounter="$encounter" />
-                </div>
-            </div>
-            @endcan @can('view-any', App\Models\MedicalRecord::class)
-            <div class="card mt-4">
-                <div class="card-body">
-                    <h4 class="card-title w-100 mb-2">Medical Records</h4>
+                @can('view-any', App\Models\VitalSign::class)
+                    <li class="nav-item">
+                        <a class="nav-link" href="#vital-signs" data-toggle="tab">Vital Signs</a>
+                    </li>
+                @endcan
 
-                    <livewire:encounter-medical-records-detail :encounter="$encounter" />
-                </div>
-            </div>
-            @endcan @can('view-any', App\Models\MainDiagnosis::class)
-            <div class="card mt-4">
-                <div class="card-body">
-                    <h4 class="card-title w-100 mb-2">Main Diagnoses</h4>
+                @can('view-any', App\Models\MainDiagnosis::class)
+                    <li class="nav-item">
+                        <a class="nav-link" href="#main-diagnoses" data-toggle="tab">Main Diagnoses</a>
+                    </li>
+                @endcan
 
-                    <livewire:encounter-main-diagnoses-detail :encounter="$encounter" />
-                </div>
+                @can('view-any', App\Models\Appointment::class)
+                    <li class="nav-item">
+                        <a class="nav-link" href="#appointments" data-toggle="tab">Appointments</a>
+                    </li>
+                @endcan
+            </ul>
+
+            <div class="tab-content mt-4">
+                @can('view-any', App\Models\MedicalRecord::class)
+                    <div class="tab-pane fade show active" id="medical-records">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title w-100 mb-2">Medical Records</h4>
+                                <livewire:encounter-medical-records-detail :encounter="$encounter" />
+                            </div>
+                        </div>
+                    </div>
+                @endcan
+
+                @can('view-any', App\Models\MainDiagnosis::class)
+                    <div class="tab-pane fade" id="main-diagnoses">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title w-100 mb-2">Main Diagnoses</h4>
+                                <livewire:encounter-main-diagnoses-detail :encounter="$encounter" />
+                            </div>
+                        </div>
+                    </div>
+                @endcan
+
+                @can('view-any', App\Models\Appointment::class)
+                    <div class="tab-pane fade" id="appointments">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title w-100 mb-2">Appointments</h4>
+                                <livewire:encounter-appointments-detail :encounter="$encounter" />
+                            </div>
+                        </div>
+                    </div>
+                @endcan
             </div>
-        @endcan
+        </div>
+
     </div>
 @endsection
