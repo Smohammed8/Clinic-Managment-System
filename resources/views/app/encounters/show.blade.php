@@ -230,7 +230,7 @@
                                 <a class="nav-link " id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-appointment" role="tab" aria-controls="vert-tabs-home" aria-selected="true">  <i class="fa fa-caret-right nav-icon"></i><b> Appointments </b></a>
 
 
-                                <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-settings" role="tab" aria-controls="vert-tabs-settings" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Visit History </b> </a>
+                                <a class="nav-link" id="vert-tabs-history-tab" data-toggle="pill" href="#vert-tabs-history" role="tab" aria-controls="vert-tabs-history" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Visit History </b> </a>
                               </div>
                             </div>
                             <div class="col-7 col-sm-9">
@@ -281,10 +281,11 @@
                                    Tab 5 medication
                                 </div>
 
+                                
                             
-                                {{-- <div class="tab-pane fade" id="vert-tabs-settings" role="tabpanel" aria-labelledby="vert-tabs-settings-tab">
-                                   Tab 6 Presc
-                                </div> --}}
+                                <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel" aria-labelledby="vert-tabs-history-tab">
+                                   Tab 6 Visit history
+                                </div>
                               </div>
                             </div>
                           </div>
