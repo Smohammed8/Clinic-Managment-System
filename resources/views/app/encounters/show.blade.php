@@ -283,7 +283,12 @@
                                                   <h5> <b>Subjective </b></h5>
                                 
                                                   <p>
-                                                  {{ '-' }}
+                                                    Keffiyeh blog actually fashion axe vegan, irony biodiesel. 
+                                                    Cold-pressed hoodie chillwave put a bird on it aesthetic, 
+                                                    bitters brunch meggings vegan iPhone. Dreamcatcher vegan scenester 
+                                                    mlkshk. Ethical master cleanse Bushwick, occupy 
+                                                    Thundercats banjo cliche ennui farm-to-table mlkshk fanny pack gluten-free. 
+
                                                 </p>
                                                 </div>
                                                 <div class="callout callout-info">
