@@ -162,12 +162,11 @@
                 </li>
       
 
-                    <li class="nav-item has-treeview {{ Request::is('encounters*', 'appointments*', 'lab-test-requests*', 'lab-test-request-groups*', 'main-diagnoses*', 'medical-records*', 'prescriptions*', 'programs*', 'stocks*', 'students*', 'vital-signs*') ? 'menu-open' : '' }}">
-                        <a href="#"
-                            class="nav-link {{ Request::is('encounters*', 'appointments*', 'lab-test-requests*', 'lab-test-request-groups*', 'main-diagnoses*', 'medical-records*', 'prescriptions*', 'programs*', 'stocks*', 'students*', 'vital-signs*') ? 'active' : '' }}">
+                    <li class="nav-item has-treeview">
+                        <a href="#" class="nav-link">
                             <i class="fas fa-clinic-medical"></i>
                             <p>
-                                Student Clinic
+                                OPD & Recieption
                                 <i class="right fas fa-angle-left"></i>
                             </p>
                         </a>
@@ -182,22 +181,20 @@
                             </li>
                         @endcan --}}
 
-                            @can('view-any', App\Models\Encounter::class)
+                            @can('view-any', App\Models\Student::class)
                                 <li class="nav-item">
-                                    <a href="{{ route('encounters.index') }}"
-                                        class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
-                                        <i class="fad fa-watch-fitness"></i>
-                                        <p>Patient List</p>
+                                    <a href="{{ route('students.index') }}" class="nav-link">
+                                        <i class="fa fa-caret-right nav-icon"></i>
+                                        <p>Student List</p>
                                     </a>
                                 </li>
                             @endcan
 
                             @can('view-any', App\Models\Student::class)
                                 <li class="nav-item">
-                                    <a href="{{ route('students.index') }}"
-                                        class="nav-link {{ Request::is('students*') ? 'active' : '' }}">
-                                        <i class="fas fa-user-graduate"></i>
-                                        <p>Patient registration</p>
+                                    <a href="{{ route('students.index') }}" class="nav-link">
+                                        <i class="fa fa-caret-right nav-icon"></i>
+                                        <p>Patient check-in</p>
                                     </a>
                                 </li>
                             @endcan
@@ -206,14 +203,14 @@
                                 <li class="nav-item">
                                     <a href="{{ route('encounters.index') }}"
                                         class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
-                                        <i class="fad fa-watch-fitness"></i>
-                                        <p>ODP</p>
+                                        <i class="fa fa-caret-right nav-icon"></i>
+                                        <p>Encounter</p>
                                     </a>
                                 </li>
                             @endcan
 
 
-                            @can('view-any', App\Models\Appointment::class)
+                            {{-- @can('view-any', App\Models\Appointment::class)
                                 <li class="nav-item">
                                     <a href="{{ route('appointments.index') }}"
                                         class="nav-link {{ Request::is('appointments*') ? 'active' : '' }}">
@@ -221,11 +218,11 @@
                                         <p>Appointments</p>
                                     </a>
                                 </li>
-                            @endcan
+                            @endcan --}}
 
                   
 
-                            @can('view-any', App\Models\MainDiagnosis::class)
+                            {{-- @can('view-any', App\Models\MainDiagnosis::class)
                                 <li class="nav-item">
                                     <a href="{{ route('main-diagnoses.index') }}"
                                         class="nav-link {{ Request::is('main-diagnoses*') ? 'active' : '' }}">
@@ -233,9 +230,9 @@
                                         <p>Main Diagnoses</p>
                                     </a>
                                 </li>
-                            @endcan
+                            @endcan --}}
 
-                            @can('view-any', App\Models\MedicalRecord::class)
+                            {{-- @can('view-any', App\Models\MedicalRecord::class)
                                 <li class="nav-item">
                                     <a href="{{ route('medical-records.index') }}"
                                         class="nav-link {{ Request::is('medical-records*') ? 'active' : '' }}">
@@ -243,9 +240,9 @@
                                         <p>Medical Records</p>
                                     </a>
                                 </li>
-                            @endcan
+                            @endcan --}}
 
-                            @can('view-any', App\Models\Prescription::class)
+                            {{-- @can('view-any', App\Models\Prescription::class)
                                 <li class="nav-item">
                                     <a href="{{ route('prescriptions.index') }}"
                                         class="nav-link {{ Request::is('prescriptions*') ? 'active' : '' }}">
@@ -253,14 +250,14 @@
                                         <p>Prescriptions</p>
                                     </a>
                                 </li>
-                            @endcan
+                            @endcan --}}
 
                             @can('view-any', App\Models\Stock::class)
                                 <li class="nav-item">
                                     <a href="{{ route('stocks.index') }}"
                                         class="nav-link {{ Request::is('stocks*') ? 'active' : '' }}">
-                                        <i class="fas fa-boxes"></i>
-                                        <p>Stocks</p>
+                                        <i class="fa fa-caret-right nav-icon"></i>
+                                        <p> Stocks</p>
                                     </a>
                                 </li>
                             @endcan
@@ -275,15 +272,6 @@
                             </li>
                         @endcan --}}
 
-                            @can('view-any', App\Models\VitalSign::class)
-                                <li class="nav-item">
-                                    <a href="{{ route('vital-signs.index') }}"
-                                        class="nav-link {{ Request::is('vital-signs*') ? 'active' : '' }}">
-                                        <i class="fad fa-heart-pulse"></i>
-                                        <p>Vital Signs</p>
-                                    </a>
-                                </li>
-                            @endcan
                         </ul>
                     </li>
 
@@ -291,7 +279,7 @@
                         class="nav-item has-treeview {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*', 'collages*', 'diagnoses*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'menu-open' : '' }}">
                         <a href="#"
                             class="nav-link {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*', 'collages*', 'diagnoses*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'active' : '' }}">
-                            <i class="fas fa-clinic-medical"></i>
+                            <i class="fas fa-wrench"></i>
                             <p>
                                 Setting
                                 <i class="right fas fa-angle-left"></i>

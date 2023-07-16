@@ -208,31 +208,61 @@
 
 
 
-                    <div class="card card-primary card-outline">
-          
+{{-- 
+                        <style>
+                         a {
+                      background-color: gray;
+                         }
+                        </style> --}}
+
+      
+
+<div class="card card-primary card-outline">
+
                         <div class="card-header">
                           <h3 class="card-title">
                             <i class="fas fa-list"></i>
-                            Patient Information
+                           <b> Patient Information </b>
                           </h3>
                         </div>
-                        <div class="card-body">
+               
+                            <div class="card-body">
                         
                           <div class="row">
+
+                         
+                                
+                               
+
                             <div class="col-5 col-sm-3">
+
                               <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
-                               
+                            
+                          <ul class="nav nav-pills flex-column">  
+                            <li class="nav-item">
                                 <a class="nav-link active" id="vert-tabs-profile-tab" data-toggle="pill" href="#vert-tabs-profile" role="tab" aria-controls="vert-tabs-profile" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Clinical Note </b></a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" id="vert-tabs-sign-tab" data-toggle="pill" href="#vert-tabs-sign" role="tab" aria-controls="vert-tabs-sign" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Vital Sign</b> </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill" href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Main Diagnoses </b></a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-diagnosis" role="tab" aria-controls="vert-tabs-diagnosis" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Invistigation </b> </a>
-                               
-                                <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-medication" role="tab" aria-controls="vert-tabs-medication" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Medication </b> </a>
-                                <a class="nav-link " id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-appointment" role="tab" aria-controls="vert-tabs-home" aria-selected="true">  <i class="fa fa-caret-right nav-icon"></i><b> Appointments </b></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill" href="#vert-tabs-medication" role="tab" aria-controls="vert-tabs-medication" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Prescription </b> </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link " id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-appointment" role="tab" aria-controls="vert-tabs-home" aria-selected="true">  <i class="fa fa-caret-right nav-icon"></i><b> Appointments </b>  <span class="badge bg-primary float-right">12</span></a>
 
-
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" id="vert-tabs-history-tab" data-toggle="pill" href="#vert-tabs-history" role="tab" aria-controls="vert-tabs-history" aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Visit History </b> </a>
-                              </div>
+                            </li>
+                        </ul>
+                            </div>
                             </div>
                             <div class="col-7 col-sm-9">
                               <div class="tab-content" id="vert-tabs-tabContent">
@@ -275,18 +305,53 @@
                                 </div>
 
                                 <div class="tab-pane fade" id="vert-tabs-diagnosis" role="tabpanel" aria-labelledby="vert-tabs-diagnosis-tab">
-                                    Tab 4 diagnosis
+                                 
+                                    @can('view-any', App\Models\LabTestRequestGroup::class)
+                                    <div class="card mt-4">
+                                        <div class="card-body">
+                                            <h4 class="card-title w-100 mb-2"> Lab Test Requests </h4>
+                                
+
+                                            <livewire:encounter-lab-test-request-groups-detail :encounter="$encounter"/>
+
+                                        </div>
+                                    </div>
+                                    @endcan
+
                                 </div>
 
                                 <div class="tab-pane fade" id="vert-tabs-medication" role="tabpanel" aria-labelledby="vert-tabs-medication-tab">
-                                   Tab 5 medication
+                                   Tab 5 Prescription
+
+                                   {{-- @can('view-any', App\Models\Prescription::class)
+                                   <div class="card mt-4">
+                                       <div class="card-body">
+                                           <h4 class="card-title w-100 mb-2"> Prescriptions </h4>
+                             
+
+                                           <livewire:main-diagnosis-prescriptions-detail :main-diagnosis="$mainDiagnosis"/>
+                                     
+                                        </div>
+                                   </div>
+                                   @endcan --}}
+
+
                                 </div>
                                 <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel" aria-labelledby="vert-tabs-history-tab">
                                    Tab 6 Visit history
                                 </div>
 
                                 <div class="tab-pane fade" id="vert-tabs-sign" role="tabpanel" aria-labelledby="vert-tabs-sign-tab">
-                                    Tab 6 Vital sign
+                                   
+                                    @can('view-any', App\Models\VitalSign::class)
+                                    <div class="card mt-4">
+                                        <div class="card-body">
+                                            <h4 class="card-title w-100 mb-2">Vital Sign</h4>
+                                            <livewire:encounter-vital-signs-detail :encounter="$encounter"/>
+                                        </div>
+                                    </div>
+                                @endcan
+
                                  </div>
 
                              
@@ -302,25 +367,6 @@
 
 
 
-                <div class="mt-4">
-                
-
-                    <a href="{{ route('lab-test-request-groups.index') }}" class="btn btn-sm btn-outline-primary float-right mx-1">
-                        <i class="icon fa fa-user"></i>
-                        Call now
-                    </a>
-                    <a href="{{ route('lab-test-request-groups.index') }}" class="btn btn-sm btn-outline-primary float-right mx-1">
-                        <i class="icon ion-md-return-left"></i>
-                        @lang('crud.common.back')
-                    </a>
-
-
-                    {{-- @can('create', App\Models\LabTestRequestGroup::class)
-                        <a href="{{ route('lab-test-request-groups.create') }}" class="btn btn-sm btn-outline-primary float-right mx-1">
-                            <i class="icon ion-md-add"></i> @lang('crud.common.create')
-                        </a>
-                    @endcan --}}
-                </div>
             </div>
         </div>
 

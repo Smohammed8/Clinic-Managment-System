@@ -9,8 +9,9 @@
         </script>
     </div>
     <x-inputs.group class="col-sm-12">
-        <x-inputs.textarea name="subjective" label="Subjective" maxlength="255">
-            {{ old('subjective', $editing ? $medicalRecord->subjective : '') }}</x-inputs.textarea>
+        <x-inputs.textarea id="compose-textarea" name="subjective" label="Subjective" maxlength="255">
+            {{ old('subjective', $editing ? $medicalRecord->subjective : '') }}
+        </x-inputs.textarea>
     </x-inputs.group>
 
     <x-inputs.group class="col-sm-12">

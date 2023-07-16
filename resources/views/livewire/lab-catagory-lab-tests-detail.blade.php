@@ -8,7 +8,7 @@
             @endcan @can('delete-any', App\Models\LabTest::class)
             <button class="btn btn-danger" {{ empty($selected) ? 'disabled' : '' }}
                 onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="destroySelected">
-                <i class="icon ion-md-trash"></i> Delete
+                <i class="icon ion-md-trash"></i> 
                 @lang('crud.common.delete_selected')
             </button>
         @endcan

@@ -18,6 +18,7 @@ class Prescription extends Model
         'duration',
         'other_info',
         'main_diagnosis_id',
+       // 'encounter_id',
     ];
 
     protected $searchableFields = ['*'];
@@ -26,4 +27,5 @@ class Prescription extends Model
     {
         return $this->belongsTo(MainDiagnosis::class);
     }
+
 }
