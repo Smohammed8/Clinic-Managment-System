@@ -3,52 +3,64 @@
 @section('content')
     <div class="">
         <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">
-                    <a href="{{ route('encounters.index') }}" class="mr-4"><i class="icon ion-md-arrow-back"></i></a>
-                    @lang('crud.encounters.show_title')
-                </h4>
 
-                <div class="mt-4">
-                    <div class="mb-4">
-                        <h5>@lang('crud.encounters.inputs.check_in_time')</h5>
-                        <span>{{ $encounter->check_in_time ?? '-' }}</span>
-                    </div>
-                    <div class="mb-4">
-                        <h5>@lang('crud.encounters.inputs.status')</h5>
-                        <span>{{ $encounter->status ?? '-' }}</span>
-                    </div>
-                    <div class="mb-4">
-                        <h5>@lang('crud.encounters.inputs.student_id')</h5>
-                        <span>{{ $encounter->student->id_number ?? '-' }}</span>
-                    </div>
-                    <div class="mb-4">
-                        <h5>@lang('crud.encounters.inputs.closed_at')</h5>
-                        <span>{{ $encounter->closed_at ?? '-' }}</span>
-                    </div>
-                    <div class="mb-4">
-                        <h5>@lang('crud.encounters.inputs.priority')</h5>
-                        <span>{{ $encounter->priority ?? '-' }}</span>
-                    </div>
-                    <div class="mb-4">
-                        <h5>@lang('crud.encounters.inputs.clinic_id')</h5>
-                        <span>{{ optional($encounter->clinic)->name ?? '-' }}</span>
+            <div class="card collapsed-card p-3">
+                <div class="card-header">
+                    <h3 class="card-title w-full">
+                        <a href="{{ route('encounters.index') }}" class="mr-4"><i class="icon ion-md-arrow-back"></i></a>
+                        @lang('crud.encounters.show_title')
+                    </h3>
+
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-plus"></i>
+                        </button>
                     </div>
                 </div>
+                <div class="card-body p-0" style="display: none;">
+                    <div class="mt-4">
+                        <div class="mb-4">
+                            <h5>@lang('crud.encounters.inputs.check_in_time')</h5>
+                            <span>{{ $encounter->check_in_time ?? '-' }}</span>
+                        </div>
+                        <div class="mb-4">
+                            <h5>@lang('crud.encounters.inputs.status')</h5>
+                            <span>{{ $encounter->status ?? '-' }}</span>
+                        </div>
+                        <div class="mb-4">
+                            <h5>@lang('crud.encounters.inputs.student_id')</h5>
+                            <span>{{ $encounter->student->id_number ?? '-' }}</span>
+                        </div>
+                        <div class="mb-4">
+                            <h5>@lang('crud.encounters.inputs.closed_at')</h5>
+                            <span>{{ $encounter->closed_at ?? '-' }}</span>
+                        </div>
+                        <div class="mb-4">
+                            <h5>@lang('crud.encounters.inputs.priority')</h5>
+                            <span>{{ $encounter->priority ?? '-' }}</span>
+                        </div>
+                        <div class="mb-4">
+                            <h5>@lang('crud.encounters.inputs.clinic_id')</h5>
+                            <span>{{ optional($encounter->clinic)->name ?? '-' }}</span>
+                        </div>
+                    </div>
 
-                <div class="mt-4">
-                    <a href="{{ route('encounters.index') }}" class="btn btn-light">
-                        <i class="icon ion-md-return-left"></i>
-                        @lang('crud.common.back')
-                    </a>
-
-                    @can('create', App\Models\Encounter::class)
-                        <a href="{{ route('encounters.create') }}" class="btn btn-light">
-                            <i class="icon ion-md-add"></i> @lang('crud.common.create')
+                    <div class="mt-4">
+                        <a href="{{ route('encounters.index') }}" class="btn btn-light">
+                            <i class="icon ion-md-return-left"></i>
+                            @lang('crud.common.back')
                         </a>
-                    @endcan
+
+                        @can('create', App\Models\Encounter::class)
+                            <a href="{{ route('encounters.create') }}" class="btn btn-light">
+                                <i class="icon ion-md-add"></i> @lang('crud.common.create')
+                            </a>
+                        @endcan
+                    </div>
                 </div>
+
             </div>
+
         </div>
 
         @can('view-any', App\Models\Appointment::class)
