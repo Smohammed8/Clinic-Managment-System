@@ -10,20 +10,24 @@
                         <a href="{{ route('encounters.index') }}" class="mr-4"><i class="icon ion-md-arrow-back"></i></a>
                         Current Encounter statu
                     </h3>
-                    <div class="row ">
-                        <span class="badge badge-info">Ongoing</span>
-                        <div class="small-1 float-right d-inline-block">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <span class="badge badge-info">Ongoing</span>
+                        </div>
+                        <div class="col-12 col-md-6 text-md-right">
                             <form method="post" action="" class="d-inline-block">
                                 <input hidden="" name="call_next" value="true">
                                 <button class="btn btn-sm btn-outline-primary">Call Next</button>
                             </form>
-
-                            <button class="btn btn-sm d-inline-block btn-outline-primary" data-toggle="modal"
-                                data-target="#refer">
-                                <span class="fal fa-user-plus"></span>&nbsp;Refer</button>
-                            <button id="finish" class="btn btn-sm d-inline-block btn-outline-primary">
-                                <span class="fa fa-check d-inline-block"></span>&nbsp;Close Encounter</button>
-
+                            <button class="btn btn-sm btn-outline-primary ml-md-2" data-toggle="modal" data-target="#refer">
+                                <span class="fal fa-user-plus"></span>&nbsp;Refer
+                            </button>
+                            <button id="finish" class="btn btn-sm btn-outline-primary ml-md-2">
+                                <span class="fa fa-check"></span>&nbsp;Close Encounter
+                            </button>
+                            {{-- <button type="button" class="btn btn-tool card-tools" data-card-widget="collapse">
+                                <i class="fas fa-plus"></i>
+                            </button> --}}
                         </div>
                     </div>
 
