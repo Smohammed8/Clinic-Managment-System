@@ -1,6 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
+ <!-- Bootstrap4 Duallistbox -->
+ <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+
     <div class="">
         {{-- <div class="card">
 
@@ -196,28 +199,19 @@
                             </div>
 
 
+                            <div class="input-group mb-3 col-md-4">
+                                <i class="fa fa-caret-right"> </i>&nbsp;
+                                <span title=""> Receiptionist </span>
+
+                                <span>&nbsp;&nbsp;&nbsp;&nbsp; -  </span>
+                
+                            </div>
+
+
                           
                         </div>
-                    
-            
-                  
-              
- 
-
-
-
-
-
-{{-- 
-                        <style>
-                         a {
-                      background-color: gray;
-                         }
-                        </style> --}}
-
-      
-
-<div class="card card-primary card-outline">
+                
+                       <div class="card  sborder-primary-left-5  border border-primary">
 
                         <div class="card-header">
                           <h3 class="card-title">
@@ -229,10 +223,6 @@
                             <div class="card-body">
                         
                           <div class="row">
-
-                         
-                                
-                               
 
                             <div class="col-5 col-sm-3">
 
@@ -276,6 +266,49 @@
                                         </div>
                                     </div>
                                     @endcan
+
+
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                          <div class="card card-default">
+                                            <div class="card-header">
+                                              <h3 class="card-title">
+                                                <i class="fas fa-book"></i>
+                                                Clinical Note
+                                              </h3>
+                                            </div>
+                                            <!-- /.card-header -->
+                                            <div class="card-body">
+                                                <div class="callout callout-danger">
+                                                  <h5> <b>Subjective </b></h5>
+                                
+                                                  <p>
+                                                  {{ '-' }}
+                                                </p>
+                                                </div>
+                                                <div class="callout callout-info">
+                                                  <h5><b> Objective</b></h5>
+                                
+                                                  <p> {{ '-' }}</p>
+                                                </div>
+                                                <div class="callout callout-warning">
+                                                  <h5><b> Assessment </b></h5>
+                                
+                                                  <p>{{ '-' }}</p>
+                                                </div>
+                                                <div class="callout callout-success">
+                                                  <h5> <b>Plan </b></h5>
+                                
+                                                  <p> {{'-' }}</p>
+                                                </div>
+                                              </div>
+                                            <!-- /.card-body -->
+                                          </div>
+                                          <!-- /.card -->
+                                        </div>
+                                        <!-- /.col -->
+
+                                    </div>
                                 </div>
 
                                 <div class="tab-pane fade" id="vert-tabs-appointment" role="tabpanel" aria-labelledby="vert-tabs-appointment-tab">
@@ -317,6 +350,53 @@
                                         </div>
                                     </div>
                                     @endcan
+
+
+
+                                    <div class="card card-default">
+                                        <div class="card-header">
+                                          <h3 class="card-title"> Lab Request lists</h3>
+                              
+                                          <div class="card-tools">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                              <i class="fas fa-minus"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                              <i class="fas fa-times"></i>
+                                            </button>
+                                          </div>
+                                        </div>
+                                        <!-- /.card-header -->
+                                        <div class="card-body">
+                                          <div class="row">
+                                            <div class="col-12">
+                                              <div class="form-group">
+                                            
+                                                <select class="duallistbox" multiple="multiple">
+                                                  <option selected>CBC</option>
+                                                  <option>AFT</option>
+                                                  <option>Fluid Analysis</option>
+                                                  <option> Urine Analysis</option>
+                                                  <option> WBC</option>
+                                                  <option> Stool Exam </option>
+                                               
+                                                </select>
+                                              </div>
+                                              <!-- /.form-group -->
+                                            </div>
+                                            <!-- /.col -->
+                                          </div>
+                                          <!-- /.row -->
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+                                            <div class="card-footer">
+                                                <button type="submit" class="btn btn-primary float-right">Send</button>
+                                              </div>
+                                        </div>
+                                      </div>
+                                      <!-- /.card -->
+
 
                                 </div>
 
@@ -373,4 +453,14 @@
 
 
     </div>
+
+<!-- Bootstrap4 Duallistbox -->
+<script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+
+    <script>
+
+           //Bootstrap Duallistbox
+    $('.duallistbox').bootstrapDualListbox()
+
+    </script>
 @endsection
