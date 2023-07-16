@@ -75,4 +75,9 @@ class Encounter extends Model
     {
         return $this->hasMany(MainDiagnosis::class);
     }
+
+    public function prescriptions()
+    {
+        return $this->hasMany(Prescription::class);
+    }
 }

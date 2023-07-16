@@ -26,4 +26,8 @@ class Prescription extends Model
     {
         return $this->belongsTo(MainDiagnosis::class);
     }
+    public function encounter()
+    {
+        return $this->belongsTo(Encounter::class, 'encounter_id');
+    }
 }

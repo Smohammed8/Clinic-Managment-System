@@ -108,6 +108,13 @@
                         <a class="nav-link" href="#appointments" data-toggle="tab">Appointments</a>
                     </li>
                 @endcan
+
+                <!-- Add Prescriptions tab -->
+                @can('view-any', App\Models\Prescription::class)
+                    <li class="nav-item">
+                        <a class="nav-link" href="#prescriptions" data-toggle="tab">Prescriptions</a>
+                    </li>
+                @endcan
             </ul>
 
             <div class="tab-content mt-4">
@@ -154,6 +161,18 @@
                         </div>
                     </div>
                 @endcan
+
+                <!-- Add Prescriptions tab content -->
+                {{-- @can('view-any', App\Models\Prescription::class)
+                    <div class="tab-pane fade" id="prescriptions">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title w-100 mb-2">Prescriptions</h4>
+                                <livewire:encounter-prescriptions-detail :encounter="$encounter" />
+                            </div>
+                        </div>
+                    </div>
+                @endcan --}}
             </div>
         </div>
 
