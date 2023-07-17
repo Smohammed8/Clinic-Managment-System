@@ -100,13 +100,16 @@
                                 <button type="submit" class="btn btn-sm btn-outline-primary">Call Next</button>
                             </form>
 
-                            <button class="btn btn-sm d-inline-block btn-outline-primary" data-toggle="modal"
-                                data-target="#refer">
-                                <i class="fa fa-book"> </i>&nbsp;Refer</button>
-
-                            <button id="finish" class="btn btn-sm d-inline-block btn-outline-primary">
-                                <span class="fa fa-check d-inline-block"></span>&nbsp;Close Encounter</button>
-
+                            <button type="button" class="btn btn-sm d-inline-block btn-outline-primary" data-toggle="modal"
+                                data-target="#referModal">
+                                <i class="fa fa-book"> </i>&nbsp;Refer
+                            </button>
+                            <form action="{{ route('encounters.closeEencounter', ['encounter' => $encounter]) }}"
+                                method="POST" class="d-inline-block">
+                                @csrf
+                                <input type="hidden" name="status" value="{{ $encounter->status }}">
+                                <button type="submit" class="btn btn-sm btn-outline-primary">Close Encounter</button>
+                            </form>
                             <a href="{{ route('encounters.index') }}" class="btn btn-sm d-inline-block btn-outline-primary">
                                 <i class="icon ion-md-arrow-back"></i>
                                 Back</a>
@@ -117,6 +120,69 @@
                 </div>
 
             </div>
+
+            <!-- Referral Modal Start-->
+            <div class="modal fade" id="referModal" tabindex="-1" role="dialog" aria-labelledby="referModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="referModalLabel">Select a Doctor</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                @foreach ($doctors as $doctor)
+                                    {{-- <li class="list-group-item">
+                                        <input type="radio" name="doctor_id" value="{{ $doctor->id }}" />
+                                        {{ $doctor->name }}
+                                    </li> --}}
+                                    <select id="doctorSelect" class="form-control" style="width: 100%;">
+                                        @foreach ($doctors as $doctor)
+                                            <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+                                        @endforeach
+                                    </select>
+                                @endforeach
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="assignDoctor()">Assign Doctor</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {{-- <script>
+                $(document).ready(function() {
+                    $('#doctorSelect').select2();
+                });
+
+                function assignDoctor() {
+                    var selectedDoctorId = $('#doctorSelect').val();
+
+                    // Send an AJAX request to update the encounter with the selected doctor ID
+                    $.ajax({
+                        url: '{{ route('encounters.refer', $encounter) }}',
+                        type: 'POST',
+                        data: {
+                            doctor_id: selectedDoctorId,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function(response) {
+                            // Handle success response, e.g., show a success message
+                            console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle error response, e.g., show an error message
+                            console.log(error);
+                        }
+                    });
+                }
+            </script> --}}
+            <!-- Referral Modal End-->
 
             <div class="card-body">
                 {{-- <h4 class="card-title">
@@ -231,8 +297,9 @@
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill"
-                                                href="#vert-tabs-messages" role="tab" aria-controls="vert-tabs-messages"
-                                                aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Main
+                                                href="#vert-tabs-messages" role="tab"
+                                                aria-controls="vert-tabs-messages" aria-selected="false"> <i
+                                                    class="fa fa-caret-right nav-icon"></i><b> Main
                                                     Diagnoses </b></a>
                                         </li>
                                         <li class="nav-item">
