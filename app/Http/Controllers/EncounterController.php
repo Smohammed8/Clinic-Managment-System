@@ -73,25 +73,32 @@ class EncounterController extends Controller
     public function callNext(Request $request, Encounter $encounter)
     {
         $this->authorize('view', $encounter);
+        //dd($encounter->status);
 
         // Get the current encounter's status from the form input
-        $currentStatus = $request->input('status');
+        $currentStatus = $encounter;
+        // Update the current encounter's status to 1
+        $encounter->status = 1;
+        $encounter->save();
 
         // Find the next encounter with the same status and ID greater than the current encounter
-        $nextEncounter = Encounter::where('status', $currentStatus)
+        $nextEncounter = Encounter::where('status', 2)
             ->where('id', '>', $encounter->id)
             ->first();
+        $encounter = $nextEncounter;
 
         // Redirect to the next encounter's show page with the updated ID in the URL
-        dd($nextEncounter);
+        //dd($nextEncounter);
         if ($nextEncounter) {
             $nextEncounterId = $nextEncounter->id;
             $nextEncounterUrl = route('encounters.show', ['encounter' => $nextEncounterId]);
 
+            //return redirect($nextEncounterUrl)->with(compact('encounter'));
             return redirect($nextEncounterUrl);
         } else {
             // Redirect to a different route or display an appropriate message
-            return redirect()->route('some.other.route');
+            $currentStatus = $encounter;
+            return view('app.encounters.show', compact('encounter'));
         }
     }
 

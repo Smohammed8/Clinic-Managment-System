@@ -116,6 +116,6 @@ Route::prefix('/')
         Route::resource('vital-signs', VitalSignController::class);
 
 
-        Route::post('/encounters/{encounter}/call-next', [EncounterController::class, 'callNext'])->name('encounters.callNext');
+        Route::post('/encounters/{encounter}', [EncounterController::class, 'callNext'])->name('encounters.callNext');
         // Route::post('/encounters/{encounter}/call-next', 'EncounterController@callNext')->name('encounters.callNext');
     });

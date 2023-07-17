@@ -15,6 +15,7 @@
                             <span class="badge badge-info">Ongoing</span>
                         </div>
                         <div class="col-12 col-md-6 text-md-right">
+                            {{-- {{ dd($encounter->id) }} --}}
                             <form action="{{ route('encounters.callNext', ['encounter' => $encounter]) }}" method="POST"
                                 class="d-inline-block">
                                 @csrf
