@@ -90,11 +90,19 @@
                                                     </button>
                                                 </a>
                                                 @endcan @can('delete', $encounter)
-                                                <form action="{{ route('encounters.destroy', $encounter) }}" method="POST"
-                                                    onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                {{-- <form id="deletebtnid"
+                                                    data-route="{{ route('encounters.destroy', $encounter) }}" method="POST">
                                                     @csrf @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
                                                         <i class="icon ion-md-trash"></i> Delete
+                                                    </button>
+                                                </form> --}}
+
+                                                <form data-route="{{ route('encounters.destroy', $encounter) }}" method="POST"
+                                                    id="deletebtnid">
+                                                    @csrf @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                        <i class="fa fa-trash"></i>Delete
                                                     </button>
                                                 </form>
                                             @endcan
@@ -118,5 +126,12 @@
                 </div>
             </div>
         </div>
+        {{-- <script>
+            swal(
+                'The Internet?',
+                'That thing is still around?',
+                'question'
+            )
+        </script> --}}
     </div>
 @endsection

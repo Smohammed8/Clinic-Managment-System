@@ -139,13 +139,13 @@ class EncounterController extends Controller
     public function destroy(
         Request $request,
         Encounter $encounter
-    ): RedirectResponse {
+    ) {
         $this->authorize('delete', $encounter);
 
         $encounter->delete();
 
-        return redirect()
-            ->route('encounters.index')
-            ->withSuccess(__('crud.common.removed'));
+        // return redirect()
+        //     ->route('encounters.index')
+        //     ->withSuccess(__('crud.common.removed'));
     }
 }
