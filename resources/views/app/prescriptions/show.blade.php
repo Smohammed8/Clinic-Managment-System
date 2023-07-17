@@ -3,9 +3,9 @@
 @section('content')
     <div class="container prescription-paper">
         <div class="row prescription-header">
-            <div class="col-2">
+            {{-- <div class="col-2">
                 <img src="{{ asset('your-logo.png') }}" alt="Logo" class="logo-img">
-            </div>
+            </div> --}}
             <div class="col-10">
                 <h4 class="prescription-title">Medical Prescription</h4>
             </div>
@@ -28,53 +28,43 @@
                 <div class="prescription-details">
                     <div class="mb-4">
                         <span class="prescription-label">Doctor Name:</span>
-                        <span class="prescription-value">{{ $prescription->doctor_name ?? '-' }}</span>
+                        <span class="prescription-value">{{ $doctor->name ?? '-' }}</span>
                     </div>
                     <div class="mb-4">
                         <span class="prescription-label">Doctor Specialization:</span>
-                        <span class="prescription-value">{{ $prescription->doctor_specialization ?? '-' }}</span>
+                        <span class="prescription-value">{{ $doctor->specialization ?? '-' }}</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="row prescription-medicines">
+        <div class="row prescription-details">
             <div class="col-12">
-                <h5 class="prescription-subtitle">Prescribed Medicines:</h5>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Drug Name</th>
-                            <th>Dose</th>
-                            <th>Frequency</th>
-                            <th>Duration</th>
-                            <th>Instructions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($prescription->medicines as $medicine)
-                            <tr>
-                                <td>{{ $medicine->drug_name }}</td>
-                                <td>{{ $medicine->dose }}</td>
-                                <td>{{ $medicine->frequency }}</td>
-                                <td>{{ $medicine->duration }}</td>
-                                <td>{{ $medicine->instructions }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="row prescription-doctor-info">
-            <div class="col-12">
-                <p class="prescription-label">Doctor's Information:</p>
-                <ul class="prescription-doctor-details">
-                    <li><strong>Doctor Name:</strong> {{ $prescription->doctor_name ?? '-' }}</li>
-                    <li><strong>Doctor Specialization:</strong> {{ $prescription->doctor_specialization ?? '-' }}</li>
-                    <li><strong>Date:</strong> {{ $prescription->date ?? '-' }}</li>
-                    <!-- Add more necessary details here -->
-                </ul>
+                <h5 class="prescription-subtitle">Prescription Details:</h5>
+                <div class="mb-4">
+                    <span class="prescription-label">Drug Name:</span>
+                    <span class="prescription-value">{{ $prescription->drug_name ?? '-' }}</span>
+                </div>
+                <div class="mb-4">
+                    <span class="prescription-label">Dose:</span>
+                    <span class="prescription-value">{{ $prescription->dose ?? '-' }}</span>
+                </div>
+                <div class="mb-4">
+                    <span class="prescription-label">Frequency:</span>
+                    <span class="prescription-value">{{ $prescription->frequency ?? '-' }}</span>
+                </div>
+                <div class="mb-4">
+                    <span class="prescription-label">Duration:</span>
+                    <span class="prescription-value">{{ $prescription->duration ?? '-' }}</span>
+                </div>
+                <div class="mb-4">
+                    <span class="prescription-label">Other Info:</span>
+                    <span class="prescription-value">{{ $prescription->other_info ?? '-' }}</span>
+                </div>
+                <div class="mb-4">
+                    <span class="prescription-label">Main Diagnosis ID:</span>
+                    <span class="prescription-value">{{ optional($prescription->mainDiagnosis)->id ?? '-' }}</span>
+                </div>
             </div>
         </div>
 

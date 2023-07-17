@@ -15,10 +15,13 @@
                             <span class="badge badge-info">Ongoing</span>
                         </div>
                         <div class="col-12 col-md-6 text-md-right">
-                            <form method="post" action="" class="d-inline-block">
-                                <input hidden="" name="call_next" value="true">
-                                <button class="btn btn-sm btn-outline-primary">Call Next</button>
+                            <form action="{{ route('encounters.callNext', ['encounter' => $encounter]) }}" method="POST"
+                                class="d-inline-block">
+                                @csrf
+                                <input type="hidden" name="status" value="{{ $encounter->status }}">
+                                <button type="submit" class="btn btn-sm btn-outline-primary">Call Next</button>
                             </form>
+
                             <button class="btn btn-sm btn-outline-primary ml-md-2" data-toggle="modal" data-target="#refer">
                                 <span class="fal fa-user-plus"></span>&nbsp;Refer
                             </button>
