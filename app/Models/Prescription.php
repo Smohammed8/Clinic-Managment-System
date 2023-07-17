@@ -18,6 +18,7 @@ class Prescription extends Model
         'duration',
         'other_info',
         'main_diagnosis_id',
+        'encounter_id',
     ];
 
     protected $searchableFields = ['*'];

@@ -18,7 +18,6 @@
                 </div>
              
             </div>
-
         <div class="card">
             <div class="card-body">
                 {{-- <h4 class="card-title">
@@ -28,11 +27,7 @@
                 </h4> --}}
 
                         <div class="row m-2">
-                
-                       
-                   
-                        
-
+            
                             <div class="input-group mb-3 col-md-4">
                                 <i class="fa fa-caret-right"> </i>&nbsp;
                                 <span title=""> Patient Name: &nbsp; </span>
