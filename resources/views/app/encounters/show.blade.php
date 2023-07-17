@@ -1,6 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
+
+<!-- common libraries -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://www.virtuosoft.eu/code/bootstrap-duallistbox/bootstrap-duallistbox/v3.0.2/bootstrap-duallistbox.css">
+
+<style>
+.moveall,
+.removeall {
+  border: 1px solid #ccc !important;
+  
+  &:hover {
+    background: #efefef;
+  }
+}
+.moveall::after {
+  content: attr(title);
+  
+}
+
+.removeall::after {
+  content: attr(title);
+}
+.form-control option {
+    padding: 10px;
+    border-bottom: 1px solid #efefef;
+}
+</style>
  <!-- Bootstrap4 Duallistbox -->
  <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
 
@@ -362,54 +389,53 @@
                                     </div>
                                     @endcan
 
-
-
-                                    <div class="card card-default">
-                                        <div class="card-header">
-                                          <h3 class="card-title"> Lab Request lists</h3>
-                              
-                                          <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                              <i class="fas fa-minus"></i>
-                                            </button>
-                                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                              <i class="fas fa-times"></i>
-                                            </button>
-                                          </div>
-                                        </div>
-                                        <!-- /.card-header -->
-                                        <div class="card-body">
-                                          <div class="row">
-                                            <div class="col-12">
-                                              <div class="form-group">
-                                            
-                                                <select class="duallistbox" multiple="multiple">
-                                                  <option selected>CBC</option>
-                                                  <option>AFT</option>
-                                                  <option>Fluid Analysis</option>
-                                                  <option> Urine Analysis</option>
-                                                  <option> WBC</option>
-                                                  <option> Stool Exam </option>
-                                               
-                                                </select>
-                                              </div>
-                                              <!-- /.form-group -->
-                                            </div>
-                                            <!-- /.col -->
-                                          </div>
-                                          <!-- /.row -->
-                                        </div>
-                                        <!-- /.card-body -->
-                                        <div class="card-footer">
-                                            <div class="card-footer">
-                                                <button type="submit" class="btn btn-primary float-right">Send</button>
-                                              </div>
-                                        </div>
-                                      </div>
-                                      <!-- /.card -->
-
-
+                        <style>
+                    select.form-control[multiple], select.form-control[size] {
+                    height: 400px !important;
+                    }
+                        </style>
+                    <!-- Demo -->
+                    <div class="card">
+                    <form id="demoform" method="POST" name="lab" action="{{ route('labTest.insert') }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="encounter" value="{{ $encounter->id }}">
+                        
+                        <div class="card-body">
+                        <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                        
+                        <select multiple="multiple"  size="72" max-height="500px" overflow-y="auto"  name="duallistbox_demo1[]" title="duallistbox_demo1[]">
+                        @foreach($labCategories as $labCategory)
+                        <optgroup id="label" label="{{ $labCategory->lab_name }}">
+                            @foreach($labCategory->labTests as $lab)
+                            <option value="{{ $lab->id }}"> {{ $lab->labCatagory->lab_name }}-{{ $lab->test_name }}</option>
+                            @endforeach
+                        </optgroup>
+                        @endforeach
+                    
+                    
+                    {{-- @forelse($labTests  as $key =>  $labTest)
+                        <option value="{{ $labTest->id }} "> {{ $labTest->test_name }} [{{ $labTest->labCatagory->lab_name }} </option>
+                        @empty
+                        @endforelse --}}
+                    
+                        </select>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6 offset-md-6">
+                                <button type="submit" class="btn btn-primary w-100">Send lab request</button>
                                 </div>
+                            </div>
+                        
+                    
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    </form>
+                    </div>
+                    </div>
 
                                 <div class="tab-pane fade" id="vert-tabs-medication" role="tabpanel" aria-labelledby="vert-tabs-medication-tab">
                                    Tab 5 Prescription
@@ -430,6 +456,9 @@
                                 </div>
                                 <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel" aria-labelledby="vert-tabs-history-tab">
                                    Tab 6 Visit history
+
+
+                                
                                 </div>
 
                                 <div class="tab-pane fade" id="vert-tabs-sign" role="tabpanel" aria-labelledby="vert-tabs-sign-tab">
@@ -466,12 +495,56 @@
     </div>
 
 <!-- Bootstrap4 Duallistbox -->
-<script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+{{-- <script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script> --}}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!-- plugin -->
+<script src="https://www.virtuosoft.eu/code/bootstrap-duallistbox/bootstrap-duallistbox/v3.0.2/jquery.bootstrap-duallistbox.js"></script>
 
-    <script>
+    {{-- <script>
 
            //Bootstrap Duallistbox
     $('.duallistbox').bootstrapDualListbox()
 
-    </script>
+    </script> --}}
+
+    <script>
+        var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({
+          nonSelectedListLabel: 'Available labs',
+          selectedListLabel: 'Selected labs',
+          preserveSelectionOnMove: 'moved',
+          moveAllLabel: '>>',
+          removeAllLabel: '<<'
+
+        });
+
+//  function insertData() {
+//   var selectedLabs = [];
+//   var $this = $(this);
+//   $this.find('option:selected').each(function() {
+//     selectedLabs.push($(this).val());
+//   });
+
+//   // Insert the selected labs into the database.
+// }
+        $("#demoform").submit(function() {
+  
+          alert('Are you sure to send all selected labs?\n' + $('[name="duallistbox_demo1[]"]').val());
+        //   $("#demoform").submit(insertData);
+          return true
+
+  
+        });
+
+  
+
+
+
+      </script>
+
+
+
+
+
+
 @endsection

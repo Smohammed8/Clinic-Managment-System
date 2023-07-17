@@ -56,7 +56,7 @@
                                 </th>
                                 <th class="text-left">
                                     {{-- @lang('crud.encounters.inputs.priority') --}}
-                                Gender
+                                     Gender
                                 </th>
                                 <th class="text-left">
                                     {{-- @lang('crud.encounters.inputs.clinic_id') --}}
@@ -82,9 +82,9 @@
                                     <td>{{ $encounter->priority ?? '-' }}</td>
                                     <td>{{ optional($encounter->student)->sex ?? '-' }}</td>
                                     <td>{{ $encounter->check_in_time ?? '-' }}</td>
-                                    <td>
-                                        {{-- {{ $encounter->status ?? '-' }} --}}
-                                        Ongoing  </td>
+                                    <td>  {{-- {{ $encounter->status ?? '-' }} --}}   Ongoing  </td>
+                                        
+                                     
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                                 

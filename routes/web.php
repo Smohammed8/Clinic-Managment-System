@@ -29,6 +29,7 @@ use App\Http\Controllers\StockCategoryController;
 use App\Http\Controllers\ClinicServicesController;
 use App\Http\Controllers\LabTestRequestController;
 use App\Http\Controllers\LabTestRequestGroupController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,10 +98,10 @@ Route::prefix('/')
         Route::resource('lab-catagories', LabCatagoryController::class);
         Route::resource('lab-tests', LabTestController::class);
         Route::resource('lab-test-requests', LabTestRequestController::class);
-        Route::resource(
-            'lab-test-request-groups',
-            LabTestRequestGroupController::class
-        );
+
+        Route::post('labtest/request', [LabTestRequestController::class, 'insert'])->name('labTest.insert');
+
+        Route::resource('lab-test-request-groups',LabTestRequestGroupController::class);
         Route::resource('main-diagnoses', MainDiagnosisController::class);
         Route::resource('medical-records', MedicalRecordController::class);
         Route::resource('prescriptions', PrescriptionController::class);

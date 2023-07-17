@@ -29,6 +29,8 @@ class LabTestRequest extends Model
         'sample_analyzed_by_id',
         'lab_catagory_id',
         'approved_by_id',
+        'encounter_id',
+    
     ];
 
     protected $searchableFields = ['*'];
@@ -40,12 +42,20 @@ class LabTestRequest extends Model
         'sample_analyzed_at' => 'datetime',
         'approved_at' => 'datetime',
         'ordered_on' => 'datetime',
+       
     ];
 
     public function labTestRequestGroup()
     {
         return $this->belongsTo(LabTestRequestGroup::class);
     }
+
+
+    public function encounter()
+    {
+        return $this->belongsTo(Encounter::class);
+    }
+
 
     public function sampleCcollectedBy()
     {
