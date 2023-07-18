@@ -112,8 +112,7 @@
                         @lang('crud.encounter_vital_signs.inputs.temp')
                     </th>
                     <th class="text-right">
-                        @lang('crud.encounter_vital_signs.inputs.blood_pressure
-                                                                                                ')
+                        @lang('crud.encounter_vital_signs.inputs.blood_pressure')
                     </th>
                     <th class="text-right">
                         @lang('crud.encounter_vital_signs.inputs.pulse_rate')

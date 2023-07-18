@@ -18,7 +18,7 @@ class Prescription extends Model
         'duration',
         'other_info',
         'main_diagnosis_id',
-       // 'encounter_id',
+        'encounter_id',
     ];
 
     protected $searchableFields = ['*'];
@@ -27,5 +27,8 @@ class Prescription extends Model
     {
         return $this->belongsTo(MainDiagnosis::class);
     }
-
+    public function encounter()
+    {
+        return $this->belongsTo(Encounter::class, 'encounter_id');
+    }
 }

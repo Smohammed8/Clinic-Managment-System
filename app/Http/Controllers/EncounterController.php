@@ -3,14 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Clinic;
+use App\Models\LabTest;
+use App\Models\LabCatagory;
 use App\Models\Encounter;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\EncounterStoreRequest;
 use App\Http\Requests\EncounterUpdateRequest;
-use App\Models\LabCatagory;
-use App\Models\LabTest;
+use App\Models\User;
 use App\Models\Student;
 
 class EncounterController extends Controller
@@ -67,12 +68,100 @@ class EncounterController extends Controller
      */
     public function show(Request $request, Encounter $encounter): View
     {
+        $doctors = User::whereHas('roles', function ($query) {
+            $query->where('name', 'doctor');
+        })->get();
+        //dd($doctors);
         $this->authorize('view', $encounter);
         $labTests =  LabTest::all();
         $labCategories =  LabCatagory::all();
 
-        return view('app.encounters.show', compact('encounter','labTests','labCategories'));
+        return view('app.encounters.show', compact('encounter',  'doctors'));
     }
+
+    // call the next encounter 
+    public function callNext(Request $request, Encounter $encounter)
+    {
+        $doctors = User::whereHas('roles', function ($query) {
+            $query->where('name', 'doctor');
+        })->get();
+        $this->authorize('view', $encounter);
+        //dd($encounter->status);
+
+        // Get the current encounter's status from the form input
+        $currentStatus = $encounter;
+        // Update the current encounter's status to 1
+        $encounter->status = 1;
+        $encounter->save();
+
+        // Find the next encounter with the same status and ID greater than the current encounter
+        $nextEncounter = Encounter::where('status', 0)
+            ->where('id', '>', $encounter->id)
+            ->first();
+        $encounter = $nextEncounter;
+
+        // Redirect to the next encounter's show page with the updated ID in the URL
+        //dd($nextEncounter);
+        if ($nextEncounter) {
+            $nextEncounterId = $nextEncounter->id;
+            $nextEncounterUrl = route('encounters.show', ['encounter' => $nextEncounterId]);
+
+            //return redirect($nextEncounterUrl)->with(compact('encounter'));
+            return redirect($nextEncounterUrl);
+        } else {
+            // Redirect to a different route or display an appropriate message
+            $currentStatus = $encounter;
+            return view('app.encounters.show', compact('encounter',  'doctors'));
+        }
+    }
+
+    //close encounter
+    public function closeEencounter(Request $request, Encounter $encounter)
+    {
+        $doctors = User::whereHas('roles', function ($query) {
+            $query->where('name', 'doctor');
+        })->get();
+        $this->authorize('view', $encounter);
+        //dd($encounter->status);
+
+        // Get the current encounter's status from the form input
+        $currentStatus = $encounter;
+        // Update the current encounter's status to 1
+        $encounter->status = 1;
+        $encounter->save();
+
+        // Find the next encounter with the same status and ID greater than the current encounter
+        $nextEncounter = Encounter::where('status', 0)
+            ->where('id', '>', $encounter->id)
+            ->first();
+        $encounter = $nextEncounter;
+
+        // Redirect to the next encounter's show page with the updated ID in the URL
+        //dd($nextEncounter);
+        if ($nextEncounter) {
+            $nextEncounterId = $nextEncounter->id;
+            $nextEncounterUrl = route('encounters.show', ['encounter' => $nextEncounterId]);
+
+            //return redirect($nextEncounterUrl)->with(compact('encounter'));
+            return redirect($nextEncounterUrl);
+        } else {
+            // Redirect to a different route or display an appropriate message
+            $currentStatus = $encounter;
+            return view('app.encounters.show', compact('encounter',  'doctors'));
+        }
+    }
+
+
+    public function refer(Request $request, Encounter $encounter)
+    {
+        $doctors = User::whereHas('roles', function ($query) {
+            $query->where('name', 'doctor');
+        })->get();
+        dd($doctors);
+
+        return view('encounters.refer', compact('encounter', 'doctors'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -110,13 +199,13 @@ class EncounterController extends Controller
     public function destroy(
         Request $request,
         Encounter $encounter
-    ): RedirectResponse {
+    ) {
         $this->authorize('delete', $encounter);
 
         $encounter->delete();
 
-        return redirect()
-            ->route('encounters.index')
-            ->withSuccess(__('crud.common.removed'));
+        // return redirect()
+        //     ->route('encounters.index')
+        //     ->withSuccess(__('crud.common.removed'));
     }
 }

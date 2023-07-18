@@ -47,6 +47,14 @@
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
 
     <!-- Small Ionicons Fixes for AdminLTE -->
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.css">
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+        integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <style>
         html {
             background-color: #f4f6f9;
@@ -124,6 +132,50 @@
             });
         });
     </script>
+
+    <script>
+        $(document).on('submit', '#deletebtnid', function(e) {
+            e.preventDefault();
+
+            swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover it.",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            type: 'post',
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+
+                            url: $(this).data('route'),
+                            data: {
+                                '_method': 'delete'
+                            },
+                            success: function(response) {
+                                swal("DELETED SUCCESFULLY", {
+                                    icon: "success",
+                                    button: true,
+
+                                }).then((ok) => {
+                                    window.location = window.location.pathname
+                                })
+
+                            }
+                        });
+
+
+                    } else {
+
+                    }
+                });
+        });
+    </script>
+
 </body>
 
 </html>

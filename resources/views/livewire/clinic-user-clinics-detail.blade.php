@@ -7,7 +7,6 @@
             </button>
         @endcan
     </div>
-
     <x-modal id="clinic-user-clinics-modal" wire:model="showingModal">
         <div class="modal-content">
             <div class="modal-header">
