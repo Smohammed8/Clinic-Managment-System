@@ -31,7 +31,7 @@ class LabTestRequest extends Model
         'approved_by_id',
         'encounter_id',
         'lab_test_id',
-        'upload'
+        'uploadgit'
     
     ];
 
