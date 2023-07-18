@@ -456,9 +456,9 @@
                                             </div>
                                         @endcan
                                     </div>
+                                    
 
-                                    <div class="tab-pane fade" id="vert-tabs-diagnosis" role="tabpanel"
-                                        aria-labelledby="vert-tabs-diagnosis-tab">
+                                    <div class="tab-pane fade" id="vert-tabs-diagnosis" role="tabpanel" aria-labelledby="vert-tabs-diagnosis-tab">
 
                                         @can('view-any', App\Models\LabTestRequestGroup::class)
                                             <div class="card mt-4">
@@ -468,68 +468,47 @@
                                                     <livewire:encounter-lab-test-request-groups-detail :encounter="$encounter" />
 
                                                 </div>
-                                            </div>
-                                        @endcan
-
-                                        <div class="card card-default">
-                                            <div class="card-header">
-                                                <h3 class="card-title"> Lab Request lists</h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool"
-                                                        data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool"
-                                                        data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <!-- /.card-header -->
-                                            <div class="card-body">
-                                                <div class="row">
-                                                    <div class="col-12">
-                                                        <div class="form-group">
-
-                                                            <select class="duallistbox" multiple="multiple">
-                                                                <option selected>CBC</option>
-                                                                <option>AFT</option>
-                                                                <option>Fluid Analysis</option>
-                                                                <option> Urine Analysis</option>
-                                                                <option> WBC</option>
-                                                                <option> Stool Exam </option>
-
-                                                            </select>
+                                                <style>
+                                                    select.form-control[multiple], select.form-control[size] {
+                                                    height: 400px !important;
+                                                    }
+                                                        </style>
+                                               
+                                                    <form id="demoform" method="POST" name="lab" action="{{ route('labTest.insert') }}">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                        <input type="hidden" name="encounter" value="{{ $encounter->id }}">
+                                                        
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                             <div class="col-12">
+                                                              <div class="form-group">
+                                                        
+                                                        <select multiple="multiple"  size="72" max-height="500px" overflow-y="auto"  name="duallistbox_demo1[]" title="duallistbox_demo1[]">
+                                                        @foreach($labCategories as $labCategory)
+                                                        <optgroup id="label" label="{{ $labCategory->lab_name }}">
+                                                            @foreach($labCategory->labTests as $lab)
+                                                            <option value="{{ $lab->id }}"> {{ $lab->labCatagory->lab_name }}-{{ $lab->test_name }}</option>
+                                                            @endforeach
+                                                        </optgroup>
+                                                        @endforeach
+                                                        </select>
+                                                            <br>
+                                                            <div class="row">
+                                                                <div class="col-md-6 offset-md-6">
+                                                                <button type="submit" class="btn btn-primary w-100">Send lab request</button>
+                                                                </div>
+                                                            </div>
+                                                        
+                                                    
                                                         </div>
-                                                        <!-- /.form-group -->
                                                     </div>
-                                                    <!-- /.col -->
-                                                </div>
-                                                <div class="callout callout-info">
-                                                  <h5><b> Objective</b></h5>
-                                
-                                                  <p> {{ '-' }}</p>
-                                                </div>
-                                                <div class="callout callout-warning">
-                                                  <h5><b> Assessment </b></h5>
-                                
-                                                  <p>{{ '-' }}</p>
-                                                </div>
-                                                <div class="callout callout-success">
-                                                  <h5> <b>Plan </b></h5>
-                                
-                                                  <p> {{'-' }}</p>
                                                 </div>
                                               </div>
-                                            <!-- /.card-body -->
-                                          </div>
-                                          <!-- /.card -->
-                                        </div>
-                                        <!-- /.col -->
-
-                                    </div>
-                                </div>
+                                    </form>
+                                 </div>
+                                 @endcan              
+                            </div>
+           
 
                                 <div class="tab-pane fade" id="vert-tabs-appointment" role="tabpanel" aria-labelledby="vert-tabs-appointment-tab">
                                   
@@ -557,82 +536,7 @@
                                 @endcan
                                 </div>
 
-                                <div class="tab-pane fade" id="vert-tabs-diagnosis" role="tabpanel" aria-labelledby="vert-tabs-diagnosis-tab">
-                                 
-                                    @can('view-any', App\Models\LabTestRequestGroup::class)
-                                    <div class="card mt-4">
-                                        <div class="card-body">
-                                            <h4 class="card-title w-100 mb-2"> Lab Test Requests </h4>
-                                
-
-                                            <livewire:encounter-lab-test-request-groups-detail :encounter="$encounter"/>
-
-                                        </div>
-                                    </div>
-                                    @endcan
-
-                        <style>
-                    select.form-control[multiple], select.form-control[size] {
-                    height: 400px !important;
-                    }
-                        </style>
-                    <!-- Demo -->
-                    <div class="card">
-                    <form id="demoform" method="POST" name="lab" action="{{ route('labTest.insert') }}">
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <input type="hidden" name="encounter" value="{{ $encounter->id }}">
-                        
-                        <div class="card-body">
-                        <div class="row">
-                        <div class="col-12">
-                            <div class="form-group">
-                        
-                        <select multiple="multiple"  size="72" max-height="500px" overflow-y="auto"  name="duallistbox_demo1[]" title="duallistbox_demo1[]">
-                        @foreach($labCategories as $labCategory)
-                        <optgroup id="label" label="{{ $labCategory->lab_name }}">
-                            @foreach($labCategory->labTests as $lab)
-                            <option value="{{ $lab->id }}"> {{ $lab->labCatagory->lab_name }}-{{ $lab->test_name }}</option>
-                            @endforeach
-                        </optgroup>
-                        @endforeach
-                    
-                    
-                    {{-- @forelse($labTests  as $key =>  $labTest)
-                        <option value="{{ $labTest->id }} "> {{ $labTest->test_name }} [{{ $labTest->labCatagory->lab_name }} </option>
-                        @empty
-                        @endforelse --}}
-                    
-                        </select>
-                            <br>
-                            <div class="row">
-                                <div class="col-md-6 offset-md-6">
-                                <button type="submit" class="btn btn-primary w-100">Send lab request</button>
-                                </div>
-                            </div>
-                        
-                    
-                        </div>
-                        </div>
-                    </div>
-                    </div>
-                    </form>
-                    </div>
-                    </div>
-
-                                        {{-- @can('view-any', App\Models\Prescription::class)
-                                   <div class="card mt-4">
-                                       <div class="card-body">
-                                           <h4 class="card-title w-100 mb-2"> Prescriptions </h4>
-                             
-
-                                           <livewire:main-diagnosis-prescriptions-detail :main-diagnosis="$mainDiagnosis"/>
-                                     
-                                        </div>
-                                   </div>
-                                   @endcan --}}
-
-
-                                </div>
+                         
                                 <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel" aria-labelledby="vert-tabs-history-tab">
                                    Tab 6 Visit history
 
@@ -670,6 +574,8 @@
                                     </div>
 
                                 </div>
+
+
                             </div>
                         </div>
 
