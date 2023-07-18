@@ -162,6 +162,7 @@ class PermissionsSeeder extends Seeder
         // Create user role and assign existing permissions
         $currentPermissions = Permission::all();
         ///////////////////////////////////////////////////////
+    
         $userRole = Role::create(['name' => 'user']);
         $labTechnicianRole = Role::create(['name' => 'lab_technician']);
         $receptionRole = Role::create(['name' => 'reception']);
@@ -169,12 +170,12 @@ class PermissionsSeeder extends Seeder
         $physicianRole = Role::create(['name' => 'physician']);
         $nurseRole = Role::create(['name' => 'nurse']);
 
-        $userRole->givePermissionTo($currentPermissions);
-        $labTechnicianRole->givePermissionTo($currentPermissions);
-        $receptionRole->givePermissionTo($currentPermissions);
-        $pharmacyRole->givePermissionTo($currentPermissions);
-        $physicianRole->givePermissionTo($currentPermissions);
-        $nurseRole->givePermissionTo($currentPermissions);
+        // $userRole->givePermissionTo($currentPermissions);
+        // $labTechnicianRole->givePermissionTo($currentPermissions);
+        // $receptionRole->givePermissionTo($currentPermissions);
+        // $pharmacyRole->givePermissionTo($currentPermissions);
+        // $physicianRole->givePermissionTo($currentPermissions);
+        // $nurseRole->givePermissionTo($currentPermissions);
        ///////////////////////////////////////////////////////////////////////////
         // Create admin exclusive permissions
         Permission::create(['name' => 'list roles']);

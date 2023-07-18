@@ -25,30 +25,31 @@ class DatabaseSeeder extends Seeder
             ]);
 
         $this->call(PermissionsSeeder::class);
-        // $this->call(AppointmentSeeder::class);
+        //    $this->call(AppointmentSeeder::class);
         $this->call(CampusSeeder::class);
          $this->call(ClinicSeeder::class);
-        // $this->call(ClinicServicesSeeder::class);
-        // $this->call(ClinicUserSeeder::class);
-        // $this->call(CollageSeeder::class);
-        // $this->call(DiagnosisSeeder::class);
-        // $this->call(EncounterSeeder::class);
+            // $this->call(ClinicServicesSeeder::class);
+            // $this->call(ClinicUserSeeder::class);
+            // $this->call(CollageSeeder::class);
+            // $this->call(DiagnosisSeeder::class);
+            // $this->call(EncounterSeeder::class);
         $this->call(LabCatagorySeeder::class);
-        // $this->call(LabTestSeeder::class);
-        // $this->call(LabTestRequestSeeder::class);
-        // $this->call(LabTestRequestGroupSeeder::class);
-        // $this->call(MainDiagnosisSeeder::class);
-        // $this->call(MedicalRecordSeeder::class);
-        // $this->call(PrescriptionSeeder::class);
-        // $this->call(ProgramSeeder::class);
-        // $this->call(ReligionSeeder::class);
-        // $this->call(RoomSeeder::class);
-        // $this->call(StockSeeder::class);
-        // $this->call(StockCategorySeeder::class);
-        // $this->call(StockUnitSeeder::class);
-        // $this->call(StudentSeeder::class);
-        // $this->call(SupplierSeeder::class);
+            // $this->call(LabTestSeeder::class);
+            // $this->call(LabTestRequestSeeder::class);
+            // $this->call(LabTestRequestGroupSeeder::class);
+            // $this->call(MainDiagnosisSeeder::class);
+            // $this->call(MedicalRecordSeeder::class);
+            // $this->call(PrescriptionSeeder::class);
+            // $this->call(ProgramSeeder::class);
+            // $this->call(ReligionSeeder::class);
+            // $this->call(RoomSeeder::class);
+            // $this->call(StockSeeder::class);
+            // $this->call(StockCategorySeeder::class);
+            // $this->call(StockUnitSeeder::class);
+            // $this->call(StudentSeeder::class);
+            // $this->call(SupplierSeeder::class);
+            // $this->call(VitalSignSeeder::class);
         $this->call(UserSeeder::class);
-       // $this->call(VitalSignSeeder::class);
+       
     }
 }

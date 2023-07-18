@@ -270,14 +270,14 @@
                     <div class="input-group mb-3 col-md-4">
                         <i class="fa fa-caret-right"> </i>&nbsp;
                         <span title="">Doctor: </span>
-                        <span>&nbsp;&nbsp;&nbsp;{{ optional($encounter)->student->fullName }}</span>
+                        <span>&nbsp;&nbsp;&nbsp;{{ optional($encounter)->student->fullName ?? '-' }}</span>
                     </div>
 
                     <div class="input-group mb-3 col-md-4">
                         <i class="fa fa-caret-right"> </i>&nbsp;
                         <span title=""> Clinic </span>
 
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp; {{ $encounter->clinic->name }} </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp; {{ $encounter->clinic->name ?? '-' }} </span>
 
                     </div>
 

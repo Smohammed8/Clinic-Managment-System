@@ -16,13 +16,13 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-            DB::table('users')->delete();
-            User::create([
-                'name' => 'Admin Admin',
-                'username' => 'admin',
-                'email' => 'admin@admin.com',
-                'password' => Hash::make('password'),
-            ]);
+            // DB::table('users')->delete();
+            // User::create([
+            //     'name' => 'Admin Admin',
+            //     'username' => 'admin',
+            //     'email' => 'admin@admin.com',
+            //     'password' => Hash::make('password'),
+            // ]);
     }
 
 }
