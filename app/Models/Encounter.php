@@ -55,6 +55,10 @@ class Encounter extends Model
     {
         return $this->hasMany(Appointment::class);
     }
+    public function labTestRequests()
+    {
+        return $this->hasMany(LabTestRequest::class);
+    }
 
     public function vitalSigns()
     {

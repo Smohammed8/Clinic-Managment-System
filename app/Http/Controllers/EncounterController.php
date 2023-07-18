@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Clinic;
+use App\Models\LabTest;
+use App\Models\LabCatagory;
 use App\Models\Encounter;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -22,7 +24,7 @@ class EncounterController extends Controller
         $this->authorize('view-any', Encounter::class);
 
         $search = $request->get('search', '');
-
+      
         $encounters = Encounter::search($search)
             ->latest()
             ->paginate(10)
@@ -39,6 +41,7 @@ class EncounterController extends Controller
         $this->authorize('create', Encounter::class);
 
         $clinics = Clinic::pluck('name', 'id');
+
         $student = Student::pluck('first_name', 'id');
 
         return view('app.encounters.create', compact('clinics', 'student'));
@@ -70,8 +73,11 @@ class EncounterController extends Controller
         })->get();
         //dd($doctors);
         $this->authorize('view', $encounter);
+        $labTests =  LabTest::all();
+        $labCategories =  LabCatagory::all();
 
-        return view('app.encounters.show', compact('encounter',  'doctors'));
+
+        return view('app.encounters.show', compact('encounter',  'doctors','labCategories'));
     }
 
     // call the next encounter 

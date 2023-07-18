@@ -35,9 +35,30 @@ class LabTestRequestController extends Controller
         );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+public function insert(Request $request)
+{
+  $labs = $request->input('duallistbox_demo1');
+  $encounter = $request->input('encounter');
+
+
+  foreach ($labs  as $lab) {
+    LabTestRequest::create([
+      'comment' =>$lab,
+      'encounter_id' =>$request->input('encounter')
+    ]);
+  }
+ // return redirect()->route('encounters.index')->with('message', 'Lab sent successfully');
+  return redirect()->route('encounters.index')->withSuccess(__('crud.common.created'));
+}
+public function storesurvey(Request $request)
+    {          
+        $energy = new LabTestRequest();
+        $energy->rank1 = json_encode($request->input('rank1'));
+        $energy->comments = $request->input('comments');
+        $energy->save();
+        return redirect('/survey')->with('success', 'data added');
+    }
+////////////////////////////////////////////////////////////
     public function create(Request $request): View
     {
         $this->authorize('create', LabTestRequest::class);

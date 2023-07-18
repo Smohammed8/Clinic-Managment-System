@@ -1,8 +1,35 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Bootstrap4 Duallistbox -->
-    <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
+
+<!-- common libraries -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="https://www.virtuosoft.eu/code/bootstrap-duallistbox/bootstrap-duallistbox/v3.0.2/bootstrap-duallistbox.css">
+
+<style>
+.moveall,
+.removeall {
+  border: 1px solid #ccc !important;
+  
+  &:hover {
+    background: #efefef;
+  }
+}
+.moveall::after {
+  content: attr(title);
+  
+}
+
+.removeall::after {
+  content: attr(title);
+}
+.form-control option {
+    padding: 10px;
+    border-bottom: 1px solid #efefef;
+}
+</style>
+ <!-- Bootstrap4 Duallistbox -->
+ <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
 
     <div class="">
         {{-- <div class="card">
@@ -479,23 +506,118 @@
                                                     </div>
                                                     <!-- /.col -->
                                                 </div>
-                                                <!-- /.row -->
-                                            </div>
-                                            <!-- /.card-body -->
-                                            <div class="card-footer">
-                                                <div class="card-footer">
-                                                    <button type="submit"
-                                                        class="btn btn-primary float-right">Send</button>
+                                                <div class="callout callout-info">
+                                                  <h5><b> Objective</b></h5>
+                                
+                                                  <p> {{ '-' }}</p>
                                                 </div>
-                                            </div>
+                                                <div class="callout callout-warning">
+                                                  <h5><b> Assessment </b></h5>
+                                
+                                                  <p>{{ '-' }}</p>
+                                                </div>
+                                                <div class="callout callout-success">
+                                                  <h5> <b>Plan </b></h5>
+                                
+                                                  <p> {{'-' }}</p>
+                                                </div>
+                                              </div>
+                                            <!-- /.card-body -->
+                                          </div>
+                                          <!-- /.card -->
                                         </div>
-                                        <!-- /.card -->
+                                        <!-- /.col -->
 
                                     </div>
+                                </div>
 
-                                    <div class="tab-pane fade" id="vert-tabs-medication" role="tabpanel"
-                                        aria-labelledby="vert-tabs-medication-tab">
-                                        Tab 5 Prescription
+                                <div class="tab-pane fade" id="vert-tabs-appointment" role="tabpanel" aria-labelledby="vert-tabs-appointment-tab">
+                                  
+                                    @can('view-any', App\Models\Appointment::class)
+                                    <div class="card mt-4">
+                                        <div class="card-body">
+                                            <h4 class="card-title w-100 mb-2">Appointments</h4>
+                        
+                                            <livewire:encounter-appointments-detail :encounter="$encounter" />
+                                        </div>
+                                    </div>
+                                    @endcan 
+
+                                </div>
+                           
+                                <div class="tab-pane fade" id="vert-tabs-messages" role="tabpanel" aria-labelledby="vert-tabs-messages-tab">
+                                    @can('view-any', App\Models\MainDiagnosis::class)
+                                    <div class="card mt-4">
+                                        <div class="card-body">
+                                            <h4 class="card-title w-100 mb-2">Main Diagnoses</h4>
+                        
+                                            <livewire:encounter-main-diagnoses-detail :encounter="$encounter" />
+                                        </div>
+                                    </div>
+                                @endcan
+                                </div>
+
+                                <div class="tab-pane fade" id="vert-tabs-diagnosis" role="tabpanel" aria-labelledby="vert-tabs-diagnosis-tab">
+                                 
+                                    @can('view-any', App\Models\LabTestRequestGroup::class)
+                                    <div class="card mt-4">
+                                        <div class="card-body">
+                                            <h4 class="card-title w-100 mb-2"> Lab Test Requests </h4>
+                                
+
+                                            <livewire:encounter-lab-test-request-groups-detail :encounter="$encounter"/>
+
+                                        </div>
+                                    </div>
+                                    @endcan
+
+                        <style>
+                    select.form-control[multiple], select.form-control[size] {
+                    height: 400px !important;
+                    }
+                        </style>
+                    <!-- Demo -->
+                    <div class="card">
+                    <form id="demoform" method="POST" name="lab" action="{{ route('labTest.insert') }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="hidden" name="encounter" value="{{ $encounter->id }}">
+                        
+                        <div class="card-body">
+                        <div class="row">
+                        <div class="col-12">
+                            <div class="form-group">
+                        
+                        <select multiple="multiple"  size="72" max-height="500px" overflow-y="auto"  name="duallistbox_demo1[]" title="duallistbox_demo1[]">
+                        @foreach($labCategories as $labCategory)
+                        <optgroup id="label" label="{{ $labCategory->lab_name }}">
+                            @foreach($labCategory->labTests as $lab)
+                            <option value="{{ $lab->id }}"> {{ $lab->labCatagory->lab_name }}-{{ $lab->test_name }}</option>
+                            @endforeach
+                        </optgroup>
+                        @endforeach
+                    
+                    
+                    {{-- @forelse($labTests  as $key =>  $labTest)
+                        <option value="{{ $labTest->id }} "> {{ $labTest->test_name }} [{{ $labTest->labCatagory->lab_name }} </option>
+                        @empty
+                        @endforelse --}}
+                    
+                        </select>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6 offset-md-6">
+                                <button type="submit" class="btn btn-primary w-100">Send lab request</button>
+                                </div>
+                            </div>
+                        
+                    
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                    </form>
+                    </div>
+                    </div>
 
                                         {{-- @can('view-any', App\Models\Prescription::class)
                                    <div class="card mt-4">
@@ -509,7 +631,25 @@
                                    </div>
                                    @endcan --}}
 
+
+                                </div>
+                                <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel" aria-labelledby="vert-tabs-history-tab">
+                                   Tab 6 Visit history
+
+
+                                
+                                </div>
+
+                                <div class="tab-pane fade" id="vert-tabs-sign" role="tabpanel" aria-labelledby="vert-tabs-sign-tab">
+                                   
+                                    @can('view-any', App\Models\VitalSign::class)
+                                    <div class="card mt-4">
+                                        <div class="card-body">
+                                            <h4 class="card-title w-100 mb-2">Vital Sign</h4>
+                                            <livewire:encounter-vital-signs-detail :encounter="$encounter"/>
+                                        </div>
                                     </div>
+                                    @endcan
                                     <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel"
                                         aria-labelledby="vert-tabs-history-tab">
                                         Tab 6 Visit history
@@ -543,11 +683,48 @@
 
     </div>
 
-    <!-- Bootstrap4 Duallistbox -->
-    <script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+<!-- Bootstrap4 Duallistbox -->
+{{-- <script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script> --}}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<!-- plugin -->
+<script src="https://www.virtuosoft.eu/code/bootstrap-duallistbox/bootstrap-duallistbox/v3.0.2/jquery.bootstrap-duallistbox.js"></script>
+
+    {{-- <script>
+
+           //Bootstrap Duallistbox
+    $('.duallistbox').bootstrapDualListbox()
+
+    </script> --}}
 
     <script>
-        //Bootstrap Duallistbox
-        $('.duallistbox').bootstrapDualListbox()
-    </script>
+        var demo1 = $('select[name="duallistbox_demo1[]"]').bootstrapDualListbox({
+          nonSelectedListLabel: 'Available labs',
+          selectedListLabel: 'Selected labs',
+          preserveSelectionOnMove: 'moved',
+          moveAllLabel: '>>',
+          removeAllLabel: '<<'
+
+        });
+
+        $("#demoform").submit(function() {
+  
+          alert('Are you sure to send all selected labs?\n' + $('[name="duallistbox_demo1[]"]').val());
+        //   $("#demoform").submit(insertData);
+          return true
+
+  
+        });
+
+  
+
+
+
+      </script>
+
+
+
+
+
+
 @endsection

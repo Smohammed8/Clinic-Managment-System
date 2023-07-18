@@ -29,6 +29,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('sample_analyzed_by_id')->nullable();
             $table->unsignedBigInteger('lab_catagory_id')->nullable();
             $table->unsignedBigInteger('approved_by_id')->nullable();
+            $table->unsignedBigInteger('encounter_id')->nullable();
+            
 
             $table->timestamps();
         });
