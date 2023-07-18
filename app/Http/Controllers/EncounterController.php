@@ -77,7 +77,7 @@ class EncounterController extends Controller
         $labCategories =  LabCatagory::all();
 
 
-        return view('app.encounters.show', compact('encounter',  'doctors','labCategoriesgit'));
+        return view('app.encounters.show', compact('encounter',  'doctors','labCategories'));
     }
 
     // call the next encounter 
