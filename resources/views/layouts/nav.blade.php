@@ -18,7 +18,7 @@
         <!-- Right Side Of Navbar -->
         <ul class="navbar-nav ml-auto">
           
-            @if (Auth::user()->hasRole('Lab_technician'))
+            @if (Auth::user()->hasRole('lab_technician'))
               <li class="nav-item">
                 <a class="nav-link" data-toggle="dropdown" href="#">
                     <i class="far fa-comments"></i>
