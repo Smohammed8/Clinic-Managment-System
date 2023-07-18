@@ -528,7 +528,7 @@
                                     @can('view-any', App\Models\MainDiagnosis::class)
                                     <div class="card mt-4">
                                         <div class="card-body">
-                                            <h4 class="card-title w-100 mb-2">Main Diagnoses</h4>
+                                            <h4 class="card-title w-100 mb-2">Main Diagnosis</h4>
                         
                                             <livewire:encounter-main-diagnoses-detail :encounter="$encounter" />
                                         </div>

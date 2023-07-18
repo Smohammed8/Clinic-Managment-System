@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
 return new class extends Migration {
     /**
      * Run the migrations.
@@ -24,7 +23,6 @@ return new class extends Migration {
                 ->on('clinic_users')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
-
             $table
                 ->foreign('sample_analyzed_by_id')
                 ->references('id')
@@ -38,6 +36,19 @@ return new class extends Migration {
                 ->on('lab_catagories')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
+             $table
+                ->foreign('encounter_id')
+                ->references('id')
+                ->on('encounters')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+
+             $table
+                ->foreign('lab_test_id')
+                ->references('id')
+                ->on('lab_tests')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
 
             $table
                 ->foreign('approved_by_id')
@@ -47,7 +58,6 @@ return new class extends Migration {
                 ->onDelete('CASCADE');
         });
     }
-
     /**
      * Reverse the migrations.
      */
@@ -59,6 +69,8 @@ return new class extends Migration {
             $table->dropForeign(['sample_analyzed_by_id']);
             $table->dropForeign(['lab_catagory_id']);
             $table->dropForeign(['approved_by_id']);
+            $table->dropForeign(['encounter_id']);
+        
         });
     }
 };
