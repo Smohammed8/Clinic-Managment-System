@@ -649,6 +649,7 @@
                                             <livewire:encounter-vital-signs-detail :encounter="$encounter"/>
                                         </div>
                                     </div>
+                                    @endcan
                                     <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel"
                                         aria-labelledby="vert-tabs-history-tab">
                                         Tab 6 Visit history
@@ -706,15 +707,6 @@
 
         });
 
-//  function insertData() {
-//   var selectedLabs = [];
-//   var $this = $(this);
-//   $this.find('option:selected').each(function() {
-//     selectedLabs.push($(this).val());
-//   });
-
-//   // Insert the selected labs into the database.
-// }
         $("#demoform").submit(function() {
   
           alert('Are you sure to send all selected labs?\n' + $('[name="duallistbox_demo1[]"]').val());
