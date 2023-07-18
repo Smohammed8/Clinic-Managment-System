@@ -1065,6 +1065,150 @@ return [
         ],
     ],
 
+
+
+    'stores' => [
+        'name' => 'Stores',
+        'index_title' => 'Stores List',
+        'new_title' => 'New Store',
+        'create_title' => 'Create Store',
+        'edit_title' => 'Edit Store',
+        'show_title' => 'Show Store',
+        'inputs' => [
+            'name' => 'Name',
+            'campus_id' => 'Campus',
+            'description' => 'Description',
+            'status' => 'Status',
+        ],
+    ],
+
+    'store_products' => [
+        'name' => 'Store Products',
+        'index_title' => 'Products List',
+        'new_title' => 'New Product',
+        'create_title' => 'Create Product',
+        'edit_title' => 'Edit Product',
+        'show_title' => 'Show Product',
+        'inputs' => [
+            'name' => 'Name',
+            'category_id' => 'Category',
+        ],
+    ],
+
+    'store_store_users' => [
+        'name' => 'Store Store Users',
+        'index_title' => 'StoreUsers List',
+        'new_title' => 'New Store user',
+        'create_title' => 'Create StoreUser',
+        'edit_title' => 'Edit StoreUser',
+        'show_title' => 'Show StoreUser',
+        'inputs' => [
+            'user_id' => 'User',
+        ],
+    ],
+
+    'products' => [
+        'name' => 'Products',
+        'index_title' => 'Products List',
+        'new_title' => 'New Product',
+        'create_title' => 'Create Product',
+        'edit_title' => 'Edit Product',
+        'show_title' => 'Show Product',
+        'inputs' => [
+            'name' => 'Name',
+            'category_id' => 'Category',
+            'store_id' => 'Store',
+        ],
+    ],
+
+    'product_items' => [
+        'name' => 'Product Items',
+        'index_title' => 'Items List',
+        'new_title' => 'New Item',
+        'create_title' => 'Create Item',
+        'edit_title' => 'Edit Item',
+        'show_title' => 'Show Item',
+        'inputs' => [
+            'batch_number' => 'Batch Number',
+            'expire_date' => 'Expire Date',
+            'brand' => 'Brand',
+            'supplier_name' => 'Supplier Name',
+            'campany_name' => 'Campany Name',
+            'number_of_units' => 'Number Of Units',
+            'number_of_unit_per_pack' => 'Number Of Unit Per Pack',
+            'unit_price' => 'Unit Price',
+            'price_per_unit' => 'Price Per Unit',
+            'profit_margit' => 'Profit Margit',
+        ],
+    ],
+
+    'product_item_requests' => [
+        'name' => 'Product Item Requests',
+        'index_title' => 'ItemRequests List',
+        'new_title' => 'New Item request',
+        'create_title' => 'Create ItemRequest',
+        'edit_title' => 'Edit ItemRequest',
+        'show_title' => 'Show ItemRequest',
+        'inputs' => [
+            'pharmacy_id' => 'Pharmacy',
+            'amount' => 'Amount',
+        ],
+    ],
+
+    'pharmacies' => [
+        'name' => 'Pharmacies',
+        'index_title' => 'Pharmacies List',
+        'new_title' => 'New Pharmacy',
+        'create_title' => 'Create Pharmacy',
+        'edit_title' => 'Edit Pharmacy',
+        'show_title' => 'Show Pharmacy',
+        'inputs' => [
+            'name' => 'Name',
+            'admin_id' => 'Admin Id',
+            'campus_id' => 'Campus',
+            'status' => 'Status',
+            'description' => 'Description',
+        ],
+    ],
+
+    'pharmacy_items_in_pharmacies' => [
+        'name' => 'Pharmacy Items In Pharmacies',
+        'index_title' => 'ItemsInPharmacies List',
+        'new_title' => 'New Items in pharmacy',
+        'create_title' => 'Create ItemsInPharmacy',
+        'edit_title' => 'Edit ItemsInPharmacy',
+        'show_title' => 'Show ItemsInPharmacy',
+        'inputs' => [
+            'item_id' => 'Item',
+            'count' => 'Count',
+        ],
+    ],
+
+    'pharmacy_pharmacy_users' => [
+        'name' => 'Pharmacy Pharmacy Users',
+        'index_title' => 'PharmacyUsers List',
+        'new_title' => 'New Pharmacy user',
+        'create_title' => 'Create PharmacyUser',
+        'edit_title' => 'Edit PharmacyUser',
+        'show_title' => 'Show PharmacyUser',
+        'inputs' => [
+            'user_id' => 'User',
+        ],
+    ],
+
+    'pharmacy_item_requests' => [
+        'name' => 'Pharmacy Item Requests',
+        'index_title' => 'ItemRequests List',
+        'new_title' => 'New Item request',
+        'create_title' => 'Create ItemRequest',
+        'edit_title' => 'Edit ItemRequest',
+        'show_title' => 'Show ItemRequest',
+        'inputs' => [
+            'product_id' => 'Product',
+            'amount' => 'Amount',
+        ],
+    ],
+
     'roles' => [
         'name' => 'Roles',
         'index_title' => 'Roles List',
