@@ -43,7 +43,7 @@ class Encounter extends Model
 
     public function Doctor()
     {
-        return $this->hasOne(ClinicUser::class, 'encounter_id');
+        return $this->hasMany(ClinicUser::class, 'encounter_id');
     }
 
     public function clinic()
