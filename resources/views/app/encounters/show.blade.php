@@ -335,12 +335,18 @@
                                                 aria-controls="vert-tabs-diagnosis" aria-selected="false"> <i
                                                     class="fa fa-caret-right nav-icon"></i><b> Invistigation </b> </a>
                                         </li>
+
+
+
                                         <li class="nav-item">
-                                            <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill"
+                                            <a class="nav-link" id="vert-tabs-medication-tab" data-toggle="pill"
                                                 href="#vert-tabs-medication" role="tab"
                                                 aria-controls="vert-tabs-medication" aria-selected="false"> <i
                                                     class="fa fa-caret-right nav-icon"></i><b> Prescription </b> </a>
                                         </li>
+
+
+
                                         <li class="nav-item">
                                             <a class="nav-link " id="vert-tabs-home-tab" data-toggle="pill"
                                                 href="#vert-tabs-appointment" role="tab"
@@ -460,29 +466,42 @@
 
                                     <div class="tab-pane fade" id="vert-tabs-diagnosis" role="tabpanel" aria-labelledby="vert-tabs-diagnosis-tab">
 
-                                        @can('view-any', App\Models\LabTestRequestGroup::class)
-                                            <div class="card mt-4">
+                                             <div class="card mt-4">
+                                                {{-- @can('view-any', App\Models\LabTestRequestGroup::class)
+                                     
                                                 <div class="card-body">
-                                                    <h4 class="card-title w-100 mb-2"> Lab Test Requests </h4>
+                                                    <h4 class="card-title w-100 mb-2"> Lab Test Group </h4>
 
                                                     <livewire:encounter-lab-test-request-groups-detail :encounter="$encounter" />
 
                                                 </div>
+                                                @endcan    --}}
+
+                                                
+                                                @can('view-any', App\Models\LabTestRequest::class)
+                                       
+                                                <div class="card-body">
+                                                    <h4 class="card-title w-100 mb-2"> Lab Test Requests </h4>
+                                                    <livewire:encounter-lab-test-requests-detail :encounter="$encounter" />
+                                                </div>
+                                                @endcan  
+
+
+
                                                 <style>
                                                     select.form-control[multiple], select.form-control[size] {
                                                     height: 400px !important;
                                                     }
-                                                        </style>
+                                                 </style>
                                                
                                                     <form id="demoform" method="POST" name="lab" action="{{ route('labTest.insert') }}">
                                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                         <input type="hidden" name="encounter" value="{{ $encounter->id }}">
                                                         
                                                         <div class="card-body">
-                                                            <div class="row">
-                                                             <div class="col-12">
-                                                              <div class="form-group">
-                                                        
+                                                        <div class="row">
+                                                        <div class="col-12">
+                                                        <div class="form-group">
                                                         <select multiple="multiple"  size="72" max-height="500px" overflow-y="auto"  name="duallistbox_demo1[]" title="duallistbox_demo1[]">
                                                         @foreach($labCategories as $labCategory)
                                                         <optgroup id="label" label="{{ $labCategory->lab_name }}">
@@ -506,9 +525,19 @@
                                               </div>
                                     </form>
                                  </div>
-                                 @endcan              
+         
                             </div>
            
+
+                            
+
+
+                            <div class="tab-pane fade" id="vert-tabs-medication" role="tabpanel" aria-labelledby="vert-tabs-medication-tab">
+                                  
+                               Medication 
+
+                            </div>
+
 
                                 <div class="tab-pane fade" id="vert-tabs-appointment" role="tabpanel" aria-labelledby="vert-tabs-appointment-tab">
                                   
@@ -595,7 +624,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <!-- plugin -->
 <script src="https://www.virtuosoft.eu/code/bootstrap-duallistbox/bootstrap-duallistbox/v3.0.2/jquery.bootstrap-duallistbox.js"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- <script>
 
            //Bootstrap Duallistbox
@@ -613,18 +642,28 @@
 
         });
 
-        $("#demoform").submit(function() {
+    
+//  $("#demoform").submit(function(event) {
+//   event.preventDefault();
+
+  $("#demoform").submit(function() {
   
-          alert('Are you sure to send all selected labs?\n' + $('[name="duallistbox_demo1[]"]').val());
-        //   $("#demoform").submit(insertData);
+         
+  alert('Are you sure to send all selected labs?\n' + $('[name="duallistbox_demo1[]"]').val()); 
+//   Swal.fire({
+//   title: 'Error!',
+//   text: 'Do you want to continue',
+//   icon: 'error',
+//   confirmButtonText: 'Cool'
+// })
+        
           return true
 
   
         });
 
+
   
-
-
 
       </script>
 

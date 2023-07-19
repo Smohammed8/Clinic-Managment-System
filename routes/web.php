@@ -107,7 +107,7 @@ Route::prefix('/')
         Route::resource('lab-tests', LabTestController::class);
         Route::resource('lab-test-requests', LabTestRequestController::class);
 
-        Route::post('labtest/request', [LabTestRequestController::class, 'insert'])->name('labTest.insert');
+        Route::post('/labtest/request', [LabTestRequestController::class, 'insert'])->name('labTest.insert');
 
         Route::resource('lab-test-request-groups',LabTestRequestGroupController::class);
         Route::resource('main-diagnoses', MainDiagnosisController::class);

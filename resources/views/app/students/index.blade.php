@@ -109,7 +109,8 @@
                                                             <i class="icon ion-md-eye"></i> Show
                                                         </button>
                                                     </a>
-                                                    @endcan @can('delete', $student)
+                                                    @endcan 
+                                                    @can('delete', $student)
                                                     <form action="{{ route('students.destroy', $student) }}" method="POST"
                                                         onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                         @csrf @method('DELETE')

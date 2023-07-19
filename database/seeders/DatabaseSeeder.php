@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
             // $this->call(StockSeeder::class);
             // $this->call(StockCategorySeeder::class);
             // $this->call(StockUnitSeeder::class);
-            // $this->call(StudentSeeder::class);
+        $this->call(StudentSeeder::class);
             // $this->call(SupplierSeeder::class);
             // $this->call(VitalSignSeeder::class);
         $this->call(UserSeeder::class);
