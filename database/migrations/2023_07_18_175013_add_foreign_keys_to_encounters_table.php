@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('doctor_id')->nullable();
             $table->unsignedBigInteger('registered_by')->nullable();
 
-            $table->foreign('doctor_id')->references('id')->on('doctors')->nullable();
+            $table->foreign('doctor_id')->references('id')->on('users')->nullable();
             $table->foreign('registered_by')->references('id')->on('users')->nullable();
         });
     }

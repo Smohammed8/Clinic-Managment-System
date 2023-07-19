@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::table('prescriptions', function (Blueprint $table) {
             //
-            $table->unsignedBigInteger('encounter_id')->nullable();
+            // $table->unsignedBigInteger('encounter_id')->nullable();
 
-            $table->foreign('encounter_id')->references('id')->on('encounters')->onDelete('set null');
+            // $table->foreign('encounter_id')->references('id')->on('encounters')->onDelete('set null');
         });
     }
 
@@ -28,10 +28,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('prescriptions', function (Blueprint $table) {
-            //
-            $table->dropForeign(['encounter_id']);
-            $table->dropColumn('encounter_id');
-        });
+        // Schema::table('prescriptions', function (Blueprint $table) {
+        //     //
+        //     $table->dropForeign(['encounter_id']);
+        //     $table->dropColumn('encounter_id');
+        // });
     }
 };

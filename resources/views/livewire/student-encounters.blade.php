@@ -43,7 +43,7 @@
                                         <input type="checkbox" value="{{ $medicalRecord->id }}" wire:model="selected" />
                                         {{ $medicalRecord->created_at->format('d-M y') ?? '-' }}
                                         <i class="fas fa-user-md ml-4"></i> Doctor :
-                                        {{ optional($medicalRecord->Doctor->user)->name ?? '-' }}
+                                        {{-- {{ optional($medicalRecord->Doctor->user)->name ?? '-' }} --}}
                                     </h3>
 
                                     @can('update', $medicalRecord)
