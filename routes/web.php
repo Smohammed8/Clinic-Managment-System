@@ -29,6 +29,9 @@ use App\Http\Controllers\StockCategoryController;
 use App\Http\Controllers\ClinicServicesController;
 use App\Http\Controllers\LabTestRequestController;
 use App\Http\Controllers\LabTestRequestGroupController;
+use App\Http\Controllers\PharmacyController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StoreController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -104,7 +107,7 @@ Route::prefix('/')
         Route::resource('lab-tests', LabTestController::class);
         Route::resource('lab-test-requests', LabTestRequestController::class);
 
-        Route::post('labtest/request', [LabTestRequestController::class, 'insert'])->name('labTest.insert');
+        Route::post('/labtest/request', [LabTestRequestController::class, 'insert'])->name('labTest.insert');
 
         Route::resource('lab-test-request-groups',LabTestRequestGroupController::class);
         Route::resource('main-diagnoses', MainDiagnosisController::class);
@@ -127,4 +130,12 @@ Route::prefix('/')
         Route::post('/encounters/{encounter}/refer', [EncounterController::class, 'refer'])->name('encounters.refer');
 
         Route::post('/encounters/{encounter}/close', [EncounterController::class, 'closeEencounter'])->name('encounters.closeEencounter');
+
+
+        // My routes
+
+        Route::resource('stores', StoreController::class);
+        Route::resource('products', ProductController::class);
+        Route::resource('pharmacies', PharmacyController::class);
+
     });

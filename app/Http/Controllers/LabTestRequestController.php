@@ -20,31 +20,29 @@ class LabTestRequestController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): View
-    {
-        $this->authorize('view-any', LabTestRequest::class);
+public function index(Request $request): View
+{
+    $this->authorize('view-any', LabTestRequest::class);
 
-        $search = $request->get('search', '');
+    $search = $request->get('search', '');
 
-        $labTestRequests = LabTestRequest::search($search)
-            ->latest()->paginate(10)->withQueryString();
+    $labTestRequests = LabTestRequest::search($search)
+        ->latest()->paginate(10)->withQueryString();
 
-        return view(
-            'app.lab_test_requests.index',
-            compact('labTestRequests', 'search')
-        );
-    }
+    return view(
+        'app.lab_test_requests.index',
+        compact('labTestRequests', 'search')
+    );
+}
 
 public function insert(Request $request)
 {
   $labs = $request->input('duallistbox_demo1');
   $encounter = $request->input('encounter');
-
-
   foreach ($labs  as $lab) {
     LabTestRequest::create([
-      'comment' =>$lab,
-      'encounter_id' =>$request->input('encounter')
+      'lab_test_id' =>$lab,
+      'encounter_id' =>$encounter
     ]);
   }
  // return redirect()->route('encounters.index')->with('message', 'Lab sent successfully');
