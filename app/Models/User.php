@@ -35,9 +35,21 @@ class User extends Authenticatable
     {
         return $this->hasMany(ClinicUser::class);
     }
+    public function storeUser()
+    {
+        return $this->belongsTo(StoreUser::class);
+    }
+
+    public function pharmacyUsers()
+    {
+        return $this->hasOne(PharmacyUser::class);
+    }
+
+
 
     public function isSuperAdmin(): bool
     {
         return $this->hasRole('super-admin');
     }
+
 }

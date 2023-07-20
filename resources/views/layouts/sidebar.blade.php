@@ -27,6 +27,19 @@
                 <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview"
                     role="menu">
                     @auth
+                    @if(Auth::user()->hasRole('store_user'))
+                    <li>
+                        <a href="{{ route('products.index') }}"
+                        class="nav-link {{ Request::is('store*') ? 'active' : '' }}"                        >
+                            <i class="nav-icon icon fas fa-home"></i>
+                            <p>
+                                Products
+                            </p>
+                        </a>
+                    </li>
+
+
+                    @endif
                         <li class="nav-item {{ Request::is('home*') ? 'menu-open' : '' }}">
                             <a href="{{ route('home') }}" class="nav-link {{ Request::is('home*') ? 'active' : '' }}">
                                 <i class="nav-icon icon fas fa-home"></i>
@@ -116,7 +129,7 @@
 
 
                     <ul class="nav nav-treeview">
-                      
+
 
                         @can('view-any', App\Models\LabTestRequest::class)
                         <li class="nav-item">
@@ -139,7 +152,7 @@
                     @endcan
 
                     @can('view-any', App\Models\LabCatagory::class)
-                    
+
                     <li class="nav-item">
                             <a href="{{ route('lab-catagories.index') }}"
                                 class="nav-link {{ Request::is('lab-catagories*') ? 'active' : '' }}">
@@ -160,7 +173,7 @@
                     @endcan
                     </ul>
                 </li>
-      
+
 
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
@@ -220,7 +233,7 @@
                                 </li>
                             @endcan --}}
 
-                  
+
 
                             {{-- @can('view-any', App\Models\MainDiagnosis::class)
                                 <li class="nav-item">

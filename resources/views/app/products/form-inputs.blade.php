@@ -21,7 +21,7 @@
         </x-inputs.select>
     </x-inputs.group>
 
-    <x-inputs.group class="col-sm-12">
+    {{-- <x-inputs.group class="col-sm-12">
         <x-inputs.select name="store_id" label="Store" required>
             @php $selected = old('store_id', ($editing ? $product->store_id : '')) @endphp
             <option disabled {{ empty($selected) ? 'selected' : '' }}>Please select the Store</option>
@@ -29,5 +29,5 @@
             <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
             @endforeach
         </x-inputs.select>
-    </x-inputs.group>
+    </x-inputs.group> --}}
 </div>

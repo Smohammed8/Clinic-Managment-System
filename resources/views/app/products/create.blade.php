@@ -8,12 +8,13 @@
                 <a href="{{ route('products.index') }}" class="mr-4"
                     ><i class="icon ion-md-arrow-back"></i
                 ></a>
-                @lang('crud.products.create_title')
+                {{-- @lang('crud.products.create_title') --}}
+                Create Product for {{$store->name}} Store
             </h4>
 
             <x-form
                 method="POST"
-                action="{{ route('products.store') }}"
+                action="{{ route('products.store',['id'=>$store->id]) }}"
                 class="mt-4"
             >
                 @include('app.products.form-inputs')
