@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\EncounterStoreRequest;
 use App\Http\Requests\EncounterUpdateRequest;
+use App\Models\Room;
 use App\Models\User;
 use App\Models\Student;
 
@@ -76,8 +77,10 @@ class EncounterController extends Controller
         $labTests =  LabTest::all();
         $labCategories =  LabCatagory::all();
 
+        $rooms = Room::all();
 
-        return view('app.encounters.show', compact('encounter',  'doctors', 'labCategories'));
+
+        return view('app.encounters.show', compact('encounter',  'doctors', 'labCategories', 'rooms'));
     }
 
     // call the next encounter 

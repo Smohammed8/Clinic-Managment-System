@@ -146,7 +146,8 @@
                                 <input type="hidden" name="status" value="{{ $encounter->status }}">
                                 <button type="submit" class="btn btn-sm btn-outline-primary">Close Encounter</button>
                             </form>
-                            <a href="{{ route('encounters.index') }}" class="btn btn-sm d-inline-block btn-outline-primary">
+                            <a href="{{ route('encounters.index') }}"
+                                class="btn btn-sm d-inline-block btn-outline-primary mr-3">
                                 <i class="icon ion-md-arrow-back"></i>
                                 Back</a>
 
@@ -170,13 +171,11 @@
                         </div>
                         <div class="modal-body">
                             <ul class="list-group">
-                                {{-- @foreach ($doctors as $doctor)
-                                    <select id="doctorSelect" class="form-control" style="width: 100%;">
-                                        @foreach ($doctors as $doctor)
-                                            <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
-                                        @endforeach
-                                    </select>
-                                @endforeach --}}
+                                <select id="doctorSelect" class="form-control" style="width: 100%;">
+                                    @foreach ($rooms as $room)
+                                        <option value="{{ $room->id }}">{{ $room->name }}</option>
+                                    @endforeach
+                                </select>
                             </ul>
                         </div>
                         <div class="modal-footer">
@@ -201,22 +200,23 @@
                         </div>
                         <div class="modal-body">
                             <ul class="list-group">
-                                @foreach ($doctors as $doctor)
-                                    {{-- <li class="list-group-item">
+                                {{-- @foreach ($doctors as $doctor) --}}
+                                {{-- <li class="list-group-item">
                                         <input type="radio" name="doctor_id" value="{{ $doctor->id }}" />
                                         {{ $doctor->name }}
                                     </li> --}}
-                                    <select id="doctorSelect" class="form-control" style="width: 100%;">
-                                        @foreach ($doctors as $doctor)
-                                            <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
-                                        @endforeach
-                                    </select>
-                                @endforeach
+                                <select id="doctorSelect" class="form-control" style="width: 100%;">
+                                    @foreach ($doctors as $doctor)
+                                        <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+                                    @endforeach
+                                </select>
+                                {{-- @endforeach --}}
                             </ul>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" onclick="assignDoctor()">Assign Doctor</button>
+                            <button type="button" class="btn btn-primary" onclick="assignDoctor()">Assign
+                                Doctor</button>
                         </div>
                     </div>
                 </div>
