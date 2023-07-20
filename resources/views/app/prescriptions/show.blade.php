@@ -28,7 +28,9 @@
                 <div class="prescription-details">
                     <div class="mb-4">
                         <span class="prescription-label">Doctor Name:</span>
-                        {{-- <span class="prescription-value">{{ $prescription->encounter->Doctor->user->name ?? '-' }}</span> --}}
+                        <span
+                            class="prescription-value">{{ optional($prescription->encounter->Doctor)->user->name ?? '-' }}</span>
+
                     </div>
 
                 </div>

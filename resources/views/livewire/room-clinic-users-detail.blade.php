@@ -35,6 +35,7 @@
                     <i class="icon ion-md-close"></i>
                     @lang('crud.common.cancel')
                 </button>
+                
 
                 <button type="button" class="btn btn-primary" wire:click="save">
                     <i class="icon ion-md-save"></i>

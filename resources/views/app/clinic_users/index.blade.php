@@ -60,7 +60,10 @@
                                         {{ optional($clinicUser->user)->name ?? '-' }}
                                     </td>
                                     <td>
-                                        {{ optional($clinicUser->encounter)->id ?? '-' }}
+                                        {{-- @dd($clinicUser->encounterdoctor) --}}
+                                        {{-- {{ optional($clinicUser->doctor)->id ?? '-' }} --}}
+                                        {{ count($clinicUser->encounterdoctor) }}
+
                                     </td>
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">

@@ -121,12 +121,20 @@
                     <div class="row ">
 
                         <div class="small-1 float-right d-inline-block">
+
                             <form action="{{ route('encounters.callNext', ['encounter' => $encounter]) }}" method="POST"
                                 class="d-inline-block">
                                 @csrf
                                 <input type="hidden" name="status" value="{{ $encounter->status }}">
-                                <button type="submit" class="btn btn-sm btn-outline-primary">Call Next</button>
+                                <button type="submit" class="btn btn-sm btn-outline-primary"><i
+                                        class="fas fa-step-forward"></i>Call Next</button>
                             </form>
+
+                            <button type="button" class="btn btn-sm d-inline-block btn-outline-primary" data-toggle="modal"
+                                data-target="#roomChangeModal">
+                                <i class="fas fa-door-open"></i></i>&nbsp;Change Room
+                            </button>
+                            {{-- @dd($encounter->Doctor->rooms) --}}
 
                             <button type="button" class="btn btn-sm d-inline-block btn-outline-primary" data-toggle="modal"
                                 data-target="#referModal">
@@ -148,6 +156,37 @@
                 </div>
 
             </div>
+
+            <!-- Change Room Modal Start-->
+            <div class="modal fade" id="roomChangeModal" tabindex="-1" role="dialog"
+                aria-labelledby="roomChangeModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="roomChangeModallLabel">Select a Room</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group">
+                                {{-- @foreach ($doctors as $doctor)
+                                    <select id="doctorSelect" class="form-control" style="width: 100%;">
+                                        @foreach ($doctors as $doctor)
+                                            <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+                                        @endforeach
+                                    </select>
+                                @endforeach --}}
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" onclick="chooseRoom()">Choose Room</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Change Room Modal end-->
 
             <!-- Referral Modal Start-->
             <div class="modal fade" id="referModal" tabindex="-1" role="dialog" aria-labelledby="referModalLabel"
@@ -535,10 +574,53 @@
                                         aria-labelledby="vert-tabs-medication-tab">
                                         @can('view-any', App\Models\Prescriptions::class)
                                             <div class="card mt-4">
-                                                <div class="card-body">
-                                                    <h4 class="card-title w-100 mb-2">Pprescriptions</h4>
+                                                {{-- <div class="card-body">
+                                                    <h4 class="card-title w-100 mb-2">Medicine Prescription</h4>
 
                                                     <livewire:encounter-prescriptions-detail :encounter="$encounter" />
+                                                </div> --}}
+
+                                                <div class="p-3">
+                                                    <div class="prescription-view">
+                                                        <h3>Medicine Prescription</h3>
+
+                                                        <div class="prescription-info">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <p>
+                                                                        <strong>Patient Name:</strong>
+                                                                        <span>&nbsp;<u>{{ optional($encounter)->student->fullName ?? '-' }}
+                                                                            </u></span>
+                                                                    </p>
+                                                                    <p>
+                                                                        <strong>Date:</strong>
+                                                                        <span> &nbsp;{{ $encounter->created_at ?? '-' }}</span>
+                                                                    </p>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <p>
+                                                                        <strong>Doctor Name:</strong>
+                                                                        {{ $encounter->Doctor ? $encounter->Doctor->user->name : '-' }}
+
+                                                                    </p>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="prescription-details">
+                                                            <table class="table table-bordered">
+                                                                <livewire:encounter-prescriptions-detail :encounter="$encounter" />
+                                                            </table>
+                                                        </div>
+
+                                                        <div class="signature-section">
+                                                            <p>
+                                                                <strong>Doctor's Signature:</strong>
+                                                                ________________________
+                                                            </p>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         @endcan

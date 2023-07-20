@@ -24,7 +24,7 @@ class EncounterController extends Controller
         $this->authorize('view-any', Encounter::class);
 
         $search = $request->get('search', '');
-      
+
         $encounters = Encounter::search($search)
             ->latest()
             ->paginate(10)
@@ -77,7 +77,7 @@ class EncounterController extends Controller
         $labCategories =  LabCatagory::all();
 
 
-        return view('app.encounters.show', compact('encounter',  'doctors','labCategories'));
+        return view('app.encounters.show', compact('encounter',  'doctors', 'labCategories'));
     }
 
     // call the next encounter 
@@ -161,6 +161,16 @@ class EncounterController extends Controller
         dd($doctors);
 
         return view('encounters.refer', compact('encounter', 'doctors'));
+    }
+
+    public function room(Request $request, Encounter $encounter)
+    {
+        $doctors = User::whereHas('roles', function ($query) {
+            $query->where('name', 'doctor');
+        })->get();
+        dd($doctors);
+
+        return view('encounters.room', compact('encounter', 'doctors'));
     }
 
 

@@ -109,7 +109,7 @@ Route::prefix('/')
 
         Route::post('/labtest/request', [LabTestRequestController::class, 'insert'])->name('labTest.insert');
 
-        Route::resource('lab-test-request-groups',LabTestRequestGroupController::class);
+        Route::resource('lab-test-request-groups', LabTestRequestGroupController::class);
         Route::resource('main-diagnoses', MainDiagnosisController::class);
         Route::resource('medical-records', MedicalRecordController::class);
         Route::resource('prescriptions', PrescriptionController::class);
@@ -128,6 +128,7 @@ Route::prefix('/')
         Route::post('/encounters/{encounter}', [EncounterController::class, 'callNext'])->name('encounters.callNext');
         // Route::post('/encounters/{encounter}/call-next', 'EncounterController@callNext')->name('encounters.callNext');
         Route::post('/encounters/{encounter}/refer', [EncounterController::class, 'refer'])->name('encounters.refer');
+        Route::post('/encounters/{encounter}/room', [EncounterController::class, 'room'])->name('encounters.room');
 
         Route::post('/encounters/{encounter}/close', [EncounterController::class, 'closeEencounter'])->name('encounters.closeEencounter');
 
@@ -137,5 +138,4 @@ Route::prefix('/')
         Route::resource('stores', StoreController::class);
         Route::resource('products', ProductController::class);
         Route::resource('pharmacies', PharmacyController::class);
-
     });

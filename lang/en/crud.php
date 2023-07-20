@@ -119,7 +119,7 @@ return [
         ],
     ],
     'encounter_prescriptions' => [
-        'name' => 'Encounters Presscriptions',
+        'name' => 'Medicine Prescription',
         'index_title' => 'Presscriptions List',
         'new_title' => 'New Presscriptions',
         'create_title' => 'Create Presscriptions',
