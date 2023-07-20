@@ -533,10 +533,10 @@
 
                                     <div class="tab-pane fade" id="vert-tabs-medication" role="tabpanel"
                                         aria-labelledby="vert-tabs-medication-tab">
-                                        @can('view-any', App\Models\MainDiagnosis::class)
+                                        @can('view-any', App\Models\Prescriptions::class)
                                             <div class="card mt-4">
                                                 <div class="card-body">
-                                                    <h4 class="card-title w-100 mb-2">Main Diagnoses</h4>
+                                                    <h4 class="card-title w-100 mb-2">Pprescriptions</h4>
 
                                                     <livewire:encounter-prescriptions-detail :encounter="$encounter" />
                                                 </div>
