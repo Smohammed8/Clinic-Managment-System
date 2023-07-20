@@ -94,7 +94,8 @@
                         <input type="checkbox" value="{{ $medicalRecord->id }}" wire:model="selected" />
                         {{ $medicalRecord->created_at->format('d-M y') ?? '-' }}
                         <i class="fas fa-user-md ml-4"></i> Doctor :
-                        {{-- {{ optional($medicalRecord->Doctor->user)->name ?? '-' }} --}}
+                        {{ optional($medicalRecord->Doctor)->user->name ?? '-' }}
+
                     </h3>
 
                     @can('update', $medicalRecord)
@@ -145,7 +146,8 @@
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="fas fa-user-md"></i> Doctor :
-                                {{-- {{ optional($medicalRecord->Doctor->user)->name ?? '-' }} --}}
+                                {{ optional($medicalRecord->Doctor)->user->name ?? '-' }}
+
                             </a>
                         </li>
                     </ul>
@@ -163,7 +165,8 @@
                                     <strong> @lang('crud.student_vital_signs.inputs.date')</strong>
                                     <p class="text-muted">
                                         <i class="fa fa-calendar"></i>
-                                        {{ $medicalRecord->vitalSign->created_at->format('d-M y') ?? '-' }}
+                                        {{ $medicalRecord->vitalSign ? $medicalRecord->vitalSign->created_at->format('d-M y') : '-' }}
+
                                     </p>
                                     <hr>
                                     <strong>
@@ -203,7 +206,8 @@
                                     <strong> @lang('crud.student_vital_signs.inputs.date')</strong>
                                     <p class="text-muted">
                                         <i class="fa fa-calendar"></i>
-                                        {{ $medicalRecord->vitalSign->created_at->format('d-M y') ?? '-' }}
+                                        {{ $medicalRecord->vitalSign ? $medicalRecord->vitalSign->created_at->format('d-M y') : '-' }}
+
                                     </p>
                                     <hr>
                                     <strong>
