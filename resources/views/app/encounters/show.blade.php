@@ -415,61 +415,13 @@
                                         @can('view-any', App\Models\MedicalRecord::class)
                                             <div class="card mt-4">
                                                 <div class="card-body">
-                                                    <h4 class="card-title w-100 mb-2">Medical Records</h4>
+                                                    <h4 class="card-title w-100 mb-2">Clinic Notes</h4>
 
                                                     <livewire:encounter-medical-records-detail :encounter="$encounter" />
                                                 </div>
                                             </div>
                                         @endcan
 
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="card card-default">
-                                                    <div class="card-header">
-                                                        <h3 class="card-title">
-                                                            <i class="fas fa-book"></i>
-                                                            Clinical Note
-                                                        </h3>
-                                                    </div>
-                                                    <!-- /.card-header -->
-                                                    <div class="card-body">
-                                                        <div class="callout callout-danger">
-                                                            <h5> <b>Subjective </b></h5>
-
-                                                            <p>
-                                                                Keffiyeh blog actually fashion axe vegan, irony biodiesel.
-                                                                Cold-pressed hoodie chillwave put a bird on it aesthetic,
-                                                                bitters brunch meggings vegan iPhone. Dreamcatcher vegan
-                                                                scenester
-                                                                mlkshk. Ethical master cleanse Bushwick, occupy
-                                                                Thundercats banjo cliche ennui farm-to-table mlkshk fanny
-                                                                pack gluten-free.
-
-                                                            </p>
-                                                        </div>
-                                                        <div class="callout callout-info">
-                                                            <h5><b> Objective</b></h5>
-
-                                                            <p> {{ '-' }}</p>
-                                                        </div>
-                                                        <div class="callout callout-warning">
-                                                            <h5><b> Assessment </b></h5>
-
-                                                            <p>{{ '-' }}</p>
-                                                        </div>
-                                                        <div class="callout callout-success">
-                                                            <h5> <b>Plan </b></h5>
-
-                                                            <p> {{ '-' }}</p>
-                                                        </div>
-                                                    </div>
-                                                    <!-- /.card-body -->
-                                                </div>
-                                                <!-- /.card -->
-                                            </div>
-                                            <!-- /.col -->
-
-                                        </div>
                                     </div>
 
                                     <div class="tab-pane fade" id="vert-tabs-appointment" role="tabpanel"
