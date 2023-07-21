@@ -82,9 +82,8 @@
                                     <td>{{ $encounter->priority ?? '-' }}</td>
                                     <td>{{ optional($encounter->student)->sex ?? '-' }}</td>
                                     <td>{{ $encounter->check_in_time ?? '-' }}</td>
-                                    <td>  {{-- {{ $encounter->status ?? '-' }} --}}   Ongoing  </td>
-                                        
-                                     
+                                    <td> {{-- {{ $encounter->status ?? '-' }} --}} Ongoing </td>
+
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
 
@@ -97,7 +96,7 @@
                                             @endcan
 
                                             {{-- @can('update', $encounter) --}}
-                                            <a href="{{ route('encounters.edit', $encounter) }}">
+                                            <a href="{{ route('medical-sick-leaves.show', $encounter) }}">
                                                 <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                     <i class="fa fa-print"></i> Sick Leave
                                                 </button>

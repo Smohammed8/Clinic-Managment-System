@@ -1,127 +1,22 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- common libraries -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css"
-        href="https://www.virtuosoft.eu/code/bootstrap-duallistbox/bootstrap-duallistbox/v3.0.2/bootstrap-duallistbox.css">
-
-    <style>
-        .moveall,
-        .removeall {
-            border: 1px solid #ccc !important;
-
-            &:hover {
-                background: #efefef;
-            }
-        }
-
-        .moveall::after {
-            content: attr(title);
-        }
-
-        .removeall::after {
-            content: attr(title);
-        }
-
-        .form-control option {
-            padding: 10px;
-            border-bottom: 1px solid #efefef;
-        }
-    </style>
-    <!-- Bootstrap4 Duallistbox -->
-    <link rel="stylesheet" href="{{ asset('plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css') }}">
-
     <div class="">
-        {{-- <div class="card">
-
-            <div class="card collapsed-card p-3">
-                <div class="card-header">
-                    <h3 class="card-title w-full">
-                        <a href="{{ route('encounters.index') }}" class="mr-4"><i class="icon ion-md-arrow-back"></i></a>
-                        Current Encounter statu
-                    </h3>
-                    <div class="row ">
-                        <span class="badge badge-info">Ongoing</span>
-                        <div class="small-1 float-right d-inline-block">
-                            <form method="post" action="" class="d-inline-block">
-                                <input hidden="" name="call_next" value="true">
-                                <button class="btn btn-sm btn-outline-primary">Call Next</button>
-                            </form>
-
-                            <button class="btn btn-sm d-inline-block btn-outline-primary" data-toggle="modal"
-                                data-target="#refer">
-                                <span class="fal fa-user-plus"></span>&nbsp;Refer</button>
-                            <button id="finish" class="btn btn-sm d-inline-block btn-outline-primary">
-                                <span class="fa fa-check d-inline-block"></span>&nbsp;Close Encounter</button>
-
-                        </div>
-                    </div>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                            <i class="fas fa-plus"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="card-body p-0" style="display: none;">
-                    <div class="mt-4">
-                        <div class="mb-4">
-                            <h5>@lang('crud.encounters.inputs.check_in_time')</h5>
-                            <span>{{ $encounter->check_in_time ?? '-' }}</span>
-                        </div>
-                        <div class="mb-4">
-                            <h5>@lang('crud.encounters.inputs.status')</h5>
-                            <span>{{ $encounter->status ?? '-' }}</span>
-                        </div>
-                        <div class="mb-4">
-                            <h5>@lang('crud.encounters.inputs.student_id')</h5>
-                            <span>{{ $encounter->student->id_number ?? '-' }}</span>
-                        </div>
-                        <div class="mb-4">
-                            <h5>@lang('crud.encounters.inputs.closed_at')</h5>
-                            <span>{{ $encounter->closed_at ?? '-' }}</span>
-                        </div>
-                        <div class="mb-4">
-                            <h5>@lang('crud.encounters.inputs.priority')</h5>
-                            <span>{{ $encounter->priority ?? '-' }}</span>
-                        </div>
-                        <div class="mb-4">
-                            <h5>@lang('crud.encounters.inputs.clinic_id')</h5>
-                            <span>{{ optional($encounter->clinic)->name ?? '-' }}</span>
-                        </div>
-                    </div>
-
-                    <div class="mt-4">
-                        <a href="{{ route('encounters.index') }}" class="btn btn-light">
-                            <i class="icon ion-md-return-left"></i>
-                            @lang('crud.common.back')
-                        </a>
-
-                        @can('create', App\Models\Encounter::class)
-                            <a href="{{ route('encounters.create') }}" class="btn btn-light">
-                                <i class="icon ion-md-add"></i> @lang('crud.common.create')
-                            </a>
-                        @endcan
-                    </div>
-                </div>
-
-            </div>
-
-        </div> --}}
-
         <div class="card card-primary card-outline">
-
             <div class="card-header">
-
                 <span class="badge badge-info"> <i class="fas fa-list"></i><span style="font-size: 15px;"> Ongoing encounter
                     </span> </span>
                 <div class="card-tools">
-
                     <div class="row ">
-
                         <div class="small-1 float-right d-inline-block">
-
+                            {{-- @can('update', $encounter) --}}
+                            {{-- <a href="{{ route('medical-sick-leaves.show', $encounter) }}"> --}}
+                            <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal"
+                                data-target="#medicalSickLeaveModal">
+                                <i class="fa fa-print"></i> Sick Leave
+                            </button>
+                            {{-- </a> --}}
+                            {{-- @endcan  --}}
                             <form action="{{ route('encounters.callNext', ['encounter' => $encounter]) }}" method="POST"
                                 class="d-inline-block">
                                 @csrf
@@ -221,6 +116,73 @@
                     </div>
                 </div>
             </div>
+            <!-- Referral Modal end-->
+
+            <!-- Medical Sick Leave Modal Start-->
+            <div class="modal fade" id="medicalSickLeaveModal" tabindex="-1" role="dialog"
+                aria-labelledby="medicalSickLeaveModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="medicalSickLeaveModalLabel">Create and print medical sick leave
+                                latter</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="content">
+                            <div class="card card-primary card-outline">
+                                <div class="card-body">
+                                    <form action="{{ route('medical-sick-leaves.store') }}" method="POST">
+                                        @csrf
+                                        <div class="form-group">
+                                            <label for="reason">Reason:</label>
+                                            <input type="text" name="reason" id="reason" class="form-control"
+                                                value="Medical Condition" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="note">Note:</label>
+                                            <textarea name="note" id="note" class="form-control" rows="3">Medical note for the sick leave.</textarea>
+                                        </div>
+                                        {{-- <div class="form-group">
+                                            <label for="medical_certificate">Medical Certificate:</label>
+                                            <input type="file" name="medical_certificate" id="medical_certificate"
+                                                class="form-control-file">
+                                        </div> --}}
+                                        <div class="form-group">
+                                            <label for="start_date">Start Date:</label>
+                                            <input type="date" name="start_date" id="start_date" class="form-control"
+                                                value="2023-07-23" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="end_date">End Date:</label>
+                                            <input type="date" name="end_date" id="end_date" class="form-control"
+                                                value="2023-07-28" required>
+                                        </div>
+                                        <div class="text-center">
+                                            <!-- Submit Button with Icon -->
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-check"></i> Submit
+                                            </button>
+
+                                            <!-- Print Button with Icon -->
+                                            <button type="button" class="btn btn-primary" onclick="printSickLeave()">
+                                                <i class="fas fa-print"></i> Print
+                                            </button>
+
+                                            <!-- Cancel Button (using Bootstrap's "data-dismiss" attribute) -->
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                <i class="fas fa-times"></i> Cancel
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Medical Sick Leave Modal end-->
 
             {{-- <script>
                 $(document).ready(function() {

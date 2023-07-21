@@ -32,6 +32,9 @@ use App\Http\Controllers\LabTestRequestGroupController;
 use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\MedicalSickLeaveController;
+
+
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -131,6 +134,8 @@ Route::prefix('/')
         Route::post('/encounters/{encounter}/room', [EncounterController::class, 'room'])->name('encounters.room');
 
         Route::post('/encounters/{encounter}/close', [EncounterController::class, 'closeEencounter'])->name('encounters.closeEencounter');
+
+        Route::resource('medical-sick-leaves', MedicalSickLeaveController::class);
 
 
         // My routes
