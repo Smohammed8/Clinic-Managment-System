@@ -3,6 +3,21 @@
 @section('content')
     <div class="">
         <div class="card card-primary card-outline">
+            <div class="container mt-4">
+                @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                <!-- Display the list of medical sick leaves -->
+            </div>
             <div class="card-header">
                 <span class="badge badge-info"> <i class="fas fa-list"></i><span style="font-size: 15px;"> Ongoing encounter
                     </span> </span>
@@ -64,19 +79,26 @@
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <ul class="list-group">
-                                <select id="doctorSelect" class="form-control" style="width: 100%;">
-                                    @foreach ($rooms as $room)
-                                        <option value="{{ $room->id }}">{{ $room->name }}</option>
-                                    @endforeach
-                                </select>
-                            </ul>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" onclick="chooseRoom()">Choose Room</button>
-                        </div>
+                        <form action="{{ route('encounters.room', ['encounter' => $encounter->id]) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="encounter_id" value="{{ $encounter->id }}">
+                            <div class="modal-body">
+
+                                <ul class="list-group">
+                                    <select id="doctorSelect" class="form-control" style="width: 100%;" name="room_id">
+                                        @foreach ($rooms as $room)
+                                            <option value="{{ $room->id }}">{{ $room->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </ul>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Choose Room</button>
+                            </div>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -135,6 +157,14 @@
                                 <div class="card-body">
                                     <form action="{{ route('medical-sick-leaves.store') }}" method="POST">
                                         @csrf
+
+                                        <!-- Hidden inputs for student_id, doctor_id, and encounter_id -->
+                                        <input type="hidden" name="student_id" id="student_id"
+                                            value="{{ $encounter->student->id }}">
+                                        <input type="hidden" name="doctor_id" id="doctor_id"
+                                            value="{{ $encounter->doctor->user->id }}">
+                                        <input type="hidden" name="encounter_id" id="encounter_id"
+                                            value="{{ $encounter->id }}">
                                         <div class="form-group">
                                             <label for="reason">Reason:</label>
                                             <input type="text" name="reason" id="reason" class="form-control"
@@ -159,6 +189,7 @@
                                             <input type="date" name="end_date" id="end_date" class="form-control"
                                                 value="2023-07-28" required>
                                         </div>
+
                                         <div class="text-center">
                                             <!-- Submit Button with Icon -->
                                             <button type="submit" class="btn btn-primary">
@@ -182,6 +213,43 @@
                     </div>
                 </div>
             </div>
+            <!-- Place this script in your HTML file or in a separate JS file -->
+
+            <script>
+                // Function to handle form submission
+                function submitForm() {
+                    // Get form data
+                    var formData = {
+                        reason: $('#reason').val(),
+                        note: $('#note').val(),
+                        start_date: $('#start_date').val(),
+                        end_date: $('#end_date').val(),
+                        // Add any additional data that you need (student_id, doctor_id, encounter_id)
+                    };
+
+                    // Send AJAX request
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route('medical-sick-leaves.store') }}', // Replace with the actual route URL
+                        data: formData,
+                        dataType: 'json',
+                        success: function(response) {
+                            // Handle success response, if needed
+                            console.log(response);
+                        },
+                        error: function(xhr, status, error) {
+                            // Handle error response, if needed
+                            console.error(error);
+                        }
+                    });
+                }
+
+                // Function to print the form (you can implement this separately if needed)
+                function printSickLeave() {
+                    // Implement your printing logic here
+                }
+            </script>
+
             <!-- Medical Sick Leave Modal end-->
 
             {{-- <script>
@@ -350,7 +418,8 @@
                                             <a class="nav-link " id="vert-tabs-home-tab" data-toggle="pill"
                                                 href="#vert-tabs-appointment" role="tab"
                                                 aria-controls="vert-tabs-home" aria-selected="true"> <i
-                                                    class="fa fa-caret-right nav-icon"></i><b> Appointments </b> <span
+                                                    class="fa fa-caret-right nav-icon"></i><b>
+                                                    Appointments </b> <span
                                                     class="badge bg-primary float-right">12</span></a>
 
                                         </li>
@@ -365,7 +434,8 @@
                                             <a class="nav-link" id="vert-tabs-history-tab" data-toggle="pill"
                                                 href="#vert-tabs-history" role="tab"
                                                 aria-controls="vert-tabs-history" aria-selected="false"> <i
-                                                    class="fa fa-caret-right nav-icon"></i><b> Visit History </b> </a>
+                                                    class="fa fa-caret-right nav-icon"></i><b> Visit
+                                                    History </b> </a>
                                         </li>
                                     </ul>
                                 </div>

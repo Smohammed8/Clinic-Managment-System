@@ -16,6 +16,7 @@
                 <div class="card card-primary card-outline">
                     <div class="card-body">
                         <!-- Rest of your content -->
+                        {{-- @dd($medicalSickLeaves) --}}
                         <div class="card-body">
                             <p class="text-right">Date: <span id="created_at">
                                     {{ optional($medicalSickLeaves)?->created_at ?? '-' }}</span></p>

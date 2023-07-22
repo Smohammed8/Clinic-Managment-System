@@ -13,7 +13,7 @@ class MedicalSickLeaveController extends Controller
         // dd("this is here");
         $medicalSickLeaves = MedicalSickLeave::all();
         //dd($medicalSickLeaves);
-        return view('app.medical_sick_leaves.index', compact('medicalSickLeaves'));
+        return view('app.medical_sick_leaves.show', compact('medicalSickLeaves'));
     }
 
 
@@ -25,6 +25,7 @@ class MedicalSickLeaveController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->encounter_id);
         $request->validate([
             'reason' => 'required',
             'note' => 'nullable',
@@ -33,19 +34,33 @@ class MedicalSickLeaveController extends Controller
             'end_date' => 'required|date|after_or_equal:start_date',
             'student_id' => 'nullable|exists:students,id',
             'doctor_id' => 'exists:clinic_users,id',
+            'encounter_id' => 'required|integer',
+
+
         ]);
 
+
+        // Check if a MedicalSickLeave with the given encounter_id already exists
+        $existingSickLeave = MedicalSickLeave::where('encounter_id', $request['encounter_id'])->first();
+
+        if ($existingSickLeave) {
+            // Return a message that the encounter already has a sick leave
+            return redirect()->route('medical-sick-leaves.index')->with('error', 'This encounter already has a sick leave.');
+        }
+
+        // If no existing MedicalSickLeave with the encounter_id is found, create a new one
         MedicalSickLeave::create($request->all());
         return redirect()->route('medical-sick-leaves.index')->with('success', 'Medical sick leave created successfully.');
     }
 
-    public function show(Request $request)
+    public function show(Request $request, MedicalSickLeave $medicalSickLeaves)
     {
 
+        // dd($medicalSickLeaves);
         $lastNumber = basename($request->path());
         $lastNumber = (int)$lastNumber;
         // dd($lastNumber);
-        $medicalSickLeaves = MedicalSickLeave::where('encounter_id', $lastNumber)->first();
+        $medicalSickLeaves = MedicalSickLeave::where('id', $lastNumber)->first();
         // dd($medicalSickLeaves);
         //dd($medicalSickLeaves);
 

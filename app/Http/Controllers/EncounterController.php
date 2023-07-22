@@ -67,6 +67,7 @@ class EncounterController extends Controller
     /**
      * Display the specified resource.
      */
+
     public function show(Request $request, Encounter $encounter): View
     {
         $doctors = User::whereHas('roles', function ($query) {
@@ -77,7 +78,9 @@ class EncounterController extends Controller
         $labTests =  LabTest::all();
         $labCategories =  LabCatagory::all();
 
-        $rooms = Room::all();
+        //get rooms that belongs to the given encounter clinic
+        $rooms = $encounter->clinic->rooms;
+        // dd($rooms);
 
 
         return view('app.encounters.show', compact('encounter',  'doctors', 'labCategories', 'rooms'));
@@ -168,12 +171,17 @@ class EncounterController extends Controller
 
     public function room(Request $request, Encounter $encounter)
     {
-        $doctors = User::whereHas('roles', function ($query) {
-            $query->where('name', 'doctor');
-        })->get();
-        dd($doctors);
-
-        return view('encounters.room', compact('encounter', 'doctors'));
+        // Validate the request data
+        $request->validate([
+            'encounter_id' => 'required|exists:encounters,id',
+            // 'room_id' => 'required|exists:rooms,id',
+        ]);
+        $doctor = $encounter->doctor;
+        $doctor->room_id = $request->room_id;
+        $doctor->save();
+        // dd($doctor);
+        //dd($encounter->doctor->user->name);
+        return redirect()->back()->with('success', 'Room updated successfully.');
     }
 
 
