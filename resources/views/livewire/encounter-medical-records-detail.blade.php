@@ -94,6 +94,15 @@
                         <i class="fa fa-edit"></i> Edit
                     </button>
                 @endcan
+                {{-- 
+                @can('delete-any', App\Models\MedicalRecord::class)
+                    <button class="btn btn-danger" {{ empty($selected) ? 'disabled' : '' }}
+                        onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="destroySelected">
+                        <i class="icon ion-md-trash"></i>
+                        @lang('crud.common.delete_selected')
+                    </button>
+                @endcan --}}
+
             </div>
             <div class="bigDiv">
                 <div class="callout callout-danger">
