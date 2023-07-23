@@ -181,6 +181,25 @@
                     }
                 });
         });
+
+
+
+        function checkBoxes(labelNames) {
+            const substrings = labelNames.split(',').map(substring => substring.trim());
+            const labels = document.querySelectorAll('label');
+            labels.forEach(label => {
+                const labelText = label.textContent;
+                substrings.forEach(substring => {
+                    if (labelText.includes(substring)) {
+                        const checkboxId = label.getAttribute('for');
+                        const checkbox = document.getElementById(checkboxId);
+                        if (checkbox) {
+                            checkbox.checked = true;
+                        }
+                    }
+                });
+            });
+        }
     </script>
 
 </body>

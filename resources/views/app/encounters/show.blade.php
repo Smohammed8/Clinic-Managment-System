@@ -556,7 +556,7 @@
 
                                     <div class="tab-pane fade" id="vert-tabs-medication" role="tabpanel"
                                         aria-labelledby="vert-tabs-medication-tab">
-                                        @can('view-any', App\Models\Prescriptions::class)
+                                        @can('view-any', App\Models\Prescription::class)
                                             <div class="card mt-4">
                                                 {{-- <div class="card-body">
                                                     <h4 class="card-title w-100 mb-2">Medicine Prescription</h4>
@@ -637,8 +637,6 @@
                                         @endcan
 
                                     </div>
-
-                             
 
                                     <div class="tab-pane fade" id="vert-tabs-sign" role="tabpanel"
                                         aria-labelledby="vert-tabs-sign-tab">
