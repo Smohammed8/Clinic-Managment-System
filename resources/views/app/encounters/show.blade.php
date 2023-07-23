@@ -390,13 +390,13 @@
                                         <li class="nav-item">
                                             <a class="nav-link" id="vert-tabs-sign-tab" data-toggle="pill"
                                                 href="#vert-tabs-sign" role="tab" aria-controls="vert-tabs-sign"
-                                                aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b> Vital
-                                                    Sign</b> </a>
+                                                aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i>
+                                                <b> Vital Sign</b> </a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" id="vert-tabs-messages-tab" data-toggle="pill"
-                                                href="#vert-tabs-messages" role="tab"
-                                                aria-controls="vert-tabs-messages" aria-selected="false"> <i
+                                            <a class="nav-link" id="vert-tabs-main-dignosis-tab" data-toggle="pill"
+                                                href="#vert-tabs-main-dignosis" role="tab"
+                                                aria-controls="vert-tabs-main-dignosis" aria-selected="false"> <i
                                                     class="fa fa-caret-right nav-icon"></i><b> Main
                                                     Diagnoses </b></a>
                                         </li>
@@ -471,8 +471,8 @@
 
                                     </div>
 
-                                    <div class="tab-pane fade" id="vert-tabs-messages" role="tabpanel"
-                                        aria-labelledby="vert-tabs-messages-tab">
+                                    <div class="tab-pane fade" id="vert-tabs-main-dignosis" role="tabpanel"
+                                        aria-labelledby="vert-tabs-main-dignosis-tab">
                                         @can('view-any', App\Models\MainDiagnosis::class)
                                             <div class="card mt-4">
                                                 <div class="card-body">
@@ -567,7 +567,6 @@
                                                 <div class="p-3">
                                                     <div class="prescription-view">
                                                         <h3>Medicine Prescription</h3>
-
                                                         <div class="prescription-info">
                                                             <div class="row">
                                                                 <div class="col-md-6">
@@ -596,14 +595,14 @@
                                                             <table class="table table-bordered">
                                                                 <livewire:encounter-prescriptions-detail :encounter="$encounter" />
                                                             </table>
+                                                            <div class="signature-section">
+                                                                <p>
+                                                                    <strong>Doctor's Signature:</strong>
+                                                                    ________________________
+                                                                </p>
+                                                            </div>
                                                         </div>
 
-                                                        <div class="signature-section">
-                                                            <p>
-                                                                <strong>Doctor's Signature:</strong>
-                                                                ________________________
-                                                            </p>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -625,24 +624,21 @@
 
                                     </div>
 
-                                    <div class="tab-pane fade" id="vert-tabs-messages" role="tabpanel"
-                                        aria-labelledby="vert-tabs-messages-tab">
-                                        @can('view-any', App\Models\MainDiagnosis::class)
+                                    <div class="tab-pane fade" id="vert-tabs-sign-tab" role="tabpanel"
+                                        aria-labelledby="vert-tabs-sign">
+
+                                        @can('view-any', App\Models\VitalSign::class)
                                             <div class="card mt-4">
                                                 <div class="card-body">
-                                                    <h4 class="card-title w-100 mb-2">Main Diagnosis</h4>
-
-                                                    <livewire:encounter-main-diagnoses-detail :encounter="$encounter" />
+                                                    <h4 class="card-title w-100 mb-2">Vital Sign</h4>
+                                                    <livewire:encounter-vital-signs-detail :encounter="$encounter" />
                                                 </div>
                                             </div>
                                         @endcan
-                                    </div>
-
-                                    <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel"
-                                        aria-labelledby="vert-tabs-history-tab">
-                                        Tab 6 Visit history
 
                                     </div>
+
+                             
 
                                     <div class="tab-pane fade" id="vert-tabs-sign" role="tabpanel"
                                         aria-labelledby="vert-tabs-sign-tab">
@@ -658,20 +654,6 @@
                                         <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel"
                                             aria-labelledby="vert-tabs-history-tab">
                                             Tab 6 Visit history
-                                        </div>
-
-                                        <div class="tab-pane fade" id="vert-tabs-sign" role="tabpanel"
-                                            aria-labelledby="vert-tabs-sign-tab">
-
-                                            @can('view-any', App\Models\VitalSign::class)
-                                                <div class="card mt-4">
-                                                    <div class="card-body">
-                                                        <h4 class="card-title w-100 mb-2">Vital Sign</h4>
-                                                        <livewire:encounter-vital-signs-detail :encounter="$encounter" />
-                                                    </div>
-                                                </div>
-                                            @endcan
-
                                         </div>
 
                                     </div>

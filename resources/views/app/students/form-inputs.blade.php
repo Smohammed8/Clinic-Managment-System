@@ -19,9 +19,8 @@
     <x-inputs.group class="col-sm-12">
         <x-inputs.select name="sex" label="Sex">
             @php $selected = old('sex', ($editing ? $student->sex : '')) @endphp
-            <option value="male" {{ $selected == 'male' ? 'selected' : '' }}>Male</option>
-            <option value="female" {{ $selected == 'female' ? 'selected' : '' }}>Female</option>
-            <option value="other" {{ $selected == 'other' ? 'selected' : '' }}>Other</option>
+            <option value="m" {{ $selected == 'male' ? 'selected' : '' }}>Male</option>
+            <option value="f" {{ $selected == 'female' ? 'selected' : '' }}>Female</option>
         </x-inputs.select>
     </x-inputs.group>
 

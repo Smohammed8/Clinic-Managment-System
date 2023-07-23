@@ -23,7 +23,7 @@ class StudentStoreRequest extends FormRequest
             'first_name' => ['nullable', 'max:255', 'string'],
             'middle_name' => ['nullable', 'max:255', 'string'],
             'last_name' => ['nullable', 'max:255', 'string'],
-            'sex' => ['nullable', 'in:male,female,other'],
+            'sex' => ['nullable', 'in:m,f'],
             'photo' => ['nullable', 'file'],
             'id_number' => ['nullable', 'max:255', 'string'],
             'encounter_id' => ['nullable', 'exists:encounters,id'],
