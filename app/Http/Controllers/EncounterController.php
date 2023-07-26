@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
+use App\Models\User;
 use App\Models\Clinic;
 use App\Models\LabTest;
-use App\Models\LabCatagory;
+use App\Models\Student;
 use App\Models\Encounter;
 use Illuminate\View\View;
+use App\Models\LabCatagory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\EncounterStoreRequest;
 use App\Http\Requests\EncounterUpdateRequest;
-use App\Models\Room;
-use App\Models\User;
-use App\Models\Student;
 
 class EncounterController extends Controller
 {
@@ -53,14 +54,17 @@ class EncounterController extends Controller
      */
     public function store(EncounterStoreRequest $request): RedirectResponse
     {
+        // dd($request->student_id);
         $this->authorize('create', Encounter::class);
-
         $validated = $request->validated();
-
-        $encounter = Encounter::create($validated);
-
+        // dd($validated); //registered_by
+        $encounter = new Encounter($validated);
+        $encounter->save();
+        // return redirect()
+        //     ->route('encounters.edit', $encounter)
+        //     ->withSuccess(__('crud.common.created'));
         return redirect()
-            ->route('encounters.edit', $encounter)
+            ->back()
             ->withSuccess(__('crud.common.created'));
     }
 

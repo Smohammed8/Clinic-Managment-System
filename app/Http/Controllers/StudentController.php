@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StudentStoreRequest;
 use App\Http\Requests\StudentUpdateRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
@@ -21,7 +22,7 @@ class StudentController extends Controller
         $this->authorize('view-any', Student::class);
 
         $request->validate([
-            'search' => 'nullable|string|min:5',
+            'search' => 'nullable|string|min:2',
         ], [
             'search.min' => 'The search term must be at least 5 characters.',
         ]);
@@ -29,8 +30,8 @@ class StudentController extends Controller
         $search = $request->get('search', '');
         $searchError = '';
 
-        if ($request->has('search') && strlen($search) < 5) {
-            $searchError = 'Search term must be at least 5 characters.';
+        if ($request->has('search') && strlen($search) < 2) {
+            $searchError = 'Search term must be at least 2 characters.';
             $students = collect(); // Empty collection to avoid executing the search
         } else {
             $students = Student::search($search)
@@ -38,8 +39,11 @@ class StudentController extends Controller
                 ->paginate(10)
                 ->withQueryString();
         }
+        $clinicUser = Auth::user()->clinicUsers->clinics->first();
+        // dd($clinicUser);
 
-        return view('app.students.index', compact('students', 'search', 'searchError'));
+
+        return view('app.students.index', compact('students', 'search', 'searchError', 'clinicUser'));
     }
 
 
@@ -79,10 +83,11 @@ class StudentController extends Controller
      */
     public function show(Request $request, Student $student): View
     {
-        // dd($student->encounter);
+        $clinicUser = Auth::user()->clinicUsers->clinics->first();
+        //dd($clinicUser);
         $this->authorize('view', $student);
 
-        return view('app.students.show', compact('student'));
+        return view('app.students.show', compact('student', 'clinicUser'));
     }
 
     /**

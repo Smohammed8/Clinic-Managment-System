@@ -84,6 +84,7 @@
                             @if ($search)
                                 @forelse($students as $key => $student)
                                     <tr>
+                                        {{-- @dd($students->first()) --}}
 
                                         <td> {{ $key + 1 }}
                                         <td>{{ $student->first_name ?? '-' }}</td>
@@ -93,10 +94,30 @@
 
                                         <td>{{ $student->id_number ?? '-' }}</td>
                                         <td>
-                                            {{ optional($student->encounter->first())->id ?? '-' }}
+                                            {{-- {{ optional($student->encounter->first())->id ?? '-' }} --}}
+                                            {{ optional($student->encounter)->count() ?? '-' }}
                                         </td>
                                         <td class="text-center">
                                             <div role="group" aria-label="Row Actions" class="btn-group">
+                                                @can('create', $student->encounter)
+                                                    <form method="POST" action="{{ route('encounters.store') }}">
+                                                        @csrf
+                                                        {{-- <!-- Hidden inputs --> --}}
+                                                        <input type="hidden" name="check_in_time" value="{{ now() }}">
+                                                        <input type="hidden" name="status" value=0>
+                                                        <input type="hidden" name="priority" value=0>
+                                                        <input type="hidden" name="clinic_id" value={{ $clinicUser->id }}>
+                                                        <input type="hidden" name="student_id" value={{ $student->id }}>
+                                                        <input type="hidden" name="registered_by"
+                                                            value="{{ Auth::user()->clinicUsers->id }}">
+
+                                                        <button type="submit" class="btn btn-sm btn-outline-primary mx-1">
+                                                            <i class="icon ion-md-save"></i>
+                                                            Check In
+                                                        </button>
+                                                    </form>
+                                                @endcan
+
                                                 @can('update', $student)
                                                     <a href="{{ route('students.edit', $student) }}">
                                                         <button type="button" class="btn btn-sm btn-outline-primary mx-1">
@@ -109,8 +130,8 @@
                                                             <i class="icon ion-md-eye"></i> Show
                                                         </button>
                                                     </a>
-                                                    @endcan 
-                                                    @can('delete', $student)
+                                                @endcan
+                                                @can('delete', $student)
                                                     <form action="{{ route('students.destroy', $student) }}" method="POST"
                                                         onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                         @csrf @method('DELETE')

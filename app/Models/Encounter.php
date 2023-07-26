@@ -17,6 +17,9 @@ class Encounter extends Model
         'closed_at',
         'priority',
         'clinic_id',
+        'student_id',
+        'doctor_id',
+        'registered_by',
     ];
 
     protected $searchableFields = ['*'];
