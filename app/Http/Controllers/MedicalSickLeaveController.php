@@ -8,14 +8,29 @@ use App\Models\MedicalSickLeave;
 
 class MedicalSickLeaveController extends Controller
 {
-    public function index()
+    // public function index()
+    // {
+    //     $medicalSickLeaves = MedicalSickLeave::all();
+    //     return view('app.medical_sick_leaves.show', compact('medicalSickLeaves'));
+    // }
+
+    public function index(Request $request)
     {
-        // dd("this is here");
-        $medicalSickLeaves = MedicalSickLeave::all();
-        //dd($medicalSickLeaves);
+        $searchTerm = $request->query('search');
+
+        $medicalSickLeaves = MedicalSickLeave::query()
+            ->when($searchTerm, function ($query, $searchTerm) {
+                return $query->whereHas('student', function ($studentQuery) use ($searchTerm) {
+                    $studentQuery->where('first_name', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('middle_name', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('last_name', 'like', '%' . $searchTerm . '%')
+                        ->orWhere('student_id', 'like', '%' . $searchTerm . '%');
+                });
+            })
+            ->get();
+
         return view('app.medical_sick_leaves.show', compact('medicalSickLeaves'));
     }
-
 
 
     public function create()

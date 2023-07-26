@@ -14,6 +14,7 @@
             <!-- Main content -->
             <div class="content">
                 <div class="card card-primary card-outline">
+                    
                     <div class="card-body">
                         <!-- Rest of your content -->
                         {{-- @dd($medicalSickLeaves) --}}

@@ -4,6 +4,7 @@
     <div class="">
 
         <div class="card">
+
             <div class="container mt-4">
                 @if (session('success'))
                     <div class="alert alert-success">
@@ -20,9 +21,30 @@
                 <!-- Display the list of medical sick leaves -->
             </div>
             <div class="card-body">
+
                 <div style="display: flex; justify-content: space-between;">
                     <h4 class="card-title">Medical Sick Leave Letter</h4>
                 </div>
+                <div class="container mt-4">
+                    <form action="{{ route('medical-sick-leaves.index') }}" method="GET" class="form-inline">
+                        <div class="form-group col-6">
+                            <input type="text" name="search" class="form-control col-12" placeholder="Search...">
+                        </div>
+                        <button type="submit" class="btn btn-primary ">
+                            <i class="icon ion-md-search"></i></button>
+                        <button type="button" class="btn btn-secondary" onclick="clearSearch()">
+                            <i class="bi bi-x-circle"></i> Clear
+                        </button>
+                    </form>
+                </div>
+                <script>
+                    function clearSearch() {
+                        document.querySelector('input[name="search"]').value = '';
+                        // Optionally, you can trigger the form submission after clearing the search
+                        // document.querySelector('form').submit();
+                        document.querySelector('form').submit();
+                    }
+                </script>
 
                 <div class="table-responsive">
                     <table class="table table-hover table-condensed">
