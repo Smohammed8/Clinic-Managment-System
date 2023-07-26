@@ -96,11 +96,11 @@
                                             @endcan
 
                                             {{-- @can('update', $encounter) --}}
-                                            <a href="{{ route('medical-sick-leaves.show', $encounter) }}">
+                                            {{-- <a href="{{ route('medical-sick-leaves.show', $encounter) }}">
                                                 <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                     <i class="fa fa-print"></i> Sick Leave
                                                 </button>
-                                            </a>
+                                            </a> --}}
                                             {{-- @endcan  --}}
 
                                             @can('update', $encounter)
