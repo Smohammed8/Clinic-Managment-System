@@ -162,7 +162,7 @@
                                         <input type="hidden" name="student_id" id="student_id"
                                             value="{{ $encounter->student->id }}">
                                         <input type="hidden" name="doctor_id" id="doctor_id"
-                                            value="{{ $encounter->doctor->user->id }}">
+                                            value="{{ Auth::user()->clinicUsers->id }}">
                                         <input type="hidden" name="encounter_id" id="encounter_id"
                                             value="{{ $encounter->id }}">
                                         <div class="form-group">
