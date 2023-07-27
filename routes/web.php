@@ -27,14 +27,14 @@ use App\Http\Controllers\MainDiagnosisController;
 use App\Http\Controllers\MedicalRecordController;
 use App\Http\Controllers\StockCategoryController;
 use App\Http\Controllers\ClinicServicesController;
+use App\Http\Controllers\ItemsInPharmacyController;
 use App\Http\Controllers\LabTestRequestController;
 use App\Http\Controllers\LabTestRequestGroupController;
 use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\MedicalSickLeaveController;
-
-
+use App\Http\Controllers\ProductRequestController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -139,8 +139,12 @@ Route::prefix('/')
 
 
         // My routes
-
         Route::resource('stores', StoreController::class);
         Route::resource('products', ProductController::class);
         Route::resource('pharmacies', PharmacyController::class);
+        Route::resource('product-requests', ProductRequestController::class);
+        Route::resource(
+            'items-in-pharmacies',
+            ItemsInPharmacyController::class
+        );
     });

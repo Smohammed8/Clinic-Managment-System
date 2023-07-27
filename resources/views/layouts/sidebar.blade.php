@@ -44,19 +44,75 @@
                 <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview"
                     role="menu">
                     @auth
-                    @if(Auth::user()->hasRole('store_user'))
-                    <li>
+
+                    @if (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
+                    <li class="nav-item">
                         <a href="{{ route('products.index') }}"
-                        class="nav-link {{ Request::is('store*') ? 'active' : '' }}"                        >
+                            class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
                             <i class="nav-icon icon fas fa-home"></i>
                             <p>
                                 Products
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('product-requests.index') }}"
+                            class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                            <i class="nav-icon icon fas fa-hourglass-half"></i>
+                            <p>
+                                Requests
+                            </p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('products.index') }}"
+                            class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                            <i class="nav-icon icon fas fa-folder-open"></i>
+                            <p>
+                                Records
+                            </p>
+                        </a>
+                    </li>
+                @elseif (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
 
+                <li class="nav-item">
+                    <a href="{{ route('products.index') }}"
+                        class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                        <i class="nav-icon icon fas fa-home"></i>
+                        <p>
+                            Prescriptions
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('items-in-pharmacies.index') }}"
+                        class="nav-link {{ Request::is('items-in-pharmacies*') ? 'active' : '' }}">
+                        <i class="nav-icon icon fas fa-hourglass-half"></i>
+                        <p>
+                            Products in Pharmacy
+                        </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('products.index') }}"
+                        class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                        <i class="nav-icon icon fas fa-folder-open"></i>
+                        <p>
+                            History
+                        </p>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('product-requests.index') }}"
+                        class="nav-link {{ Request::is('product-requests*') ? 'active' : '' }}">
+                        <i class="nav-icon icon fas fa-envelope"></i>
+                        <p>
+                            Sent Requests
+                        </p>
+                    </a>
+                </li>
 
-                    @endif
+                @endif
                         <li class="nav-item {{ Request::is('home*') ? 'menu-open' : '' }}">
                             <a href="{{ route('home') }}" class="nav-link {{ Request::is('home*') ? 'active' : '' }}">
                                 <i class="nav-icon icon fas fa-home"></i>
