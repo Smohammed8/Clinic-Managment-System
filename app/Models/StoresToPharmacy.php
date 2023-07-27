@@ -6,29 +6,24 @@ use App\Models\Scopes\Searchable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class ProductRequest extends Model
+class StoresToPharmacy extends Model
 {
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['amount', 'product_id', 'store_id', 'pharmacy_id'];
+    protected $fillable = ['pharmacy_id', 'store_id'];
 
     protected $searchableFields = ['*'];
 
-    protected $table = 'product_requests';
+    protected $table = 'stores_to_pharmacies';
 
-    public function product()
+    public function pharmacy()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Pharmacy::class);
     }
 
     public function store()
     {
         return $this->belongsTo(Store::class);
-    }
-
-    public function pharmacy()
-    {
-        return $this->belongsTo(Pharmacy::class);
     }
 }

@@ -12,12 +12,10 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('product_requests', function (Blueprint $table) {
+        Schema::create('stores_to_pharmacies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->decimal('amount')->nullable();
-            $table->unsignedBigInteger('product_id')->nullable();
-            $table->unsignedBigInteger('store_id')->nullable();
             $table->unsignedBigInteger('pharmacy_id');
+            $table->unsignedBigInteger('store_id');
 
             $table->timestamps();
         });
@@ -30,6 +28,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('product_requests');
+        Schema::dropIfExists('stores_to_pharmacies');
     }
 };

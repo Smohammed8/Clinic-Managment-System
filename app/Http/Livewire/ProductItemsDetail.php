@@ -54,6 +54,7 @@ class ProductItemsDetail extends Component
 
     public function newItem()
     {
+
         $this->editing = false;
         $this->modalTitle = trans('crud.product_items.new_title');
         $this->resetItemData();
@@ -92,11 +93,11 @@ class ProductItemsDetail extends Component
         $this->validate();
 
         if (!$this->item->product_id) {
-            $this->authorize('create', Item::class);
+            // $this->authorize('create', Item::class);
 
             $this->item->product_id = $this->product->id;
         } else {
-            $this->authorize('update', $this->item);
+            // $this->authorize('update', $this->item);
         }
 
         $this->item->expire_date = \Carbon\Carbon::make($this->itemExpireDate);
@@ -108,7 +109,7 @@ class ProductItemsDetail extends Component
 
     public function destroySelected()
     {
-        $this->authorize('delete-any', Item::class);
+        // $this->authorize('delete-any', Item::class);
 
         Item::whereIn('id', $this->selected)->delete();
 

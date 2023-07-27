@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants;
 use App\Models\Store;
 use App\Models\Product;
 use App\Models\Category;
@@ -20,7 +21,7 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-        if(Auth::user()->hasRole('store_user')){
+        if(Auth::user()->hasRole(Constants::STORE_USER_ROLE)){
             $storeUser=StoreUser::where('user_id',Auth::user()->id)->first();
             $store=Store::where('id',$storeUser->store_id)->first();
             // dd($products);
@@ -54,7 +55,7 @@ class ProductController extends Controller
     {
 
 
-        if(Auth::user()->hasRole('store_user')){
+        if(Auth::user()->hasRole(Constants::STORE_USER_ROLE)){
             $storeUser=StoreUser::where('user_id',Auth::user()->id)->first();
             $store=Store::where('id',$storeUser->store_id)->first();
             // dd($products);
@@ -90,7 +91,7 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         // dd($request->name);
-        if(Auth::user()->hasRole('store_user')){
+        if(Auth::user()->hasRole(Constants::STORE_USER_ROLE)){
             $storeUser=StoreUser::where('user_id',Auth::user()->id)->first();
             $store=Store::where('id',$storeUser->store_id)->first();
             $validated = $request->validated();
@@ -120,7 +121,7 @@ class ProductController extends Controller
     public function show(Request $request, Product $product)
     {
         // $this->authorize('view', $product);
-        if(Auth::user()->hasRole('store_user')){
+        if(Auth::user()->hasRole(Constants::STORE_USER_ROLE)){
             // $storeUser=StoreUser::where('user_id',Auth::user()->id)->first();
             // $store=Store::where('id',$storeUser->store_id)->first();
             // // dd($products);

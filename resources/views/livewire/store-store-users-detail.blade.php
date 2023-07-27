@@ -8,8 +8,8 @@
         @endcan @can('delete-any', App\Models\StoreUser::class)
         <button
             class="btn btn-danger"
-             {{ empty($selected) ? 'disabled' : '' }} 
-            onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
+             {{ empty($selected) ? 'disabled' : '' }}
+             onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
             wire:click="destroySelected"
         >
             <i class="icon ion-md-trash"></i>

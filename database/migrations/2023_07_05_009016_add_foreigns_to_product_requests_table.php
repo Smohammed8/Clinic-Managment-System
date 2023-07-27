@@ -14,16 +14,23 @@ return new class extends Migration {
     {
         Schema::table('product_requests', function (Blueprint $table) {
             $table
-                ->foreign('clinic_id')
+                ->foreign('product_id')
                 ->references('id')
-                ->on('clinic')
+                ->on('products')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
 
             $table
-                ->foreign('product_id')
+                ->foreign('store_id')
                 ->references('id')
-                ->on('products')
+                ->on('stores')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+
+            $table
+                ->foreign('pharmacy_id')
+                ->references('id')
+                ->on('pharmacies')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
         });
@@ -37,8 +44,9 @@ return new class extends Migration {
     public function down()
     {
         Schema::table('product_requests', function (Blueprint $table) {
-            $table->dropForeign(['clinic_id']);
             $table->dropForeign(['product_id']);
+            $table->dropForeign(['store_id']);
+            $table->dropForeign(['pharmacy_id']);
         });
     }
 };

@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('campus_id');
             $table->boolean('status');
             $table->text('description');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('clinic_id');
 
             $table->timestamps();
         });

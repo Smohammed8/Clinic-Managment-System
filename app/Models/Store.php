@@ -25,8 +25,23 @@ class Store extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function storeUser()
+    public function storeUsers()
     {
         return $this->hasMany(StoreUser::class);
+    }
+
+    public function productRequests()
+    {
+        return $this->hasMany(ProductRequest::class);
+    }
+
+    public function productResponses()
+    {
+        return $this->hasMany(ProductResponse::class);
+    }
+
+    public function storesToPharmacies()
+    {
+        return $this->hasMany(StoresToPharmacy::class);
     }
 }

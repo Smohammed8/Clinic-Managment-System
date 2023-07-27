@@ -1,21 +1,21 @@
 <div>
     <div class="mb-4">
-        @can('create', App\Models\Item::class)
+        {{-- @can('create', App\Models\Item::class) --}}
         <button class="btn btn-primary" wire:click="newItem">
             <i class="icon ion-md-add"></i>
             @lang('crud.common.new')
         </button>
-        @endcan @can('delete-any', App\Models\Item::class)
+        {{-- @endcan @can('delete-any', App\Models\Item::class) --}}
         <button
             class="btn btn-danger"
-             {{ empty($selected) ? 'disabled' : '' }} 
+             {{ empty($selected) ? 'disabled' : '' }}
             onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
             wire:click="destroySelected"
         >
             <i class="icon ion-md-trash"></i>
             @lang('crud.common.delete_selected')
         </button>
-        @endcan
+        {{-- @endcan --}}
     </div>
 
     <x-modal id="product-items-modal" wire:model="showingModal">
