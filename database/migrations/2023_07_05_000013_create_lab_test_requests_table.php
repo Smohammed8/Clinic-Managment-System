@@ -12,6 +12,8 @@ return new class extends Migration {
     {
         Schema::create('lab_test_requests', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('encounter_id')->nullable();
+            $table->unsignedBigInteger('lab_test_id')->nullable();
             $table->dateTime('sample_collected_at')->nullable();
             $table->dateTime('sample_analyzed_at')->nullable();
             $table->tinyInteger('status')->nullable();
@@ -29,7 +31,8 @@ return new class extends Migration {
             $table->unsignedBigInteger('sample_analyzed_by_id')->nullable();
             $table->unsignedBigInteger('lab_catagory_id')->nullable();
             $table->unsignedBigInteger('approved_by_id')->nullable();
-            $table->unsignedBigInteger('encounter_id')->nullable();
+            $table->string('upload')->nullable();
+          
             
 
             $table->timestamps();

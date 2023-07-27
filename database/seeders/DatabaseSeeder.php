@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Campus;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,11 +15,14 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Adding an admin user
+        DB::table('users')->delete();
         $user = \App\Models\User::factory()
             ->count(1)
             ->create([
+                'name' => 'Admin Admin',
+                'username' => 'admin',
                 'email' => 'admin@admin.com',
-                'password' => \Hash::make('admin'),
+                'password' => Hash::make('password'),
             ]);
             Campus::firstOrCreate([
                 'name' => 'Main Campus'

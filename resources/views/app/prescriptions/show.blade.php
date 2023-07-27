@@ -16,11 +16,11 @@
                 <div class="prescription-details">
                     <div class="mb-4">
                         <span class="prescription-label">Patient Name:</span>
-                        <span class="prescription-value">{{ $prescription->patient_name ?? '-' }}</span>
+                        <span class="prescription-value">{{ $prescription->encounter->student->first_name ?? '-' }}</span>
                     </div>
                     <div class="mb-4">
                         <span class="prescription-label">Date:</span>
-                        <span class="prescription-value">{{ $prescription->date ?? '-' }}</span>
+                        <span class="prescription-value">{{ $prescription->created_at ?? '-' }}</span>
                     </div>
                 </div>
             </div>
@@ -28,12 +28,11 @@
                 <div class="prescription-details">
                     <div class="mb-4">
                         <span class="prescription-label">Doctor Name:</span>
-                        <span class="prescription-value">{{ $doctor->name ?? '-' }}</span>
+                        <span
+                            class="prescription-value">{{ optional($prescription->encounter->Doctor)->user->name ?? '-' }}</span>
+
                     </div>
-                    <div class="mb-4">
-                        <span class="prescription-label">Doctor Specialization:</span>
-                        <span class="prescription-value">{{ $doctor->specialization ?? '-' }}</span>
-                    </div>
+
                 </div>
             </div>
         </div>

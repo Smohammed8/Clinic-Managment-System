@@ -25,6 +25,9 @@ class EncounterUpdateRequest extends FormRequest
             'closed_at' => ['nullable', 'date'],
             'priority' => ['nullable', 'max:255'],
             'clinic_id' => ['nullable', 'exists:clinic,id'],
+            'student_id' => ['nullable', 'exists:students,id'],
+            'registered_by' => ['nullable', 'exists:clinic_users,id'],
+            'doctor_id' => ['nullable', 'exists:clinic_users,id'],
         ];
     }
 }

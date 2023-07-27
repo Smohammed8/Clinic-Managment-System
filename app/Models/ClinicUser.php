@@ -18,22 +18,22 @@ class ClinicUser extends Model
     protected $table = 'clinic_users';
 
 
- 
 
-    
+
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public function encounter()
+    public function encounterDoctor()
     {
-        return $this->belongsTo(Encounter::class);
+        return $this->hasMany(Encounter::class, 'doctor_id');
     }
 
-    public function encounter2()
+    public function encounterRegisteredBy()
     {
-        return $this->belongsTo(Encounter::class, 'encounter_id');
+        return $this->hasMany(Encounter::class, 'registered_by');
     }
 
     public function appointments()

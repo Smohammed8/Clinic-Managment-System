@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
+use App\Models\User;
 use App\Models\Clinic;
 use App\Models\LabTest;
-use App\Models\LabCatagory;
+use App\Models\Student;
 use App\Models\Encounter;
 use Illuminate\View\View;
+use App\Models\LabCatagory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\EncounterStoreRequest;
 use App\Http\Requests\EncounterUpdateRequest;
-use App\Models\User;
-use App\Models\Student;
 
 class EncounterController extends Controller
 {
@@ -24,7 +26,7 @@ class EncounterController extends Controller
         $this->authorize('view-any', Encounter::class);
 
         $search = $request->get('search', '');
-      
+
         $encounters = Encounter::search($search)
             ->latest()
             ->paginate(10)
@@ -52,20 +54,24 @@ class EncounterController extends Controller
      */
     public function store(EncounterStoreRequest $request): RedirectResponse
     {
+        // dd($request->student_id);
         $this->authorize('create', Encounter::class);
-
         $validated = $request->validated();
-
-        $encounter = Encounter::create($validated);
-
+        // dd($validated); //registered_by
+        $encounter = new Encounter($validated);
+        $encounter->save();
+        // return redirect()
+        //     ->route('encounters.edit', $encounter)
+        //     ->withSuccess(__('crud.common.created'));
         return redirect()
-            ->route('encounters.edit', $encounter)
+            ->back()
             ->withSuccess(__('crud.common.created'));
     }
 
     /**
      * Display the specified resource.
      */
+
     public function show(Request $request, Encounter $encounter): View
     {
         $doctors = User::whereHas('roles', function ($query) {
@@ -76,8 +82,12 @@ class EncounterController extends Controller
         $labTests =  LabTest::all();
         $labCategories =  LabCatagory::all();
 
+        //get rooms that belongs to the given encounter clinic
+        $rooms = $encounter->clinic->rooms;
+        // dd($rooms);
 
-        return view('app.encounters.show', compact('encounter',  'doctors','labCategories'));
+
+        return view('app.encounters.show', compact('encounter',  'doctors', 'labCategories', 'rooms'));
     }
 
     // call the next encounter 
@@ -161,6 +171,21 @@ class EncounterController extends Controller
         dd($doctors);
 
         return view('encounters.refer', compact('encounter', 'doctors'));
+    }
+
+    public function room(Request $request, Encounter $encounter)
+    {
+        // Validate the request data
+        $request->validate([
+            'encounter_id' => 'required|exists:encounters,id',
+            // 'room_id' => 'required|exists:rooms,id',
+        ]);
+        $doctor = $encounter->doctor;
+        $doctor->room_id = $request->room_id;
+        $doctor->save();
+        // dd($doctor);
+        //dd($encounter->doctor->user->name);
+        return redirect()->back()->with('success', 'Room updated successfully.');
     }
 
 

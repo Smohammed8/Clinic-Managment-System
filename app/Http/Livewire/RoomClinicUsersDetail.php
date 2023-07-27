@@ -61,12 +61,14 @@ class RoomClinicUsersDetail extends Component
 
     public function save(): void
     {
+
         $this->validate();
 
         $this->authorize('create', ClinicUser::class);
 
-        $this->room->clinicUsers()->attach($this->clinicUser_id, []);
+        $this->room->clinicUsers()->attach($this->clinic_user_id, []);
 
+        // clinic_user_id
         $this->hideModal();
     }
 

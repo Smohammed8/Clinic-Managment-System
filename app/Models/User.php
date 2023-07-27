@@ -28,12 +28,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getFullNameAttribute() {
+    public function getFullNameAttribute()
+    {
         return ucfirst($this->name);
     }
     public function clinicUsers()
     {
-        return $this->hasMany(ClinicUser::class);
+        return $this->hasOne(ClinicUser::class);
     }
     public function storeUser()
     {

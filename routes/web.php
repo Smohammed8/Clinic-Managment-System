@@ -32,6 +32,9 @@ use App\Http\Controllers\LabTestRequestGroupController;
 use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\MedicalSickLeaveController;
+
+
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -107,9 +110,9 @@ Route::prefix('/')
         Route::resource('lab-tests', LabTestController::class);
         Route::resource('lab-test-requests', LabTestRequestController::class);
 
-        Route::post('labtest/request', [LabTestRequestController::class, 'insert'])->name('labTest.insert');
+        Route::post('/labtest/request', [LabTestRequestController::class, 'insert'])->name('labTest.insert');
 
-        Route::resource('lab-test-request-groups',LabTestRequestGroupController::class);
+        Route::resource('lab-test-request-groups', LabTestRequestGroupController::class);
         Route::resource('main-diagnoses', MainDiagnosisController::class);
         Route::resource('medical-records', MedicalRecordController::class);
         Route::resource('prescriptions', PrescriptionController::class);
@@ -128,8 +131,11 @@ Route::prefix('/')
         Route::post('/encounters/{encounter}', [EncounterController::class, 'callNext'])->name('encounters.callNext');
         // Route::post('/encounters/{encounter}/call-next', 'EncounterController@callNext')->name('encounters.callNext');
         Route::post('/encounters/{encounter}/refer', [EncounterController::class, 'refer'])->name('encounters.refer');
+        Route::post('/encounters/{encounter}/room', [EncounterController::class, 'room'])->name('encounters.room');
 
         Route::post('/encounters/{encounter}/close', [EncounterController::class, 'closeEencounter'])->name('encounters.closeEencounter');
+
+        Route::resource('medical-sick-leaves', MedicalSickLeaveController::class);
 
 
         // My routes
@@ -137,5 +143,4 @@ Route::prefix('/')
         Route::resource('stores', StoreController::class);
         Route::resource('products', ProductController::class);
         Route::resource('pharmacies', PharmacyController::class);
-
     });

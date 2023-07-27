@@ -1,19 +1,4 @@
 <div>
-    <div class="mb-4">
-        @can('create', App\Models\MedicalRecord::class)
-            <button class="btn btn-primary" wire:click="newMedicalRecord">
-                <i class="icon ion-md-add"></i>
-                @lang('crud.common.new')
-            </button>
-            @endcan @can('delete-any', App\Models\MedicalRecord::class)
-            <button class="btn btn-danger" {{ empty($selected) ? 'disabled' : '' }}
-                onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="destroySelected">
-                <i class="icon ion-md-trash"></i> 
-                @lang('crud.common.delete_selected')
-            </button>
-        @endcan
-    </div>
-
     <x-modal id="encounter-medical-records-modal" wire:model="showingModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -84,75 +69,99 @@
         </div>
     </x-modal>
 
-    <div class="table-responsive">
-        <table class="table table-hover table-condensed">
-            <thead>
-                <tr>
-                    <th>
-                        <input type="checkbox" wire:model="allSelected" wire:click="toggleFullSelection"
-                            title="{{ trans('crud.common.select_all') }}" />
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.encounter_medical_records.inputs.subjective')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.encounter_medical_records.inputs.objective')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.encounter_medical_records.inputs.assessment')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.encounter_medical_records.inputs.plan')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.encounter_medical_records.inputs.clinic_user_id')
-                    </th>
-                    <th class="text-left">
-                        @lang('crud.encounter_medical_records.inputs.student_id')
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-600">
-                @foreach ($medicalRecords as $medicalRecord)
-                    <tr class="hover:bg-gray-100">
-                        <td class="text-left">
-                            <input type="checkbox" value="{{ $medicalRecord->id }}" wire:model="selected" />
-                        </td>
-                        <td class="text-left">
+    <div class="card-body">
+        <div class="mb-4">
+            @can('create', App\Models\MedicalRecord::class)
+                <button class="btn btn-primary" wire:click="newMedicalRecord">
+                    <i class="icon ion-md-add"></i>
+                    @lang('crud.common.new')
+                </button>
+                @endcan @can('delete-any', App\Models\MedicalRecord::class)
+                <button class="btn btn-danger" {{ empty($selected) ? 'disabled' : '' }}
+                    onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="destroySelected">
+                    <i class="icon ion-md-trash"></i>
+                    @lang('crud.common.delete_selected')
+                </button>
+            @endcan
+        </div>
+        @foreach ($medicalRecords as $medicalRecord)
+            <div class="h5">
+                <input type="checkbox" value="{{ $medicalRecord->id }}" wire:model="selected" />
+                {{ $medicalRecord->created_at }}
+                <span class="p small">By Dr. {{ optional($medicalRecord->Doctor)->id ?? '-' }}</span>
+                @can('update', $medicalRecord)
+                    <button type="button" class="btn btn-light" wire:click="editMedicalRecord({{ $medicalRecord->id }})">
+                        <i class="fa fa-edit"></i> Edit
+                    </button>
+                @endcan
+                {{-- 
+                @can('delete-any', App\Models\MedicalRecord::class)
+                    <button class="btn btn-danger" {{ empty($selected) ? 'disabled' : '' }}
+                        onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="destroySelected">
+                        <i class="icon ion-md-trash"></i>
+                        @lang('crud.common.delete_selected')
+                    </button>
+                @endcan --}}
+
+            </div>
+            <div class="bigDiv">
+                <div class="callout callout-danger">
+                    <h5 class="mb-0">
+                        <a href="#subjectiveContent-{{ $medicalRecord->id }}" class="text-dark" data-toggle="collapse"
+                            role="button" aria-expanded="false"
+                            aria-controls="subjectiveContent-{{ $medicalRecord->id }}">
+                            <b>@lang('crud.encounter_medical_records.inputs.subjective')</b>
+                        </a>
+                    </h5>
+
+                    <div class="collapse" id="subjectiveContent-{{ $medicalRecord->id }}">
+                        <p>
                             {{ $medicalRecord->subjective ?? '-' }}
-                        </td>
-                        <td class="text-left">
-                            {{ $medicalRecord->objective ?? '-' }}
-                        </td>
-                        <td class="text-left">
-                            {{ $medicalRecord->assessment ?? '-' }}
-                        </td>
-                        <td class="text-left">{{ $medicalRecord->plan ?? '-' }}</td>
-                        <td class="text-left">
-                            {{ optional($medicalRecord->Doctor)->id ?? '-' }}
-                        </td>
-                        <td class="text-left">
-                            {{ optional($medicalRecord->student)->first_name ?? '-' }}
-                        </td>
-                        <td class="text-right">
-                            <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
-                                @can('update', $medicalRecord)
-                                    <button type="button" class="btn btn-light"
-                                        wire:click="editMedicalRecord({{ $medicalRecord->id }})">
-                                        <i class="fa fa-edit"></i> Edit
-                                    </button>
-                                @endcan
-                            </div>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="7">{{ $medicalRecords->render() }}</td>
-                </tr>
-            </tfoot>
-        </table>
+                        </p>
+                    </div>
+                </div>
+                <div class="callout callout-info">
+                    <h5 class="mb-0">
+                        <a href="#objectiveContent-{{ $medicalRecord->id }}" class="text-dark" data-toggle="collapse"
+                            role="button" aria-expanded="false"
+                            aria-controls="objectiveContent-{{ $medicalRecord->id }}">
+                            <b>@lang('crud.encounter_medical_records.inputs.objective')</b>
+                        </a>
+                    </h5>
+
+                    <div class="collapse" id="objectiveContent-{{ $medicalRecord->id }}">
+                        <p> {{ $medicalRecord->objective ?? '-' }}</p>
+                    </div>
+                </div>
+                <div class="callout callout-warning">
+                    <h5 class="mb-0">
+                        <a href="#assessmentContent-{{ $medicalRecord->id }}" class="text-dark" data-toggle="collapse"
+                            role="button" aria-expanded="false"
+                            aria-controls="assessmentContent-{{ $medicalRecord->id }}">
+                            <b>@lang('crud.encounter_medical_records.inputs.assessment')</b>
+                        </a>
+                    </h5>
+
+                    <div class="collapse" id="assessmentContent-{{ $medicalRecord->id }}">
+                        <p>{{ $medicalRecord->assessment ?? '-' }}</p>
+                    </div>
+                </div>
+                <div class="callout callout-success">
+                    <h5 class="mb-0">
+                        <a href="#planContent-{{ $medicalRecord->id }}" class="text-dark" data-toggle="collapse"
+                            role="button" aria-expanded="false"
+                            aria-controls="planContent-{{ $medicalRecord->id }}">
+                            <b>@lang('crud.encounter_medical_records.inputs.plan')</b>
+                        </a>
+                    </h5>
+
+                    <div class="collapse" id="planContent-{{ $medicalRecord->id }}">
+                        <p> {{ $medicalRecord->plan ?? '-' }}</p>
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
     </div>
+
 </div>

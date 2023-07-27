@@ -104,7 +104,8 @@
                     </div>
                     <div class="mb-4">
                         <h5>@lang('crud.medical_records.inputs.clinic_user_id')</h5>
-                        <span>{{ optional($medicalRecord->Doctor->user)->name ?? '-' }}</span>
+                        <span>{{ optional($medicalRecord->Doctor)->user->name ?? '-' }}
+                        </span>
                     </div>
                     <div class="mb-4">
                         <h5>@lang('crud.medical_records.inputs.student_id')</h5>

@@ -118,6 +118,21 @@ return [
             'priority' => 'Priority',
         ],
     ],
+    'encounter_prescriptions' => [
+        'name' => 'Medicine Prescription',
+        'index_title' => 'Presscriptions List',
+        'new_title' => 'New Presscriptions',
+        'create_title' => 'Create Presscriptions',
+        'edit_title' => 'Edit Presscriptions',
+        'show_title' => 'Show Presscriptions',
+        'inputs' => [
+            'drug_name' => 'Drug Name',
+            'dose' => 'Dose',
+            'frequency' => 'Frequency',
+            'duration' => 'Duration',
+            'other_info' => 'Other Info',
+        ],
+    ],
 
     'clinic_rooms' => [
         'name' => 'Clinic Rooms',
