@@ -91,7 +91,7 @@ class ProductRequestController extends Controller
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
             $clinics = Clinic::pluck('name', 'id');
-            $products = Product::pluck('name', 'id');
+            $products=Product::where('store_id',StoresToPharmacy::where('pharmacy_id',$pharmacy->id)->pluck('store_id'))->pluck('name', 'id');
             $storeToPharmacy = (StoresToPharmacy::where('pharmacy_id', $pharmacy->id))->get();
             $stores = array();
             foreach ($storeToPharmacy as  $value) {
@@ -174,7 +174,7 @@ class ProductRequestController extends Controller
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
             $clinics = Clinic::pluck('name', 'id');
-            $products = Product::pluck('name', 'id');
+            $products=Product::where('store_id',StoresToPharmacy::where('pharmacy_id',$pharmacy->id)->pluck('store_id'))->pluck('name', 'id');
             $storeToPharmacy = (StoresToPharmacy::where('pharmacy_id', $pharmacy->id))->get();
             $stores = array();
             foreach ($storeToPharmacy as  $value) {

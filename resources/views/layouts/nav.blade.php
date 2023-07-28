@@ -50,7 +50,7 @@
 
                           <div class="media-body">
                             <h3 class="dropdown-item-title">
-                              Seid Mohammed
+                              {{Auth::user()->name}}
                               <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                             </h3>
                             <p class="text-sm">-</p>
@@ -75,7 +75,7 @@
 
                                     <div class="media-body">
                                         <h3 class="dropdown-item-title">
-                                            Seid Mohammed
+                                            Auth::user()->name
                                             <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
                                         </h3>
                                         <p class="text-sm">-</p>
@@ -97,7 +97,7 @@
                     <i class="nav-icon icon fa fa-user"></i>
                     {{-- <img src="{{ asset('user_photo/user.png') }}"  width="30px;" class="img-circle elevation-2" alt="">
                      --}}
-                        Seid Mohammed
+                     {{Auth::user()->name}}
 
 
 
