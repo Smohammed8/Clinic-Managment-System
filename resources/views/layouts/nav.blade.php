@@ -146,15 +146,6 @@
                    </a>
 
                </span>
-               </li>
-                    <a href="{{ route('logout') }}" class="nav-link" style="color:white;">
-                        <i class="nav-icon icon fa fa-sign-out-alt"></i>
-
-                        Logout
-
-                    </a>
-
-                </span>
             </li>
 
             @guest

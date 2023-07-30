@@ -124,6 +124,12 @@ Route::prefix('/')
         Route::resource('stock-units', StockUnitController::class);
         Route::resource('students', StudentController::class);
         Route::resource('suppliers', SupplierController::class);
+
+
+        Route::post('/user/{user}/assignPharmacy',[UserController::class,'assignPharamacyPlace'])->name('user.assignPharamacyPlace');
+        Route::post('/user/{user}/assignStore',[UserController::class,'assignStorePlace'])->name('user.assignStorePlace');
+
+        // Route::post('/')
         Route::resource('users', UserController::class);
         Route::resource('vital-signs', VitalSignController::class);
 
@@ -139,6 +145,13 @@ Route::prefix('/')
 
 
         // My routes
+
+        Route::get('/product-requests/approve/{productRequest}',[ProductRequestController::class,'approve'])->name('product-requests.approve');
+        Route::get('/product-requests/reject/{productRequest}',[ProductRequestController::class,'reject'])->name('product-requests.reject');
+        Route::get('/product-requests/sentRequests',[ProductRequestController::class,'sentRequests'])->name('product-requests.sentRequests');
+        Route::get('/product-requests/records',[ProductRequestController::class,'recordsOfRequests'])->name('product-requests.recordsOfRequests');
+
+
         Route::resource('stores', StoreController::class);
         Route::resource('products', ProductController::class);
         Route::resource('pharmacies', PharmacyController::class);
@@ -147,4 +160,4 @@ Route::prefix('/')
             'items-in-pharmacies',
             ItemsInPharmacyController::class
         );
-    });
+        });

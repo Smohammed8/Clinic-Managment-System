@@ -3,6 +3,7 @@
 @section('content')
     <div class="container">
         <div class="card">
+            
             <div class="card-body">
                 <div style="display: flex; justify-content: space-between;">
                     <h4 class="card-title">
@@ -16,7 +17,7 @@
                             <form>
                                 <div class="input-group">
                                     <input id="indexSearch" type="text" name="search"
-                                        placeholder="{{ __('crud.common.search') }}" value="{{ $search ?? '' }}"
+                                        placeholder="{{ __('crud.common.search') }}" value="{{ $RejectedSearch ?? '' }}"
                                         class="form-control" autocomplete="off" />
                                     <div class="input-group-append">
                                         <button type="submit" class="btn btn-primary">
@@ -66,23 +67,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($productRequests as $productRequest)
+                            @forelse($RequestedProductRequests as $requestedProductRequest)
                                 <tr>
-                                    <td>{{ $productRequest->amount ?? '-' }}</td>
+                                    <td>{{ $requestedProductRequest->amount ?? '-' }}</td>
                                     {{-- <td>
                                 {{ optional($productRequest->clinic)->name ??
                                 '-' }}
                             </td> --}}
                                     <td>
-                                        {{ optional($productRequest->product)->name ?? '-' }}
+                                        {{ optional($requestedProductRequest->product)->name ?? '-' }}
                                     </td>
                                     @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
                                     <td>
-                                        {{ optional($productRequest->store)->name ?? '-' }}
+                                        {{ optional($requestedProductRequest->store)->name ?? '-' }}
                                     </td>
                                 @elseif (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
                                     <td>
-                                        {{ optional($productRequest->pharmacy)->name ?? '-' }}
+                                        {{ optional($requestedProductRequest->pharmacy)->name ?? '-' }}
                                     </td>
                                 @endif
                                     <td class="text-center" style="width: 134px;">
@@ -109,31 +110,10 @@
                                             <i class="icon ion-md-eye"></i>
                                         </button>
                                     </a> --}}
-                                    @if (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
-                                            <a href="{{ route('product-requests.approve', ['productRequest'=>$productRequest]) }}">
-                                                <button type="button" class="btn btn-primary">
-                                                    Approve
-                                                </button>
-                                            </a>
 
-                                            <a href="{{ route('product-requests.reject', ['productRequest'=>$productRequest]) }}">
-                                                <button type="button" class="btn btn-danger" onclick="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                                    Reject
-                                                </button>
-                                            </a>
-
-                                            {{-- <form action="{{ route('product-requests.reject', ['product-request'=>$productRequest]) }}"
-                                            method="GET"
-                                            onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                            @csrf @method('DELETE')
-                                            <button type="submit" class="btn btn-danger">
-                                                Reject
-                                            </button>
-                                        </form> --}}
-                                    @endif
                                             {{-- @endcan @can('delete', $productRequest) --}}
                                             @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
-                                                <form action="{{ route('product-requests.destroy', $productRequest) }}"
+                                                <form action="{{ route('product-requests.destroy', $requestedProductRequest) }}"
                                                     method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
@@ -157,7 +137,7 @@
                         <tfoot>
                             <tr>
                                 <td colspan="5">
-                                    {!! $productRequests->render() !!}
+                                    {!! $RequestedProductRequests->render() !!}
                                 </td>
                             </tr>
                         </tfoot>

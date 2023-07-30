@@ -10,12 +10,15 @@ use Illuminate\Http\Request;
 use App\Models\ProductRequest;
 use App\Http\Requests\ProductRequestStoreRequest;
 use App\Http\Requests\ProductRequestUpdateRequest;
+use App\Models\Item;
+use App\Models\ItemsInPharmacy;
 use App\Models\Pharmacy;
 use App\Models\PharmacyUser;
 use App\Models\StoresToPharmacy;
 use App\Models\StoreUser;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProductRequestController extends Controller
 {
@@ -36,7 +39,7 @@ class ProductRequestController extends Controller
 
             $search = $request->get('search', '');
 
-            $productRequests = ProductRequest::where('store_id', $storeUser->store_id)->where('status',)->search($search)
+            $productRequests = ProductRequest::where('store_id', $storeUser->store_id)->where('status','Requested')->search($search)
                 ->latest()
                 ->paginate(5)
                 ->withQueryString();
@@ -134,9 +137,10 @@ class ProductRequestController extends Controller
             $validated = $request->validated();
             // dd($validated);
             $validated['pharmacy_id'] = $pharmacy->id;
-
+            $validated['status']="Requested";
+            // dd($validated);
             $productRequest = ProductRequest::create($validated);
-
+            dd($productRequest);
             return redirect()
                 ->route('product-requests.edit', $productRequest)
                 ->withSuccess(__('crud.common.created'));
@@ -244,5 +248,127 @@ class ProductRequestController extends Controller
                 ->withSuccess(__('crud.common.removed'));
         }
         abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
+    }
+
+    public function approve(ProductRequest $productRequest){
+        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+            $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+            $store = Store::where('id', $storeUser->store_id)->first();
+            $totalAmountInStore = Item::where('product_id',$productRequest->product_id)->sum('number_of_units');
+    if ($productRequest->amount>$totalAmountInStore){
+
+        dd($productRequest->amount,$totalAmountInStore,$productRequest->product_id);
+        return redirect()
+                ->route('product-requests.index')
+                ->withErrors(__('There is no available amount for the given request'));
+    }
+
+
+            $items=Item::where('product_id',$productRequest->product_id)->orderBy('expire_date')->get();
+            // dd($items);
+
+            foreach ($items as $item){
+                if ($item->number_of_units>=$productRequest->amount){
+                    $t=ItemsInPharmacy::firstOrCreate(['item_id'=>$item->id,'pharmacy_id'=>$productRequest->pharmacy_id]);
+                    $t->count=$t->count+$productRequest->amount;
+                    $t->save();
+                    $item->number_of_units=$item->number_of_units-$productRequest->amount;
+                    $item->save();
+                    break;
+                }
+                else{
+                    $productRequest->amount=$productRequest->amount-$item->number_of_units;
+                    $t=ItemsInPharmacy::firstOrCreate(['item_id'=>$item->id,'pharmacy_id'=>$productRequest->pharmacy_id]);
+                    $t->count=$t->count+$item->number_of_units;
+                    $t->save();
+
+                    $item->number_of_units=0;
+                    $item->save();
+                }
+
+            }
+
+            // dd($items);
+
+
+            $productRequest->status='Approved';
+            $productRequest->save();
+
+            return redirect()
+                ->route('product-requests.index')
+                ->withSuccess(__('crud.common.approved'));
+        }
+        abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
+    }
+
+    public function reject(ProductRequest $productRequest){
+        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+            $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+            $store = Store::where('id', $storeUser->store_id)->first();
+            $products=Product::where('store_id',$store->id);
+
+            $productRequest->status='Rejected';
+            $productRequest->save();
+
+            return redirect()
+                ->route('product-requests.index')
+                ->withSuccess(__('crud.common.rejected'));
+        }
+        abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
+    }
+
+    public function sentRequests(Request $request){
+        if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
+            $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
+            $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
+
+            $ApprovedSearch = $request->get('search', '');
+            $ApprovedProductRequests=ProductRequest::where('pharmacy_id',$pharmacy->id)->where('status',"Approved")->orderBy('created_at','desc')->search($ApprovedSearch)
+            ->latest()
+            ->paginate(5)
+            ->withQueryString();
+            $RequestedSearch = $request->get('search', '');
+            $RequestedProductRequests=ProductRequest::where('pharmacy_id',$pharmacy->id)->where('status',"Requested")->orderBy('created_at','desc')->search($RequestedSearch)
+            ->latest()
+            ->paginate(5)
+            ->withQueryString();
+            $RejectedSearch = $request->get('search', '');
+            $RejectedProductRequests=ProductRequest::where('pharmacy_id',$pharmacy->id)->where('status',"Rejected")->orderBy('created_at','desc')->search($RejectedSearch)
+            ->latest()
+            ->paginate(5)
+            ->withQueryString();
+
+            return view(
+                'app.product_requests.sentRequests',
+                compact('ApprovedProductRequests','RequestedProductRequests','RejectedProductRequests','ApprovedSearch','RequestedSearch', 'RejectedSearch')
+            );
+        }
+        abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
+    }
+
+
+    public function recordsOfRequests(Request $request){
+        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+
+            $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+            // dd($storeUser);
+            $store = Store::where('id', $storeUser->store_id)->first();
+
+
+            $search = $request->get('search', '');
+
+            $productRequests = ProductRequest::where('store_id', $storeUser->store_id)->where('status','Requested')->search($search)
+                ->latest()
+                ->paginate(5)
+                ->withQueryString();
+
+            return view(
+                'app.product_requests.index',
+                compact('productRequests', 'search')
+            );
+        }
+
+
+
     }
 }

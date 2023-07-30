@@ -11,7 +11,7 @@ class ProductRequest extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['amount', 'product_id', 'store_id', 'pharmacy_id'];
+    protected $fillable = ['amount', 'product_id', 'store_id', 'pharmacy_id','status'];
 
     protected $searchableFields = ['*'];
 

@@ -20,6 +20,8 @@ return [
         'created' => 'Successfully created',
         'saved' => 'Saved successfully',
         'removed' => 'Successfully removed',
+        'approved'=>'Successfully Approved',
+        'rejected'=>'Successfully Rejected'
     ],
 
     'appointments' => [

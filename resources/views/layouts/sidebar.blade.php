@@ -17,7 +17,32 @@
     document.addEventListener('DOMContentLoaded', setActiveMenuItems);
     document.addEventListener('ajaxComplete', setActiveMenuItems);
 </script>
+@php
 
+
+
+    function isActiveMenu($uri = '')
+    {
+        $active = false;
+        // dd(strpos(Route::currentRouteName()));
+        if (strpos(Route::currentRouteName(), $uri) === 0) {
+
+            $active = true;
+        }
+        return $active;
+    }
+    function isMenuOpen($uris)
+    {
+        $isMenuOpen = false;
+        foreach ($uris as $uri) {
+            if (strpos(Route::currentRouteName(), $uri) === 0) {
+                $isMenuOpen = true;
+                break;
+            }
+        }
+        return $isMenuOpen;
+    }
+@endphp
 <aside class="main-sidebar sidebar-light elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link text-dark" style="background-color: #0067ba;">
@@ -65,8 +90,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('products.index') }}"
-                            class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                        <a href="{{ route('product-requests.recordsOfRequests') }}"
+                            class="nav-link {{ isActiveMenu('records') ? 'active' : '' }}">
                             <i class="nav-icon icon fas fa-folder-open"></i>
                             <p>
                                 Records
@@ -103,7 +128,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{ route('product-requests.index') }}"
+                    <a href="{{ route('product-requests.sentRequests') }}"
                         class="nav-link {{ Request::is('product-requests*') ? 'active' : '' }}">
                         <i class="nav-icon icon fas fa-envelope"></i>
                         <p>
