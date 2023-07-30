@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    @can('view-any', App\Models\Product::class)
+    {{-- @can('view-any', App\Models\Product::class)
     <div class="card mt-4">
         <div class="card-body">
             <h4 class="card-title w-100 mb-2">Products</h4>
@@ -61,6 +61,6 @@
             <livewire:store-store-users-detail :store="$store" />
         </div>
     </div>
-    @endcan
+    @endcan --}}
 </div>
 @endsection
