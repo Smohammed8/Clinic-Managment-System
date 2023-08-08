@@ -39,7 +39,7 @@ class ProductRequestController extends Controller
 
             $search = $request->get('search', '');
 
-            $productRequests = ProductRequest::where('store_id', $storeUser->store_id)->where('status','Requested')->search($search)
+            $productRequests = ProductRequest::where('store_id', $storeUser->store_id)->where('status', 'Requested')->search($search)
                 ->latest()
                 ->paginate(5)
                 ->withQueryString();
@@ -48,23 +48,21 @@ class ProductRequestController extends Controller
                 'app.product_requests.index',
                 compact('productRequests', 'search')
             );
-        }
-        else if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
+        } else if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
             // dd($pharmacy->id);
 
             $search = $request->get('search', '');
-            $productRequests=ProductRequest::where('pharmacy_id',$pharmacy->id)->search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
+            $productRequests = ProductRequest::where('pharmacy_id', $pharmacy->id)->search($search)
+                ->latest()
+                ->paginate(5)
+                ->withQueryString();
 
             return view(
                 'app.product_requests.index',
                 compact('productRequests', 'search')
             );
-
         }
 
 
@@ -94,7 +92,7 @@ class ProductRequestController extends Controller
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
             $clinics = Clinic::pluck('name', 'id');
-            $products=Product::where('store_id',StoresToPharmacy::where('pharmacy_id',$pharmacy->id)->pluck('store_id'))->pluck('name', 'id');
+            $products = Product::where('store_id', StoresToPharmacy::where('pharmacy_id', $pharmacy->id)->pluck('store_id'))->pluck('name', 'id');
             $storeToPharmacy = (StoresToPharmacy::where('pharmacy_id', $pharmacy->id))->get();
             $stores = array();
             foreach ($storeToPharmacy as  $value) {
@@ -137,7 +135,7 @@ class ProductRequestController extends Controller
             $validated = $request->validated();
             // dd($validated);
             $validated['pharmacy_id'] = $pharmacy->id;
-            $validated['status']="Requested";
+            $validated['status'] = "Requested";
             // dd($validated);
             $productRequest = ProductRequest::create($validated);
             dd($productRequest);
@@ -178,7 +176,7 @@ class ProductRequestController extends Controller
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
             $clinics = Clinic::pluck('name', 'id');
-            $products=Product::where('store_id',StoresToPharmacy::where('pharmacy_id',$pharmacy->id)->pluck('store_id'))->pluck('name', 'id');
+            $products = Product::where('store_id', StoresToPharmacy::where('pharmacy_id', $pharmacy->id)->pluck('store_id'))->pluck('name', 'id');
             $storeToPharmacy = (StoresToPharmacy::where('pharmacy_id', $pharmacy->id))->get();
             $stores = array();
             foreach ($storeToPharmacy as  $value) {
@@ -250,48 +248,47 @@ class ProductRequestController extends Controller
         abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
     }
 
-    public function approve(ProductRequest $productRequest){
+    public function approve(ProductRequest $productRequest)
+    {
         if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
             $store = Store::where('id', $storeUser->store_id)->first();
-            $totalAmountInStore = Item::where('product_id',$productRequest->product_id)->sum('number_of_units');
-    if ($productRequest->amount>$totalAmountInStore){
+            $totalAmountInStore = Item::where('product_id', $productRequest->product_id)->sum('number_of_units');
+            if ($productRequest->amount > $totalAmountInStore) {
 
-        dd($productRequest->amount,$totalAmountInStore,$productRequest->product_id);
-        return redirect()
-                ->route('product-requests.index')
-                ->withErrors(__('There is no available amount for the given request'));
-    }
+                dd($productRequest->amount, $totalAmountInStore, $productRequest->product_id);
+                return redirect()
+                    ->route('product-requests.index')
+                    ->withErrors(__('There is no available amount for the given request'));
+            }
 
 
-            $items=Item::where('product_id',$productRequest->product_id)->orderBy('expire_date')->get();
+            $items = Item::where('product_id', $productRequest->product_id)->orderBy('expire_date')->get();
             // dd($items);
 
-            foreach ($items as $item){
-                if ($item->number_of_units>=$productRequest->amount){
-                    $t=ItemsInPharmacy::firstOrCreate(['item_id'=>$item->id,'pharmacy_id'=>$productRequest->pharmacy_id]);
-                    $t->count=$t->count+$productRequest->amount;
+            foreach ($items as $item) {
+                if ($item->number_of_units >= $productRequest->amount) {
+                    $t = ItemsInPharmacy::firstOrCreate(['item_id' => $item->id, 'pharmacy_id' => $productRequest->pharmacy_id]);
+                    $t->count = $t->count + $productRequest->amount;
                     $t->save();
-                    $item->number_of_units=$item->number_of_units-$productRequest->amount;
+                    $item->number_of_units = $item->number_of_units - $productRequest->amount;
                     $item->save();
                     break;
-                }
-                else{
-                    $productRequest->amount=$productRequest->amount-$item->number_of_units;
-                    $t=ItemsInPharmacy::firstOrCreate(['item_id'=>$item->id,'pharmacy_id'=>$productRequest->pharmacy_id]);
-                    $t->count=$t->count+$item->number_of_units;
+                } else {
+                    $productRequest->amount = $productRequest->amount - $item->number_of_units;
+                    $t = ItemsInPharmacy::firstOrCreate(['item_id' => $item->id, 'pharmacy_id' => $productRequest->pharmacy_id]);
+                    $t->count = $t->count + $item->number_of_units;
                     $t->save();
 
-                    $item->number_of_units=0;
+                    $item->number_of_units = 0;
                     $item->save();
                 }
-
             }
 
             // dd($items);
 
 
-            $productRequest->status='Approved';
+            $productRequest->status = 'Approved';
             $productRequest->save();
 
             return redirect()
@@ -301,13 +298,14 @@ class ProductRequestController extends Controller
         abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
     }
 
-    public function reject(ProductRequest $productRequest){
+    public function reject(ProductRequest $productRequest)
+    {
         if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
             $store = Store::where('id', $storeUser->store_id)->first();
-            $products=Product::where('store_id',$store->id);
+            $products = Product::where('store_id', $store->id);
 
-            $productRequest->status='Rejected';
+            $productRequest->status = 'Rejected';
             $productRequest->save();
 
             return redirect()
@@ -317,37 +315,40 @@ class ProductRequestController extends Controller
         abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
     }
 
-    public function sentRequests(Request $request){
+    public function sentRequests(Request $request)
+    {
+        // dd(Auth::user()->hasRole(Constants::PHARMACY_USER));
         if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
-            $ApprovedSearch = $request->get('search', '');
-            $ApprovedProductRequests=ProductRequest::where('pharmacy_id',$pharmacy->id)->where('status',"Approved")->orderBy('created_at','desc')->search($ApprovedSearch)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
+            $searchApproved = $request->get('searchApproved', '');
+            $ApprovedProductRequests = ProductRequest::where('pharmacy_id', $pharmacy->id)->where('status', "Approved")->orderBy('updated_at', 'desc')->search($searchApproved)
+                ->latest()
+                ->paginate(5)
+                ->withQueryString();
             $RequestedSearch = $request->get('search', '');
-            $RequestedProductRequests=ProductRequest::where('pharmacy_id',$pharmacy->id)->where('status',"Requested")->orderBy('created_at','desc')->search($RequestedSearch)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
-            $RejectedSearch = $request->get('search', '');
-            $RejectedProductRequests=ProductRequest::where('pharmacy_id',$pharmacy->id)->where('status',"Rejected")->orderBy('created_at','desc')->search($RejectedSearch)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
+            $RequestedProductRequests = ProductRequest::where('pharmacy_id', $pharmacy->id)->where('status', "Requested")->orderBy('updated_at', 'desc')->search($RequestedSearch)
+                ->latest()
+                ->paginate(5)
+                ->withQueryString();
+            $searchRejected = $request->get('searchRejected', '');
+            $RejectedProductRequests = ProductRequest::where('pharmacy_id', $pharmacy->id)->where('status', "Rejected")->orderBy('updated_at', 'desc')->search($searchRejected)
+                ->latest()
+                ->paginate(5)
+                ->withQueryString();
 
             return view(
                 'app.product_requests.sentRequests',
-                compact('ApprovedProductRequests','RequestedProductRequests','RejectedProductRequests','ApprovedSearch','RequestedSearch', 'RejectedSearch')
+                compact('ApprovedProductRequests', 'RequestedProductRequests', 'RejectedProductRequests', 'searchApproved', 'RequestedSearch', 'searchRejected')
             );
         }
         abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
     }
 
 
-    public function recordsOfRequests(Request $request){
+    public function recordsOfRequests(Request $request)
+    {
         if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
 
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
@@ -355,20 +356,46 @@ class ProductRequestController extends Controller
             $store = Store::where('id', $storeUser->store_id)->first();
 
 
+
+
+            ////////////////////////////////////////////////////////////////////////
+
+
+            $searchApproved = $request->get('searchApproved', '');
+
+            $ApprovedRequests = ProductRequest::where('store_id', $storeUser->store_id)->where('status', 'Approved')->orderBy('updated_at', 'desc')->search($searchApproved)
+                ->latest()
+                ->paginate(5)
+                ->withQueryString();
+            // dd($ApprovedRequests[0]->pharmacy);
+            $searchRejected = $request->get('searchRejected', '');
+
+            $RejectedRequests = ProductRequest::where('store_id', $storeUser->store_id)->where('status', 'Rejected')->orderBy('updated_at', 'desc')->search($searchRejected)
+                ->latest()
+                ->paginate(5)
+                ->withQueryString();
+            // dd($RejectedRequests[0]->pharmacy());
+            ///////////////////////////////////////////////////////////////////////
+
+
             $search = $request->get('search', '');
 
-            $productRequests = ProductRequest::where('store_id', $storeUser->store_id)->where('status','Requested')->search($search)
+            $productRequests = ProductRequest::where('store_id', $storeUser->store_id)->where('status', 'Requested')->orderBy('updated_at', 'desc')->search($search)
                 ->latest()
                 ->paginate(5)
                 ->withQueryString();
 
             return view(
-                'app.product_requests.index',
-                compact('productRequests', 'search')
+                'app.product_requests.recordsOfRequests',
+                compact(
+                    'productRequests',
+                    'search',
+                    'searchApproved',
+                    'searchRejected',
+                    'ApprovedRequests',
+                    'RejectedRequests'
+                )
             );
         }
-
-
-
     }
 }

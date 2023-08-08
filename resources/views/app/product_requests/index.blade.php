@@ -6,7 +6,7 @@
             <div class="card-body">
                 <div style="display: flex; justify-content: space-between;">
                     <h4 class="card-title">
-                        @lang('crud.product_requests.index_title')
+                       Product Request Lists
                     </h4>
                 </div>
 

@@ -86,15 +86,11 @@
                                     </p>
                                 </a>
                             </li>
-                            <li>
+                            <li  class="nav-item">
                                 <a href="{{ route('product-requests.recordsOfRequests') }}"
-                                    class="nav-link
-                                     {{-- {{ isActiveMenu('records') ? 'active' : '' }} --}}
-                                     ">
+                                    class="nav-link                                     ">
                                     <i class="nav-icon icon fas fa-folder-open"></i>
-                                    <p>
-                                        Records
-                                    </p>
+                                    <p>Records                                    </p>
                                 </a>
                             </li>
                         @elseif (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
@@ -107,6 +103,15 @@
                                     </p>
                                 </a>
                             </li>
+                            <li  class="nav-item">
+                                <a href="{{ route('products.index') }}"
+                                    class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                                    <i class="nav-icon icon fas fa-history"></i>
+                                    <p>
+                                        History
+                                    </p>
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a href="{{ route('items-in-pharmacies.index') }}"
                                     class="nav-link {{ Request::is('items-in-pharmacies*') ? 'active' : '' }}">
@@ -116,23 +121,16 @@
                                     </p>
                                 </a>
                             </li>
-                            <li>
-                                <a href="{{ route('products.index') }}"
-                                    class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
-                                    <i class="nav-icon icon fas fa-folder-open"></i>
-                                    <p>
-                                        History
-                                    </p>
-                                </a>
-                            </li>
-                            <li>
+
+                            <li  class="nav-item  {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'menu-open' : '' }}">
                                 <a href="{{ route('product-requests.sentRequests') }}"
-                                    class="nav-link {{ Request::is('product-requests*') ? 'active' : '' }}">
+                                    class="nav-link">
                                     <i class="nav-icon icon fas fa-envelope"></i>
                                     <p>
                                         Sent Requests
                                     </p>
                                 </a>
+
                             </li>
                         @else
                             <li class="nav-item {{ Request::is('home*') ? 'menu-open' : '' }}">

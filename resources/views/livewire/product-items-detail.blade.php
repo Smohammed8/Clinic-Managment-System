@@ -239,7 +239,7 @@
                             aria-label="Row Actions"
                             class="relative inline-flex align-middle"
                         >
-                            @can('update', $item)
+                            {{-- @can('update', $item) --}}
                             <button
                                 type="button"
                                 class="btn btn-light"
@@ -247,7 +247,7 @@
                             >
                                 <i class="icon ion-md-create"></i>
                             </button>
-                            @endcan
+                            {{-- @endcan --}}
                         </div>
                     </td>
                 </tr>
