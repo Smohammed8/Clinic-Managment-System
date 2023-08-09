@@ -48,8 +48,12 @@
                                 </th>
                                 <th class="text-left">
                                     {{-- @lang('crud.encounters.inputs.status') --}}
-                                    Patient Name
+
+                                    @unless (auth()->user()->hasRole('doctor'))
+                                        Patient Name
+                                    @endunless
                                 </th>
+
                                 <th class="text-left">
                                     {{-- @lang('crud.encounters.inputs.closed_at') --}}
                                     Age
@@ -78,7 +82,11 @@
                                     <td> {{ $key + 1 }}
                                     <td>{{ $encounter->student->id_number ?? '-' }}</td>
                                     <td>{{ $encounter->student->id_number ?? '-' }}</td>
-                                    <td>{{ $encounter->student->fullName ?? '-' }}</td>
+                                    <td>
+                                        @unless (auth()->user()->hasRole('doctor'))
+                                            {{ $encounter->student->fullName ?? '-' }}
+                                        @endunless
+                                    </td>
                                     <td>{{ $encounter->priority ?? '-' }}</td>
                                     <td>{{ optional($encounter->student)->sex ?? '-' }}</td>
                                     <td>{{ $encounter->check_in_time ?? '-' }}</td>
