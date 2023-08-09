@@ -206,14 +206,6 @@
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
 
-                                            @can('view', $encounter)
-                                                <a href="{{ route('encounters.show', $encounter) }}">
-                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="icon fa fa-user"></i> Profile
-                                                    </button>
-                                                </a>
-                                            @endcan
-
                                             {{-- @can('update', $encounter) --}}
                                             {{-- <a href="{{ route('medical-sick-leaves.show', $encounter) }}">
                                                 <button type="button" class="btn btn-sm btn-outline-primary mx-1">
@@ -222,6 +214,31 @@
                                             </a> --}}
                                             {{-- @endcan  --}}
 
+                                            <!-- Check if user is a doctor -->
+                                            @if (auth()->user()->hasRole('doctor'))
+                                                @if ($key === 0)
+                                                    <a href="{{ route('encounters.show', $encounter) }}">
+                                                        <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                            <i class="icon fa fa-user"></i> Accept
+                                                        </button>
+                                                    </a>
+                                                @else
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1"
+                                                        disabled>
+                                                        <i class="icon fa fa-user"></i> Accept
+                                                    </button>
+                                                @endif
+                                            @else
+                                                @can('view', $encounter)
+                                                    <a href="{{ route('encounters.show', $encounter) }}">
+                                                        <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                            <i class="icon fa fa-user"></i> Profile
+                                                        </button>
+                                                    </a>
+                                                @endcan
+                                            @endif
+                                    <td>
+                                        @if (auth()->user()->hasRole(['admin', 'super-admin']))
                                             @can('update', $encounter)
                                                 <a href="{{ route('encounters.edit', $encounter) }}">
                                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1">
@@ -229,36 +246,40 @@
                                                     </button>
                                                 </a>
                                             @endcan
+
                                             @can('delete', $encounter)
                                                 <form data-route="{{ route('encounters.destroy', $encounter) }}" method="POST"
                                                     id="deletebtnid">
                                                     @csrf @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                        <i class="fa fa-trash"></i>Delete
+                                                        <i class="fa fa-trash"></i> Delete
                                                     </button>
                                                 </form>
                                             @endcan
-                                        </div>
+                                        @endif
                                     </td>
-                                </tr>
-                            @empty
-                                <tr>
-                                    <td colspan="6">
-                                        @lang('crud.common.no_items_found')
-                                    </td>
-                                </tr>
-                            @endforelse
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="6">{!! $encounters->render() !!}</td>
-                            </tr>
-                        </tfoot>
-                    </table>
+
                 </div>
+                </td>
+                </tr>
+            @empty
+                <tr>
+                    <td colspan="6">
+                        @lang('crud.common.no_items_found')
+                    </td>
+                </tr>
+                @endforelse
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="6">{!! $encounters->render() !!}</td>
+                    </tr>
+                </tfoot>
+                </table>
             </div>
         </div>
-        {{-- <script>
+    </div>
+    {{-- <script>
             swal(
                 'The Internet?',
                 'That thing is still around?',
