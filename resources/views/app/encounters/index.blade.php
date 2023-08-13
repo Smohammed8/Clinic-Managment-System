@@ -245,26 +245,25 @@
                                                     </a>
                                                 @endcan
                                             @endif
-                                    <td>
-                                        @if (auth()->user()->hasRole(['admin', 'super-admin']))
-                                            @can('update', $encounter)
-                                                <a href="{{ route('encounters.edit', $encounter) }}">
-                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="fa fa-edit"></i> Edit
-                                                    </button>
-                                                </a>
-                                            @endcan
+                                            @if (auth()->user()->hasRole(['admin', 'super-admin']))
+                                                @can('update', $encounter)
+                                                    <a href="{{ route('encounters.edit', $encounter) }}">
+                                                        <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                            <i class="fa fa-edit"></i> Edit
+                                                        </button>
+                                                    </a>
+                                                @endcan
 
-                                            @can('delete', $encounter)
-                                                <form data-route="{{ route('encounters.destroy', $encounter) }}" method="POST"
-                                                    id="deletebtnid">
-                                                    @csrf @method('DELETE')
-                                                    <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                        <i class="fa fa-trash"></i> Delete
-                                                    </button>
-                                                </form>
-                                            @endcan
-                                        @endif
+                                                @can('delete', $encounter)
+                                                    <form data-route="{{ route('encounters.destroy', $encounter) }}"
+                                                        method="POST" id="deletebtnid">
+                                                        @csrf @method('DELETE')
+                                                        <button type="submit" class="btn btn-sm btn-outline-danger">
+                                                            <i class="fa fa-trash"></i> Delete
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                            @endif
                                     </td>
 
                 </div>

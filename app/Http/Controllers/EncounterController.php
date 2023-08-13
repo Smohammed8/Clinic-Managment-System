@@ -109,11 +109,14 @@ class EncounterController extends Controller
         $nextEncounter = Encounter::where('status', 0)
             ->where('id', '>', $encounter->id)
             ->first();
-        $encounter = $nextEncounter;
+
+
 
         // Redirect to the next encounter's show page with the updated ID in the URL
         //dd($nextEncounter);
         if ($nextEncounter) {
+            $encounter = $nextEncounter;
+            // dd($nextEncounter);
             $nextEncounterId = $nextEncounter->id;
             $nextEncounterUrl = route('encounters.show', ['encounter' => $nextEncounterId]);
 
@@ -121,8 +124,22 @@ class EncounterController extends Controller
             return redirect($nextEncounterUrl);
         } else {
             // Redirect to a different route or display an appropriate message
-            $currentStatus = $encounter;
-            return view('app.encounters.show', compact('encounter',  'doctors'));
+            $doctors = User::whereHas('roles', function ($query) {
+                $query->where('name', 'doctor');
+            })->get();
+            //dd($doctors);
+            $this->authorize('view', $encounter);
+            $labTests =  LabTest::all();
+            $labCategories =  LabCatagory::all();
+
+            //get rooms that belongs to the given encounter clinic
+            $rooms = $encounter->clinic->rooms;
+            // dd($rooms);
+            $danger_message = 'No more encounters available.';
+
+
+
+            return view('app.encounters.show', compact('encounter',  'doctors', 'labCategories', 'rooms', 'danger_message'));
         }
     }
 
@@ -145,20 +162,36 @@ class EncounterController extends Controller
         $nextEncounter = Encounter::where('status', 0)
             ->where('id', '>', $encounter->id)
             ->first();
-        $encounter = $nextEncounter;
+
 
         // Redirect to the next encounter's show page with the updated ID in the URL
         //dd($nextEncounter);
         if ($nextEncounter) {
+            $encounter = $nextEncounter;
             $nextEncounterId = $nextEncounter->id;
             $nextEncounterUrl = route('encounters.show', ['encounter' => $nextEncounterId]);
 
             //return redirect($nextEncounterUrl)->with(compact('encounter'));
             return redirect($nextEncounterUrl);
         } else {
+            //dd($encounter);
             // Redirect to a different route or display an appropriate message
-            $currentStatus = $encounter;
-            return view('app.encounters.show', compact('encounter',  'doctors'));
+            $doctors = User::whereHas('roles', function ($query) {
+                $query->where('name', 'doctor');
+            })->get();
+            //dd($doctors);
+            $this->authorize('view', $encounter);
+            $labTests =  LabTest::all();
+            $labCategories =  LabCatagory::all();
+
+            //get rooms that belongs to the given encounter clinic
+            $rooms = $encounter->clinic->rooms;
+            // dd($rooms);
+            $danger_message = 'No more encounters available.';
+
+
+
+            return view('app.encounters.show', compact('encounter',  'doctors', 'labCategories', 'rooms', 'danger_message'));
         }
     }
 

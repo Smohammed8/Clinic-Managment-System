@@ -19,10 +19,17 @@
                 <!-- Display the list of medical sick leaves -->
             </div>
             <div class="card-header">
+                @if (isset($danger_message))
+                    <div class="alert alert-danger">
+                        {{ $danger_message }}
+                    </div>
+                @endif
+
                 <span class="badge badge-info"> <i class="fas fa-list"></i><span style="font-size: 15px;"> Ongoing encounter
                     </span> </span>
                 <div class="card-tools">
                     <div class="row ">
+
                         <div class="small-1 float-right d-inline-block">
                             {{-- @can('update', $encounter) --}}
                             {{-- <a href="{{ route('medical-sick-leaves.show', $encounter) }}"> --}}
