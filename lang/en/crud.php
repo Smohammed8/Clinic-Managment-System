@@ -20,6 +20,8 @@ return [
         'created' => 'Successfully created',
         'saved' => 'Saved successfully',
         'removed' => 'Successfully removed',
+        'approved'=>'Successfully Approved',
+        'rejected'=>'Successfully Rejected'
     ],
 
     'appointments' => [
@@ -1223,6 +1225,37 @@ return [
             'amount' => 'Amount',
         ],
     ],
+
+    'product_requests' => [
+        'name' => 'Product Requests',
+        'index_title' => 'ProductRequests List',
+        'new_title' => 'New Product request',
+        'create_title' => 'Create ProductRequest',
+        'edit_title' => 'Edit ProductRequest',
+        'show_title' => 'Show ProductRequest',
+        'inputs' => [
+            'amount' => 'Amount',
+            'clinic_id' => 'Clinic',
+            'product_id' => 'Product',
+            'store_id' => 'Store',
+        ],
+    ],
+
+    'items_in_pharmacies' => [
+        'name' => 'Items In Pharmacies',
+        'index_title' => 'ItemsInPharmacies List',
+        'new_title' => 'New Items in pharmacy',
+        'create_title' => 'Create ItemsInPharmacy',
+        'edit_title' => 'Edit ItemsInPharmacy',
+        'show_title' => 'Show ItemsInPharmacy',
+        'inputs' => [
+            'item_id' => 'Item',
+            'count' => 'Count',
+            'pharmacy_id' => 'Pharmacy',
+        ],
+    ],
+
+
 
     'roles' => [
         'name' => 'Roles',

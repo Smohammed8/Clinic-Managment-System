@@ -27,14 +27,14 @@ use App\Http\Controllers\MainDiagnosisController;
 use App\Http\Controllers\MedicalRecordController;
 use App\Http\Controllers\StockCategoryController;
 use App\Http\Controllers\ClinicServicesController;
+use App\Http\Controllers\ItemsInPharmacyController;
 use App\Http\Controllers\LabTestRequestController;
 use App\Http\Controllers\LabTestRequestGroupController;
 use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\MedicalSickLeaveController;
-
-
+use App\Http\Controllers\ProductRequestController;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -124,6 +124,12 @@ Route::prefix('/')
         Route::resource('stock-units', StockUnitController::class);
         Route::resource('students', StudentController::class);
         Route::resource('suppliers', SupplierController::class);
+
+
+        Route::post('/user/{user}/assignPharmacy',[UserController::class,'assignPharamacyPlace'])->name('user.assignPharamacyPlace');
+        Route::post('/user/{user}/assignStore',[UserController::class,'assignStorePlace'])->name('user.assignStorePlace');
+
+        // Route::post('/')
         Route::resource('users', UserController::class);
         Route::resource('vital-signs', VitalSignController::class);
 
@@ -140,7 +146,18 @@ Route::prefix('/')
 
         // My routes
 
+        Route::get('/product-requests/approve/{productRequest}',[ProductRequestController::class,'approve'])->name('product-requests.approve');
+        Route::get('/product-requests/reject/{productRequest}',[ProductRequestController::class,'reject'])->name('product-requests.reject');
+        Route::get('/product-requests/sentRequests',[ProductRequestController::class,'sentRequests'])->name('product-requests.sentRequests');
+        Route::get('/product-requests/records',[ProductRequestController::class,'recordsOfRequests'])->name('product-requests.recordsOfRequests');
+
+
         Route::resource('stores', StoreController::class);
         Route::resource('products', ProductController::class);
         Route::resource('pharmacies', PharmacyController::class);
-    });
+        Route::resource('product-requests', ProductRequestController::class);
+        Route::resource(
+            'items-in-pharmacies',
+            ItemsInPharmacyController::class
+        );
+        });

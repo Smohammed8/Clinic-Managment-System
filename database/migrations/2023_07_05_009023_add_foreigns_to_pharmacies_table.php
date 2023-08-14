@@ -19,6 +19,20 @@ return new class extends Migration {
                 ->on('campus')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
+
+            $table
+                ->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
+
+            $table
+                ->foreign('clinic_id')
+                ->references('id')
+                ->on('clinic')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
         });
     }
 
@@ -31,6 +45,8 @@ return new class extends Migration {
     {
         Schema::table('pharmacies', function (Blueprint $table) {
             $table->dropForeign(['campus_id']);
+            $table->dropForeign(['user_id']);
+            $table->dropForeign(['clinic_id']);
         });
     }
 };

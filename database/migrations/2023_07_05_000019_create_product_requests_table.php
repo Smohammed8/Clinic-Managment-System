@@ -14,8 +14,10 @@ return new class extends Migration {
     {
         Schema::create('product_requests', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('clinic_id');
-            $table->unsignedBigInteger('product_id');
+            $table->decimal('amount')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('store_id')->nullable();
+            $table->unsignedBigInteger('pharmacy_id');
 
             $table->timestamps();
         });

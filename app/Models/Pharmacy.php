@@ -17,6 +17,8 @@ class Pharmacy extends Model
         'campus_id',
         'status',
         'description',
+        'user_id',
+        'clinic_id',
     ];
 
     protected $searchableFields = ['*'];
@@ -43,5 +45,20 @@ class Pharmacy extends Model
     public function itemRequests()
     {
         return $this->hasMany(ItemRequest::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function clinic()
+    {
+        return $this->belongsTo(Clinic::class);
+    }
+
+    public function storesToPharmacies()
+    {
+        return $this->hasMany(StoresToPharmacy::class);
     }
 }

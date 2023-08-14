@@ -25,7 +25,7 @@
                 </form>
             </div>
             <div class="col-md-6 text-right">
-                @can('create', App\Models\Product::class)
+                @can('store.product.create')
                 <a
                     href="{{ route('products.create') }}"
                     class="btn btn-primary"
@@ -40,7 +40,7 @@
     <div class="card">
         <div class="card-body">
             <div style="display: flex; justify-content: space-between;">
-                <h4 class="card-title">@lang('crud.products.index_title')</h4>
+                <h4 class="card-title">Products List</h4>
             </div>
 
             <div class="table-responsive">
@@ -77,7 +77,7 @@
                                     aria-label="Row Actions"
                                     class="btn-group"
                                 >
-                                    @can('update', $product)
+                                    @can('store.product.update')
                                     <a
                                         href="{{ route('products.edit', $product) }}"
                                     >
@@ -88,7 +88,7 @@
                                             <i class="icon ion-md-create"></i>
                                         </button>
                                     </a>
-                                    @endcan @can('view', $product)
+                                    @endcan @can('store.product.view')
                                     <a
                                         href="{{ route('products.show', $product) }}"
                                     >
@@ -99,7 +99,7 @@
                                             <i class="icon ion-md-eye"></i>
                                         </button>
                                     </a>
-                                    @endcan @can('delete', $product)
+                                    @endcan @can('store.product.delete')
                                     <form
                                         action="{{ route('products.destroy', $product) }}"
                                         method="POST"

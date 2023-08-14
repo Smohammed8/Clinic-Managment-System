@@ -44,7 +44,7 @@
         </div>
     </div>
 
-    @can('view-any', App\Models\ItemRequest::class)
+    {{-- @can('view-any', App\Models\ItemRequest::class)
     <div class="card mt-4">
         <div class="card-body">
             <h4 class="card-title w-100 mb-2">Item Requests</h4>
@@ -70,6 +70,6 @@
             />
         </div>
     </div>
-    @endcan
+    @endcan --}}
 </div>
 @endsection

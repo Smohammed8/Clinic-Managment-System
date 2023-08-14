@@ -1,0 +1,30 @@
+<?php
+
+namespace Database\Factories;
+
+use Illuminate\Support\Str;
+use App\Models\ProductResponse;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ProductResponseFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ProductResponse::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'clinic_id' => \App\Models\Clinic::factory(),
+            'store_id' => \App\Models\Store::factory(),
+        ];
+    }
+}

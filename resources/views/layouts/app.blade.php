@@ -87,7 +87,6 @@
             @yield('content')
         </main>
     </div>
-
     @stack('modals')
 
     @livewireScripts
@@ -103,6 +102,13 @@
             })
             notyf.success('{{ session('success') }}')
         </script>
+    @elseif (session()->has('error'))
+    <script>
+        var notyf = new Notyf({
+            dismissible: true
+        })
+        notyf.error('{{ session('error') }}')
+    </script>
     @endif
 
     <script>

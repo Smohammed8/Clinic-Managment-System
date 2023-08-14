@@ -11,19 +11,24 @@ class ProductRequest extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = ['clinic_id', 'product_id'];
+    protected $fillable = ['amount', 'product_id', 'store_id', 'pharmacy_id','status'];
 
     protected $searchableFields = ['*'];
 
     protected $table = 'product_requests';
 
-    public function clinic()
-    {
-        return $this->belongsTo(Clinic::class);
-    }
-
     public function product()
     {
         return $this->belongsTo(Product::class);
+    }
+
+    public function store()
+    {
+        return $this->belongsTo(Store::class);
+    }
+
+    public function pharmacy()
+    {
+        return $this->belongsTo(Pharmacy::class);
     }
 }

@@ -1,5 +1,3 @@
-<!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-light elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link text-dark" style="background-color: #0067ba;">
         <img src="https://upload.wikimedia.org/wikipedia/en/f/fe/Current_Logo_of_Jimma_University.png" alt="JU Logo"

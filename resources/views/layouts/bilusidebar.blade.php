@@ -26,7 +26,79 @@
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview"
                     role="menu">
+                    {{-- @php
+                        $s=Constants::
+                    @endphp --}}
                     @auth
+
+                        @if (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
+                            <li class="nav-item">
+                                <a href="{{ route('products.index') }}"
+                                    class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                                    <i class="nav-icon icon fas fa-home"></i>
+                                    <p>
+                                        Products
+                                    </p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('product-requests.index') }}"
+                                    class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                                    <i class="nav-icon icon fas fa-hourglass-half"></i>
+                                    <p>
+                                        Requests
+                                    </p>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ route('products.index') }}"
+                                    class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                                    <i class="nav-icon icon fas fa-folder-open"></i>
+                                    <p>
+                                        Records
+                                    </p>
+                                </a>
+                            </li>
+                        @elseif (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
+
+                        <li class="nav-item">
+                            <a href="{{ route('products.index') }}"
+                                class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                                <i class="nav-icon icon fas fa-home"></i>
+                                <p>
+                                    Prescriptions
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('items-in-pharmacies.index') }}"
+                                class="nav-link {{ Request::is('items-in-pharmacies*') ? 'active' : '' }}">
+                                <i class="nav-icon icon fas fa-hourglass-half"></i>
+                                <p>
+                                    Products in Pharmacy
+                                </p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('products.index') }}"
+                                class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                                <i class="nav-icon icon fas fa-folder-open"></i>
+                                <p>
+                                    History
+                                </p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('product-requests.index') }}"
+                                class="nav-link {{ Request::is('product-requests*') ? 'active' : '' }}">
+                                <i class="nav-icon icon fas fa-envelope"></i>
+                                <p>
+                                    Sent Requests
+                                </p>
+                            </a>
+                        </li>
+
+                        @endif
                         <li class="nav-item {{ Request::is('home*') ? 'menu-open' : '' }}">
                             <a href="{{ route('home') }}" class="nav-link {{ Request::is('home*') ? 'active' : '' }}">
                                 <i class="nav-icon icon fas fa-home"></i>
@@ -100,7 +172,9 @@
                                     @endcan
                                 </ul>
                             </li>
-                        @endif
+
+
+                            @endif
                     @endauth
 
 
@@ -276,54 +350,6 @@
                         </ul>
                     </li>
 
-                    {{--  --}}
-
-
-
-                    <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
-                            <i class="fas fa-capsules"></i>
-                            <p>
-                               Pharmacy
-                                <i class="right fas fa-angle-left"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-
-
-                            @can('view-any', App\Models\Store::class)
-                            <li class="nav-item">
-                                <a href="{{ route('stores.index') }}" class="nav-link">
-                                    <i class="nav-icon icon ion-md-radio-button-off"></i>
-                                    <p>Stores</p>
-                                </a>
-                            </li>
-                            @endcan
-
-                            @can('view-any', App\Models\Pharmacy::class)
-                            <li class="nav-item">
-                                <a href="{{ route('pharmacies.index') }}" class="nav-link">
-                                    <i class="nav-icon icon ion-md-radio-button-off"></i>
-                                    <p>Pharmacies</p>
-                                </a>
-
-                            </li>
-
-                            @can('view-any', App\Models\Product::class)
-                            <li class="nav-item">
-                                <a href="{{ route('products.index') }}" class="nav-link">
-                                    <i class="nav-icon icon ion-md-radio-button-off"></i>
-                                    <p>Products</p>
-                                </a>
-                            </li>
-                            @endcan
-                            @endcan
-                        </ul>
-                    </li>
-
-
-
-                    {{--  --}}
                     <li
                         class="nav-item has-treeview {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*', 'collages*', 'diagnoses*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'menu-open' : '' }}">
                         <a href="#"
