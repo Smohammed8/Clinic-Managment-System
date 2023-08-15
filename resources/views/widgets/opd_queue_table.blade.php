@@ -9,7 +9,7 @@
                             <tr>
                                 @foreach ($chunk as $encounter)
                                     <td>
-                                        <h4>Encounter ID: {{ $encounter->id }}</h4>
+                                        <h4>Student ID: {{ $encounter->student->id_number ?? '-' }}</h4>
                                         <p>Status: {{ $encounter->status }}</p>
                                     </td>
                                 @endforeach
