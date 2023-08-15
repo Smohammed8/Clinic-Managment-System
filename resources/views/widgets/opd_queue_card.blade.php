@@ -17,7 +17,7 @@
         <div class="col-lg-3 col-6">
             <div class="small-box {{ $bgColor }}">
                 <div class="inner">
-                    <h3>{{ $encounter->student->id_number }}</h3>
+                    <h3>{{ $encounter->student->id_number ?? '-' }}</h3>
                     <p>{{ $encounter->Doctor ? $encounter->Doctor->user->name : '-' }}
                     </p>
 
@@ -25,7 +25,8 @@
                 <div class="icon">
                     <i class="ion ion-stat text-light font-weight-bold"><span class="small text-md"> OPD</span>101</i>
                 </div>
-                <h5 class="small-box-footer">{{ $encounter->student->getFullNameAttribute() }} <i
+                <h5 class="small-box-footer">
+                    {{ $encounter->student ? $encounter->student->getFullNameAttribute() : '_' }} <i
                         class="fas fa-arrow-circle-right"></i>
                 </h5>
             </div>
