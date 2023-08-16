@@ -51,13 +51,13 @@
     </div>
     {{-- @endcan --}}
     {{-- @can('view-any', App\Models\ItemRequest::class) --}}
-    <div class="card mt-4">
+    {{-- <div class="card mt-4">
         <div class="card-body">
             <h4 class="card-title w-100 mb-2">Item Requests</h4>
 
             <livewire:product-item-requests-detail :product="$product" />
         </div>
-    </div>
+    </div> --}}
     {{-- @endcan --}}
 </div>
 @endsection

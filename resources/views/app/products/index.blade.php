@@ -40,7 +40,7 @@
     <div class="card">
         <div class="card-body">
             <div style="display: flex; justify-content: space-between;">
-                <h4 class="card-title">@lang('crud.products.index_title')</h4>
+                <h4 class="card-title">Products List</h4>
             </div>
 
             <div class="table-responsive">
