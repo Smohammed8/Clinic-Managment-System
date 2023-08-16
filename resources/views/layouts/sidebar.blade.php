@@ -332,8 +332,7 @@
 
                                     @can('view-any', App\Models\Encounter::class)
                                         <li class="nav-item">
-                                            <a href="{{ route('encounters.index') }}"
-                                                class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
+                                            <a href="{{ route('encounters.index') }}" class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
                                                 <i class="fa fa-caret-right nav-icon"></i>
                                                 <p>Encounter</p>
                                             </a>

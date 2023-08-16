@@ -30,7 +30,7 @@
                             maxlength="255"></x-inputs.textarea>
                     </x-inputs.group>
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="medicalRecord.clinic_user_id" label="Doctor"
                             wire:model="medicalRecord.clinic_user_id">
                             <option value="null" disabled>Please select the Clinic User</option>
@@ -48,7 +48,7 @@
                                 <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
                 </div>
             </div>
 
@@ -86,9 +86,19 @@
         </div>
         @foreach ($medicalRecords as $medicalRecord)
             <div class="h5">
+
                 <input type="checkbox" value="{{ $medicalRecord->id }}" wire:model="selected" />
-                {{ $medicalRecord->created_at }}
-                <span class="p small">By Dr. {{ optional($medicalRecord->Doctor)->id ?? '-' }}</span>
+              
+                {{-- {{ $medicalRecord->created_at }} --}}
+              
+                 {{-- <span class="p small">By Dr. {{ optional($medicalRecord->Doctor)->id ?? '-' }}</span>
+                 <span class="p small">By Dr. {{ $medicalRecord->subjective ?? '-' }}</span>
+               
+                 <span class="p small">By Dr. {{ $medicalRecord->assessment ?? '-' }}</span>
+               
+                 <span class="p small">By Dr. {{ $medicalRecord->plan ?? '-' }}</span>
+                --}}
+
                 @can('update', $medicalRecord)
                     <button type="button" class="btn btn-light" wire:click="editMedicalRecord({{ $medicalRecord->id }})">
                         <i class="fa fa-edit"></i> Edit
@@ -114,12 +124,10 @@
                         </a>
                     </h5>
 
-                    <div class="collapse" id="subjectiveContent-{{ $medicalRecord->id }}">
-                        <p>
-                            {{ $medicalRecord->subjective ?? '-' }}
-                        </p>
-                    </div>
+                    <span class="p small">{{ $medicalRecord->subjective ?? '-' }}</span>
+               
                 </div>
+
                 <div class="callout callout-info">
                     <h5 class="mb-0">
                         <a href="#objectiveContent-{{ $medicalRecord->id }}" class="text-dark" data-toggle="collapse"
@@ -129,10 +137,10 @@
                         </a>
                     </h5>
 
-                    <div class="collapse" id="objectiveContent-{{ $medicalRecord->id }}">
-                        <p> {{ $medicalRecord->objective ?? '-' }}</p>
-                    </div>
+                    <span class="p small"> {{ $medicalRecord->subjective ?? '-' }}</span>
+               
                 </div>
+
                 <div class="callout callout-warning">
                     <h5 class="mb-0">
                         <a href="#assessmentContent-{{ $medicalRecord->id }}" class="text-dark" data-toggle="collapse"
@@ -142,9 +150,8 @@
                         </a>
                     </h5>
 
-                    <div class="collapse" id="assessmentContent-{{ $medicalRecord->id }}">
-                        <p>{{ $medicalRecord->assessment ?? '-' }}</p>
-                    </div>
+                    <span class="p small"> {{ $medicalRecord->assessment ?? '-' }}</span>
+               
                 </div>
                 <div class="callout callout-success">
                     <h5 class="mb-0">
@@ -155,9 +162,9 @@
                         </a>
                     </h5>
 
-                    <div class="collapse" id="planContent-{{ $medicalRecord->id }}">
-                        <p> {{ $medicalRecord->plan ?? '-' }}</p>
-                    </div>
+                    <span class="p small">{{ $medicalRecord->plan ?? '-' }}</span>
+               
+
                 </div>
             </div>
         @endforeach

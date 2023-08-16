@@ -431,11 +431,10 @@
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link" id="vert-tabs-history-tab" data-toggle="pill"
-                                                href="#vert-tabs-history" role="tab"
-                                                aria-controls="vert-tabs-history" aria-selected="false"> <i
-                                                    class="fa fa-caret-right nav-icon"></i><b> Visit
-                                                    History </b> </a>
+                                            <a class="nav-link" id="vert-tabs-history-tab  vert-tabs-history" data-toggle="pill"
+                                                href="#vert-tabs-history" role="tab"  aria-controls="vert-tabs-history" aria-selected="false"> <i
+                                                    class="fa fa-caret-right nav-icon"></i><b> 
+                                                        Visit History </b> </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -570,9 +569,13 @@
                                                     </div>
                                                 </div>
                                             </form>
+
+
                                         </div>
 
                                     </div>
+
+
 
                                     <div class="tab-pane fade" id="vert-tabs-medication" role="tabpanel"
                                         aria-labelledby="vert-tabs-medication-tab">
@@ -644,11 +647,20 @@
 
                                     </div>
 
+                                    <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel" 
+                                    aria-labelledby="vert-tabs-history-tab">
+                                        Tab 6 Visit history
+
+                                 
+
+                                </div>
+
+
+
+
 
                                
-                                        <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel"
-                                            aria-labelledby="vert-tabs-history-tab">
-                                            Tab 6 Visit history
+                                               
                                         </div>
 
                                     </div>
