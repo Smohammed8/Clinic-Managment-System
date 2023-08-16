@@ -47,8 +47,7 @@ class opdQueueCard extends AbstractWidget
         // 19 = Referral Approved
 
 
-        $opdQueue = Encounter::whereIn('status', [1, 7, 13, 19])->get();
-        $opdQueueToBe = Encounter::whereIn('status', [6])->get();
+        $opdQueue = Encounter::whereIn('status', [2, 7, 13, 19])->get();
 
 
 
@@ -56,7 +55,6 @@ class opdQueueCard extends AbstractWidget
             'config' => $this->config,
             'reloadTimeout' => $this->reloadTimeout,
             'opdQueue' => $opdQueue,
-            'opdQueueToBe' => $opdQueueToBe,
 
 
         ]);

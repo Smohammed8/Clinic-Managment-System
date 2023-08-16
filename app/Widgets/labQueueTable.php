@@ -5,7 +5,7 @@ namespace App\Widgets;
 use App\Models\Encounter;
 use Arrilot\Widgets\AbstractWidget;
 
-class opdQueueTable extends AbstractWidget
+class labQueueTable extends AbstractWidget
 {
     /**
      * The number of seconds before each reload.
@@ -35,17 +35,20 @@ class opdQueueTable extends AbstractWidget
     public function run()
     {
         //
-        // 1 = Checked-In
+        // 12 = Test Pending
+        // 13 = Test Available
+        // 13 = Test Available
+
+
+        $opdQueue = Encounter::whereIn('status', [12, 13])->get();
+        $opdQueueToBe = Encounter::whereIn('status', [12])->get();
 
 
 
-        $opdQueueToBe = Encounter::whereIn('status', [1])->get();
-
-
-
-        return view('widgets.opd_queue_table', [
+        return view('widgets.lab_queue_table', [
             'config' => $this->config,
             'reloadTimeout' => $this->reloadTimeout,
+            'opdQueue' => $opdQueue,
             'opdQueueToBe' => $opdQueueToBe,
 
 
