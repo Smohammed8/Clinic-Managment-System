@@ -76,7 +76,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($encounters  as $key =>  $encounter)
+                            @foreach ($encounters as $key => $encounter)
                                 <tr>
 
                                     <td> {{ $key + 1 }}
@@ -265,25 +265,27 @@
                                                 @endcan
                                             @endif
                                     </td>
-
+                                </tr>
+                            @endforeach
                 </div>
-                </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="6">
-                        @lang('crud.common.no_items_found')
-                    </td>
-                </tr>
-                @endforelse
+
+                @if ($encounters->isEmpty())
+                    <tr>
+                        <td colspan="6">
+                            @lang('crud.common.no_items_found')
+                        </td>
+                    </tr>
+                @endif
+
                 </tbody>
                 <tfoot>
                     <tr>
-                        <td colspan="6">{!! $encounters->render() !!}</td>
+                        {{-- <td colspan="6">{!! $encounters->render() !!}</td> --}}
                     </tr>
                 </tfoot>
                 </table>
             </div>
+
         </div>
     </div>
     {{-- <script>

@@ -26,14 +26,28 @@ class EncounterController extends Controller
         $this->authorize('view-any', Encounter::class);
 
         $search = $request->get('search', '');
+        $status = 0; // Change this to the desired status ID
 
-        $encounters = Encounter::search($search)
-            ->latest()
+        // Retrieve encounters with the desired status
+        $desiredStatusEncounters = Encounter::search($search)
+            ->where('status', $status)
+            ->orderBy('created_at', 'asc') // Order by creation timestamp (first come, first served)
             ->paginate(10)
             ->withQueryString();
 
+        // Retrieve encounters with other statuses (excluding the desired status)
+        $otherStatusEncounters = Encounter::search($search)
+            ->where('status', '<>', $status)
+            ->orderBy('created_at', 'asc') // Order by creation timestamp in descending order
+            ->paginate(10)
+            ->withQueryString();
+
+        // Combine the results
+        $encounters = $desiredStatusEncounters->concat($otherStatusEncounters);
+
         return view('app.encounters.index', compact('encounters', 'search'));
     }
+
 
     /**
      * Show the form for creating a new resource.
