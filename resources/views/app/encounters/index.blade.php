@@ -225,7 +225,7 @@
                                             <!-- Check if user is a doctor -->
                                             @if (auth()->user()->hasRole('doctor'))
                                                 @if ($key === 0)
-                                                    <a href="{{ route('encounters.show', $encounter) }}">
+                                                    <a href="{{ route('encounters.accept', $encounter) }}">
                                                         <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                             <i class="icon fa fa-user"></i> Accept
                                                         </button>

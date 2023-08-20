@@ -143,6 +143,25 @@ class EncounterController extends Controller
         }
     }
 
+    //doctor accept encounter 
+    public function accept(Encounter $encounter)
+    {
+        // Get the authenticated user's ID
+        $doctorId = Auth::id();
+
+        // Update the encounter's status and doctor_id
+        $encounter->status = 1;
+        $encounter->doctor_id = $doctorId;
+        // dd($encounter);
+
+        $encounter->save();
+
+        $encounterUrl = route('encounters.show', ['encounter' => $encounter]);
+
+        //return redirect($nextEncounterUrl)->with(compact('encounter'));
+        return redirect($encounterUrl);
+    }
+
     //close encounter
     public function closeEencounter(Request $request, Encounter $encounter)
     {

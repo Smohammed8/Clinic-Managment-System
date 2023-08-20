@@ -141,6 +141,8 @@ Route::prefix('/')
         Route::post('/encounters/{encounter}/refer', [EncounterController::class, 'refer'])->name('encounters.refer');
         Route::post('/encounters/{encounter}/room', [EncounterController::class, 'room'])->name('encounters.room');
 
+        Route::get('/encounters/{encounter}/accept', [EncounterController::class, 'accept'])->name('encounters.accept');
+
 
         Route::post('/encounters/{encounter}/close', [EncounterController::class, 'closeEencounter'])->name('encounters.closeEencounter');
 
