@@ -11,6 +11,7 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\ClinicController;
+use App\Http\Controllers\SpeechController;
 use App\Http\Controllers\CollageController;
 use App\Http\Controllers\LabTestController;
 use App\Http\Controllers\ProductController;
@@ -167,4 +168,9 @@ Route::prefix('/')
             'items-in-pharmacies',
             ItemsInPharmacyController::class
         );
+
+
+        Route::get('/submit', [SpeechController::class, 'submit'])->name('submit');
+
+
     });
