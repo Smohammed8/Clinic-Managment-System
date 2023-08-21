@@ -39,7 +39,7 @@
                         <x-inputs.text name="appointment.status" label="Status" wire:model="appointment.status"
                             maxlength="255" placeholder="Status"></x-inputs.text>
                     </x-inputs.group>
-
+{{-- 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="appointment.clinic_user_id" label="Doctor"
                             wire:model="appointment.clinic_user_id">
@@ -58,7 +58,7 @@
                                 <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
                 </div>
             </div>
 

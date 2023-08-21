@@ -2,14 +2,15 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Student;
-use Illuminate\View\View;
-use App\Models\Encounter;
+use Livewire\Component;
 use App\Models\Diagnosis;
+use App\Models\Encounter;
+use Illuminate\View\View;
 use App\Models\ClinicUser;
 use Livewire\WithPagination;
 use App\Models\MainDiagnosis;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EncounterMainDiagnosesDetail extends Component
@@ -31,11 +32,11 @@ class EncounterMainDiagnosesDetail extends Component
     public $modalTitle = 'New MainDiagnosis';
 
     protected $rules = [
-        'mainDiagnosis.clinic_user_id' => [
-            'nullable',
-            'exists:clinic_users,id',
-        ],
-        'mainDiagnosis.student_id' => ['nullable', 'exists:students,id'],
+        // 'mainDiagnosis.clinic_user_id' => [
+        //     'nullable',
+        //     'exists:clinic_users,id',
+        // ],
+        // 'mainDiagnosis.student_id' => ['nullable', 'exists:students,id'],
         'mainDiagnosis.diagnosis_id' => ['required', 'exists:diagnoses,id'],
     ];
 
@@ -94,6 +95,7 @@ class EncounterMainDiagnosesDetail extends Component
     {
         $this->validate();
 
+
         if (!$this->mainDiagnosis->encounter_id) {
             $this->authorize('create', MainDiagnosis::class);
 
@@ -102,6 +104,9 @@ class EncounterMainDiagnosesDetail extends Component
             $this->authorize('update', $this->mainDiagnosis);
         }
 
+        $this->mainDiagnosis->clinic_user_id = Auth::user()->id;
+        $this->mainDiagnosis->student_id = $this->encounter->student->id;
+        // dd($this->mainDiagnosis);
         $this->mainDiagnosis->save();
 
         $this->hideModal();

@@ -2,13 +2,14 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Student;
-use Illuminate\View\View;
+use Livewire\Component;
 use App\Models\Encounter;
+use Illuminate\View\View;
 use App\Models\ClinicUser;
 use Livewire\WithPagination;
 use App\Models\MedicalRecord;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EncounterMedicalRecordsDetail extends Component
@@ -33,11 +34,11 @@ class EncounterMedicalRecordsDetail extends Component
         'medicalRecord.objective' => ['nullable', 'max:255', 'string'],
         'medicalRecord.assessment' => ['nullable', 'max:255', 'string'],
         'medicalRecord.plan' => ['nullable', 'max:255', 'string'],
-        'medicalRecord.clinic_user_id' => [
-            'nullable',
-            'exists:clinic_users,id',
-        ],
-        'medicalRecord.student_id' => ['nullable', 'exists:students,id'],
+        // 'medicalRecord.clinic_user_id' => [
+        //     'nullable',
+        //     'exists:clinic_users,id',
+        // ],
+        // 'medicalRecord.student_id' => ['nullable', 'exists:students,id'],
     ];
 
     public function mount(Encounter $encounter): void
@@ -100,6 +101,10 @@ class EncounterMedicalRecordsDetail extends Component
         } else {
             $this->authorize('update', $this->medicalRecord);
         }
+
+
+        $this->medicalRecord->clinic_user_id = Auth::user()->id;
+        $this->medicalRecord->student_id = $this->encounter->student->id;
 
         $this->medicalRecord->save();
 

@@ -29,7 +29,7 @@
                         <x-inputs.textarea name="medicalRecord.plan" label="Plan" wire:model="medicalRecord.plan"
                             maxlength="255"></x-inputs.textarea>
                     </x-inputs.group>
-
+{{-- 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="medicalRecord.clinic_user_id" label="Doctor"
                             wire:model="medicalRecord.clinic_user_id">
@@ -38,8 +38,8 @@
                                 <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
-                    </x-inputs.group>
-
+                    </x-inputs.group> --}}
+{{-- 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="medicalRecord.student_id" label="Student"
                             wire:model="medicalRecord.student_id">
@@ -48,7 +48,7 @@
                                 <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
                 </div>
             </div>
 
