@@ -14,8 +14,9 @@
         $bgColor = $bgColors[$index % count($bgColors)];
         ?>
 
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-3">
             <div class="small-box {{ $bgColor }}">
+                
                 <div class="inner">
                     <h3>{{ $encounter->student->id_number ?? '-' }}</h3>
                     <p>{{ $encounter->Doctor ? $encounter->Doctor->user->name : '-' }}
