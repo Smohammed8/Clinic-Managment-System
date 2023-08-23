@@ -13,7 +13,7 @@
 
                 </div>
             </div>
-            <div class="col-md-12 bg-warning" style="height: 35%;">
+            <div class="col-md-12 bg-info" style="height: 35%;">
                 <!-- Content for the bottom section -->
                 <div class="m-2">
 

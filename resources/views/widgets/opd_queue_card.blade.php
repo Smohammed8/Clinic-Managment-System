@@ -2,7 +2,7 @@
 
     <?php
     // Array of possible background colors
-    $bgColors = ['bg-info', 'bg-success', 'bg-warning', 'bg-danger', 'bg-primary', 'bg-secondary'];
+    $bgColors = ['bg-info', 'bg-success', 'bg-warning', 'bg-primary', 'bg-secondary'];
     
     // Shuffle the array to randomize the color order
     shuffle($bgColors);
