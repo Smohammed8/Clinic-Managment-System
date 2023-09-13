@@ -72,9 +72,9 @@
                                 <th class="text-left">
                                     @lang('crud.students.inputs.id_number')
                                 </th>
-                                <th class="text-left">
+                                {{-- <th class="text-left">
                                     @lang('crud.students.inputs.encounter_id')
-                                </th>
+                                </th> --}}
                                 <th class="text-center">
                                     @lang('crud.common.actions')
                                 </th>
@@ -92,10 +92,9 @@
                                         <td>{{ $student->last_name ?? '-' }}</td>
                                         <td>{{ $student->sex ?? '-' }}</td>
 
-                                        <td>{{ $student->id_number ?? '-' }}</td>
-                                        <td>
-                                            {{-- {{ optional($student->encounter->first())->id ?? '-' }} --}}
-                                            {{ optional($student->encounter)->count() ?? '-' }}
+                                        <td>{{ $student->id_number ?? '-',  }} <span class="badge bg-primary badge-sm"> {{ optional($student->encounter)->count() ?? '-' }}</span>
+                                        </td>
+
                                         </td>
                                         <td class="text-center">
                                             <div role="group" aria-label="Row Actions" class="btn-group">

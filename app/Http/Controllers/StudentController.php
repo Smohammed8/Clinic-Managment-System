@@ -22,29 +22,28 @@ class StudentController extends Controller
         $this->authorize('view-any', Student::class);
 
         $request->validate([
-            'search' => 'nullable|string|min:2',
-        ], [
-            'search.min' => 'The search term must be at least 5 characters.',
+            'search' => 'nullable|string',
         ]);
 
-        $search = $request->get('search', '');
+        $search = $request->input('search', '');
         $searchError = '';
+        $students = [];
 
-        if ($request->has('search') && strlen($search) < 2) {
-            $searchError = 'Search term must be at least 2 characters.';
-            $students = collect(); // Empty collection to avoid executing the search
-        } else {
+        if (!empty($search)) {
             $students = Student::search($search)
                 ->latest()
                 ->paginate(10)
                 ->withQueryString();
+        } elseif ($request->has('search') && strlen($search) < 2) {
+            dd($search);
+            $searchError = 'Search term must be at least 2 characters.';
         }
-        $clinicUser = Auth::user()->clinicUsers->clinics->first();
-        // dd($clinicUser);
 
+        $clinicUser = Auth::user()->clinicUsers->clinics->first();
 
         return view('app.students.index', compact('students', 'search', 'searchError', 'clinicUser'));
     }
+
 
 
     /**
