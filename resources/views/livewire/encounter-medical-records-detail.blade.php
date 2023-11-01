@@ -38,8 +38,8 @@
                                 <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
-                    </x-inputs.group>
-
+                    </x-inputs.group> --}}
+{{-- 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="medicalRecord.student_id" label="Student"
                             wire:model="medicalRecord.student_id">

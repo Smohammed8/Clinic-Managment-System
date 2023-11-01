@@ -2,13 +2,14 @@
 
 namespace App\Http\Livewire;
 
-use Livewire\Component;
 use App\Models\Student;
-use Illuminate\View\View;
+use Livewire\Component;
 use App\Models\Encounter;
+use Illuminate\View\View;
 use App\Models\ClinicUser;
 use App\Models\Appointment;
 use Livewire\WithPagination;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EncounterAppointmentsDetail extends Component
@@ -33,8 +34,8 @@ class EncounterAppointmentsDetail extends Component
         'appointmentADate' => ['nullable', 'date'],
         'appointment.reason' => ['nullable', 'max:255', 'string'],
         'appointment.status' => ['nullable', 'max:255'],
-        'appointment.clinic_user_id' => ['nullable', 'exists:clinic_users,id'],
-        'appointment.student_id' => ['required', 'exists:students,id'],
+        // 'appointment.clinic_user_id' => ['nullable', 'exists:clinic_users,id'],
+        // 'appointment.student_id' => ['required', 'exists:students,id'],
     ];
 
     public function mount(Encounter $encounter): void
@@ -106,6 +107,10 @@ class EncounterAppointmentsDetail extends Component
         $this->appointment->a_date = \Carbon\Carbon::make(
             $this->appointmentADate
         );
+
+        $this->appointment->clinic_user_id = Auth::user()->id;
+        $this->appointment->student_id = $this->encounter->student->id;
+
 
         $this->appointment->save();
 

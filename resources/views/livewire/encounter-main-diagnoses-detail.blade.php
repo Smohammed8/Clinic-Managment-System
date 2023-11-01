@@ -25,7 +25,7 @@
 
             <div class="modal-body">
                 <div>
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="mainDiagnosis.clinic_user_id" label="Doctor"
                             wire:model="mainDiagnosis.clinic_user_id">
                             <option value="null" disabled>Please select the Clinic User</option>
@@ -33,9 +33,9 @@
                                 <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="mainDiagnosis.student_id" label="Student"
                             wire:model="mainDiagnosis.student_id">
                             <option value="null" disabled>Please select the Student</option>
@@ -43,7 +43,7 @@
                                 <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="mainDiagnosis.diagnosis_id" label="Diagnosis"

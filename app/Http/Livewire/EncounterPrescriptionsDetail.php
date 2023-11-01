@@ -86,6 +86,9 @@ class EncounterPrescriptionsDetail extends Component
         } else {
             $this->authorize('update', $this->prescription);
         }
+        // dd($this->prescription);
+
+        $this->prescription->product_id = 1;
 
         $this->prescription->save();
 

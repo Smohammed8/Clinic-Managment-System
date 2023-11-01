@@ -19,10 +19,136 @@
                 <!-- Display the list of medical sick leaves -->
             </div>
             <div class="card-header">
-                <span class="badge badge-info"> <i class="fas fa-list"></i><span style="font-size: 15px;"> Ongoing encounter
-                    </span> </span>
+                @if (isset($danger_message))
+                    <div class="alert alert-danger">
+                        {{ $danger_message }}
+                    </div>
+                @endif
+
+                <div>
+                    @php
+                        $statusDetails = [
+                            0 => [
+                                'name' => 'Scheduled',
+                                'description' => 'The patient\'s appointment is confirmed but not yet attended.',
+                                'color' => 'badge-primary',
+                            ],
+                            1 => [
+                                'name' => 'Checked-In',
+                                'description' => 'The patient has arrived at the clinic and registered their presence.',
+                                'color' => 'badge-success',
+                            ],
+                            2 => [
+                                'name' => 'In Progress',
+                                'description' => 'The patient is currently being seen by a healthcare provider.',
+                                'color' => 'badge-info',
+                            ],
+                            3 => [
+                                'name' => 'Completed',
+                                'description' => 'The patient\'s appointment has concluded successfully.',
+                                'color' => 'badge-success',
+                            ],
+                            4 => [
+                                'name' => 'Missed',
+                                'description' => 'The patient did not show up for their scheduled appointment.',
+                                'color' => 'badge-danger',
+                            ],
+                            5 => [
+                                'name' => 'Rescheduled',
+                                'description' => 'The appointment was rescheduled for a future date.',
+                                'color' => 'badge-warning',
+                            ],
+                            6 => [
+                                'name' => 'Waiting',
+                                'description' => 'The patient is waiting to be called for their appointment.',
+                                'color' => 'badge-secondary',
+                            ],
+                            7 => [
+                                'name' => 'On Hold',
+                                'description' => 'The patient is temporarily on hold (e.g., waiting for test results).',
+                                'color' => 'badge-secondary',
+                            ],
+                            8 => [
+                                'name' => 'Queue Completed',
+                                'description' => 'The patient has been seen and their encounter is completed.',
+                                'color' => 'badge-success',
+                            ],
+                            9 => [
+                                'name' => 'Rejected',
+                                'description' => 'The encounter has been reviewed and changes are needed before approval.',
+                                'color' => 'badge-danger',
+                            ],
+                            10 => [
+                                'name' => 'Prescription Active',
+                                'description' => 'The patient is currently prescribed medication.',
+                                'color' => 'badge-info',
+                            ],
+                            11 => [
+                                'name' => 'Prescription Renewed',
+                                'description' => 'The prescription has been renewed by the healthcare provider.',
+                                'color' => 'badge-info',
+                            ],
+                            12 => [
+                                'name' => 'Test Pending',
+                                'description' => 'Test or lab results are pending.',
+                                'color' => 'badge-secondary',
+                            ],
+                            13 => [
+                                'name' => 'Test Available',
+                                'description' => 'Test or lab results are available for review.',
+                                'color' => 'badge-success',
+                            ],
+                            14 => [
+                                'name' => 'Test Reviewed',
+                                'description' => 'Test or lab results have been reviewed by a healthcare provider.',
+                                'color' => 'badge-success',
+                            ],
+                            15 => [
+                                'name' => 'Follow-up Scheduled',
+                                'description' => 'A follow-up appointment is scheduled.',
+                                'color' => 'badge-primary',
+                            ],
+                            16 => [
+                                'name' => 'Follow-up Completed',
+                                'description' => 'The follow-up appointment has been completed.',
+                                'color' => 'badge-success',
+                            ],
+                            17 => [
+                                'name' => 'Follow-up Rescheduled',
+                                'description' => 'The follow-up appointment has been rescheduled.',
+                                'color' => 'badge-warning',
+                            ],
+                            18 => [
+                                'name' => 'Referral Requested',
+                                'description' => 'Referral to a specialist or another healthcare provider has been requested.',
+                                'color' => 'badge-secondary',
+                            ],
+                            19 => [
+                                'name' => 'Referral Approved',
+                                'description' => 'The referral request has been approved.',
+                                'color' => 'badge-success',
+                            ],
+                            20 => [
+                                'name' => 'Referral Rejected',
+                                'description' => 'The referral request has been rejected.',
+                                'color' => 'badge-danger',
+                            ],
+                            // ... Add details for other status values ...
+                        ];
+                    @endphp
+
+                    <span class="badge {{ $statusDetails[$encounter->status]['color'] ?? 'badge-secondary' }}"> <i
+                            class="fas fa-list"></i><span style="font-size: 15px;">
+                            {{ $statusDetails[$encounter->status]['name'] ?? '-' }} encounter
+                        </span> </span>
+
+                    <!-- Status Description (Hidden) -->
+                    {{-- {{ $statusDetails[$encounter->status]['description'] ?? '-' }} --}}
+                </div>
+
                 <div class="card-tools">
                     <div class="row ">
+
                         <div class="small-1 float-right d-inline-block">
                             {{-- @can('update', $encounter) --}}
                             {{-- <a href="{{ route('medical-sick-leaves.show', $encounter) }}"> --}}
@@ -160,7 +286,7 @@
 
                                         <!-- Hidden inputs for student_id, doctor_id, and encounter_id -->
                                         <input type="hidden" name="student_id" id="student_id"
-                                            value="{{ $encounter->student->id }}">
+                                            value="{{ $encounter->student->id ?? '-' }}">
                                         <input type="hidden" name="doctor_id" id="doctor_id"
                                             value="{{ Auth::user()->clinicUsers?->id  }}">
                                         <input type="hidden" name="encounter_id" id="encounter_id"
@@ -355,7 +481,9 @@
                         <i class="fa fa-caret-right"> </i>&nbsp;
                         <span title=""> Receiptionist </span>
 
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp; - </span>
+                        <span>&nbsp;&nbsp;&nbsp;&nbsp;
+                            {{ $encounter->RegisteredBy ? $encounter->RegisteredBy->user->name : '-' }}
+                        </span>
 
                     </div>
 

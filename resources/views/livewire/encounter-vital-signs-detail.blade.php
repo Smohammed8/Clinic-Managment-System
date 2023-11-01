@@ -62,7 +62,7 @@
                             step="0.01" placeholder="Muac"></x-inputs.number>
                     </x-inputs.group>
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="vitalSign.clinic_user_id" label="Doctor"
                             wire:model="vitalSign.clinic_user_id">
                             <option value="null" disabled>Please select the Clinic User</option>
@@ -70,16 +70,16 @@
                                 <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
 
-                    <x-inputs.group class="col-sm-12">
+                    {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="vitalSign.student_id" label="Student" wire:model="vitalSign.student_id">
                             <option value="null" disabled>Please select the Student</option>
                             @foreach ($studentsForSelect as $value => $label)
                                 <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
                         </x-inputs.select>
-                    </x-inputs.group>
+                    </x-inputs.group> --}}
                 </div>
             </div>
 

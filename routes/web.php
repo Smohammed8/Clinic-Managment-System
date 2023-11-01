@@ -1,17 +1,23 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\QueueController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\ClinicController;
+use App\Http\Controllers\SpeechController;
 use App\Http\Controllers\CollageController;
 use App\Http\Controllers\LabTestController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\PharmacyController;
 use App\Http\Controllers\ReligionController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\DiagnosisController;
@@ -27,15 +33,12 @@ use App\Http\Controllers\MainDiagnosisController;
 use App\Http\Controllers\MedicalRecordController;
 use App\Http\Controllers\StockCategoryController;
 use App\Http\Controllers\ClinicServicesController;
-use App\Http\Controllers\ItemsInPharmacyController;
 use App\Http\Controllers\LabTestRequestController;
-use App\Http\Controllers\LabTestRequestGroupController;
-use App\Http\Controllers\PharmacyController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\StoreController;
-use App\Http\Controllers\MedicalSickLeaveController;
 use App\Http\Controllers\ProductRequestController;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ItemsInPharmacyController;
+use App\Http\Controllers\MedicalSickLeaveController;
+use App\Http\Controllers\LabTestRequestGroupController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -126,8 +129,8 @@ Route::prefix('/')
         Route::resource('suppliers', SupplierController::class);
 
 
-        Route::post('/user/{user}/assignPharmacy',[UserController::class,'assignPharamacyPlace'])->name('user.assignPharamacyPlace');
-        Route::post('/user/{user}/assignStore',[UserController::class,'assignStorePlace'])->name('user.assignStorePlace');
+        Route::post('/user/{user}/assignPharmacy', [UserController::class, 'assignPharamacyPlace'])->name('user.assignPharamacyPlace');
+        Route::post('/user/{user}/assignStore', [UserController::class, 'assignStorePlace'])->name('user.assignStorePlace');
 
         // Route::post('/')
         Route::resource('users', UserController::class);
@@ -139,17 +142,22 @@ Route::prefix('/')
         Route::post('/encounters/{encounter}/refer', [EncounterController::class, 'refer'])->name('encounters.refer');
         Route::post('/encounters/{encounter}/room', [EncounterController::class, 'room'])->name('encounters.room');
 
+        Route::get('/encounters/{encounter}/accept', [EncounterController::class, 'accept'])->name('encounters.accept');
+
+
         Route::post('/encounters/{encounter}/close', [EncounterController::class, 'closeEencounter'])->name('encounters.closeEencounter');
 
         Route::resource('medical-sick-leaves', MedicalSickLeaveController::class);
 
+        Route::get('/lab-queue', [QueueController::class, 'getLabQueue']);
+        Route::get('/opd-queue', [QueueController::class, 'getOPDQueue']);
 
         // My routes
 
-        Route::get('/product-requests/approve/{productRequest}',[ProductRequestController::class,'approve'])->name('product-requests.approve');
-        Route::get('/product-requests/reject/{productRequest}',[ProductRequestController::class,'reject'])->name('product-requests.reject');
-        Route::get('/product-requests/sentRequests',[ProductRequestController::class,'sentRequests'])->name('product-requests.sentRequests');
-        Route::get('/product-requests/records',[ProductRequestController::class,'recordsOfRequests'])->name('product-requests.recordsOfRequests');
+        Route::get('/product-requests/approve/{productRequest}', [ProductRequestController::class, 'approve'])->name('product-requests.approve');
+        Route::get('/product-requests/reject/{productRequest}', [ProductRequestController::class, 'reject'])->name('product-requests.reject');
+        Route::get('/product-requests/sentRequests', [ProductRequestController::class, 'sentRequests'])->name('product-requests.sentRequests');
+        Route::get('/product-requests/records', [ProductRequestController::class, 'recordsOfRequests'])->name('product-requests.recordsOfRequests');
 
 
         Route::resource('stores', StoreController::class);
@@ -160,4 +168,9 @@ Route::prefix('/')
             'items-in-pharmacies',
             ItemsInPharmacyController::class
         );
-        });
+
+
+        Route::get('/submit', [SpeechController::class, 'submit'])->name('submit');
+
+
+    });

@@ -10,6 +10,7 @@ use App\Models\VitalSign;
 use App\Models\ClinicUser;
 use Livewire\WithPagination;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Auth;
 
 class EncounterVitalSignsDetail extends Component
 {
@@ -36,8 +37,8 @@ class EncounterVitalSignsDetail extends Component
         'vitalSign.weight' => ['nullable', 'numeric'],
         'vitalSign.height' => ['nullable', 'numeric'],
         'vitalSign.muac' => ['nullable', 'numeric'],
-        'vitalSign.clinic_user_id' => ['required', 'exists:clinic_users,id'],
-        'vitalSign.student_id' => ['required', 'exists:students,id'],
+        // 'vitalSign.clinic_user_id' => ['required', 'exists:clinic_users,id'],
+        // 'vitalSign.student_id' => ['required', 'exists:students,id'],
     ];
 
     public function mount(Encounter $encounter): void
@@ -101,6 +102,9 @@ class EncounterVitalSignsDetail extends Component
             $this->authorize('update', $this->vitalSign);
         }
 
+        $this->vitalSign->clinic_user_id = Auth::user()->id;
+        $this->vitalSign->student_id = $this->encounter->student->id;
+        // dd($this->vitalSign);
         $this->vitalSign->save();
 
         $this->hideModal();
