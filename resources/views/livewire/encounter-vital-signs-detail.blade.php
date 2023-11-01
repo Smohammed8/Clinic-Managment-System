@@ -8,7 +8,7 @@
             @endcan @can('delete-any', App\Models\VitalSign::class)
             <button class="btn btn-danger" {{ empty($selected) ? 'disabled' : '' }}
                 onclick="confirm('Are you sure?') || event.stopImmediatePropagation()" wire:click="destroySelected">
-                <i class="icon ion-md-trash"></i> 
+                <i class="icon ion-md-trash"></i>
                 @lang('crud.common.delete_selected')
             </button>
         @endcan
@@ -24,70 +24,57 @@
             </div>
 
             <div class="modal-body">
-                <div>
-                    <x-inputs.group class="col-sm-12">
-                        <x-inputs.number name="vitalSign.temp" label="Temp" wire:model="vitalSign.temp" max="255"
-                            step="0.01" placeholder="Temp"></x-inputs.number>
-                    </x-inputs.group>
+                <form wire:submit.prevent="save">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <x-inputs.group>
+                                <x-inputs.number name="vitalSign.temp" label="Temperature (°C)"
+                                    wire:model="vitalSign.temp" step="0.01"
+                                    placeholder="Enter temperature"></x-inputs.number>
+                            </x-inputs.group>
 
-                    <x-inputs.group class="col-sm-12">
-                        <x-inputs.number name="vitalSign.blood_pressure" label="Blood Pressure"
-                            wire:model="vitalSign.blood_pressure" max="255" step="0.01"
-                            placeholder="Blood Pressure"></x-inputs.number>
-                    </x-inputs.group>
+                            <x-inputs.group>
+                                <x-inputs.number name="vitalSign.blood_pressure" label="Blood Pressure"
+                                    wire:model="vitalSign.blood_pressure" step="0.01"
+                                    placeholder="Enter blood pressure"></x-inputs.number>
+                            </x-inputs.group>
 
-                    <x-inputs.group class="col-sm-12">
-                        <x-inputs.number name="vitalSign.pulse_rate" label="Pulse Rate"
-                            wire:model="vitalSign.pulse_rate" max="255" step="0.01" placeholder="Pulse Rate">
-                        </x-inputs.number>
-                    </x-inputs.group>
+                            <x-inputs.group>
+                                <x-inputs.number name="vitalSign.pulse_rate" label="Pulse Rate"
+                                    wire:model="vitalSign.pulse_rate" step="0.01"
+                                    placeholder="Enter pulse rate"></x-inputs.number>
+                            </x-inputs.group>
 
-                    <x-inputs.group class="col-sm-12">
-                        <x-inputs.number name="vitalSign.rr" label="Rr" wire:model="vitalSign.rr" max="255"
-                            step="0.01" placeholder="Rr"></x-inputs.number>
-                    </x-inputs.group>
+                            <x-inputs.group>
+                                <x-inputs.number name="vitalSign.rr" label="Respiratory Rate" wire:model="vitalSign.rr"
+                                    step="0.01" placeholder="Enter respiratory rate"></x-inputs.number>
+                            </x-inputs.group>
+                        </div>
 
-                    <x-inputs.group class="col-sm-12">
-                        <x-inputs.number name="vitalSign.weight" label="Weight" wire:model="vitalSign.weight"
-                            max="255" step="0.01" placeholder="Weight"></x-inputs.number>
-                    </x-inputs.group>
+                        <div class="col-md-6">
+                            <x-inputs.group>
+                                <x-inputs.number name="vitalSign.weight" label="Weight (kg)"
+                                    wire:model="vitalSign.weight" step="0.01"
+                                    placeholder="Enter weight"></x-inputs.number>
+                            </x-inputs.group>
 
-                    <x-inputs.group class="col-sm-12">
-                        <x-inputs.number name="vitalSign.height" label="Height" wire:model="vitalSign.height"
-                            max="255" step="0.01" placeholder="Height"></x-inputs.number>
-                    </x-inputs.group>
+                            <x-inputs.group>
+                                <x-inputs.number name="vitalSign.height" label="Height (cm)"
+                                    wire:model="vitalSign.height" step="0.01"
+                                    placeholder="Enter height"></x-inputs.number>
+                            </x-inputs.group>
 
-                    <x-inputs.group class="col-sm-12">
-                        <x-inputs.number name="vitalSign.muac" label="Muac" wire:model="vitalSign.muac" max="255"
-                            step="0.01" placeholder="Muac"></x-inputs.number>
-                    </x-inputs.group>
-
-                    {{-- <x-inputs.group class="col-sm-12">
-                        <x-inputs.select name="vitalSign.clinic_user_id" label="Doctor"
-                            wire:model="vitalSign.clinic_user_id">
-                            <option value="null" disabled>Please select the Clinic User</option>
-                            @foreach ($clinicUsersForSelect as $value => $label)
-                                <option value="{{ $value }}">{{ $label }}</option>
-                            @endforeach
-                        </x-inputs.select>
-                    </x-inputs.group> --}}
-
-                    {{-- <x-inputs.group class="col-sm-12">
-                        <x-inputs.select name="vitalSign.student_id" label="Student" wire:model="vitalSign.student_id">
-                            <option value="null" disabled>Please select the Student</option>
-                            @foreach ($studentsForSelect as $value => $label)
-                                <option value="{{ $value }}">{{ $label }}</option>
-                            @endforeach
-                        </x-inputs.select>
-                    </x-inputs.group> --}}
-                </div>
+                            <x-inputs.group>
+                                <x-inputs.number name="vitalSign.muac" label="MUAC" wire:model="vitalSign.muac"
+                                    step="0.01" placeholder="Enter MUAC"></x-inputs.number>
+                            </x-inputs.group>
+                        </div>
+                    </div>
+                </form>
             </div>
 
-            @if ($editing)
-            @endif
-
             <div class="modal-footer">
-                <button type="button" class="btn btn-light float-left" wire:click="$toggle('showingModal')">
+                <button type="button" class="btn btn-light" data-dismiss="modal">
                     <i class="icon ion-md-close"></i>
                     @lang('crud.common.cancel')
                 </button>
@@ -98,6 +85,7 @@
                 </button>
             </div>
         </div>
+
     </x-modal>
 
     <div class="table-responsive">

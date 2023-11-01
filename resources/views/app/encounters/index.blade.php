@@ -38,13 +38,12 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th class="text-left">
-                                    {{-- @lang('crud.encounters.inputs.check_in_time') --}}
+                                {{-- <th class="text-left">
                                     MRN
-                                </th>
+                                </th> --}}
                                 <th class="text-left">
                                     {{-- @lang('crud.encounters.inputs.student_id') --}}
-                                    ID
+                                    Student ID
                                 </th>
                                 <th class="text-left">
                                     {{-- @lang('crud.encounters.inputs.status') --}}
@@ -80,7 +79,7 @@
                                 <tr>
 
                                     <td> {{ $key + 1 }}
-                                    <td>{{ $encounter->student->id_number ?? '-' }}</td>
+                                    {{-- <td>{{ $encounter->student->id_number ?? '-' }}</td> --}}
                                     <td>{{ $encounter->student->id_number ?? '-' }}</td>
                                     <td>
                                         @unless (auth()->user()->hasRole('doctor'))
@@ -89,7 +88,8 @@
                                     </td>
                                     <td>{{ $encounter->priority ?? '-' }}</td>
                                     <td>{{ optional($encounter->student)->sex ?? '-' }}</td>
-                                    <td>{{ $encounter->check_in_time ?? '-' }}</td>
+                                    <td>{{ $encounter->check_in_time ? \Carbon\Carbon::parse($encounter->check_in_time)->format('M d, Y') : '-' }}
+                                    </td>
                                     <td>
                                         @php
                                             $statusDetails = [

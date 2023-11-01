@@ -327,7 +327,7 @@
                                             </a>
                                         </li>
                                     @endcan
-
+{{-- 
                                     @can('view-any', App\Models\Encounter::class)
                                         <li class="nav-item">
                                             <a href="{{ route('encounters.index') }}" class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
@@ -335,7 +335,7 @@
                                                 <p>Encounter</p>
                                             </a>
                                         </li>
-                                    @endcan
+                                    @endcan --}}
 
 
                                     @can('view-any', App\Models\Stock::class)
