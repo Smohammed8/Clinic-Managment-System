@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -46,6 +47,7 @@ class LoginController extends Controller
 
     public function login(Request $request, LdapHelper $ldapHelper)
     {
+        // dd(Hash::make("password"));
         $credentials = $request->validate([
             'username' => 'required|string',
             'password' => 'required',
