@@ -39,7 +39,7 @@ class StudentController extends Controller
             $searchError = 'Search term must be at least 2 characters.';
         }
 
-        $clinicUser = Auth::user()->clinicUsers->clinics->first();
+        $clinicUser = Auth::user()->clinicUsers?->clinics->first();
 
         return view('app.students.index', compact('students', 'search', 'searchError', 'clinicUser'));
     }

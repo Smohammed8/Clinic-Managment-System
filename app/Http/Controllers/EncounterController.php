@@ -16,6 +16,9 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\EncounterStoreRequest;
 use App\Http\Requests\EncounterUpdateRequest;
 
+require_once app_path('Helper/constants.php');
+
+
 class EncounterController extends Controller
 {
     /**
@@ -88,10 +91,12 @@ class EncounterController extends Controller
 
     public function show(Request $request, Encounter $encounter): View
     {
+
         $doctors = User::whereHas('roles', function ($query) {
-            $query->where('name', 'doctor');
+            $query->where('name', DOCTOR_ROLE);
         })->get();
-        //dd($doctors);
+
+        dd($doctors);
         $this->authorize('view', $encounter);
         $labTests =  LabTest::all();
         $labCategories =  LabCatagory::all();

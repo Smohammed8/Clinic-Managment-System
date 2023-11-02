@@ -195,12 +195,10 @@
                         @lang('crud.clinic_user_lab_test_requests3.inputs.lab_test_request_group_id')
                     </th>
                     <th class="text-left">
-                        @lang('crud.clinic_user_lab_test_requests3.inputs.sample_collected_by_id
-                                                                                                ')
+                        @lang('crud.clinic_user_lab_test_requests3.inputs.sample_collected_by_id')
                     </th>
                     <th class="text-left">
-                        @lang('crud.clinic_user_lab_test_requests3.inputs.sample_analyzed_by_id
-                                                                                                ')
+                        @lang('crud.clinic_user_lab_test_requests3.inputs.sample_analyzed_by_id')
                     </th>
                     <th class="text-left">
                         @lang('crud.clinic_user_lab_test_requests3.inputs.lab_catagory_id')
