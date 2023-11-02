@@ -288,7 +288,7 @@
                                         <input type="hidden" name="student_id" id="student_id"
                                             value="{{ $encounter->student->id ?? '-' }}">
                                         <input type="hidden" name="doctor_id" id="doctor_id"
-                                            value="{{ Auth::user()->clinicUsers->id }}">
+                                            value="{{ Auth::user()->clinicUsers?->id  }}">
                                         <input type="hidden" name="encounter_id" id="encounter_id"
                                             value="{{ $encounter->id }}">
                                         <div class="form-group">
@@ -559,17 +559,17 @@
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link" id="vert-tabs-history-tab" data-toggle="pill"
-                                                href="#vert-tabs-history" role="tab"
-                                                aria-controls="vert-tabs-history" aria-selected="false"> <i
-                                                    class="fa fa-caret-right nav-icon"></i><b> Visit
-                                                    History </b> </a>
+                                            <a class="nav-link" id="vert-tabs-history-tab  vert-tabs-history" data-toggle="pill"
+                                                href="#vert-tabs-history" role="tab"  aria-controls="vert-tabs-history" aria-selected="false"> <i
+                                                    class="fa fa-caret-right nav-icon"></i><b> 
+                                                        Visit History </b> </a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-7 col-sm-9">
                                 <div class="tab-content" id="vert-tabs-tabContent">
+                                    
                                     <div class="tab-pane text-left fade show active " id="vert-tabs-profile"
                                         role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
                                         @can('view-any', App\Models\MedicalRecord::class)
@@ -583,6 +583,25 @@
                                         @endcan
 
                                     </div>
+
+
+
+                                    <div class="tab-pane fade" id="vert-tabs-sign" role="tabpanel"
+                                        aria-labelledby="vert-tabs-sign-tab">
+
+                                        @can('view-any', App\Models\VitalSign::class)
+                                            <div class="card mt-4">
+                                                <div class="card-body">
+                                                    <h4 class="card-title w-100 mb-2">Vital Sign</h4>
+                                                    <livewire:encounter-vital-signs-detail :encounter="$encounter" />
+                                                </div>
+                                            </div>
+                                        @endcan
+
+                                    </div>
+
+
+
 
 
                                     <div class="tab-pane fade" id="vert-tabs-sign" role="tabpanel"
@@ -693,9 +712,13 @@
                                                     </div>
                                                 </div>
                                             </form>
+
+
                                         </div>
 
                                     </div>
+
+
 
                                     <div class="tab-pane fade" id="vert-tabs-medication" role="tabpanel"
                                         aria-labelledby="vert-tabs-medication-tab">
@@ -767,8 +790,37 @@
 
                                     </div>
 
+                                    <div class="tab-pane fade" id="vert-tabs-sign-tab" role="tabpanel"
+                                        aria-labelledby="vert-tabs-sign">
 
+                                        @can('view-any', App\Models\VitalSign::class)
+                                            <div class="card mt-4">
+                                                <div class="card-body">
+                                                    <h4 class="card-title w-100 mb-2">Vital Sign</h4>
+                                                    <livewire:encounter-vital-signs-detail :encounter="$encounter" />
+                                                </div>
+                                            </div>
+                                        @endcan
 
+                                    </div>
+
+                                    <div class="tab-pane fade" id="vert-tabs-sign" role="tabpanel"
+                                        aria-labelledby="vert-tabs-sign-tab">
+
+                                        @can('view-any', App\Models\VitalSign::class)
+                                            <div class="card mt-4">
+                                                <div class="card-body">
+                                                    <h4 class="card-title w-100 mb-2">Vital Sign</h4>
+                                                    <livewire:encounter-vital-signs-detail :encounter="$encounter" />
+                                                </div>
+                                            </div>
+                                        @endcan
+                                        <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel"
+                                            aria-labelledby="vert-tabs-history-tab">
+                                            Tab 6 Visit history
+                                        </div>
+
+                                    </div>
 
                                 </div>
                             </div>

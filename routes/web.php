@@ -38,7 +38,7 @@ use App\Http\Controllers\ProductRequestController;
 use App\Http\Controllers\ItemsInPharmacyController;
 use App\Http\Controllers\MedicalSickLeaveController;
 use App\Http\Controllers\LabTestRequestGroupController;
-
+use App\Http\Controllers\SRSController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +62,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'home'])->name('home');
+Route::get('/home', [SRSController::class, 'setting'])->name('home');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 

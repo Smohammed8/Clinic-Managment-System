@@ -38,9 +38,9 @@
                 </option>
             @endforeach
         </x-inputs.select>
-    </x-inputs.group>
+    </x-inputs.group> 
 
-    <x-inputs.group class="col-sm-12">
+ <x-inputs.group class="col-sm-12">
         <x-inputs.select name="clinic_user_id" label="Doctor">
             @php $selected = old('clinic_user_id', ($editing ? $medicalRecord->clinic_user_id : '')) @endphp
             <option disabled {{ empty($selected) ? 'selected' : '' }}>Please select the Clinic User</option>

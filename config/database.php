@@ -62,6 +62,15 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
+        'mysql_srs'=>[
+            'driver' => 'mysql',
+            'url' => env('DATABASE_URL'),
+            'host' => env('SRS_DB_HOST', env('SRS_DB_HOST')),
+            'port' => env('SRS_DB_PORT', '3306'),
+            'database' => env('SRS_DB_DATABASE', 'forge'),
+            'username' => env('SRS_DB_USERNAME', 'forge'),
+            'password' => env('SRS_DB_PASSWORD', ''),
+        ],
 
         'pgsql' => [
             'driver' => 'pgsql',

@@ -5,26 +5,19 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">
-                <a href="{{ route('medical-records.index') }}" class="mr-4"
-                    ><i class="icon ion-md-arrow-back"></i
-                ></a>
+                <a href="{{ route('medical-records.index') }}" class="mr-4"><i class="icon ion-md-arrow-back"></i></a>
                 @lang('crud.medical_records.create_title')
             </h4>
 
             <x-form
-                method="POST"
-                action="{{ route('medical-records.store') }}"
-                class="mt-4"
-            >
+                method="POST" action="{{ route('medical-records.store') }}" class="mt-4">
                 @include('app.medical_records.form-inputs')
-
                 <div class="mt-4">
-                    <a
-                        href="{{ route('medical-records.index') }}"
-                        class="btn btn-light"
-                    >
+
+
+                    <a href="{{ route('medical-records.index') }}" class="btn btn-light">
                         <i class="icon ion-md-return-left text-primary"></i>
-                        @lang('crud.common.back')
+                         @lang('crud.common.back')
                     </a>
 
                     <button type="submit" class="btn btn-primary float-right">

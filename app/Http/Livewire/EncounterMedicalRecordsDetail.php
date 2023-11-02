@@ -40,7 +40,6 @@ class EncounterMedicalRecordsDetail extends Component
         // ],
         // 'medicalRecord.student_id' => ['nullable', 'exists:students,id'],
     ];
-
     public function mount(Encounter $encounter): void
     {
         $this->encounter = $encounter;
@@ -48,14 +47,14 @@ class EncounterMedicalRecordsDetail extends Component
         $this->studentsForSelect = Student::pluck('first_name', 'id');
         $this->resetMedicalRecordData();
     }
-
     public function resetMedicalRecordData(): void
     {
         $this->medicalRecord = new MedicalRecord();
 
-        $this->medicalRecord->clinic_user_id = null;
+        // dd(Auth::user()->id);
+        $this->medicalRecord->clinic_user_id = Auth::user()->id;
         $this->medicalRecord->student_id = null;
-
+       // $this->medicalRecord->student_id = null;
         $this->dispatchBrowserEvent('refresh');
     }
 
