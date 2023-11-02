@@ -80,19 +80,16 @@
                                     @lang('crud.lab_test_requests.inputs.lab_test_request_group_id')
                                 </th>
                                 <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.sample_collected_by_id
-                                                                                                                                                                                                                                                        ')
+                                    @lang('crud.lab_test_requests.inputs.sample_collected_by_id')
                                 </th>
                                 <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.sample_analyzed_by_id
-                                                                                                                                                                                                                                                        ')
+                                    @lang('crud.lab_test_requests.inputs.sample_analyzed_by_id')
                                 </th>
                                 <th class="text-left">
                                     @lang('crud.lab_test_requests.inputs.lab_catagory_id')
                                 </th>
                                 <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.approved_by_id
-                                                                                                                                                                                                                                                        ')
+                                    @lang('crud.lab_test_requests.inputs.approved_by_id')
                                 </th>
                                 <th class="text-center">
                                     @lang('crud.common.actions')
