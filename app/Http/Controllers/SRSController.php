@@ -20,6 +20,12 @@ class SRSController extends Controller
             $this->insert();
             session()->flash('success', 'SRS Data Successfully Synchronized');
         }
+
+        if ($request->input('syncSetting')) {
+            $this->setting();
+            session()->flash('success', 'SRS Setting Successfully Synchronized');
+        }
+
         if ($request->input('syncphoto')) {
             shell_exec(config('photo_sync_script'));
             session()->flash('success', 'SRS Data Successfully Synchronized');
@@ -29,15 +35,14 @@ class SRSController extends Controller
             session()->flash('success', 'SRS Data Successfully Synchronized' . $this->student());
         }
 
-        $data = [];
-        $data['campus'] = DB::table('campuses')->count();
-        $data['religion'] = DB::table('religions')->count();
-        $data['program'] = DB::table('programs')->count();
-        $data['programLevel'] = DB::table('program_levels')->count();
-        $data['programType'] = DB::table('program_types')->count();
-        $data['enrollmentType'] = DB::table('enrollment_types')->count();
-        $data['college'] = DB::table('colleges')->count();
-        $data['department'] = DB::table('departments')->count();
+
+        $campuses = DB::table('campuses')->count();
+        $programs  = DB::table('programs')->count();
+        $programLevels = DB::table('program_levels')->count();
+        $programTypes = DB::table('program_types')->count();
+        $enrollmentTypes = DB::table('enrollment_types')->count();
+        $colleges = DB::table('colleges')->count();
+        $departments = DB::table('departments')->count();
 
         return view('srs_data.dashboard', compact('data'));
     }
@@ -66,11 +71,10 @@ class SRSController extends Controller
         INNER JOIN student_info ifo ON s.id = ifo.student_id
         JOIN student_detail sd ON s.id = sd.student_id
         WHERE ifo.record_status = 1 AND s.id != 0 AND ifo.year != 0
-        ORDER BY ifo.id DESC
-        LIMIT 100; 
+        ORDER BY ifo.id DESC LIMIT  10000; 
     "));
 
-$data = $results;
+     $data = $results;
         $targetTable = 'students'; 
         foreach ($data as $value) {
             // Convert the result object to an associative array
@@ -114,17 +118,124 @@ $data = $results;
     //////////////////////////////////////////////////////////////////////////////
 
     
-    public function syncDepartment()
+    public function setting()
     {
-    }
-    public function syncProgram()
-    {
-    }
 
-    public function syncProgramType()
-    {
+        try {
+            $dbcon = DB::connection('mysql_srs');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
+        $fields = ['id', 'name'];
+        $query = "SELECT " . implode(', ', $fields) . " FROM department";
+        $data =  $dbcon->select($query);
+        $targetTable = 'departments'; 
+        foreach ($data as $value) {
+            $value = (array) $value; //// Convert the result object to an associative array
+            try {
+                    $sis = DB::connection('mysql');
+                    $result = $sis->table($targetTable)->updateOrInsert(
+
+                    ['department_id' => $value['id']],
+                    [
+                        'name' => $value['name']]
+
+                );
+            } catch (\Throwable $th) {
+                dd($th->getMessage());
+            }
+        }
+        if ($result) {
+            return redirect()->route('dashboard')->with('success', 'Department Successfully Synchronized');
+        }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////
+        $query = "SELECT " . implode(', ', $fields) . " FROM program";
+        $data =  $dbcon->select($query);
+        $targetTable = 'programs'; 
+        foreach ($data as $value) {
+            $value = (array) $value; //// Convert the result object to an associative array
+            try {
+                    $sis = DB::connection('mysql');
+                    $result = $sis->table($targetTable)->updateOrInsert(
+
+                    ['program_id' => $value['id']],
+                    [
+                        'name' => $value['name']]
+
+                );
+            } catch (\Throwable $th) {
+                dd($th->getMessage());
+            }
+        }
+        if ($result) {
+            return redirect()->route('dashboard')->with('success', 'Program Successfully Synchronized');
+        }
+///////////////////////////////////////////////////////////////////////////////////////
+
+        $fields = ['id', 'name'];
+        $query = "SELECT " . implode(', ', $fields) . " FROM programType";
+        $data =  $dbcon->select($query);
+        $targetTable = 'program_types'; 
+        foreach ($data as $value) {
+            $value = (array) $value; //// Convert the result object to an associative array
+            try {
+                    $sis = DB::connection('mysql');
+                    $result = $sis->table($targetTable)->updateOrInsert(
+
+                    ['program_Type_id' => $value['id']],
+                    ['name' => $value['name']]
+
+                );
+            } catch (\Throwable $th) {
+                dd($th->getMessage());
+            }
+        }
+        if ($result) {
+            return redirect()->route('dashboard')->with('success', 'Program type Successfully Synchronized');
+        }
+///////////////////////////////////////////////////////////////////////////////
+        $query = "SELECT " . implode(', ', $fields) . " FROM programLevel";
+        $data =  $dbcon->select($query);
+        $targetTable = 'program_levels'; 
+        foreach ($data as $value) {
+            $value = (array) $value; //// Convert the result object to an associative array
+            try {
+                    $sis = DB::connection('mysql');
+                    $result = $sis->table($targetTable)->updateOrInsert(
+
+                    ['program_level_id' => $value['id']],
+                    [
+                        'name' => $value['name']]
+
+                );
+            } catch (\Throwable $th) {
+                dd($th->getMessage());
+            }
+        }
+        if ($result) {
+            return redirect()->route('dashboard')->with('success', 'Program Level Successfully Synchronized');
+        }
+///////////////////////////////////////////////////////////////////////////////////
+        $query = "SELECT " . implode(', ', $fields) . " FROM enrollment_type ";
+        $data =  $dbcon->select($query);
+        $targetTable = 'enrollment_types'; 
+        foreach ($data as $value) {
+            $value = (array) $value; //// Convert the result object to an associative array
+            try {
+                    $sis = DB::connection('mysql');
+                    $result = $sis->table($targetTable)->updateOrInsert(
+                    ['enrollment_type_id' => $value['id']],
+                    [
+                        'name' => $value['name']]
+                );
+            } catch (\Throwable $th) {
+                dd($th->getMessage());
+            }
+        }
+        if ($result) {
+            return redirect()->route('dashboard')->with('success', 'Enrollment type Successfully Synchronized');
+        }
     }
-    public function syncProgramLevel()
-    {
-    }
+    
 }
