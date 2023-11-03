@@ -35,13 +35,7 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-md-6 text-right">
-                    @can('create', App\Models\Student::class)
-                        <a href="{{ route('students.create') }}" class="btn btn-primary">
-                            <i class="icon ion-md-add"></i> @lang('crud.common.create')
-                        </a>
-                    @endcan
-                </div>
+              
             </div>
         </div>
 
@@ -52,7 +46,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-hover table-condensed">
+                    <table class="table table-hover  table-sm table-condensed">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -105,10 +99,10 @@
                                                         <input type="hidden" name="check_in_time" value="{{ now() }}">
                                                         <input type="hidden" name="status" value=0>
                                                         <input type="hidden" name="priority" value=0>
-                                                        <input type="hidden" name="clinic_id" value={{ $clinicUser->id }}>
+                                                        <input type="hidden" name="clinic_id" value={{ $clinicUser?->id }}>
                                                         <input type="hidden" name="student_id" value={{ $student->id }}>
                                                         <input type="hidden" name="registered_by"
-                                                            value="{{ Auth::user()->clinicUsers->id }}">
+                                                            value="{{ Auth::user()->clinicUsers?->id }}">
 
                                                         <button type="submit" class="btn btn-sm btn-outline-primary mx-1">
                                                             <i class="icon ion-md-save"></i>

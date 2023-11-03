@@ -62,7 +62,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [SRSController::class, 'insert'])->name('home');
+Route::get('/home', [HomeController::class, 'home'])->name('home');
+
+Route::get('/sync-data', [SRSController::class, 'insert'])->name('sync');
+
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 

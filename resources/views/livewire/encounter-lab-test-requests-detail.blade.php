@@ -199,7 +199,7 @@
     </x-modal>
 
     <div class="table-responsive">
-        <table class="table table-hover table-condensed">
+        <table class="table table-hover  table-sm table-condensed">
             <thead>
                 <tr>
                     <th> <input type="checkbox"  wire:model="allSelected" wire:click="toggleFullSelection" title="{{ trans('crud.common.select_all') }}"/></th>

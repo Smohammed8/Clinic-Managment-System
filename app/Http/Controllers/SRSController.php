@@ -47,19 +47,13 @@ class SRSController extends Controller
         return view('srs_data.dashboard', compact('data'));
     }
 
-
-    public function unit()
-    {
-    }
-    public function insert()
-    {
+    public function insert() {
 
     try {
         $dbcon = DB::connection('mysql_srs');
     } catch (\Throwable $th) {
         dd($th->getMessage());
     }
-
         $results = $dbcon->select(DB::raw(" SELECT s.id, sf.username, ifo.program_id, sf.first_name, sf.fathers_name, sf.grand_fathers_name, s.student_id, s.sex,
         IFNULL(sd.photo, '') AS photo, ifo.academic_year, ifo.year, 1,
         IF(ifo.is_registered = 1, 1, 0) AS is_registered, s.admission_year, 'Ethiopian' AS nationality, ifo.section, ifo.semester, s.birth_date,
@@ -75,6 +69,8 @@ class SRSController extends Controller
     "));
 
      $data = $results;
+
+     //dd(  $data );
         $targetTable = 'students'; 
         foreach ($data as $value) {
             // Convert the result object to an associative array
@@ -82,9 +78,9 @@ class SRSController extends Controller
             try {
                 $moh = DB::connection('mysql');
                 $result = $moh->table($targetTable)->updateOrInsert(
-                    ['id_number' => $value['id']],
+                    ['id_number' => $value['student_id']],
                     [
-                        //'username' => $value['username'],
+                        //'username' => $value['username'],   	
                         'first_name' => $value['first_name'],
                         'middle_name' => $value['fathers_name'],
                         'last_name' => $value['grand_fathers_name'],
@@ -116,10 +112,7 @@ class SRSController extends Controller
         }
     }
     //////////////////////////////////////////////////////////////////////////////
-
-    
-    public function setting()
-    {
+    public function setting() {
 
         try {
             $dbcon = DB::connection('mysql_srs');
@@ -148,7 +141,6 @@ class SRSController extends Controller
         if ($result) {
             return redirect()->route('dashboard')->with('success', 'Department Successfully Synchronized');
         }
-
     ////////////////////////////////////////////////////////////////////////////////////////////
         $query = "SELECT " . implode(', ', $fields) . " FROM program";
         $data =  $dbcon->select($query);

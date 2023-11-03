@@ -95,8 +95,6 @@ class EncounterController extends Controller
         $doctors = User::whereHas('roles', function ($query) {
             $query->where('name', DOCTOR_ROLE);
         })->get();
-
-        dd($doctors);
         $this->authorize('view', $encounter);
         $labTests =  LabTest::all();
         $labCategories =  LabCatagory::all();

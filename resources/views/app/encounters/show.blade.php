@@ -407,14 +407,14 @@
             </script> --}}
             <!-- Referral Modal End-->
 
-            <div class="card-body">
+            <div class="card-body" >
                 {{-- <h4 class="card-title">
                     <a href="{{ route('lab-test-request-groups.index') }}" class="mr-4"><i
                             class="icon ion-md-arrow-back"></i></a>
                     @lang('crud.lab_test_request_groups.show_title')
                 </h4> --}}
 
-                <div class="row m-2">
+                <div class="row m-2" style="font-size: 17px;">
 
                     <div class="input-group mb-3 col-md-4">
                         <i class="fa fa-caret-right"> </i>&nbsp;
