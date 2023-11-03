@@ -69,9 +69,9 @@
             background-color: #f4f6f9;
         }
 
-        * {
+        /* * {
             outline: 2px solid red;
-        }
+        } */
 
 
         .nav-icon.icon:before {

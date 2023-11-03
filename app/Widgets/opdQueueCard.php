@@ -4,6 +4,7 @@ namespace App\Widgets;
 
 use App\Models\Encounter;
 use Arrilot\Widgets\AbstractWidget;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 require_once app_path('Helper/constants.php');
 
@@ -60,12 +61,20 @@ class opdQueueCard extends AbstractWidget
 
 
 
+        // Assuming $opdQueue is your collection
+        $currentPage = request()->input('page', 1); // Get the current page from the request or default to 1
+        $perPage = 4; // Number of items per page
+
+        // Slice the collection to get the items for the current page
+        $currentPageItems = $opdQueue->slice(($currentPage - 1) * $perPage, $perPage);
+
+        // Create a LengthAwarePaginator instance
+        $opdQueuePaginated = new LengthAwarePaginator($currentPageItems, $opdQueue->count(), $perPage);
+
         return view('widgets.opd_queue_card', [
             'config' => $this->config,
             'reloadTimeout' => $this->reloadTimeout,
-            'opdQueue' => $opdQueue,
-
-
+            'opdQueue' => $opdQueuePaginated,
         ]);
     }
 }
