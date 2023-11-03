@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Clinic;
 use App\Models\Campus;
 use App\Models\Collage;
@@ -11,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ClinicStoreRequest;
 use App\Http\Requests\ClinicUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class ClinicController extends Controller
 {
     /**

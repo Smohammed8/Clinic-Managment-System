@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Campus;
 use App\Models\Pharmacy;
 use Illuminate\Http\Request;
 use App\Http\Requests\PharmacyStoreRequest;
 use App\Http\Requests\PharmacyUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class PharmacyController extends Controller
 {
     /**

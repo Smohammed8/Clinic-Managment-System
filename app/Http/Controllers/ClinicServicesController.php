@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Clinic;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ClinicServicesStoreRequest;
 use App\Http\Requests\ClinicServicesUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class ClinicServicesController extends Controller
 {
     /**

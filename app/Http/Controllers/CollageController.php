@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Campus;
 use App\Models\Collage;
 use Illuminate\View\View;
@@ -9,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CollageStoreRequest;
 use App\Http\Requests\CollageUpdateRequest;
+
+require_once app_path('Helper/constants.php');
 
 class CollageController extends Controller
 {

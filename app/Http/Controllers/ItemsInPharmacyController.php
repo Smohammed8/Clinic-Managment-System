@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Constants;
 use App\Models\Item;
 use App\Models\Pharmacy;
@@ -12,6 +13,7 @@ use App\Http\Requests\ItemsInPharmacyUpdateRequest;
 use App\Models\PharmacyUser;
 use Illuminate\Support\Facades\Auth;
 
+require_once app_path('Helper/constants.php');
 class ItemsInPharmacyController extends Controller
 {
     /**
@@ -23,24 +25,23 @@ class ItemsInPharmacyController extends Controller
         // $this->authorize('view-any', ItemsInPharmacy::class);
 
 
-        if(Auth::user()->hasRole(Constants::PHARMACY_USER)){
-            $pharmacyUser=PharmacyUser::where('user_id',Auth::user()->id)->first();
-            $pharmacy=Pharmacy::where('id',$pharmacyUser->pharmacy_id)->first();
+        if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
+            $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
+            $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
-        $search = $request->get('search', '');
+            $search = $request->get('search', '');
 
 
-        $itemsInPharmacies = ItemsInPharmacy::where('pharmacy_id',$pharmacy->id)->search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
+            $itemsInPharmacies = ItemsInPharmacy::where('pharmacy_id', $pharmacy->id)->search($search)
+                ->latest()
+                ->paginate(5)
+                ->withQueryString();
 
-        return view(
-            'app.items_in_pharmacies.index',
-            compact('itemsInPharmacies', 'search')
-        );
-
-    }
+            return view(
+                'app.items_in_pharmacies.index',
+                compact('itemsInPharmacies', 'search')
+            );
+        }
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ use App\Models\PharmacyUser;
 use App\Models\Store;
 use App\Models\StoreUser;
 
+require_once app_path('Helper/constants.php');
 class UserController extends Controller
 {
     /**
@@ -96,14 +98,12 @@ class UserController extends Controller
     public function update(
         UserUpdateRequest $request,
         User $user
-        ){
+    ) {
 
         // ): RedirectResponse {
         // dd($request->roles);
-        if ( in_array(4,$request->roles) and  in_array(3,$request->roles)  ){
+        if (in_array(4, $request->roles) and  in_array(3, $request->roles)) {
             return redirect()->back()->with('error', 'Store user and Pharmacy user can\'t be assigned simultaneously');
-
-
         }
         $this->authorize('update', $user);
 
@@ -120,20 +120,16 @@ class UserController extends Controller
 
         $user->syncRoles($request->roles);
 
-        if(in_array(4,$request->roles)){
-            $pharmacy=true;
-            $pharmacies=Pharmacy::pluck('name', 'id');;
+        if (in_array(4, $request->roles)) {
+            $pharmacy = true;
+            $pharmacies = Pharmacy::pluck('name', 'id');;
 
-            return view('app.roles.assignPlaceForPharmacyOrStore',compact('pharmacy','pharmacies','user'));
+            return view('app.roles.assignPlaceForPharmacyOrStore', compact('pharmacy', 'pharmacies', 'user'));
+        } elseif (in_array(3, $request->roles)) {
+            $pharmacy = false;
+            $stores = Store::pluck('name', 'id');;
 
-
-        }
-        elseif(in_array(3,$request->roles)){
-            $pharmacy=false;
-            $stores=Store::pluck('name', 'id');;
-
-            return view('app.roles.assignPlaceForPharmacyOrStore',compact('pharmacy','stores','user'));
-
+            return view('app.roles.assignPlaceForPharmacyOrStore', compact('pharmacy', 'stores', 'user'));
         }
 
         return redirect()
@@ -155,21 +151,22 @@ class UserController extends Controller
             ->withSuccess(__('crud.common.removed'));
     }
 
-    public function assignPharamacyPlace(Request $request, Pharmacy $pharmacy,User $user){
-        $pharmacyUser=PharmacyUser::create([
-            'user_id'=>$user->id,
-            'pharmacy_id'=>$request->pharmacy_id
+    public function assignPharamacyPlace(Request $request, Pharmacy $pharmacy, User $user)
+    {
+        $pharmacyUser = PharmacyUser::create([
+            'user_id' => $user->id,
+            'pharmacy_id' => $request->pharmacy_id
         ]);
         return redirect()
             ->route('users.index', $user)
             ->withSuccess(__('User has been assigned to Pharmacy'));
-
     }
 
-    public function assignStorePlace(Request $request,Store $store,User $user){
-        $storeUser=StoreUser::create([
-            'user_id'=>$user->id,
-            'store_id'=>$request->store_id
+    public function assignStorePlace(Request $request, Store $store, User $user)
+    {
+        $storeUser = StoreUser::create([
+            'user_id' => $user->id,
+            'store_id' => $request->store_id
         ]);
         return redirect()
             ->route('users.index', $user)

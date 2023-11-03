@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\View\View;
 use App\Models\Encounter;
 use App\Models\ClinicUser;
@@ -11,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\LabTestRequestGroupStoreRequest;
 use App\Http\Requests\LabTestRequestGroupUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class LabTestRequestGroupController extends Controller
 {
     /**
@@ -25,7 +27,7 @@ class LabTestRequestGroupController extends Controller
         $labTestRequestGroups = LabTestRequestGroup::search($search)
             ->first()->paginate(10)->withQueryString();
 
-            return view(
+        return view(
             'app.lab_test_request_groups.index',
             compact('labTestRequestGroups', 'search')
         );

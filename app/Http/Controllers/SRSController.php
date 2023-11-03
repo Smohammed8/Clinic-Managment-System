@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use PDOException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Response;
 
+require_once app_path('Helper/constants.php');
 class SRSController extends Controller
 {
 
@@ -47,11 +49,11 @@ class SRSController extends Controller
         try {
             $srs = DB::connection('mysql_srs')->getPdo();
             //  dd("The connection is successful");
-            
-            
-            
+
+
+
             $data = DB::connection('mysql_srs')->select("SELECT id, program_level_name as name FROM program_level");
-//   dd($data);
+            //   dd($data);
             try {
                 foreach ($data as $value) {
                     // dd($data);
@@ -59,7 +61,7 @@ class SRSController extends Controller
                     $value = (array) $value;
 
                     try {
-    DB::statement("INSERT INTO program_level (id, name) VALUES (:id, :name) ON DUPLICATE KEY UPDATE name = :name", $value);
+                        DB::statement("INSERT INTO program_level (id, name) VALUES (:id, :name) ON DUPLICATE KEY UPDATE name = :name", $value);
                     } catch (\Throwable $th) {
                         dd($th->getMessage());
                     }

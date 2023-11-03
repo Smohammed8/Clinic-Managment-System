@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\LabTest;
 use Illuminate\View\View;
 use App\Models\LabCatagory;
@@ -10,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\LabTestStoreRequest;
 use App\Http\Requests\LabTestUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class LabTestController extends Controller
 {
     /**

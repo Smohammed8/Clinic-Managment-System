@@ -6,7 +6,7 @@
                 <!-- Content for the top section -->
                 <h1> Lab Queue</h1>
 
-                <div class="p-2 col-12 ">
+                <div class="p-2 col-6 ">
 
                     {{ Widget::run('labQueueCard') }}
                     {{-- @widget('opdQueueCard') --}}

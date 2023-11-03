@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\View\View;
 use App\Models\ClinicUser;
 use App\Models\LabCatagory;
@@ -15,48 +16,49 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
+require_once app_path('Helper/constants.php');
 class LabTestRequestController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-public function index(Request $request): View
-{
-    $this->authorize('view-any', LabTestRequest::class);
+    public function index(Request $request): View
+    {
+        $this->authorize('view-any', LabTestRequest::class);
 
-    $search = $request->get('search', '');
+        $search = $request->get('search', '');
 
-    $labTestRequests = LabTestRequest::search($search)
-        ->latest()->paginate(10)->withQueryString();
+        $labTestRequests = LabTestRequest::search($search)
+            ->latest()->paginate(10)->withQueryString();
 
-    return view(
-        'app.lab_test_requests.index',
-        compact('labTestRequests', 'search')
-    );
-}
+        return view(
+            'app.lab_test_requests.index',
+            compact('labTestRequests', 'search')
+        );
+    }
 
-public function insert(Request $request)
-{
-  $labs = $request->input('duallistbox_demo1');
-  $encounter = $request->input('encounter');
-  foreach ($labs  as $lab) {
-    LabTestRequest::create([
-      'lab_test_id' =>$lab,
-      'encounter_id' =>$encounter
-    ]);
-  }
- // return redirect()->route('encounters.index')->with('message', 'Lab sent successfully');
-  return redirect()->route('encounters.index')->withSuccess(__('crud.common.created'));
-}
-public function storesurvey(Request $request)
-    {          
+    public function insert(Request $request)
+    {
+        $labs = $request->input('duallistbox_demo1');
+        $encounter = $request->input('encounter');
+        foreach ($labs  as $lab) {
+            LabTestRequest::create([
+                'lab_test_id' => $lab,
+                'encounter_id' => $encounter
+            ]);
+        }
+        // return redirect()->route('encounters.index')->with('message', 'Lab sent successfully');
+        return redirect()->route('encounters.index')->withSuccess(__('crud.common.created'));
+    }
+    public function storesurvey(Request $request)
+    {
         $energy = new LabTestRequest();
         $energy->rank1 = json_encode($request->input('rank1'));
         $energy->comments = $request->input('comments');
         $energy->save();
         return redirect('/survey')->with('success', 'data added');
     }
-////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////
     public function create(Request $request): View
     {
         $this->authorize('create', LabTestRequest::class);
@@ -65,7 +67,8 @@ public function storesurvey(Request $request)
         $clinicUsers = ClinicUser::pluck('id', 'id');
         $labCatagories = LabCatagory::pluck('lab_name', 'id');
 
-        return view('app.lab_test_requests.create',
+        return view(
+            'app.lab_test_requests.create',
             compact(
                 'labTestRequestGroups',
                 'clinicUsers',
@@ -86,8 +89,8 @@ public function storesurvey(Request $request)
 
         $validated = $request->validated();
         // $cdate = $request->group_id;
-    
-      
+
+
         $labTestRequest = LabTestRequest::create($validated);
         $labTestRequest->user_id = Auth::user()->id;
         $labTestRequest->created_at = $now;
@@ -131,16 +134,17 @@ public function storesurvey(Request $request)
     /**
      * Update the specified resource in storage.
      */
-    public function update( LabTestRequestUpdateRequest $request,LabTestRequest $labTestRequest): RedirectResponse {
-      
-      //  dd( Auth::user()->id);
-       
+    public function update(LabTestRequestUpdateRequest $request, LabTestRequest $labTestRequest): RedirectResponse
+    {
+
+        //  dd( Auth::user()->id);
+
         $this->authorize('update', $labTestRequest);
         $validated = $request->validated();
         $now = Carbon::now();
         $labTestRequest->sample_collected_by_id = Auth::user()->id;
-        $labTestRequest->sample_analyzed_by_id =Auth::user()->id; 
-        $labTestRequest->approved_by_id  = Auth::user()->id; 
+        $labTestRequest->sample_analyzed_by_id = Auth::user()->id;
+        $labTestRequest->approved_by_id  = Auth::user()->id;
         $labTestRequest->status  = 1;
         $labTestRequest->sample_collected_at  = $now;
         $labTestRequest->sample_analyzed_at = $now;

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Encounter;
 use Illuminate\Http\Request;
 use App\Models\MedicalSickLeave;
 
+require_once app_path('Helper/constants.php');
 class MedicalSickLeaveController extends Controller
 {
     // public function index()

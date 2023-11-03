@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\View\View;
 use App\Models\Prescription;
 use Illuminate\Http\Request;
@@ -10,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\PrescriptionStoreRequest;
 use App\Http\Requests\PrescriptionUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class PrescriptionController extends Controller
 {
     /**

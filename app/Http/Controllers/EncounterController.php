@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Clinic;
@@ -26,6 +27,7 @@ class EncounterController extends Controller
      */
     public function index(Request $request): View
     {
+        //dd(STATUS_IN_PROGRESS);
         $this->authorize('view-any', Encounter::class);
 
         $search = $request->get('search', '');
@@ -96,7 +98,7 @@ class EncounterController extends Controller
             $query->where('name', DOCTOR_ROLE);
         })->get();
 
-        dd($doctors);
+        //dd($doctors);
         $this->authorize('view', $encounter);
         $labTests =  LabTest::all();
         $labCategories =  LabCatagory::all();

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Room;
 use App\Models\Clinic;
 use Illuminate\View\View;
@@ -12,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\RoomStoreRequest;
 use App\Http\Requests\RoomUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class RoomController extends Controller
 {
     /**

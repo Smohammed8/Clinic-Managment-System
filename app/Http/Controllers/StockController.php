@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Stock;
 use App\Models\Supplier;
 use Illuminate\View\View;
@@ -12,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StockStoreRequest;
 use App\Http\Requests\StockUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class StockController extends Controller
 {
     /**

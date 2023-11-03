@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Student;
 use Illuminate\View\View;
 use App\Models\Encounter;
@@ -12,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MedicalRecordStoreRequest;
 use App\Http\Requests\MedicalRecordUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class MedicalRecordController extends Controller
 {
     /**

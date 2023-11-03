@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Student;
 use App\Models\VitalSign;
 use Illuminate\View\View;
@@ -12,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\VitalSignStoreRequest;
 use App\Http\Requests\VitalSignUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class VitalSignController extends Controller
 {
     /**

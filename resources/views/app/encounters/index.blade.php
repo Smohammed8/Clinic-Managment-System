@@ -79,7 +79,7 @@
                                 <tr>
 
                                     <td> {{ $key + 1 }}
-                                    {{-- <td>{{ $encounter->student->id_number ?? '-' }}</td> --}}
+                                        {{-- <td>{{ $encounter->student->id_number ?? '-' }}</td> --}}
                                     <td>{{ $encounter->student->id_number ?? '-' }}</td>
                                     <td>
                                         @unless (auth()->user()->hasRole('doctor'))
