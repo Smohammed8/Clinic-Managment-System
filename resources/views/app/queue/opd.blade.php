@@ -11,9 +11,11 @@
             </div>
             <div class="col-5" style="height: 63%;">
                 <!-- Content for the col-3 section -->
-                <video id="videoPlayer" width="100%" height="100%" controls autoplay loop muted>
-                    <source src="{{ asset('desk_image/videos/1.mp4') }}" type="video/mp4">
-                </video>
+                <div id="videoContainer" style="width: 100%; height: 700px; overflow: hidden;">
+                    <video id="videoPlayer" width="100%" height="auto" controls autoplay loop muted>
+                        <source src="{{ asset('desk_image/videos/1.mp4') }}" type="video/mp4">
+                    </video>
+                </div>
             </div>
 
             <script>
