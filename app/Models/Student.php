@@ -25,7 +25,8 @@ class Student extends Model
 
     protected $table = 'students';
 
-    public function getFullNameAttribute() {
+    public function getFullNameAttribute()
+    {
         return ucfirst($this->first_name) . ' ' . ucfirst($this->middle_name) . ' ' . ucfirst($this->last_name);
     }
 
@@ -61,5 +62,21 @@ class Student extends Model
     public function program()
     {
         return $this->belongsTo(Program::class);
+    }
+
+
+    public function sfGuardUser()
+    {
+        return $this->belongsTo(SfGuardUser::class, 'sf_guard_user_id', 'id');
+    }
+
+    public function studentInfo()
+    {
+        return $this->hasOne(StudentInfo::class, 'student_id', 'id')->where('record_status', 1);
+    }
+
+    public function studentDetail()
+    {
+        return $this->hasOne(StudentDetail::class, 'student_id', 'id');
     }
 }

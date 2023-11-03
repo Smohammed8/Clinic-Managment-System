@@ -3,21 +3,27 @@
 @section('content')
     <div class="container-fluid" style="height: 100vh;">
         <div class="row h-100">
-            <h1>Queue</h1>
-            <div class="col-12 row " style="height: 65%;">
-                <div class="p-2 col-7">
+            <div class="col-7 bg-success" style="height: 65%;">
+                <h1>Queue</h1>
+                <div class="p-2">
                     {{ Widget::run('opdQueueCard') }}
                 </div>
-                <div class="p-2 col-5">
-                </div>
             </div>
-            <div class="col-md-12 bg-info" style="height: 35%;">
-                <!-- Content for the bottom section -->
+            <div class="col-3 bg-success" style="height: 65%;">
                 <div class="p-2">
-                    {{ Widget::run('opdQueueTable') }}
-                    {{-- @widget('opdQueueCard') --}}
+                    <!-- Content for the col-3 section -->
+                    <video width="100%" controls>
+                        <source src="{{ asset('videos/1.mp4') }}" type="video/mp4">
+
+                    </video>
 
                 </div>
+            </div>
+        </div>
+        <div class="col-md-12 bg-info" style="height: 35%;">
+            <!-- Content for the bottom section -->
+            <div class="p-2">
+                {{ Widget::run('opdQueueTable') }}
             </div>
         </div>
     </div>
