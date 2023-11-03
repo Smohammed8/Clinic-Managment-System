@@ -48,7 +48,7 @@
         <span class="brand-text font-weight-light" style="color: white"><strong style="font-size:20px;">JU
                 SIS</strong></span>
         <a href="{{ url('/') }}" class="brand-link text-dark" style="background-color:#3c8dbc;">
-                <img src="https://upload.wikimedia.org/wikipedia/en/f/fe/Current_Logo_of_Jimma_University.png"
+            <img src="https://upload.wikimedia.org/wikipedia/en/f/fe/Current_Logo_of_Jimma_University.png"
                 alt="JU Logo" class="brand-image">
             <span class="brand-text font-weight-light" style="color: white"><strong style="font-size:20px;">JU
                     SIS</strong></span>
@@ -86,11 +86,11 @@
                                     </p>
                                 </a>
                             </li>
-                            <li  class="nav-item">
+                            <li class="nav-item">
                                 <a href="{{ route('product-requests.recordsOfRequests') }}"
                                     class="nav-link                                     ">
                                     <i class="nav-icon icon fas fa-folder-open"></i>
-                                    <p>Records                                    </p>
+                                    <p>Records </p>
                                 </a>
                             </li>
                         @elseif (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
@@ -103,7 +103,7 @@
                                     </p>
                                 </a>
                             </li>
-                            <li  class="nav-item">
+                            <li class="nav-item">
                                 <a href="{{ route('products.index') }}"
                                     class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
                                     <i class="nav-icon icon fas fa-history"></i>
@@ -122,9 +122,9 @@
                                 </a>
                             </li>
 
-                            <li  class="nav-item  {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'menu-open' : '' }}">
-                                <a href="{{ route('product-requests.sentRequests') }}"
-                                    class="nav-link">
+                            <li
+                                class="nav-item  {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'menu-open' : '' }}">
+                                <a href="{{ route('product-requests.sentRequests') }}" class="nav-link">
                                     <i class="nav-icon icon fas fa-envelope"></i>
                                     <p>
                                         Sent Requests
@@ -208,106 +208,104 @@
                                 </li>
                             @endif
 
-        
-                                   <li class="nav-item has-treeview ">
-                                    <a href="#"
-                                        class="nav-link">
-                                        <i class="nav-icon fa fa-sync-alt"></i>
-                                        <p>
-                                           Sync SRS Data
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                     
 
-                                            <li class="nav-item">
-                                                <a href="#"
-                                                    class="nav-link ">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p> Fetch Student</p>
-                                                </a>
-                                            </li>
+                            <li class="nav-item has-treeview ">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fa fa-sync-alt"></i>
+                                    <p>
+                                        Sync SRS Data
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
 
-                                         
-                                      
 
-                                   
-                                            <li class="nav-item">
-                                                <a href="#"
-                                                    class="nav-link">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p>Fetch Photo</p>
-                                                </a>
-                                            </li>
-                                
-                                        <li class="nav-item">
-                                            <a href="#"
-                                                class="nav-link">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Fetch College</p>
-                                            </a>
-                                  
-
-                                    </ul>
-                                </li>
-                              
-                                <li class="nav-item has-treeview ">
-                                    <a href="  {{ route('students.index') }}" class="nav-link">
-                             
-                                        <i class="nav-icon fa fa-user-graduate"></i>
-                                        <p>
-                                           Student
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                        <li class="nav-item">
-                                            <a href="#"
-                                                class="nav-link ">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p> Students </p>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="#"
-                                                class="nav-link">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Department</p>
-                                            </a>
-                                        </li>
                                     <li class="nav-item">
-                                        <a href="#"
-                                            class="nav-link">
+                                        <a href="#" class="nav-link ">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p> Fetch Student</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Fetch Photo</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Fetch Department</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Fetch Program</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Fetch College</p>
+                                        </a>
+
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-treeview ">
+                                <a href="  {{ route('students.index') }}" class="nav-link">
+
+                                    <i class="nav-icon fa fa-user-graduate"></i>
+                                    <p>
+                                        Student
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link ">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p> Students </p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Department</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p>Program</p>
                                         </a>
                                     </li>
 
                                     <li class="nav-item">
-                                        <a href="#"
-                                            class="nav-link ">
+                                        <a href="#" class="nav-link ">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p> Program type</p>
                                         </a>
                                     </li>
-                              
+
                                     <li class="nav-item">
-                                        <a href="#"
-                                            class="nav-link ">
+                                        <a href="#" class="nav-link ">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p> Program Leevel</p>
                                         </a>
                                     </li>
                                 </ul>
-                                </li>
-                        
+                            </li>
+
                             @can('view-any', App\Models\Student::class)
-                               
+                            @endcan
 
-                                @endcan
-
-                            <li class="nav-item has-treeview {{ Request::is('lab-test-requests*', 'lab-test-request-groups*') ? 'menu-open' : '' }}">
+                            <li
+                                class="nav-item has-treeview {{ Request::is('lab-test-requests*', 'lab-test-request-groups*') ? 'menu-open' : '' }}">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon  fas fa-flask"></i>
                                     <p>
@@ -425,7 +423,7 @@
                                             </a>
                                         </li>
                                     @endcan
-{{-- 
+                                    {{-- 
                                     @can('view-any', App\Models\Encounter::class)
                                         <li class="nav-item">
                                             <a href="{{ route('encounters.index') }}" class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">

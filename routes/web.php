@@ -65,6 +65,8 @@ Auth::routes();
 Route::get('/home', [SRSController::class, 'insert'])->name('home');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+Route::get('/lab-queue', [QueueController::class, 'getLabQueue']);
+Route::get('/opd-queue', [QueueController::class, 'getOPDQueue']);
 
 
 Route::prefix('/')
@@ -149,8 +151,6 @@ Route::prefix('/')
 
         Route::resource('medical-sick-leaves', MedicalSickLeaveController::class);
 
-        Route::get('/lab-queue', [QueueController::class, 'getLabQueue']);
-        Route::get('/opd-queue', [QueueController::class, 'getOPDQueue']);
 
         // My routes
 
@@ -171,6 +171,4 @@ Route::prefix('/')
 
 
         Route::get('/submit', [SpeechController::class, 'submit'])->name('submit');
-
-
     });
