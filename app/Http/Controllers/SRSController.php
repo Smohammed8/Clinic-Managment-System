@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 
+use Illuminate\Console\View\Components\Alert;
 use PDOException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Response;
 
@@ -14,11 +16,10 @@ class SRSController extends Controller
 {
 
 
-
     public function srsData(Request $request)
     {
         if ($request->input('syncdata')) {
-            $this->setting();
+            $this->insert();
             session()->flash('success', 'SRS Data Successfully Synchronized');
         }
         if ($request->input('syncphoto')) {
@@ -26,7 +27,7 @@ class SRSController extends Controller
             session()->flash('success', 'SRS Data Successfully Synchronized');
         }
         if ($request->input('syncStudent')) {
-            $this->student();
+            $this->unit();
             session()->flash('success', 'SRS Data Successfully Synchronized' . $this->student());
         }
 
@@ -43,17 +44,18 @@ class SRSController extends Controller
         return view('srs_data.dashboard', compact('data'));
     }
 
-    public function setting()
+
+    public function unit()
     {
         $sis = DB::connection('mysql');
         try {
             $srs = DB::connection('mysql_srs')->getPdo();
             //  dd("The connection is successful");
-
-
-
+            
+            
+            
             $data = DB::connection('mysql_srs')->select("SELECT id, program_level_name as name FROM program_level");
-            //   dd($data);
+//   dd($data);
             try {
                 foreach ($data as $value) {
                     // dd($data);
@@ -61,7 +63,7 @@ class SRSController extends Controller
                     $value = (array) $value;
 
                     try {
-                        DB::statement("INSERT INTO program_level (id, name) VALUES (:id, :name) ON DUPLICATE KEY UPDATE name = :name", $value);
+    DB::statement("INSERT INTO program_level (id, name) VALUES (:id, :name) ON DUPLICATE KEY UPDATE name = :name", $value);
                     } catch (\Throwable $th) {
                         dd($th->getMessage());
                     }
@@ -158,69 +160,16 @@ class SRSController extends Controller
                     $stmt->execute($value);
                 }
             } catch (\Throwable $th) {
-                Session::flash('danger', "Error Occured While Fetching Department ");
+                dd($th->getMessage());
             }
-            Session::flash("success", "Department Successfully Syncronized");
-            /*
-    * Program Sync
-    */
-            $sql = "SELECT id,department_id,program_type_id,program_level_id,enrollment_type_id,name FROM program where id!=0 and department_id !=0";
-            $stmt = $srs->prepare($sql);
-            $stmt->execute();
-            $data = $stmt->fetchAll();
-            $sql = "INSERT INTO program (id,department_id,program_type_id,program_level_id,enrollment_type_id,name) Values(:id,:department_id,:program_type_id,:program_level_id,:enrollment_type_id,:name) 
-    ON DUPLICATE KEY UPDATE department_id = :department_id,program_type_id= :program_type_id,program_level_id=:program_level_id,enrollment_type_id=:enrollment_type_id, name=:name";
-            $stmt = $sis->prepare($sql);
-            try {
-                foreach ($data as $value) {
-                    $stmt->execute($value);
-                }
-            } catch (\Throwable $th) {
-                Session::flash('danger', "Error Occured While Fetching Program  ");
-            }
-            Session::flash("success", "Program  Successfully Syncronized");
-            /*
-    * Campus Sync
-    */
-            $sql = "SELECT id,campus_name as name FROM campus where id!=0";
-            $stmt = $srs->prepare($sql);
-            try {
-                $stmt->execute();
-                $data = $stmt->fetchAll();
-                $sql = "INSERT INTO campus (id,name) Values(:id,:name) ON DUPLICATE KEY UPDATE name = :name";
-                $stmt = $sis->prepare($sql);
-                try {
-                    foreach ($data as $value) {
-                        $stmt->execute($value);
-                    }
-                } catch (\Throwable $th) {
-                    Session::flash('danger', "Error Occured While Fetching Campus ");
-                }
-            } catch (\Throwable $th) {
-                Session::flash('danger', "No Campus found In SRS");
-            }
-            Session::flash("success", "Campus Successfully Syncronized");
-        } catch (PDOException $e) {
-            dd("Connection failed, handle the error");
+        }
+        if ($result) {
+            return redirect()->route('dashboard')->with('success', 'Data Successfully Synchronized');
         }
     }
+    //////////////////////////////////////////////////////////////////////////////
 
-
-    // public function syncCollege(Request $request): View
-    // {
-    //     $this->authorize('view-any', College::class);
-
-    //     $search = $request->get('search', '');
-
-    //     $campuses = College::search($search)
-    //         ->latest()
-    //         ->paginate(10)
-    //         ->withQueryString();
-
-    //     return view('app.college.index', compact('campuses', 'search'));
-    // }
-
-
+    
     public function syncDepartment()
     {
     }
