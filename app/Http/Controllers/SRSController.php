@@ -14,28 +14,19 @@ class SRSController extends Controller
 {
 
 
-    public function srsData(Request $request)
+    public function srsData()
     {
-        if ($request->input('syncdata')) {
-            $this->insert();
-            session()->flash('success', 'SRS Data Successfully Synchronized');
-        }
-
-        if ($request->input('syncSetting')) {
+    
             $this->setting();
-            session()->flash('success', 'SRS Setting Successfully Synchronized');
-        }
-
+    
+    }
+        public function srsPhoto(Request $request)
+        {
+        
         if ($request->input('syncphoto')) {
             shell_exec(config('photo_sync_script'));
             session()->flash('success', 'SRS Data Successfully Synchronized');
         }
-        if ($request->input('syncStudent')) {
-            $this->unit();
-            session()->flash('success', 'SRS Data Successfully Synchronized' . $this->student());
-        }
-
-
         $campuses = DB::table('campuses')->count();
         $programs  = DB::table('programs')->count();
         $programLevels = DB::table('program_levels')->count();
@@ -46,7 +37,6 @@ class SRSController extends Controller
 
         return view('srs_data.dashboard', compact('data'));
     }
-
     public function insert() {
 
     try {
@@ -113,27 +103,26 @@ class SRSController extends Controller
     }
     //////////////////////////////////////////////////////////////////////////////
     public function setting() {
-
         try {
             $dbcon = DB::connection('mysql_srs');
         } catch (\Throwable $th) {
             dd($th->getMessage());
         }
-        $fields = ['id', 'name'];
+        $fields = ['id', 'department_name','college_id'];
         $query = "SELECT " . implode(', ', $fields) . " FROM department";
-        $data =  $dbcon->select($query);
+        $departments =  $dbcon->select($query);
         $targetTable = 'departments'; 
-        foreach ($data as $value) {
+        foreach ($departments as $value) {
             $value = (array) $value; //// Convert the result object to an associative array
             try {
                     $sis = DB::connection('mysql');
                     $result = $sis->table($targetTable)->updateOrInsert(
 
-                    ['department_id' => $value['id']],
-                    [
-                        'name' => $value['name']]
+                        ['department_id' => $value['id']],
+                        ['name' => $value['department_name'],
+                         'college_id' => $value['college_id'],
 
-                );
+                        ]);
             } catch (\Throwable $th) {
                 dd($th->getMessage());
             }
@@ -141,11 +130,13 @@ class SRSController extends Controller
         if ($result) {
             return redirect()->route('dashboard')->with('success', 'Department Successfully Synchronized');
         }
+      
     ////////////////////////////////////////////////////////////////////////////////////////////
-        $query = "SELECT " . implode(', ', $fields) . " FROM program";
-        $data =  $dbcon->select($query);
+        $fieldp = ['id', 'name'];
+        $query = "SELECT " . implode(', ', $fieldp) . " FROM program";
+        $programs =  $dbcon->select($query);
         $targetTable = 'programs'; 
-        foreach ($data as $value) {
+        foreach ($programs as $value) {
             $value = (array) $value; //// Convert the result object to an associative array
             try {
                     $sis = DB::connection('mysql');
@@ -163,71 +154,7 @@ class SRSController extends Controller
         if ($result) {
             return redirect()->route('dashboard')->with('success', 'Program Successfully Synchronized');
         }
-///////////////////////////////////////////////////////////////////////////////////////
-
-        $fields = ['id', 'name'];
-        $query = "SELECT " . implode(', ', $fields) . " FROM programType";
-        $data =  $dbcon->select($query);
-        $targetTable = 'program_types'; 
-        foreach ($data as $value) {
-            $value = (array) $value; //// Convert the result object to an associative array
-            try {
-                    $sis = DB::connection('mysql');
-                    $result = $sis->table($targetTable)->updateOrInsert(
-
-                    ['program_Type_id' => $value['id']],
-                    ['name' => $value['name']]
-
-                );
-            } catch (\Throwable $th) {
-                dd($th->getMessage());
-            }
-        }
-        if ($result) {
-            return redirect()->route('dashboard')->with('success', 'Program type Successfully Synchronized');
-        }
-///////////////////////////////////////////////////////////////////////////////
-        $query = "SELECT " . implode(', ', $fields) . " FROM programLevel";
-        $data =  $dbcon->select($query);
-        $targetTable = 'program_levels'; 
-        foreach ($data as $value) {
-            $value = (array) $value; //// Convert the result object to an associative array
-            try {
-                    $sis = DB::connection('mysql');
-                    $result = $sis->table($targetTable)->updateOrInsert(
-
-                    ['program_level_id' => $value['id']],
-                    [
-                        'name' => $value['name']]
-
-                );
-            } catch (\Throwable $th) {
-                dd($th->getMessage());
-            }
-        }
-        if ($result) {
-            return redirect()->route('dashboard')->with('success', 'Program Level Successfully Synchronized');
-        }
-///////////////////////////////////////////////////////////////////////////////////
-        $query = "SELECT " . implode(', ', $fields) . " FROM enrollment_type ";
-        $data =  $dbcon->select($query);
-        $targetTable = 'enrollment_types'; 
-        foreach ($data as $value) {
-            $value = (array) $value; //// Convert the result object to an associative array
-            try {
-                    $sis = DB::connection('mysql');
-                    $result = $sis->table($targetTable)->updateOrInsert(
-                    ['enrollment_type_id' => $value['id']],
-                    [
-                        'name' => $value['name']]
-                );
-            } catch (\Throwable $th) {
-                dd($th->getMessage());
-            }
-        }
-        if ($result) {
-            return redirect()->route('dashboard')->with('success', 'Enrollment type Successfully Synchronized');
-        }
+   
     }
     
 }
