@@ -111,6 +111,8 @@ Route::prefix('/')
         Route::resource('collages', CollageController::class);
         Route::resource('diagnoses', DiagnosisController::class);
         Route::resource('encounters', EncounterController::class);
+        Route::get('/reception', [EncounterController::class, 'reception']);
+
         Route::resource('lab-catagories', LabCatagoryController::class);
         Route::resource('lab-tests', LabTestController::class);
         Route::resource('lab-test-requests', LabTestRequestController::class);

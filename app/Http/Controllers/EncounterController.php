@@ -25,6 +25,33 @@ class EncounterController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    public function reception(Request $request): View
+    {
+        $this->authorize('view-any', Student::class);
+
+        $request->validate([
+            'search' => 'nullable|string',
+        ]);
+
+        $search = $request->input('search', '');
+        $searchError = '';
+        $students = [];
+
+        if (!empty($search)) {
+            $students = Student::search($search)
+                ->latest()
+                ->paginate(10)
+                ->withQueryString();
+        } elseif ($request->has('search') && strlen($search) < 2) {
+            dd($search);
+            $searchError = 'Search term must be at least 2 characters.';
+        }
+
+        $clinicUser = Auth::user()->clinicUsers?->clinics->first();
+
+        return view('app.reception.index', compact('students', 'search', 'searchError', 'clinicUser'));
+    }
     public function index(Request $request): View
     {
         //dd(STATUS_IN_PROGRESS);

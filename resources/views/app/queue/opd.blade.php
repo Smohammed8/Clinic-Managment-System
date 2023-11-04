@@ -4,12 +4,11 @@
     <div class="container-fluid" style="height: 100vh;">
         <div class="row" style="height: 63%!important;;" height: 65%!important;>
             <div class="col-7" style="height: 63%;">
-                <h1>Queue</h1>
                 <div class="p-2">
                     {{ Widget::run('opdQueueCard') }}
                 </div>
             </div>
-            <div class="col-5" style="height: 63%;">
+            <div class="col-5 mt-3 " style="height: 63%;">
                 <!-- Content for the col-3 section -->
                 <div id="videoContainer" style="width: 100%; height: 700px; overflow: hidden;">
                     <video id="videoPlayer" width="100%" height="auto" controls autoplay loop muted>
@@ -23,7 +22,7 @@
                 const videoPlayer = document.getElementById('videoPlayer');
 
 
-                videoPlayer.muted = false;
+                // videoPlayer.muted = false;
 
                 // const videoPlayer = document.getElementById('videoPlayer');
                 const videoSources = [
