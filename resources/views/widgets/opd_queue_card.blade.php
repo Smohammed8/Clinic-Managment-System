@@ -19,12 +19,23 @@
                 <div class="inner">
                     {{-- @dump($encounter) --}}
                     <h3>{{ $encounter->student->id_number ?? '-' }}</h3>
-                    <p>{{ $encounter->Doctor ? $encounter->Doctor->user->name : '-' }}
+                    <p>{{ $opdQueue->first()->Doctor ? $opdQueue->first()->Doctor->user->name : '-' }}
+
+                        {{-- {{ dd($opdQueue->first()->Doctor->rooms->first()->name) }} --}}
+
                     </p>
 
                 </div>
                 <div class="icon">
-                    <i class="ion ion-stat text-light font-weight-bold"><span class="small text-md"> OPD</span>101</i>
+                    <i class="ion ion-stat text-light font-weight-bold"><span class="small text-md">
+
+                            <?php
+                            // PHP code goes here
+                            $string = $encounter->Doctor ? $opdQueue->first()->Doctor->rooms->first()->name ?? '-' : '-';
+                            $number = preg_replace('/[^0-9]/', '', $string) ?? '-';
+                            $letters = preg_replace('/[^a-zA-Z]/', '', $string) ?? '-';
+                            ?>
+                            {{ $letters }}</span>{{ $number }}</i>
                 </div>
                 <h5 class="small-box-footer">
                     {{ $encounter->student ? $encounter->student->getFullNameAttribute() : '_' }} <i

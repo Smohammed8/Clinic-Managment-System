@@ -85,9 +85,9 @@
                     <th class="text-left">
                         @lang('crud.encounter_main_diagnoses.inputs.clinic_user_id')
                     </th>
-                    <th class="text-left">
+                    {{-- <th class="text-left">
                         @lang('crud.encounter_main_diagnoses.inputs.student_id')
-                    </th>
+                    </th> --}}
                     <th class="text-left">
                         @lang('crud.encounter_main_diagnoses.inputs.diagnosis_id')
                     </th>
@@ -101,11 +101,11 @@
                             <input type="checkbox" value="{{ $mainDiagnosis->id }}" wire:model="selected" />
                         </td>
                         <td class="text-left">
-                            {{ optional($mainDiagnosis->Doctor)->id ?? '-' }}
+                            {{ optional($mainDiagnosis->Doctor)?->user->name ?? '-' }}
                         </td>
-                        <td class="text-left">
+                        {{-- <td class="text-left">
                             {{ optional($mainDiagnosis->student)->first_name ?? '-' }}
-                        </td>
+                        </td> --}}
                         <td class="text-left">
                             {{ optional($mainDiagnosis->diagnosis)->name ?? '-' }}
                         </td>

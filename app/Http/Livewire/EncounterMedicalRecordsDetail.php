@@ -54,7 +54,7 @@ class EncounterMedicalRecordsDetail extends Component
         // dd(Auth::user()->id);
         $this->medicalRecord->clinic_user_id = Auth::user()->id;
         $this->medicalRecord->student_id = null;
-       // $this->medicalRecord->student_id = null;
+        // $this->medicalRecord->student_id = null;
         $this->dispatchBrowserEvent('refresh');
     }
 
@@ -100,9 +100,9 @@ class EncounterMedicalRecordsDetail extends Component
         } else {
             $this->authorize('update', $this->medicalRecord);
         }
+        // dd(Auth::user()->clinicUsers);
 
-
-        $this->medicalRecord->clinic_user_id = Auth::user()->id;
+        $this->medicalRecord->clinic_user_id = Auth::user()->clinicUsers->id;
         $this->medicalRecord->student_id = $this->encounter->student->id;
 
         $this->medicalRecord->save();

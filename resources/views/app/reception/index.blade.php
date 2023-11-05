@@ -99,10 +99,10 @@
                                                         <input type="hidden" name="check_in_time" value="{{ now() }}">
                                                         <input type="hidden" name="status" value=0>
                                                         <input type="hidden" name="priority" value=0>
-                                                        <input type="hidden" name="clinic_id" value={{ $clinicUser->id }}>
-                                                        <input type="hidden" name="student_id" value={{ $student->id }}>
+                                                        <input type="hidden" name="clinic_id" value={{ $clinicUser?->id }}>
+                                                        <input type="hidden" name="student_id" value={{ $student?->id }}>
                                                         <input type="hidden" name="registered_by"
-                                                            value="{{ Auth::user()->clinicUsers->id }}">
+                                                            value="{{ Auth::user()->clinicUsers?->id }}">
 
                                                         <button type="submit" class="btn btn-sm btn-outline-primary mx-1">
                                                             <i class="icon ion-md-save"></i>

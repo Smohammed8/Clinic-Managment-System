@@ -88,7 +88,7 @@ class EncounterPrescriptionsDetail extends Component
         }
         // dd($this->prescription);
 
-        $this->prescription->product_id = 1;
+        $this->prescription->product_id = NULL;
 
         $this->prescription->save();
 

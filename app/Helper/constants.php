@@ -1,27 +1,19 @@
 <?php
 define('DOCTOR_ROLE', 'doctor');
 // constants.php
-define('STATUS_SCHEDULED', 0);
 
 //define('STATUS_SCHEDULED',  0);
-define('STATUS_CHECKED_IN',  1);
-define('STATUS_IN_PROGRESS',  2);
-define('STATUS_COMPLETED',  3);
-define('STATUS_MISSED',  4);
-define('STATUS_RESCHEDULED',  5);
-define('STATUS_WAITING',  6);
-define('STATUS_ON_HOLD',  7);
-define('STATUS_QUEUE_COMPLETED',  8);
-define('STATUS_REJECTED',  9);
-define('STATUS_PRESCRIPTION_ACTIVE',  10);
-define('STATUS_PRESCRIPTION_RENEWED',  11);
-define('STATUS_TEST_PENDING',  12);
-define('STATUS_TEST_AVAILABLE',  13);
-define('STATUS_TEST_REVIEWED',  14);
-define('STATUS_FOLLOW_UP_SCHEDULED',  15);
-define('STATUS_FOLLOW_UP_COMPLETED',  16);
-define('STATUS_FOLLOW_UP_RESCHEDULED',  17);
-define('STATUS_REFERRAL_REQUESTED',  18);
-define('STATUS_REFERRAL_APPROVED',  19);
-define('STATUS_REFERRAL_REJECTED',  20);
+define('STATUS_CHECKED_IN',  0); //Accepted ny reception
+define('STATUS_COMPLETED',  1); // Encounter Colsed
+define('STATUS_IN_PROGRESS',  2); // Called by the doctor
+define('STATUS_MISSED',  3); //Missed and closed
+define('STATUS_RESCHEDULED',  4); //
+define('STATUS_WAITING',  5); //Waiting 
+define('STATUS_ON_HOLD',  6);
+define('STATUS_TEST_PENDING',  7);
+define('STATUS_TEST_AVAILABLE',  8);
+define('STATUS_TEST_REVIEWED',  9);
+define('STATUS_FOLLOW_UP_SCHEDULED',  10);
+define('STATUS_FOLLOW_UP_COMPLETED',  11);
+
 // ... Add constants for other status values ...

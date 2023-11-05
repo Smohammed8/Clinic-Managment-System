@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\EncounterStoreRequest;
 use App\Http\Requests\EncounterUpdateRequest;
+use App\Models\ClinicUser;
 
 require_once app_path('Helper/constants.php');
 
@@ -58,7 +59,7 @@ class EncounterController extends Controller
         $this->authorize('view-any', Encounter::class);
 
         $search = $request->get('search', '');
-        $status = 0; // Change this to the desired status ID
+        $status = STATUS_CHECKED_IN; // list of students accepted by receptionist
 
         // Retrieve encounters with the desired status
         $desiredStatusEncounters = Encounter::search($search)
@@ -66,7 +67,7 @@ class EncounterController extends Controller
             ->orderBy('created_at', 'asc') // Order by creation timestamp (first come, first served)
             ->paginate(10)
             ->withQueryString();
-
+        // dd($desiredStatusEncounters);
         // Retrieve encounters with other statuses (excluding the desired status)
         $otherStatusEncounters = Encounter::search($search)
             ->where('status', '<>', $status)
@@ -121,9 +122,15 @@ class EncounterController extends Controller
     public function show(Request $request, Encounter $encounter): View
     {
 
-        $doctors = User::whereHas('roles', function ($query) {
-            $query->where('name', DOCTOR_ROLE);
-        })->get();
+
+        // $doctors = User::whereHas('roles', function ($query) {
+        //     $query->where('name', DOCTOR_ROLE);
+        // })->get();
+        // dd(User::where('id', '!=', 10));
+
+        $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
+
+
 
         //dd($doctors);
         $this->authorize('view', $encounter);
@@ -131,7 +138,8 @@ class EncounterController extends Controller
         $labCategories =  LabCatagory::all();
 
         //get rooms that belongs to the given encounter clinic
-        $rooms = $encounter->clinic->rooms;
+
+        $rooms = $encounter?->clinic;
         // dd($rooms);
 
 
@@ -141,20 +149,22 @@ class EncounterController extends Controller
     // call the next encounter 
     public function callNext(Request $request, Encounter $encounter)
     {
-        $doctors = User::whereHas('roles', function ($query) {
-            $query->where('name', 'doctor');
-        })->get();
+        // $doctors = User::whereHas('roles', function ($query) {
+        //     $query->where('name', DOCTOR_ROLE);
+        // })->get();
+        $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
+
         $this->authorize('view', $encounter);
         //dd($encounter->status);
 
         // Get the current encounter's status from the form input
         $currentStatus = $encounter;
         // Update the current encounter's status to 1
-        $encounter->status = 1;
+        $encounter->status = STATUS_WAITING;
         $encounter->save();
 
         // Find the next encounter with the same status and ID greater than the current encounter
-        $nextEncounter = Encounter::where('status', 0)
+        $nextEncounter = Encounter::where('status', STATUS_CHECKED_IN)
             ->where('id', '>', $encounter->id)
             ->first();
 
@@ -172,9 +182,12 @@ class EncounterController extends Controller
             return redirect($nextEncounterUrl);
         } else {
             // Redirect to a different route or display an appropriate message
-            $doctors = User::whereHas('roles', function ($query) {
-                $query->where('name', 'doctor');
-            })->get();
+            // $doctors = User::whereHas('roles', function ($query) {
+            //     $query->where('name', DOCTOR_ROLE);
+            // })->get();
+
+            $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
+
             //dd($doctors);
             $this->authorize('view', $encounter);
             $labTests =  LabTest::all();
@@ -198,7 +211,7 @@ class EncounterController extends Controller
         $doctorId = Auth::id();
 
         // Update the encounter's status and doctor_id
-        $encounter->status = 1;
+        $encounter->status = STATUS_IN_PROGRESS;
         $encounter->doctor_id = $doctorId;
         // dd($encounter);
 
@@ -213,20 +226,23 @@ class EncounterController extends Controller
     //close encounter
     public function closeEencounter(Request $request, Encounter $encounter)
     {
-        $doctors = User::whereHas('roles', function ($query) {
-            $query->where('name', 'doctor');
-        })->get();
+        // $doctors = User::whereHas('roles', function ($query) {
+        //     $query->where('name', DOCTOR_ROLE);
+        // })->get();
+
+        $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
+
         $this->authorize('view', $encounter);
         //dd($encounter->status);
 
         // Get the current encounter's status from the form input
         $currentStatus = $encounter;
         // Update the current encounter's status to 1
-        $encounter->status = 1;
+        $encounter->status = STATUS_COMPLETED;
         $encounter->save();
 
         // Find the next encounter with the same status and ID greater than the current encounter
-        $nextEncounter = Encounter::where('status', 0)
+        $nextEncounter = Encounter::where('status', STATUS_CHECKED_IN)
             ->where('id', '>', $encounter->id)
             ->first();
 
@@ -243,9 +259,16 @@ class EncounterController extends Controller
         } else {
             //dd($encounter);
             // Redirect to a different route or display an appropriate message
-            $doctors = User::whereHas('roles', function ($query) {
-                $query->where('name', 'doctor');
-            })->get();
+            // $doctors = User::whereHas('roles', function ($query) {
+            //     $query->where('name', DOCTOR_ROLE);
+            // })->get();
+
+
+            $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
+
+
+
+
             //dd($doctors);
             $this->authorize('view', $encounter);
             $labTests =  LabTest::all();
@@ -263,14 +286,18 @@ class EncounterController extends Controller
     }
 
 
-    public function refer(Request $request, Encounter $encounter)
+    public function changeDoctor(Request $request, Encounter $encounter)
     {
-        $doctors = User::whereHas('roles', function ($query) {
-            $query->where('name', 'doctor');
-        })->get();
-        dd($doctors);
+        $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
 
-        return view('encounters.refer', compact('encounter', 'doctors'));
+        dd($request);
+        // $doctors = User::whereHas('roles', function ($query) {
+        //     $query->where('name', DOCTOR_ROLE);
+        // })->get();
+        // dd(Auth::user()->clinicUsers->id);
+        dd($encounter->ipdate(['doctor_id' => '2']));
+
+        return view('encounters.changeDoctor', compact('encounter', 'doctors'));
     }
 
     public function room(Request $request, Encounter $encounter)

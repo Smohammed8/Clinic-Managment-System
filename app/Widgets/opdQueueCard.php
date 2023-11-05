@@ -53,11 +53,12 @@ class opdQueueCard extends AbstractWidget
 
 
         $opdQueue = Encounter::whereIn('status', [
-            STATUS_IN_PROGRESS,
-            STATUS_ON_HOLD,
-            STATUS_TEST_AVAILABLE,
-            STATUS_REFERRAL_APPROVED
+            STATUS_IN_PROGRESS
         ])->get();
+        // dd($opdQueue->first()->Doctor ? $opdQueue->first()->Doctor->user->name : '-');
+        // dd($opdQueue->first()->Doctor->user->name);
+
+        // dd($opdQueue->first()->Doctor->rooms->first());
 
 
 

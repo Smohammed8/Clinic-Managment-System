@@ -14,7 +14,7 @@
             <!-- Main content -->
             <div class="content">
                 <div class="card card-primary card-outline">
-                    
+
                     <div class="card-body">
                         <!-- Rest of your content -->
                         {{-- @dd($medicalSickLeaves) --}}
@@ -59,7 +59,11 @@
                     </div>
                     <footer class="main-footer">
                         <div class="container text-center">
-                            Date: [Current Date]
+                            <?php
+                            $now = Carbon\Carbon::now();
+                            ?>
+
+                            Date:[{{ $now->format('Y-m-d') }}]
                         </div>
                     </footer>
                 </div>

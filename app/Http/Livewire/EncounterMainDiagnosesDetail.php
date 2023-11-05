@@ -104,7 +104,7 @@ class EncounterMainDiagnosesDetail extends Component
             $this->authorize('update', $this->mainDiagnosis);
         }
 
-        $this->mainDiagnosis->clinic_user_id = Auth::user()->id;
+        $this->mainDiagnosis->clinic_user_id = Auth::user()->clinicUsers->id;
         $this->mainDiagnosis->student_id = $this->encounter->student->id;
         // dd($this->mainDiagnosis);
         $this->mainDiagnosis->save();
