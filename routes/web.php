@@ -55,6 +55,8 @@ use App\Http\Controllers\SRSController;
 //     return view('welcome');
 // });
 
+Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('opd-queue');
+Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('lab-queue');
 Route::get('/', function () {
     return redirect('/login');
 });
@@ -62,11 +64,9 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [SRSController::class, 'insert'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-Route::get('/lab-queue', [QueueController::class, 'getLabQueue']);
-Route::get('/opd-queue', [QueueController::class, 'getOPDQueue']);
 
 
 Route::prefix('/')

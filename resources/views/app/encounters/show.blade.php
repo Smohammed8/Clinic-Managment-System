@@ -168,9 +168,9 @@
 
                                 <ul class="list-group">
                                     <select id="doctorSelect" class="form-control" style="width: 100%;" name="room_id">
-                                        {{-- @foreach ($rooms as $room)
+                                        @foreach ($rooms as $room)
                                             <option value="{{ $room->id }}">{{ $room->name }}</option>
-                                        @endforeach --}}
+                                        @endforeach
                                     </select>
                                 </ul>
 
@@ -421,13 +421,14 @@
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
                         <span>Date of request:</span>
-                        {{ $encounter->created_at ?? '-' }}
+                        {{ $encounter->created_at?->format('d M Y') ?? '-' }}
+
                     </div>
 
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
                         <span>Doctor:</span>
-                        {{ optional($encounter)->student->fullName ?? '-' }}
+                        {{ $encounter->Doctor ? $encounter->Doctor->user->name : '-' }}
                     </div>
 
                     <div class="col-md-4 mb-2">

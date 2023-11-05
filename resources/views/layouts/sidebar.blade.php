@@ -602,6 +602,29 @@
 
                         </li>
                     @endauth
+
+                    <li class="nav-item ">
+                        <a href="{{ route('lab-queue') }}" class="nav-link">
+                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
+                            <p>
+                                LAB QUEUE
+
+                            </p>
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item ">
+                        <a href="{{ route('opd-queue') }}" class="nav-link">
+                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
+                            <p>
+                                OPD QUEUE
+
+                            </p>
+                        </a>
+
+                    </li>
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
