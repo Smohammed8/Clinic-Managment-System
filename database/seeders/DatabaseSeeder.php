@@ -49,6 +49,8 @@ class DatabaseSeeder extends Seeder
         ], [
             'name' => 'Beco Campus'
         ]);
+        $this->call(UserSeeder::class);
+
         $this->call(PermissionsSeeder::class);
 
         // $this->call(AppointmentSeeder::class);
@@ -86,7 +88,6 @@ class DatabaseSeeder extends Seeder
         // $this->call(StoreUserSeeder::class);
         // $this->call(StudentSeeder::class);
         // $this->call(SupplierSeeder::class);
-        $this->call(UserSeeder::class);
         // $this->call(VitalSignSeeder::class);
     }
 }
