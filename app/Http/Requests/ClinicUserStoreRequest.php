@@ -21,7 +21,7 @@ class ClinicUserStoreRequest extends FormRequest
     {
         return [
             'user_id' => ['required', 'exists:users,id'],
-            'encounter_id' => ['required', 'exists:encounters,id'],
+            // 'encounter_id' => ['required', 'exists:encounters,id'],
             'clinics' => ['array'],
             'rooms' => ['array'],
         ];
