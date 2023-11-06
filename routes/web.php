@@ -72,6 +72,8 @@ Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::prefix('/')
     ->middleware('auth')
     ->group(function () {
+        Route::resource('encounters', EncounterController::class); //->middleware('redirectIfDoctor');
+
         Route::resource('roles', RoleController::class);
         Route::resource('permissions', PermissionController::class);
 
@@ -110,7 +112,6 @@ Route::prefix('/')
         Route::resource('clinic-users', ClinicUserController::class);
         Route::resource('collages', CollageController::class);
         Route::resource('diagnoses', DiagnosisController::class);
-        Route::resource('encounters', EncounterController::class);
         Route::get('/reception', [EncounterController::class, 'reception']);
 
         Route::resource('lab-catagories', LabCatagoryController::class);
