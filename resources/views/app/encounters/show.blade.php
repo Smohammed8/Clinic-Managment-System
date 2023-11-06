@@ -288,7 +288,7 @@
                                         <input type="hidden" name="student_id" id="student_id"
                                             value="{{ $encounter->student->id ?? '-' }}">
                                         <input type="hidden" name="doctor_id" id="doctor_id"
-                                            value="{{ Auth::user()->clinicUsers?->id  }}">
+                                            value="{{ Auth::user()->clinicUsers?->id }}">
                                         <input type="hidden" name="encounter_id" id="encounter_id"
                                             value="{{ $encounter->id }}">
                                         <div class="form-group">
@@ -407,7 +407,7 @@
             </script> --}}
             <!-- Referral Modal End-->
 
-            <div class="card-body" >
+            <div class="card-body">
                 {{-- <h4 class="card-title">
                     <a href="{{ route('lab-test-request-groups.index') }}" class="mr-4"><i
                             class="icon ion-md-arrow-back"></i></a>
@@ -559,17 +559,18 @@
                                         </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link" id="vert-tabs-history-tab  vert-tabs-history" data-toggle="pill"
-                                                href="#vert-tabs-history" role="tab"  aria-controls="vert-tabs-history" aria-selected="false"> <i
-                                                    class="fa fa-caret-right nav-icon"></i><b> 
-                                                        Visit History </b> </a>
+                                            <a class="nav-link" id="vert-tabs-history-tab  vert-tabs-history"
+                                                data-toggle="pill" href="#vert-tabs-history" role="tab"
+                                                aria-controls="vert-tabs-history" aria-selected="false"> <i
+                                                    class="fa fa-caret-right nav-icon"></i><b>
+                                                    Visit History </b> </a>
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-7 col-sm-9">
                                 <div class="tab-content" id="vert-tabs-tabContent">
-                                    
+
                                     <div class="tab-pane text-left fade show active " id="vert-tabs-profile"
                                         role="tabpanel" aria-labelledby="vert-tabs-profile-tab">
                                         @can('view-any', App\Models\MedicalRecord::class)
@@ -836,13 +837,13 @@
         </div>
 
         <!-- Bootstrap4 Duallistbox -->
-        {{-- <script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script> --}}
+
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <!-- plugin -->
-        <script
-            src="https://www.virtuosoft.eu/code/bootstrap-duallistbox/bootstrap-duallistbox/v3.0.2/jquery.bootstrap-duallistbox.js">
-        </script>
+        <script src="{{ asset('plugins/jquery.bootstrap-duallistbox.js') }}"></script>
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         {{-- <script>
 

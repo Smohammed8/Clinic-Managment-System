@@ -115,7 +115,7 @@
                                         <td>{{ $student->first_name ?? '-' }} {{ $student->middle_name ?? '-' }} {{ $student->last_name ?? '-' }} </td>
                                         <td>{{ $student->sex ?? '-' }}</td>
                                         <td>{{ $student->id_number ?? '-' }} </td>
-                                        <td>{{ $student->program ?? '-' }} </td>
+                                        <td>{{ $student->program ->name?? '-' }} </td>
 
                                         <td>    {{ \Carbon\Carbon::parse($student->date_of_birth)->diff(\Carbon\Carbon::now())->format('%y years old') }} </td>
                                         <td>{{ $student->campus ?? '-'}} </td>

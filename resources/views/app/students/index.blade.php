@@ -86,7 +86,7 @@
                                         <td>{{ $student->last_name ?? '-' }}</td>
                                         <td>{{ $student->sex ?? '-' }}</td>
 
-                                        <td>{{ $student->id_number ?? '-',  }} <span class="badge bg-primary badge-sm"> {{ optional($student->encounter)->count() ?? '-' }}</span>
+                                        <td>{{ $student->id_number ?? '-'  }} <span class="badge bg-primary badge-sm"> {{ optional($student->encounter)->count() ?? '-' }}</span>
                                         </td>
 
                                         </td>
