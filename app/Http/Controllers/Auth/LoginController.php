@@ -53,20 +53,22 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if ($request->username == "admin" || "abrahsisay") {
+        if ($request->username == "admin" || $request->username ==  "abrahsisay") {
             if (Auth::attempt($credentials)) {
                 return redirect(route('dashboard'));
             } else {
                 return Redirect::back()->withErrors(['msg' => 'Invalid Credentials']);
             }
         } else {
-
             $auth = $ldapHelper->authenticate($credentials);
             //dd($auth);
             if ($auth) {
 
                 Auth::login($auth);
                 session()->regenerate();
+                if(Auth::user()->hasRole('doctor')){
+                    return redirect(route('encounters.index'));
+                }
                 return redirect(route('dashboard'));
             } else {
                 return Redirect::back()->withErrors(['msg' => 'Invalid Credentials']);
