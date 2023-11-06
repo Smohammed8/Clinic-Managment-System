@@ -451,25 +451,27 @@
                                         </li>
                                     @endcan
 
-                                    @can('view-any', App\Models\Encounter::class)
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p> Queue lIst</p>
-                                            </a>
-                                        </li>
-                                    @endcan
-
-
-
-                                    @can('view-any', App\Models\Encounter::class)
-                                        <li class="nav-item">
-                                            <a href="#" class="nav-link">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p> TV Display</p>
-                                            </a>
-                                        </li>
-                                    @endcan 
+                                    <li class="nav-item ">
+                                        <a href="{{ route('lab-queue') }}" class="nav-link">
+                                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
+                                            <p>
+                                                LAB QUEUE
+                
+                                            </p>
+                                        </a>
+                
+                                    </li>
+                
+                                    <li class="nav-item ">
+                                        <a href="{{ route('opd-queue') }}" class="nav-link">
+                                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
+                                            <p>
+                                                OPD QUEUE
+                
+                                            </p>
+                                        </a>
+                
+                                    </li>
 
 
 

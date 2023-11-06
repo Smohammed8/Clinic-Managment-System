@@ -102,7 +102,7 @@ class EncounterVitalSignsDetail extends Component
             $this->authorize('update', $this->vitalSign);
         }
 
-        $this->vitalSign->clinic_user_id = Auth::user()->id;
+        $this->vitalSign->clinic_user_id = Auth::user()->clinicUsers->id;
         $this->vitalSign->student_id = $this->encounter->student->id;
         // dd($this->vitalSign);
         $this->vitalSign->save();

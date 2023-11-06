@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Diagnosis;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\DiagnosisStoreRequest;
 use App\Http\Requests\DiagnosisUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class DiagnosisController extends Controller
 {
     /**

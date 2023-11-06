@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Permission;
 
+require_once app_path('Helper/constants.php');
 class PermissionController extends Controller
 {
     /**
-    * Display a listing of the resource.
-    */
+     * Display a listing of the resource.
+     */
     public function index(Request $request): View
     {
         $this->authorize('list', Permission::class);
@@ -26,8 +28,8 @@ class PermissionController extends Controller
     }
 
     /**
-    * Show the form for creating a new resource.
-    */
+     * Show the form for creating a new resource.
+     */
     public function create(): View
     {
         $this->authorize('create', Permission::class);
@@ -37,8 +39,8 @@ class PermissionController extends Controller
     }
 
     /**
-    * Store a newly created resource in storage.
-    */
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request): RedirectResponse
     {
 
@@ -50,7 +52,7 @@ class PermissionController extends Controller
         ]);
 
         $permission = Permission::create($data);
-        
+
         $roles = Role::find($request->roles);
         $permission->syncRoles($roles);
 
@@ -60,8 +62,8 @@ class PermissionController extends Controller
     }
 
     /**
-    * Display the specified resource.
-    */
+     * Display the specified resource.
+     */
     public function show(Permission $permission): View
     {
         $this->authorize('view', Permission::class);
@@ -70,8 +72,8 @@ class PermissionController extends Controller
     }
 
     /**
-    * Show the form for editing the specified resource.
-    */
+     * Show the form for editing the specified resource.
+     */
     public function edit(Permission $permission): View
     {
         $this->authorize('update', $permission);
@@ -84,8 +86,8 @@ class PermissionController extends Controller
     }
 
     /**
-    * Update the specified resource in storage.
-    */
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, Permission $permission): RedirectResponse
     {
         $this->authorize('update', $permission);
@@ -96,7 +98,7 @@ class PermissionController extends Controller
         ]);
 
         $permission->update($data);
-        
+
         $roles = Role::find($request->roles);
         $permission->syncRoles($roles);
 
@@ -106,8 +108,8 @@ class PermissionController extends Controller
     }
 
     /**
-    * Remove the specified resource from storage.
-    */
+     * Remove the specified resource from storage.
+     */
     public function destroy(Permission $permission): RedirectResponse
     {
         $this->authorize('delete', $permission);

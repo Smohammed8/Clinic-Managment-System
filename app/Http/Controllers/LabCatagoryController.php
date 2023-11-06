@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\View\View;
 use App\Models\LabCatagory;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\LabCatagoryStoreRequest;
 use App\Http\Requests\LabCatagoryUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class LabCatagoryController extends Controller
 {
     /**

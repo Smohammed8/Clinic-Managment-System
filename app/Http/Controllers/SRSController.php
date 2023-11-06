@@ -75,14 +75,14 @@ class SRSController extends Controller
                         'middle_name' => $value['fathers_name'],
                         'last_name' => $value['grand_fathers_name'],
                         'sex' => $value['sex'],
-                        'program_id' =>$value['program_id'],
+                        'program_id' => $value['program_id'],
                         'photo' => $value['photo'],
                         'academic_year' => $value['academic_year'],
                         'year' => $value['year'],
                         //'campus_id'=>$value['campus_id'],
-                        'year_of_entrance'=>$value['admission_year'],
+                        'year_of_entrance' => $value['admission_year'],
                         'is_student_active' => 1,
-                        'mobile_number'=>$value['phone'],
+                        'mobile_number' => $value['phone'],
                         'is_registered' => $value['is_registered'],
                         'nationality' => $value['nationality'],
                         'section' => $value['section'],
@@ -91,8 +91,6 @@ class SRSController extends Controller
                         'entrance_reg_no' => $value['entrance_exam_id'],
                     ]
                 );
-
-
             } catch (\Throwable $th) {
                 dd($th->getMessage());
             }

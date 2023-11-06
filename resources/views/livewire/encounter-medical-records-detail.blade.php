@@ -30,6 +30,9 @@
                             maxlength="255"></x-inputs.textarea>
                     </x-inputs.group>
 
+                    <input type="hidden" name="medicalRecord.clinic_user_id" value="">
+
+
                     {{-- <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="medicalRecord.clinic_user_id" label="Doctor"
                             wire:model="medicalRecord.clinic_user_id">
@@ -39,7 +42,7 @@
                             @endforeach
                         </x-inputs.select>
                     </x-inputs.group> --}}
-{{-- 
+                    {{-- 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="medicalRecord.student_id" label="Student"
                             wire:model="medicalRecord.student_id">
@@ -88,10 +91,10 @@
             <div class="h5">
 
                 <input type="checkbox" value="{{ $medicalRecord->id }}" wire:model="selected" />
-              
+
                 {{-- {{ $medicalRecord->created_at }} --}}
-              
-                 {{-- <span class="p small">By Dr. {{ optional($medicalRecord->Doctor)->id ?? '-' }}</span>
+
+                {{-- <span class="p small">By Dr. {{ optional($medicalRecord->Doctor)->id ?? '-' }}</span>
                  <span class="p small">By Dr. {{ $medicalRecord->subjective ?? '-' }}</span>
                
                  <span class="p small">By Dr. {{ $medicalRecord->assessment ?? '-' }}</span>
@@ -125,7 +128,7 @@
                     </h5>
 
                     <span class="p small">{{ $medicalRecord->subjective ?? '-' }}</span>
-               
+
                 </div>
 
                 <div class="callout callout-info">
@@ -138,7 +141,7 @@
                     </h5>
 
                     <span class="p small"> {{ $medicalRecord->subjective ?? '-' }}</span>
-               
+
                 </div>
 
                 <div class="callout callout-warning">
@@ -151,19 +154,18 @@
                     </h5>
 
                     <span class="p small"> {{ $medicalRecord->assessment ?? '-' }}</span>
-               
+
                 </div>
                 <div class="callout callout-success">
                     <h5 class="mb-0">
                         <a href="#planContent-{{ $medicalRecord->id }}" class="text-dark" data-toggle="collapse"
-                            role="button" aria-expanded="false"
-                            aria-controls="planContent-{{ $medicalRecord->id }}">
+                            role="button" aria-expanded="false" aria-controls="planContent-{{ $medicalRecord->id }}">
                             <b>@lang('crud.encounter_medical_records.inputs.plan')</b>
                         </a>
                     </h5>
 
                     <span class="p small">{{ $medicalRecord->plan ?? '-' }}</span>
-               
+
 
                 </div>
             </div>

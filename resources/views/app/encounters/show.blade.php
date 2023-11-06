@@ -28,114 +28,70 @@
                 <div>
                     @php
                         $statusDetails = [
-                            0 => [
-                                'name' => 'Scheduled',
+                            STATUS_COMPLETED => [
+                                'name' => 'Encounter Closed',
                                 'description' => 'The patient\'s appointment is confirmed but not yet attended.',
-                                'color' => 'badge-primary',
+                                'color' => 'btn-outline-primary',
                             ],
-                            1 => [
-                                'name' => 'Checked-In',
+                            STATUS_CHECKED_IN => [
+                                'name' => 'Accepted by Reception',
                                 'description' => 'The patient has arrived at the clinic and registered their presence.',
-                                'color' => 'badge-success',
+                                'color' => 'btn-outline-success',
                             ],
-                            2 => [
-                                'name' => 'In Progress',
+                            STATUS_IN_PROGRESS => [
+                                'name' => 'Called by the Doctor',
                                 'description' => 'The patient is currently being seen by a healthcare provider.',
-                                'color' => 'badge-info',
+                                'color' => 'btn-outline-info',
                             ],
-                            3 => [
-                                'name' => 'Completed',
-                                'description' => 'The patient\'s appointment has concluded successfully.',
-                                'color' => 'badge-success',
-                            ],
-                            4 => [
-                                'name' => 'Missed',
+                            STATUS_MISSED => [
+                                'name' => 'Missed and Closed',
                                 'description' => 'The patient did not show up for their scheduled appointment.',
-                                'color' => 'badge-danger',
+                                'color' => 'btn-outline-danger',
                             ],
-                            5 => [
+                            STATUS_RESCHEDULED => [
                                 'name' => 'Rescheduled',
                                 'description' => 'The appointment was rescheduled for a future date.',
-                                'color' => 'badge-warning',
+                                'color' => 'btn-outline-warning',
                             ],
-                            6 => [
+                            STATUS_WAITING => [
                                 'name' => 'Waiting',
                                 'description' => 'The patient is waiting to be called for their appointment.',
-                                'color' => 'badge-secondary',
+                                'color' => 'btn-outline-secondary',
                             ],
-                            7 => [
+                            STATUS_ON_HOLD => [
                                 'name' => 'On Hold',
                                 'description' => 'The patient is temporarily on hold (e.g., waiting for test results).',
-                                'color' => 'badge-secondary',
+                                'color' => 'btn-outline-secondary',
                             ],
-                            8 => [
-                                'name' => 'Queue Completed',
-                                'description' => 'The patient has been seen and their encounter is completed.',
-                                'color' => 'badge-success',
-                            ],
-                            9 => [
-                                'name' => 'Rejected',
-                                'description' => 'The encounter has been reviewed and changes are needed before approval.',
-                                'color' => 'badge-danger',
-                            ],
-                            10 => [
-                                'name' => 'Prescription Active',
-                                'description' => 'The patient is currently prescribed medication.',
-                                'color' => 'badge-info',
-                            ],
-                            11 => [
-                                'name' => 'Prescription Renewed',
-                                'description' => 'The prescription has been renewed by the healthcare provider.',
-                                'color' => 'badge-info',
-                            ],
-                            12 => [
+                            STATUS_TEST_PENDING => [
                                 'name' => 'Test Pending',
                                 'description' => 'Test or lab results are pending.',
-                                'color' => 'badge-secondary',
+                                'color' => 'btn-outline-secondary',
                             ],
-                            13 => [
+                            STATUS_TEST_AVAILABLE => [
                                 'name' => 'Test Available',
                                 'description' => 'Test or lab results are available for review.',
-                                'color' => 'badge-success',
+                                'color' => 'btn-outline-success',
                             ],
-                            14 => [
+                            STATUS_TEST_REVIEWED => [
                                 'name' => 'Test Reviewed',
                                 'description' => 'Test or lab results have been reviewed by a healthcare provider.',
-                                'color' => 'badge-success',
+                                'color' => 'btn-outline-success',
                             ],
-                            15 => [
+                            STATUS_FOLLOW_UP_SCHEDULED => [
                                 'name' => 'Follow-up Scheduled',
                                 'description' => 'A follow-up appointment is scheduled.',
-                                'color' => 'badge-primary',
+                                'color' => 'btn-outline-primary',
                             ],
-                            16 => [
+                            STATUS_FOLLOW_UP_COMPLETED => [
                                 'name' => 'Follow-up Completed',
                                 'description' => 'The follow-up appointment has been completed.',
-                                'color' => 'badge-success',
-                            ],
-                            17 => [
-                                'name' => 'Follow-up Rescheduled',
-                                'description' => 'The follow-up appointment has been rescheduled.',
-                                'color' => 'badge-warning',
-                            ],
-                            18 => [
-                                'name' => 'Referral Requested',
-                                'description' => 'Referral to a specialist or another healthcare provider has been requested.',
-                                'color' => 'badge-secondary',
-                            ],
-                            19 => [
-                                'name' => 'Referral Approved',
-                                'description' => 'The referral request has been approved.',
-                                'color' => 'badge-success',
-                            ],
-                            20 => [
-                                'name' => 'Referral Rejected',
-                                'description' => 'The referral request has been rejected.',
-                                'color' => 'badge-danger',
+                                'color' => 'btn-outline-success',
                             ],
                             // ... Add details for other status values ...
                         ];
                     @endphp
+
 
                     <span class="badge {{ $statusDetails[$encounter->status]['color'] ?? 'badge-secondary' }}"> <i
                             class="fas fa-list"></i><span style="font-size: 15px;">
@@ -173,8 +129,8 @@
                             {{-- @dd($encounter->Doctor->rooms) --}}
 
                             <button type="button" class="btn btn-sm d-inline-block btn-outline-primary" data-toggle="modal"
-                                data-target="#referModal">
-                                <i class="fa fa-book"> </i>&nbsp;Refer
+                                data-target="#changeDoctorModal">
+                                <i class="fa fa-book"> </i>&nbsp;Change Doctor
                             </button>
                             <form action="{{ route('encounters.closeEencounter', ['encounter' => $encounter]) }}"
                                 method="POST" class="d-inline-block">
@@ -230,13 +186,13 @@
             </div>
             <!-- Change Room Modal end-->
 
-            <!-- Referral Modal Start-->
-            <div class="modal fade" id="referModal" tabindex="-1" role="dialog" aria-labelledby="referModalLabel"
-                aria-hidden="true">
+            <!-- Change Doctor Modal Start-->
+            <div class="modal fade" id="changeDoctorModal" tabindex="-1" role="dialog"
+                aria-labelledby="changeDoctorModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="referModalLabel">Select a Doctor</h5>
+                            <h5 class="modal-title" id="changeDoctorModalLabel">Select a Doctor</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -248,23 +204,49 @@
                                         <input type="radio" name="doctor_id" value="{{ $doctor->id }}" />
                                         {{ $doctor->name }}
                                     </li> --}}
-                                <select id="doctorSelect" class="form-control" style="width: 100%;">
-                                    @foreach ($doctors as $doctor)
-                                        <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
-                                    @endforeach
-                                </select>
+                                <form id="form"
+                                    action="{{ route('encounters.changeDoctor', ['encounter' => $encounter->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    <input type="hidden" name="encounter_id" value="{{ $encounter->id }}">
+
+                                    <div class="modal-body">
+                                        <ul class="list-group">
+                                            <select id="doctorSelect" class="form-control" style="width: 100%;">
+                                                @foreach ($doctors as $doctor)
+                                                    <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </ul>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Assign Doctor</button>
+                                    </div>
+                                </form>
+                                <script>
+                                    $(document).ready(function() {
+                                        $('#doctorSelect').select2();
+
+                                        $('#form').submit(function() {
+                                            var data = {
+                                                encounter_id: $('#encounter_id').val(),
+                                                doctor_id: $('#doctorSelect').val(),
+                                            };
+
+                                            $(this).attr('data', JSON.stringify(data));
+                                        });
+                                    });
+                                </script>
                                 {{-- @endforeach --}}
                             </ul>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" onclick="assignDoctor()">Assign
-                                Doctor</button>
-                        </div>
+
                     </div>
                 </div>
             </div>
-            <!-- Referral Modal end-->
+            <!-- Change Doctor Modal end-->
 
             <!-- Medical Sick Leave Modal Start-->
             <div class="modal fade" id="medicalSickLeaveModal" tabindex="-1" role="dialog"
@@ -414,80 +396,54 @@
                     @lang('crud.lab_test_request_groups.show_title')
                 </h4> --}}
 
-                <div class="row m-2" style="font-size: 17px;">
-
-                    <div class="input-group mb-3 col-md-4">
-                        <i class="fa fa-caret-right"> </i>&nbsp;
-                        <span title=""> Patient Name: &nbsp; </span>
-                        <span>&nbsp;<u>{{ optional($encounter)->student->fullName ?? '-' }} </u></span>
+                <div class="row m-2">
+                    <div class="col-md-4 mb-2">
+                        <i class="fa fa-caret-right"></i>
+                        <span>Patient Name:</span>
+                        <u>{{ optional($encounter)->student->fullName ?? '-' }}</u>
                     </div>
 
-                    <div class="input-group mb-3 col-md-4">
-                        <i class="fa fa-caret-right"> </i>&nbsp;
-                        <span title="">Encounter Priority </span>
-                        <span>
-                            @if ($encounter->status == 0)
-                                &nbsp;&nbsp;&nbsp;<span style="color:green;">: FCFS</span>
-                            @else
-                                &nbsp;&nbsp;&nbsp;<span style="color:red;">: High </span>
-                            @endif
+                    <div class="col-md-4 mb-2">
+                        <i class="fa fa-caret-right"></i>
+                        <span>Encounter Priority:</span>
+                        <span
+                            style="color: {{ $encounter->status == 0 ? 'green' : 'red' }};">{{ $encounter->status == 0 ? 'FCFS' : 'High' }}</span>
+                    </div>
 
+                    <div class="col-md-4 mb-2">
+                        <i class="fa fa-caret-right"></i>
+                        <span>Encounter call status:</span>
+                        <span class="{{ $statusDetails[$encounter->status]['color'] ?? 'badge-secondary' }}">
+                            {{ $statusDetails[$encounter->status]['name'] ?? '-' }}
                         </span>
+                    </div>
+
+                    <div class="col-md-4 mb-2">
+                        <i class="fa fa-caret-right"></i>
+                        <span>Date of request:</span>
+                        {{ $encounter->created_at?->format('d M Y') ?? '-' }}
 
                     </div>
 
-                    {{-- <div class="input-group mb-3 col-md-4">
-                                <i class="fa fa-caret-right"> </i>&nbsp;
-                                <span title="">Encounter Status </span>
-                                <span>{{ $labTestRequestGroup->notification ?? '-' }}</span>
-                
-                            </div> --}}
-
-                    <div class="input-group mb-3 col-md-4">
-                        <i class="fa fa-caret-right"> </i>&nbsp;
-                        <span title="">Encounter call status: </span>
-                        <span>
-                            &nbsp;&nbsp;&nbsp; @if ($encounter->priority == 0)
-                                <span style="color:red;"> waiting </span>
-                            @else
-                                Called
-                            @endif
-
-                        </span>
-
+                    <div class="col-md-4 mb-2">
+                        <i class="fa fa-caret-right"></i>
+                        <span>Doctor:</span>
+                        {{ $encounter->Doctor ? $encounter->Doctor->user->name : '-' }}
                     </div>
 
-                    <div class="input-group mb-3 col-md-4">
-                        <i class="fa fa-caret-right"> </i>&nbsp;
-                        <span title="">Date of request: </span>
-                        <span> &nbsp;{{ $encounter->created_at ?? '-' }}</span>
+                    <div class="col-md-4 mb-2">
+                        <i class="fa fa-caret-right"></i>
+                        <span>Clinic:</span>
+                        {{ $encounter->clinic->name ?? '-' }}
                     </div>
 
-                    <div class="input-group mb-3 col-md-4">
-                        <i class="fa fa-caret-right"> </i>&nbsp;
-                        <span title="">Doctor: </span>
-                        <span>&nbsp;&nbsp;&nbsp;{{ optional($encounter)->student->fullName ?? '-' }}</span>
+                    <div class="col-md-4 mb-2">
+                        <i class="fa fa-caret-right"></i>
+                        <span>Receptionist:</span>
+                        {{ $encounter->RegisteredBy ? $encounter->RegisteredBy->user->name : '-' }}
                     </div>
-
-                    <div class="input-group mb-3 col-md-4">
-                        <i class="fa fa-caret-right"> </i>&nbsp;
-                        <span title=""> Clinic </span>
-
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp; {{ $encounter->clinic->name ?? '-' }} </span>
-
-                    </div>
-
-                    <div class="input-group mb-3 col-md-4">
-                        <i class="fa fa-caret-right"> </i>&nbsp;
-                        <span title=""> Receiptionist </span>
-
-                        <span>&nbsp;&nbsp;&nbsp;&nbsp;
-                            {{ $encounter->RegisteredBy ? $encounter->RegisteredBy->user->name : '-' }}
-                        </span>
-
-                    </div>
-
                 </div>
+
 
                 <div class="card  border-warning-left-5  border border-warning">
 

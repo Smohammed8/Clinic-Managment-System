@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Constants;
 use App\Models\Store;
 use App\Models\Product;
@@ -12,6 +13,7 @@ use App\Http\Requests\ProductUpdateRequest;
 use App\Models\StoreUser;
 use Illuminate\Support\Facades\Auth;
 
+require_once app_path('Helper/constants.php');
 class ProductController extends Controller
 {
     /**
@@ -21,17 +23,16 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-        if(Auth::user()->hasRole(Constants::STORE_USER_ROLE)){
-            $storeUser=StoreUser::where('user_id',Auth::user()->id)->first();
-            $store=Store::where('id',$storeUser->store_id)->first();
+        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+            $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+            $store = Store::where('id', $storeUser->store_id)->first();
             // dd($products);
             $search = $request->get('search', '');
-            $products=Product::where('store_id',$store->id)->search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
+            $products = Product::where('store_id', $store->id)->search($search)
+                ->latest()
+                ->paginate(5)
+                ->withQueryString();
             return view('app.products.index', compact('products', 'search'));
-
         }
         return         $this->authorize('view-any', Product::class);
 
@@ -55,24 +56,23 @@ class ProductController extends Controller
     {
 
 
-        if(Auth::user()->hasRole(Constants::STORE_USER_ROLE)){
-            $storeUser=StoreUser::where('user_id',Auth::user()->id)->first();
-            $store=Store::where('id',$storeUser->store_id)->first();
+        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+            $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+            $store = Store::where('id', $storeUser->store_id)->first();
             // dd($products);
 
             $categories = Category::pluck('name', 'id');
             $stores = Store::pluck('name', 'id');
             $search = $request->get('search', '');
 
-            return view('app.products.create', compact('categories', 'stores','store'));
+            return view('app.products.create', compact('categories', 'stores', 'store'));
 
 
-            $products=Product::where('store_id',$store->id)->search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
+            $products = Product::where('store_id', $store->id)->search($search)
+                ->latest()
+                ->paginate(5)
+                ->withQueryString();
             return view('app.products.index', compact('products', 'search'));
-
         }
 
 
@@ -91,16 +91,16 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         // dd($request->name);
-        if(Auth::user()->hasRole(Constants::STORE_USER_ROLE)){
-            $storeUser=StoreUser::where('user_id',Auth::user()->id)->first();
-            $store=Store::where('id',$storeUser->store_id)->first();
+        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+            $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+            $store = Store::where('id', $storeUser->store_id)->first();
             $validated = $request->validated();
-            $validated['store_id']=$store->id;
+            $validated['store_id'] = $store->id;
             $product = Product::create($validated);
 
             return redirect()
-            ->route('products.edit', $product)
-            ->withSuccess(__('crud.common.created'));
+                ->route('products.edit', $product)
+                ->withSuccess(__('crud.common.created'));
         }
         $this->authorize('create', Product::class);
 
@@ -121,7 +121,7 @@ class ProductController extends Controller
     public function show(Request $request, Product $product)
     {
         // $this->authorize('view', $product);
-        if(Auth::user()->hasRole(Constants::STORE_USER_ROLE)){
+        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
             // $storeUser=StoreUser::where('user_id',Auth::user()->id)->first();
             // $store=Store::where('id',$storeUser->store_id)->first();
             // // dd($products);
@@ -134,7 +134,6 @@ class ProductController extends Controller
 
             return view('app.products.show', compact('product'));
         }
-
     }
 
     /**

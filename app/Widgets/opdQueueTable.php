@@ -39,7 +39,7 @@ class opdQueueTable extends AbstractWidget
 
 
 
-        $opdQueueToBe = Encounter::whereIn('status', [1])->get();
+        $opdQueueToBe = Encounter::whereIn('status', [STATUS_CHECKED_IN])->get();
 
 
 

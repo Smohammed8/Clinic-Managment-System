@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Store;
 use App\Models\Pharmacy;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use App\Models\StoresToPharmacy;
 use App\Http\Requests\StoresToPharmacyStoreRequest;
 use App\Http\Requests\StoresToPharmacyUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class StoresToPharmacyController extends Controller
 {
     /**

@@ -1,7 +1,6 @@
-@props([
-    'name',
-    'label',
-    'value',
-])
+@props(['name', 'label', 'value'])
 
-<x-inputs.basic type="datetime-local" :name="$name" label="{{ $label ?? ''}}" :value="$value ?? ''" :attributes="$attributes"></x-inputs.basic>
+{{-- <input type="date" class="form-control" name="a_date" id="appointment_a_date"> --}}
+
+<x-inputs.basic type="date" :name="$name" label="{{ $label ?? '' }}" :value="$value ?? ''"
+    :attributes="$attributes"></x-inputs.basic>

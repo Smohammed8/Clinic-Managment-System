@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Student;
 use Illuminate\View\View;
 use App\Models\Encounter;
@@ -12,6 +13,7 @@ use App\Http\Requests\StudentStoreRequest;
 use App\Http\Requests\StudentUpdateRequest;
 use Illuminate\Support\Facades\Auth;
 
+require_once app_path('Helper/constants.php');
 class StudentController extends Controller
 {
     /**

@@ -28,6 +28,15 @@
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.datetime name="appointment.a_date" label="A Date" wire:model="appointment.a_date"
                             max="255"></x-inputs.datetime>
+
+
+                        <script>
+                            $(function() {
+                                $('#appointment_a_date').datepicker();
+                            });
+                        </script>
+
+
                     </x-inputs.group>
 
                     <x-inputs.group class="col-sm-12">
@@ -39,7 +48,7 @@
                         <x-inputs.text name="appointment.status" label="Status" wire:model="appointment.status"
                             maxlength="255" placeholder="Status"></x-inputs.text>
                     </x-inputs.group>
-{{-- 
+                    {{-- 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="appointment.clinic_user_id" label="Doctor"
                             wire:model="appointment.clinic_user_id">

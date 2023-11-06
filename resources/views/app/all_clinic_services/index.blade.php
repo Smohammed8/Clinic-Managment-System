@@ -44,8 +44,7 @@
                                     @lang('crud.all_clinic_services.inputs.service_name')
                                 </th>
                                 <th class="text-left">
-                                    @lang('crud.all_clinic_services.inputs.service_
-                                                                                                                                                                                                                    description')
+                                    @lang('crud.all_clinic_services.inputs.service_description')
                                 </th>
                                 <th class="text-center">
                                     @lang('crud.common.actions')

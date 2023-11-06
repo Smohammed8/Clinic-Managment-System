@@ -62,11 +62,12 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'home'])->name('home');
+// Route::get('/home', [HomeController::class, 'home'])->name('home');
 
 Route::get('/sync-data', [SRSController::class, 'insert'])->name('sync');
 Route::get('/sync-program', [SRSController::class, 'srsData'])->name('sync.program');
 
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
@@ -109,10 +110,18 @@ Route::prefix('/')
             'destroy',
         ])->name('all-clinic-services.destroy');
 
+
+
+        Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('opd-queue');
+        Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('lab-queue');
+
+        
         Route::resource('clinic-users', ClinicUserController::class);
         Route::resource('collages', CollageController::class);
         Route::resource('diagnoses', DiagnosisController::class);
         Route::resource('encounters', EncounterController::class);
+        Route::get('/reception', [EncounterController::class, 'reception']);
+
         Route::resource('lab-catagories', LabCatagoryController::class);
         Route::resource('lab-tests', LabTestController::class);
         Route::resource('lab-test-requests', LabTestRequestController::class);
@@ -143,7 +152,7 @@ Route::prefix('/')
 
         Route::post('/encounters/{encounter}', [EncounterController::class, 'callNext'])->name('encounters.callNext');
         // Route::post('/encounters/{encounter}/call-next', 'EncounterController@callNext')->name('encounters.callNext');
-        Route::post('/encounters/{encounter}/refer', [EncounterController::class, 'refer'])->name('encounters.refer');
+        Route::post('/encounters/{encounter}/changeDoctor', [EncounterController::class, 'changeDoctor'])->name('encounters.changeDoctor');
         Route::post('/encounters/{encounter}/room', [EncounterController::class, 'room'])->name('encounters.room');
 
         Route::get('/encounters/{encounter}/accept', [EncounterController::class, 'accept'])->name('encounters.accept');
@@ -153,8 +162,6 @@ Route::prefix('/')
 
         Route::resource('medical-sick-leaves', MedicalSickLeaveController::class);
 
-        Route::get('/lab-queue', [QueueController::class, 'getLabQueue']);
-        Route::get('/opd-queue', [QueueController::class, 'getOPDQueue']);
 
         // My routes
 
@@ -175,6 +182,4 @@ Route::prefix('/')
 
 
         Route::get('/submit', [SpeechController::class, 'submit'])->name('submit');
-
-
     });

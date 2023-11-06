@@ -95,6 +95,7 @@ class EncounterAppointmentsDetail extends Component
     public function save(): void
     {
         $this->validate();
+        // dd($this);
 
         if (!$this->appointment->encounter_id) {
             $this->authorize('create', Appointment::class);
@@ -108,7 +109,7 @@ class EncounterAppointmentsDetail extends Component
             $this->appointmentADate
         );
 
-        $this->appointment->clinic_user_id = Auth::user()->id;
+        $this->appointment->clinic_user_id = Auth::user()->clinicUsers->id;
         $this->appointment->student_id = $this->encounter->student->id;
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Constants;
 use App\Models\Store;
 use App\Models\Clinic;
@@ -20,6 +21,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
+require_once app_path('Helper/constants.php');
 class ProductRequestController extends Controller
 {
     /**

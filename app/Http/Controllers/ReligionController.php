@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Religion;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -9,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ReligionStoreRequest;
 use App\Http\Requests\ReligionUpdateRequest;
 
+require_once app_path('Helper/constants.php');
 class ReligionController extends Controller
 {
     /**
