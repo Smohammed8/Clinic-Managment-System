@@ -34,7 +34,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-hover table-condensed">
+                    <table class="table table-hover  table-sm table-condensed">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -59,6 +59,10 @@
                                 </th>
                                 <th class="text-left">
                                     {{-- @lang('crud.encounters.inputs.priority') --}}
+                                    Prioriry
+                                </th>
+                                <th class="text-left">
+                                    {{-- @lang('crud.encounters.inputs.priority') --}}
                                     Gender
                                 </th>
                                 <th class="text-left">
@@ -74,6 +78,8 @@
                                 </th>
                             </tr>
                         </thead>
+
+
                         <tbody>
                             @foreach ($encounters as $key => $encounter)
                                 <tr>
@@ -86,8 +92,14 @@
                                             {{ $encounter->student->fullName ?? '-' }}
                                         @endunless
                                     </td>
+                                    <td> 
+                                        {{ \Carbon\Carbon::parse( $encounter->student->date_of_birth)->diff(\Carbon\Carbon::now())->format('%y years old') }}
+                                    </td>
                                     <td>{{ $encounter->priority ?? '-' }}</td>
+
+
                                     <td>{{ optional($encounter->student)->sex ?? '-' }}</td>
+
                                     <td>{{ $encounter->check_in_time ? \Carbon\Carbon::parse($encounter->check_in_time)->format('M d, Y') : '-' }}
                                     </td>
                                     <td>

@@ -122,6 +122,18 @@
                                 </a>
                             </li>
 
+                            @can('view-any', App\Models\Stock::class)
+                                <li class="nav-item">
+                                    <a href="{{ route('stocks.index') }}"
+                                        class="nav-link {{ Request::is('stocks*') ? 'active' : '' }}">
+                                        <i class="fa fa-caret-right nav-icon"></i>
+                                        <p> Stocks</p>
+                                    </a>
+                                </li>
+                            @endcan
+
+
+
                             <li
                                 class="nav-item  {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'menu-open' : '' }}">
                                 <a href="{{ route('product-requests.sentRequests') }}" class="nav-link">
@@ -221,11 +233,12 @@
 
 
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link ">
+                                        <a href="{{ route('sync') }}" class="nav-link ">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p> Fetch Student</p>
                                         </a>
                                     </li>
+
 
                                     <li class="nav-item">
                                         <a href="#" class="nav-link">
@@ -234,24 +247,8 @@
                                         </a>
                                     </li>
 
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p>Fetch Department</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p>Fetch Program</p>
-                                        </a>
-                                    </li>
 
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p>Fetch College</p>
-                                        </a>
+
 
                                 </ul>
                             </li>
@@ -261,29 +258,59 @@
 
                                     <i class="nav-icon fa fa-user-graduate"></i>
                                     <p>
-                                        Student
+                                        Academics
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
+
+
+                                    {{-- @can('view-any', App\Models\Student::class) --}}
                                     <li class="nav-item">
-                                        <a href="#" class="nav-link ">
+                                        <a href="{{ route('students.index') }}" class="nav-link">
                                             <i class="fa fa-caret-right nav-icon"></i>
-                                            <p> Students </p>
+                                            <p>Student List</p>
                                         </a>
                                     </li>
+                                    {{-- @endcan --}}
+
                                     <li class="nav-item">
                                         <a href="#" class="nav-link">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p>Department</p>
                                         </a>
                                     </li>
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p>Program</p>
-                                        </a>
-                                    </li>
+
+
+                                    @can('view-any', App\Models\Program::class)
+                                        <li class="nav-item">
+                                            <a href="{{ route('programs.index') }}" class="nav-link">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Programs</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+
+
+                                    @can('view-any', App\Models\Collage::class)
+                                        <li class="nav-item">
+                                            <a href="{{ route('collages.index') }}" class="nav-link">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Collages</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+
+
+                                    @can('view-any', App\Models\Campus::class)
+                                        <li class="nav-item">
+                                            <a href="{{ route('campuses.index') }}" class="nav-link">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Campuses</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+
 
                                     <li class="nav-item">
                                         <a href="#" class="nav-link ">
@@ -295,7 +322,7 @@
                                     <li class="nav-item">
                                         <a href="#" class="nav-link ">
                                             <i class="fa fa-caret-right nav-icon"></i>
-                                            <p> Program Leevel</p>
+                                            <p> Program Level</p>
                                         </a>
                                     </li>
                                 </ul>
@@ -379,8 +406,6 @@
                                         @endcan
                                     </ul>
                                     {{-- </li> --}}
-
-
                                     @can('view-any', App\Models\LabTest::class)
                                         <li class="nav-item">
                                             <a href="{{ route('lab-tests.index') }}"
@@ -392,7 +417,6 @@
                                     @endcan
                                 </ul>
                             </li>
-
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon  nav-icon  fas fa-clinic-medical"></i>
@@ -404,15 +428,7 @@
                                 <ul class="nav nav-treeview">
 
 
-                                    @can('view-any', App\Models\Student::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('students.index') }}"
-                                                class="nav-link {{ Request::is('students*') ? 'active' : '' }}">
-                                                <i class="fas fa-user-graduate"></i>
-                                                <p>Student List</p>
-                                            </a>
-                                        </li>
-                                    @endcan
+
 
                                     @can('view-any', App\Models\Encounter::class)
                                         <li class="nav-item">
@@ -423,26 +439,29 @@
                                             </a>
                                         </li>
                                     @endcan
-                                    {{-- 
-                                    @can('view-any', App\Models\Encounter::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('encounters.index') }}" class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Encounter</p>
-                                            </a>
-                                        </li>
-                                    @endcan --}}
 
+                                    <li class="nav-item ">
+                                        <a href="{{ route('lab-queue') }}" class="nav-link">
+                                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
+                                            <p>
+                                                LAB QUEUE
 
-                                    @can('view-any', App\Models\Stock::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('stocks.index') }}"
-                                                class="nav-link {{ Request::is('stocks*') ? 'active' : '' }}">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p> Stocks</p>
-                                            </a>
-                                        </li>
-                                    @endcan
+                                            </p>
+                                        </a>
+
+                                    </li>
+
+                                    <li class="nav-item ">
+                                        <a href="{{ route('opd-queue') }}" class="nav-link">
+                                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
+                                            <p>
+                                                OPD QUEUE
+
+                                            </p>
+                                        </a>
+
+                                    </li>
+
 
 
 
@@ -460,15 +479,7 @@
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
-                                    @can('view-any', App\Models\Campus::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('campuses.index') }}"
-                                                class="nav-link {{ Request::is('campuses*') ? 'active' : '' }}">
-                                                <i class="fas fa-university"></i>
-                                                <p>Campuses</p>
-                                            </a>
-                                        </li>
-                                    @endcan
+
 
                                     @can('view-any', App\Models\Clinic::class)
                                         <li class="nav-item">
@@ -508,15 +519,7 @@
                                         </li>
                                     @endcan
 
-                                    @can('view-any', App\Models\Collage::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('collages.index') }}"
-                                                class="nav-link {{ Request::is('collages*') ? 'active' : '' }}">
-                                                <i class="fas fa-university"></i>
-                                                <p>Collages</p>
-                                            </a>
-                                        </li>
-                                    @endcan
+
 
                                     @can('view-any', App\Models\Diagnosis::class)
                                         <li class="nav-item">
@@ -528,15 +531,7 @@
                                         </li>
                                     @endcan
 
-                                    @can('view-any', App\Models\Program::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('programs.index') }}"
-                                                class="nav-link {{ Request::is('programs*') ? 'active' : '' }}">
-                                                <i class="fas fa-graduation-cap"></i>
-                                                <p>Programs</p>
-                                            </a>
-                                        </li>
-                                    @endcan
+
 
                                     @can('view-any', App\Models\Religion::class)
                                         <li class="nav-item">
@@ -602,29 +597,6 @@
 
                         </li>
                     @endauth
-
-                    <li class="nav-item ">
-                        <a href="{{ route('lab-queue') }}" class="nav-link">
-                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
-                            <p>
-                                LAB QUEUE
-
-                            </p>
-                        </a>
-
-                    </li>
-
-                    <li class="nav-item ">
-                        <a href="{{ route('opd-queue') }}" class="nav-link">
-                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
-                            <p>
-                                OPD QUEUE
-
-                            </p>
-                        </a>
-
-                    </li>
-
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

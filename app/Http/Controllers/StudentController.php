@@ -23,27 +23,21 @@ class StudentController extends Controller
     {
         $this->authorize('view-any', Student::class);
 
-        $request->validate([
-            'search' => 'nullable|string',
-        ]);
-
-        $search = $request->input('search', '');
-        $searchError = '';
-        $students = [];
-
-        if (!empty($search)) {
-            $students = Student::search($search)
-                ->latest()
-                ->paginate(10)
-                ->withQueryString();
-        } elseif ($request->has('search') && strlen($search) < 2) {
-            dd($search);
-            $searchError = 'Search term must be at least 2 characters.';
+        $students = Student::latest()->paginate(15) ->withQueryString();
+    
+        if ($request->filled('program')) {
+        $students->where('program_id', 'like', '%' . $request->input('program') . '%');
         }
+        if ($request->filled('dept')) {
+        $students->where('department_id', 'like', '%' . $request->input('dept') . '%');
+        }
+        if ($request->filled('campus')) {
+            $students->where('campus_id', 'like', '%' . $request->input('campus') . '%');
+        }
+    
 
-        $clinicUser = Auth::user()->clinicUsers?->clinics->first();
 
-        return view('app.students.index', compact('students', 'search', 'searchError', 'clinicUser'));
+        return view('app.students.srs-students', compact('students'));
     }
 
 
@@ -84,11 +78,11 @@ class StudentController extends Controller
      */
     public function show(Request $request, Student $student): View
     {
-        $clinicUser = Auth::user()->clinicUsers->clinics->first();
+      //  $clinicUser = Auth::user()->clinicUsers->clinics->first();
         //dd($clinicUser);
         $this->authorize('view', $student);
 
-        return view('app.students.show', compact('student', 'clinicUser'));
+        return view('app.students.show', compact('student'));
     }
 
     /**

@@ -18,11 +18,18 @@
                     </form>
                 </div>
                 <div class="col-md-6 text-right">
-                    @can('create', App\Models\Program::class)
+                    {{-- @can('create', App\Models\Program::class)
                         <a href="{{ route('programs.create') }}" class="btn btn-primary">
                             <i class="icon ion-md-add"></i> @lang('crud.common.create')
                         </a>
-                    @endcan
+                    @endcan --}}
+
+                    @can('create', App\Models\Program::class)
+                    <a href="{{ route('sync.program') }}" class="btn  btn-sm btn-outline-primary float-right mr-1">
+                        <i class="fa fa-sync-alt"></i> Sync SRS Data
+                    </a>
+                @endcan
+
                 </div>
             </div>
         </div>
@@ -34,7 +41,7 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-hover table-condensed">
+                    <table class="table table-hover  table-sm table-condensed">
                         <thead>
                             <tr>
                                 <th>#</th>

@@ -793,13 +793,13 @@
         </div>
 
         <!-- Bootstrap4 Duallistbox -->
-        {{-- <script src="{{ asset('plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script> --}}
+
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
         <!-- plugin -->
-        <script
-            src="https://www.virtuosoft.eu/code/bootstrap-duallistbox/bootstrap-duallistbox/v3.0.2/jquery.bootstrap-duallistbox.js">
-        </script>
+        <script src="{{ asset('plugins/jquery.bootstrap-duallistbox.js') }}"></script>
+
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         {{-- <script>
 

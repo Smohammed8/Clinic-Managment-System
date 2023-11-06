@@ -55,14 +55,17 @@ use App\Http\Controllers\SRSController;
 //     return view('welcome');
 // });
 
-Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('opd-queue');
-Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('lab-queue');
 Route::get('/', function () {
     return redirect('/login');
 });
 
 
 Auth::routes();
+
+// Route::get('/home', [HomeController::class, 'home'])->name('home');
+
+Route::get('/sync-data', [SRSController::class, 'insert'])->name('sync');
+Route::get('/sync-program', [SRSController::class, 'srsData'])->name('sync.program');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
@@ -108,6 +111,12 @@ Route::prefix('/')
             ClinicServicesController::class,
             'destroy',
         ])->name('all-clinic-services.destroy');
+
+
+
+        Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('lab-queue');
+        Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('opd-queue');
+
 
         Route::resource('clinic-users', ClinicUserController::class);
         Route::resource('collages', CollageController::class);
