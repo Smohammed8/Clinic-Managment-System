@@ -105,7 +105,7 @@
                     {{-- <img src="{{ asset('user_photo/user.png') }}"  width="30px;" class="img-circle elevation-2" alt="">
                      --}}
                         {{ Auth::user()->name }} <span
-                            class="badge badge-warning right">{{ Auth::user()->roles->first()->name }}</span>
+                            class="badge badge-warning right">{{ Auth::user()->roles?->first()?->name }}</span>
 
 
 
