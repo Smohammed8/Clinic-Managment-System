@@ -14,8 +14,8 @@ class ProductRequestSeeder extends Seeder
      */
     public function run()
     {
-        ProductRequest::factory()
-            ->count(5)
-            ->create();
+        // ProductRequest::factory()
+        //     ->count(5)
+        //     ->create();
     }
 }

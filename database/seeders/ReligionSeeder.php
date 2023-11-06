@@ -12,8 +12,8 @@ class ReligionSeeder extends Seeder
      */
     public function run(): void
     {
-        Religion::factory()
-            ->count(5)
-            ->create();
+        // Religion::factory()
+        //     ->count(5)
+        //     ->create();
     }
 }

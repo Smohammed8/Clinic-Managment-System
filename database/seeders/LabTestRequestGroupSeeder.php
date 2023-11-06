@@ -12,8 +12,8 @@ class LabTestRequestGroupSeeder extends Seeder
      */
     public function run(): void
     {
-        LabTestRequestGroup::factory()
-            ->count(5)
-            ->create();
+        // LabTestRequestGroup::factory()
+        //     ->count(5)
+        //     ->create();
     }
 }

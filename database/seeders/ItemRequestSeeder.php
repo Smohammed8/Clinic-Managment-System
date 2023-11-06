@@ -14,8 +14,8 @@ class ItemRequestSeeder extends Seeder
      */
     public function run()
     {
-        ItemRequest::factory()
-            ->count(5)
-            ->create();
+        // ItemRequest::factory()
+        //     ->count(5)
+        //     ->create();
     }
 }

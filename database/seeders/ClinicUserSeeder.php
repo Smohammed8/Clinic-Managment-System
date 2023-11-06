@@ -12,8 +12,8 @@ class ClinicUserSeeder extends Seeder
      */
     public function run(): void
     {
-        ClinicUser::factory()
-            ->count(5)
-            ->create();
+        // ClinicUser::factory()
+        //     ->count(5)
+        //     ->create();
     }
 }

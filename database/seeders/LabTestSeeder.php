@@ -12,8 +12,8 @@ class LabTestSeeder extends Seeder
      */
     public function run(): void
     {
-        LabTest::factory()
-            ->count(5)
-            ->create();
+        // LabTest::factory()
+        //     ->count(5)
+        //     ->create();
     }
 }
