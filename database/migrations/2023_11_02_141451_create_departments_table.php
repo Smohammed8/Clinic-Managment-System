@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Collage::class, 'college_id')->constrained()->nullable();
-            $table->string('department_id')->nullable();
             $table->string('name')->nullable();
+            $table->string('department_id')->nullable();
+            $table->string('collage_id')->nullable();
             $table->timestamps();
         });
     }
