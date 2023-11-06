@@ -112,10 +112,10 @@ Route::prefix('/')
 
 
 
-        Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('opd-queue');
-        Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('lab-queue');
+        Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('lab-queue');
+        Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('opd-queue');
 
-        
+
         Route::resource('clinic-users', ClinicUserController::class);
         Route::resource('collages', CollageController::class);
         Route::resource('diagnoses', DiagnosisController::class);

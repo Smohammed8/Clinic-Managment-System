@@ -53,7 +53,7 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if ($request->username == "admin" || "abrahsisay") {
+        if ($request->username == "admin" ||  $request->username == "abrahsisay") {
             if (Auth::attempt($credentials)) {
                 return redirect(route('dashboard'));
             } else {
