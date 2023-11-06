@@ -12,8 +12,8 @@ class CollageSeeder extends Seeder
      */
     public function run(): void
     {
-        Collage::factory()
-            ->count(5)
-            ->create();
+        // Collage::factory()
+        //     ->count(5)
+        //     ->create();
     }
 }

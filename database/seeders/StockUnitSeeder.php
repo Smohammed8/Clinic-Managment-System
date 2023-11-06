@@ -12,8 +12,8 @@ class StockUnitSeeder extends Seeder
      */
     public function run(): void
     {
-        StockUnit::factory()
-            ->count(5)
-            ->create();
+        // StockUnit::factory()
+        //     ->count(5)
+        //     ->create();
     }
 }

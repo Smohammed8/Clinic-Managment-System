@@ -12,8 +12,8 @@ class EncounterSeeder extends Seeder
      */
     public function run(): void
     {
-        Encounter::factory()
-            ->count(5)
-            ->create();
+        // Encounter::factory()
+        //     ->count(5)
+        //     ->create();
     }
 }

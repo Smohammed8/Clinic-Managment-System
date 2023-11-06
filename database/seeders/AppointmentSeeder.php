@@ -12,8 +12,8 @@ class AppointmentSeeder extends Seeder
      */
     public function run(): void
     {
-        Appointment::factory()
-            ->count(5)
-            ->create();
+        //     Appointment::factory()
+        //         ->count(5)
+        //         ->create();
     }
 }
