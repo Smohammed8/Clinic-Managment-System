@@ -4,13 +4,14 @@ namespace App\Widgets;
 
 use App\Models\Encounter;
 use Arrilot\Widgets\AbstractWidget;
+use App\LabQueueCard;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 require_once app_path('Helper/constants.php');
 
 
 
-class opdQueueCard extends AbstractWidget
+class OpdQueueCard extends AbstractWidget
 {
     /**
      * The number of seconds before each reload.
