@@ -207,11 +207,79 @@ class PermissionsSeeder extends Seeder
         $adminRole = Role::create(['name' => 'super-admin']);
         $adminRole->givePermissionTo($allPermissions);
 
-        $user = \App\Models\User::whereEmail('admin@admin.com')->first();
+        $adminUser = \App\Models\User::whereEmail('admin@admin.com')->first();
 
-        if ($user) {
-            $user->assignRole($adminRole);
+        if ($adminUser) {
+            $adminUser->assignRole($adminRole);
         }
+
+
+        $doctorUser = \App\Models\User::whereEmail('doctor@doctor.com')->first();
+        $permissionsForDoctor = [
+            'list appointments',
+            'create appointments',
+            'update appointments',
+            'delete appointments',
+            'list encounters',
+            'view encounters',
+            'create encounters',
+            'update encounters',
+            'delete encounters',
+            'list diagnoses',
+            'view diagnoses',
+            'create diagnoses',
+            'update diagnoses',
+            'delete diagnoses',
+            'list labtests',
+            'view labtests',
+            'create labtests',
+            'update labtests',
+            'delete labtests',
+            'list prescriptions',
+            'view prescriptions',
+            'create prescriptions',
+            'update prescriptions',
+            'delete prescriptions',
+            'list medicalrecords',
+            'view medicalrecords',
+            'create medicalrecords',
+            'update medicalrecords',
+            'delete medicalrecords',
+            'list vitalsigns',
+            'view vitalsigns',
+            'create vitalsigns',
+            'update vitalsigns',
+            'delete vitalsigns',
+            // Add other doctor-specific permissions here
+        ];
+        $doctorRole->givePermissionTo($permissionsForDoctor);
+
+        if ($doctorUser) {
+
+            $doctorUser->assignRole($doctorRole);
+        }
+
+        $permissionsForReception = [
+            'list appointments',
+            'view appointments',
+            'create appointments',
+            'update appointments',
+            'delete appointments',
+            'list encounters',
+            'view encounters',
+            'create encounters',
+            'update encounters',
+            'delete encounters',
+            // Add other reception-specific permissions here
+        ];
+        $receptionRole->givePermissionTo($permissionsForReception);
+
+        $receptionUser = \App\Models\User::whereEmail('reception@reception.com')->first();
+
+        if ($receptionUser) {
+            $receptionUser->assignRole($receptionRole);
+        }
+
 
         Permission::findOrCreate('store.product.*');
         Permission::findOrCreate('store.product.index');
@@ -250,60 +318,60 @@ class PermissionsSeeder extends Seeder
         $pharmacy_user = Role::findOrCreate(Constants::PHARMACY_USER);
         $pharmacy_user->syncPermissions('pharmacy.prescriptions.*', 'pharmacy.prescriptions.index', 'pharmacy.prescriptions.approve', 'pharmacy.prescriptions.view', 'pharmacy.products.*', 'pharmacy.products.index', 'pharmacy.products.request', 'pharmacy.products.view', 'pharmacy.history.*');
 
-        $doctorRole->syncPermissions([
-            'list appointments',
-            'view appointments',
-            'create appointments',
-            'update appointments',
-            'delete appointments',
+        // $doctorRole->syncPermissions([
+        //     'list appointments',
+        //     'view appointments',
+        //     'create appointments',
+        //     'update appointments',
+        //     'delete appointments',
 
-            'list encounters',
-            'view encounters',
-            'create encounters',
-            'update encounters',
-            'delete encounters',
+        //     'list encounters',
+        //     'view encounters',
+        //     'create encounters',
+        //     'update encounters',
+        //     'delete encounters',
 
-            'list labtests',
-            'view labtests',
-            'create labtests',
-            'update labtests',
-            'delete labtests',
+        //     'list labtests',
+        //     'view labtests',
+        //     'create labtests',
+        //     'update labtests',
+        //     'delete labtests',
 
-            'list prescriptions',
-            'view prescriptions',
-            'create prescriptions',
-            'update prescriptions',
-            'delete prescriptions',
+        //     'list prescriptions',
+        //     'view prescriptions',
+        //     'create prescriptions',
+        //     'update prescriptions',
+        //     'delete prescriptions',
 
-            'list medicalrecords',
-            'view medicalrecords',
-            'create medicalrecords',
-            'update medicalrecords',
-            'delete medicalrecords',
+        //     'list medicalrecords',
+        //     'view medicalrecords',
+        //     'create medicalrecords',
+        //     'update medicalrecords',
+        //     'delete medicalrecords',
 
-            'list vitalsigns',
-            'view vitalsigns',
-            'create vitalsigns',
-            'update vitalsigns',
-            'delete vitalsigns',
+        //     'list vitalsigns',
+        //     'view vitalsigns',
+        //     'create vitalsigns',
+        //     'update vitalsigns',
+        //     'delete vitalsigns',
 
-            'list diagnoses',
-            'view diagnoses',
-            'create diagnoses',
-            'update diagnoses',
-            'delete diagnoses',
+        //     'list diagnoses',
+        //     'view diagnoses',
+        //     'create diagnoses',
+        //     'update diagnoses',
+        //     'delete diagnoses',
 
-            'list labtestrequests',
-            'view labtestrequests',
-            'create labtestrequests',
-            'update labtestrequests',
-            'delete labtestrequests',
+        //     'list labtestrequests',
+        //     'view labtestrequests',
+        //     'create labtestrequests',
+        //     'update labtestrequests',
+        //     'delete labtestrequests',
 
-            'list maindiagnoses',
-            'view maindiagnoses',
-            'create maindiagnoses',
-            'update maindiagnoses',
-            'delete maindiagnoses'
-        ]);
+        //     'list maindiagnoses',
+        //     'view maindiagnoses',
+        //     'create maindiagnoses',
+        //     'update maindiagnoses',
+        //     'delete maindiagnoses'
+        // ]);
     }
 }
