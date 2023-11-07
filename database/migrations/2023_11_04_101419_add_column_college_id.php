@@ -14,12 +14,13 @@ return new class extends Migration
      */
     public function up()
     {
-      
+
 
         Schema::table('departments', function (Blueprint $table) {
-            $table->foreignIdFor(Collage::class,'college_id')->nullable()->constrained();
-            });
+            $table->unsignedBigInteger('college_id')->nullable();
 
+            $table->foreign('college_id')->references('id')->on('collage');
+        });
     }
 
     /**
@@ -31,6 +32,8 @@ return new class extends Migration
     {
         Schema::table('departments', function (Blueprint $table) {
             //
+            $table->dropForeign(['college_id']);
+            $table->dropColumn('college_ids');
         });
     }
 };
