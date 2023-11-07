@@ -295,7 +295,7 @@
                                             <p>Programs</p>
                                         </a>
                                     </li>
-                                @endcan
+                                      @endcan
 
                             
                                         @can('view-any', App\Models\Collage::class)
