@@ -1,4 +1,4 @@
-<!-- Main Sidebar Container -->
+git <!-- Main Sidebar Container -->
 <script>
     // Function to set the "menu-open" class for active menu items and their parent tree nodes
     function setActiveMenuItems() {
