@@ -39,6 +39,7 @@ use App\Http\Controllers\ItemsInPharmacyController;
 use App\Http\Controllers\MedicalSickLeaveController;
 use App\Http\Controllers\LabTestRequestGroupController;
 use App\Http\Controllers\SRSController;
+use App\LabQueueCard;
 
 /*
 |--------------------------------------------------------------------------

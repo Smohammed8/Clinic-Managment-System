@@ -5,8 +5,15 @@ namespace App\Widgets;
 use App\Models\Encounter;
 use Arrilot\Widgets\AbstractWidget;
 
-class labQueueTable extends AbstractWidget
+
+class labQueueCard extends AbstractWidget
 {
+    /**
+     * The number of seconds before each reload.
+     *
+     * @var int|float
+     */
+
     /**
      * The number of seconds before each reload.
      *
@@ -45,7 +52,7 @@ class labQueueTable extends AbstractWidget
 
 
 
-        return view('widgets.lab_queue_table', [
+        return view('widgets.lab_queue_card', [
             'config' => $this->config,
             'reloadTimeout' => $this->reloadTimeout,
             'opdQueue' => $opdQueue,

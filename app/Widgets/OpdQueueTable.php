@@ -5,7 +5,7 @@ namespace App\Widgets;
 use App\Models\Encounter;
 use Arrilot\Widgets\AbstractWidget;
 
-class opdQueueTable extends AbstractWidget
+class OpdQueueTable extends AbstractWidget
 {
     /**
      * The number of seconds before each reload.
