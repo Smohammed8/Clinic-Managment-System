@@ -427,6 +427,16 @@
                                 </a>
                                 <ul class="nav nav-treeview">
 
+                                    @can('view-any', App\Models\Encounter::class)
+                                        <li class="nav-item">
+                                            <a href="{{ route('reception') }}"
+                                                class="nav-link {{ Request::is('reception*') ? 'active' : '' }}">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Reception</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+
 
 
 

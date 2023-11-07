@@ -121,7 +121,7 @@ Route::prefix('/')
         Route::resource('clinic-users', ClinicUserController::class);
         Route::resource('collages', CollageController::class);
         Route::resource('diagnoses', DiagnosisController::class);
-        Route::get('/reception', [EncounterController::class, 'reception']);
+        Route::get('/reception', [EncounterController::class, 'reception'])->name('reception');
 
         Route::resource('lab-catagories', LabCatagoryController::class);
         Route::resource('lab-tests', LabTestController::class);
