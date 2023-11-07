@@ -13,7 +13,7 @@ return new class extends Migration {
         Schema::create('clinic_users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('encounter_id');
+        $table->unsignedBigInteger('encounter_id')->nullable();
 
             $table->timestamps();
         });

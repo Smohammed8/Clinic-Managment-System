@@ -48,7 +48,7 @@ git <!-- Main Sidebar Container -->
         <span class="brand-text font-weight-light" style="color: white"><strong style="font-size:20px;">JU
                 SIS</strong></span>
         <a href="{{ url('/') }}" class="brand-link text-dark" style="background-color:#3c8dbc;">
-                <img src="https://upload.wikimedia.org/wikipedia/en/f/fe/Current_Logo_of_Jimma_University.png"
+            <img src="https://upload.wikimedia.org/wikipedia/en/f/fe/Current_Logo_of_Jimma_University.png"
                 alt="JU Logo" class="brand-image">
             <span class="brand-text font-weight-light" style="color: white"><strong style="font-size:20px;">JU
                     SIS</strong></span>
@@ -86,11 +86,11 @@ git <!-- Main Sidebar Container -->
                                     </p>
                                 </a>
                             </li>
-                            <li  class="nav-item">
+                            <li class="nav-item">
                                 <a href="{{ route('product-requests.recordsOfRequests') }}"
                                     class="nav-link                                     ">
                                     <i class="nav-icon icon fas fa-folder-open"></i>
-                                    <p>Records                                    </p>
+                                    <p>Records </p>
                                 </a>
                             </li>
                         @elseif (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
@@ -103,7 +103,7 @@ git <!-- Main Sidebar Container -->
                                     </p>
                                 </a>
                             </li>
-                            <li  class="nav-item">
+                            <li class="nav-item">
                                 <a href="{{ route('products.index') }}"
                                     class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
                                     <i class="nav-icon icon fas fa-history"></i>
@@ -123,20 +123,20 @@ git <!-- Main Sidebar Container -->
                             </li>
 
                             @can('view-any', App\Models\Stock::class)
-                            <li class="nav-item">
-                                <a href="{{ route('stocks.index') }}"
-                                    class="nav-link {{ Request::is('stocks*') ? 'active' : '' }}">
-                                    <i class="fa fa-caret-right nav-icon"></i>
-                                    <p> Stocks</p>
-                                </a>
-                            </li>
-                        @endcan
+                                <li class="nav-item">
+                                    <a href="{{ route('stocks.index') }}"
+                                        class="nav-link {{ Request::is('stocks*') ? 'active' : '' }}">
+                                        <i class="fa fa-caret-right nav-icon"></i>
+                                        <p> Stocks</p>
+                                    </a>
+                                </li>
+                            @endcan
 
 
 
-                            <li  class="nav-item  {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'menu-open' : '' }}">
-                                <a href="{{ route('product-requests.sentRequests') }}"
-                                    class="nav-link">
+                            <li
+                                class="nav-item  {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'menu-open' : '' }}">
+                                <a href="{{ route('product-requests.sentRequests') }}" class="nav-link">
                                     <i class="nav-icon icon fas fa-envelope"></i>
                                     <p>
                                         Sent Requests
@@ -220,88 +220,81 @@ git <!-- Main Sidebar Container -->
                                 </li>
                             @endif
 
-        
-                                   <li class="nav-item has-treeview ">
-                                    <a href="#"
-                                        class="nav-link">
-                                        <i class="nav-icon fa fa-sync-alt"></i>
-                                        <p>
-                                           Sync SRS Data
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                     
 
-                                            <li class="nav-item">
-                                                <a href="{{ route('sync') }}"
-                                                    class="nav-link ">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p> Fetch Student</p>
-                                                </a>
-                                            </li>
+                            <li class="nav-item has-treeview ">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fa fa-sync-alt"></i>
+                                    <p>
+                                        Sync SRS Data
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
 
-                                
-                                            <li class="nav-item">
-                                                <a href="#"
-                                                    class="nav-link">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p>Fetch Photo</p>
-                                                </a>
-                                            </li>
-                                
-                                   
-                                  
 
-                                    </ul>
-                                </li>
-                              
-                                <li class="nav-item has-treeview ">
-                                    <a href="  {{ route('students.index') }}" class="nav-link">
-                             
-                                        <i class="nav-icon fa fa-user-graduate"></i>
-                                        <p>
-                                           Academics
-                                            <i class="right fas fa-angle-left"></i>
-                                        </p>
-                                    </a>
-                                    <ul class="nav nav-treeview">
-                                    
-
-                                        {{-- @can('view-any', App\Models\Student::class) --}}
-                                        <li class="nav-item">
-                                            <a href="{{ route('students.index') }}"
-                                                class="nav-link">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Student List</p>
-                                            </a>
-                                        </li>
-                                    {{-- @endcan --}}
-
-                                        <li class="nav-item">
-                                            <a href="#"
-                                                class="nav-link">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Department</p>
-                                            </a>
-                                        </li>
-                            
-
-                                    @can('view-any', App\Models\Program::class)
                                     <li class="nav-item">
-                                        <a href="{{ route('programs.index') }}"
-                                            class="nav-link">
+                                        <a href="{{ route('sync') }}" class="nav-link ">
                                             <i class="fa fa-caret-right nav-icon"></i>
-                                            <p>Programs</p>
+                                            <p> Fetch Student</p>
                                         </a>
                                     </li>
-                                      @endcan
 
-                            
-                                        @can('view-any', App\Models\Collage::class)
+
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Fetch Photo</p>
+                                        </a>
+                                    </li>
+
+
+
+
+                                </ul>
+                            </li>
+
+                            <li class="nav-item has-treeview ">
+                                <a href="  {{ route('students.index') }}" class="nav-link">
+
+                                    <i class="nav-icon fa fa-user-graduate"></i>
+                                    <p>
+                                        Academics
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+
+                                    {{-- @can('view-any', App\Models\Student::class) --}}
+                                    <li class="nav-item">
+                                        <a href="{{ route('students.index') }}" class="nav-link">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Student List</p>
+                                        </a>
+                                    </li>
+                                    {{-- @endcan --}}
+
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Department</p>
+                                        </a>
+                                    </li>
+
+
+                                    @can('view-any', App\Models\Program::class)
                                         <li class="nav-item">
-                                            <a href="{{ route('collages.index') }}"
-                                                class="nav-link">
+                                            <a href="{{ route('programs.index') }}" class="nav-link">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Programs</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+
+
+                                    @can('view-any', App\Models\Collage::class)
+                                        <li class="nav-item">
+                                            <a href="{{ route('collages.index') }}" class="nav-link">
                                                 <i class="fa fa-caret-right nav-icon"></i>
                                                 <p>Collages</p>
                                             </a>
@@ -309,10 +302,9 @@ git <!-- Main Sidebar Container -->
                                     @endcan
 
 
-                                   @can('view-any', App\Models\Campus::class)
+                                    @can('view-any', App\Models\Campus::class)
                                         <li class="nav-item">
-                                            <a href="{{ route('campuses.index') }}"
-                                                class="nav-link">
+                                            <a href="{{ route('campuses.index') }}" class="nav-link">
                                                 <i class="fa fa-caret-right nav-icon"></i>
                                                 <p>Campuses</p>
                                             </a>
@@ -321,29 +313,26 @@ git <!-- Main Sidebar Container -->
 
 
                                     <li class="nav-item">
-                                        <a href="#"
-                                            class="nav-link ">
+                                        <a href="#" class="nav-link ">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p> Program type</p>
                                         </a>
                                     </li>
-                              
+
                                     <li class="nav-item">
-                                        <a href="#"
-                                            class="nav-link ">
+                                        <a href="#" class="nav-link ">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p> Program Level</p>
                                         </a>
                                     </li>
                                 </ul>
-                                </li>
-                        
+                            </li>
+
                             @can('view-any', App\Models\Student::class)
-                               
+                            @endcan
 
-                                @endcan
-
-                            <li class="nav-item has-treeview {{ Request::is('lab-test-requests*', 'lab-test-request-groups*') ? 'menu-open' : '' }}">
+                            <li
+                                class="nav-item has-treeview {{ Request::is('lab-test-requests*', 'lab-test-request-groups*') ? 'menu-open' : '' }}">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon  fas fa-flask"></i>
                                     <p>
@@ -439,7 +428,7 @@ git <!-- Main Sidebar Container -->
                                 <ul class="nav nav-treeview">
 
 
-                                 
+
 
                                     @can('view-any', App\Models\Encounter::class)
                                         <li class="nav-item">
@@ -456,21 +445,21 @@ git <!-- Main Sidebar Container -->
                                             <i class="nav-icon icon fa fa-sign-out-alt"></i>
                                             <p>
                                                 LAB QUEUE
-                
+
                                             </p>
                                         </a>
-                
+
                                     </li>
-                
+
                                     <li class="nav-item ">
                                         <a href="{{ route('opd-queue') }}" class="nav-link">
                                             <i class="nav-icon icon fa fa-sign-out-alt"></i>
                                             <p>
                                                 OPD QUEUE
-                
+
                                             </p>
                                         </a>
-                
+
                                     </li>
 
 
@@ -490,7 +479,7 @@ git <!-- Main Sidebar Container -->
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
-                                  
+
 
                                     @can('view-any', App\Models\Clinic::class)
                                         <li class="nav-item">
@@ -530,7 +519,7 @@ git <!-- Main Sidebar Container -->
                                         </li>
                                     @endcan
 
-                           
+
 
                                     @can('view-any', App\Models\Diagnosis::class)
                                         <li class="nav-item">
@@ -542,7 +531,7 @@ git <!-- Main Sidebar Container -->
                                         </li>
                                     @endcan
 
-                             
+
 
                                     @can('view-any', App\Models\Religion::class)
                                         <li class="nav-item">

@@ -18,16 +18,15 @@ class ClinicSeeder extends Seeder
         //     ->create();
 
 
-            DB::table('clinic')->delete();
-  
-            $clinics = [
-                ['id' => 1, 'name' => 'Main-Clinic', 'description' => 'Main Campus'],
-                ['id' => 2, 'name' => 'JiT-Clinic', 'description' => 'JiT'],
-                ['id' => 3, 'name' => 'Agri-Clinic', 'description' => 'GAVM-Agri'],
-               
-            ];
-        
-            Clinic::insert($clinics);
+        DB::table('clinic')->delete();
 
+        $clinics = [
+            ['id' => 1, 'name' => 'Main-Clinic', 'description' => 'Main Campus'],
+            ['id' => 2, 'name' => 'JiT-Clinic', 'description' => 'JiT'],
+            ['id' => 3, 'name' => 'Agri-Clinic', 'description' => 'GAVM-Agri'],
+
+        ];
+
+        Clinic::insert($clinics);
     }
 }

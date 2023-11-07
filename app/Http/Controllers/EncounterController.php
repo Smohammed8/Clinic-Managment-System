@@ -242,6 +242,9 @@ class EncounterController extends Controller
         $currentStatus = $encounter;
         // Update the current encounter's status to 1
         $encounter->status = STATUS_COMPLETED;
+        $encounter->closed_at = now();
+        // dd(now());
+
         $encounter->save();
 
         // Find the next encounter with the same status and ID greater than the current encounter

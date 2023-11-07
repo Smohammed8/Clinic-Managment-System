@@ -12,8 +12,8 @@ class MainDiagnosisSeeder extends Seeder
      */
     public function run(): void
     {
-        MainDiagnosis::factory()
-            ->count(5)
-            ->create();
+        // MainDiagnosis::factory()
+        //     ->count(5)
+        //     ->create();
     }
 }
