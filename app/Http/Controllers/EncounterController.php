@@ -226,7 +226,7 @@ class EncounterController extends Controller
 
 
         //dd($encounter->Doctor->user->name);
-        dd($encounter);
+        //dd($encounter);
 
         $encounter->save();
 
