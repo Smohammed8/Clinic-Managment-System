@@ -21,7 +21,7 @@ return new class extends Migration {
                 ->onDelete('CASCADE');
 
             $table
-                ->foreign('user_id')
+                ->foreign('admin_id')
                 ->references('id')
                 ->on('users')
                 ->onUpdate('CASCADE')
@@ -45,7 +45,7 @@ return new class extends Migration {
     {
         Schema::table('pharmacies', function (Blueprint $table) {
             $table->dropForeign(['campus_id']);
-            $table->dropForeign(['user_id']);
+            $table->dropForeign(['admin_id']);
             $table->dropForeign(['clinic_id']);
         });
     }

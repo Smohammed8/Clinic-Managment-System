@@ -31,7 +31,7 @@
         >
     </x-inputs.group>
 
-    <x-inputs.group class="col-sm-12">
+    {{-- <x-inputs.group class="col-sm-12">
         <x-inputs.text
             name="status"
             label="Status"
@@ -40,5 +40,13 @@
             placeholder="Status"
             required
         ></x-inputs.text>
+    </x-inputs.group> --}}
+    <x-inputs.group class="col-sm-12">
+        <x-inputs.checkbox
+            name="status"
+            label="Status"
+            :checked="old('status', ($editing ? $store->status : 0))"
+        ></x-inputs.checkbox>
     </x-inputs.group>
+
 </div>

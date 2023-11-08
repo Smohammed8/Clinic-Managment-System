@@ -15,11 +15,11 @@ return new class extends Migration {
         Schema::create('pharmacies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
-            $table->foreignId('admin_id');
+            // $table->foreignId('admin_id');
             $table->unsignedBigInteger('campus_id');
             $table->boolean('status');
             $table->text('description');
-            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('admin_id')->nullable();
             $table->unsignedBigInteger('clinic_id');
 
             $table->timestamps();

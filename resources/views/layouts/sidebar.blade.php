@@ -95,7 +95,7 @@ git <!-- Main Sidebar Container -->
                             </li>
                         @elseif (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
                             <li class="nav-item">
-                                <a href="{{ route('products.index') }}"
+                                <a href="{{ route('prescriptions.index') }}"
                                     class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
                                     <i class="nav-icon icon fas fa-home"></i>
                                     <p>
