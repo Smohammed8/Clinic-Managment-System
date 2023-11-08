@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Hash;
 
+require_once app_path('Helper/constants.php');
+
 class LoginController extends Controller
 {
     /*
