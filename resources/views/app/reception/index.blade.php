@@ -92,7 +92,7 @@
                                         </td>
                                         <td class="text-center">
                                             <div role="group" aria-label="Row Actions" class="btn-group">
-                                                @can('create', $student->encounter)
+                                                @can('create encounters')
                                                     <form method="POST" action="{{ route('encounters.store') }}">
                                                         @csrf
                                                         {{-- <!-- Hidden inputs --> --}}
