@@ -45,7 +45,6 @@ class EncounterController extends Controller
                 ->paginate(10)
                 ->withQueryString();
         } elseif ($request->has('search') && strlen($search) < 2) {
-            dd($search);
             $searchError = 'Search term must be at least 2 characters.';
         }
 
