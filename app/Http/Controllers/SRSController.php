@@ -50,12 +50,10 @@ class SRSController extends Controller
         sd.entrance_exam_id, sd.mother_name AS adopter_name,
         sd.zone_id AS school_zone, sd.woreda AS school_woreda, sd.kebele AS school_kebele,
         sd.telephone AS phone, sd.family_phone
-        FROM student s
-        INNER JOIN sf_guard_user sf ON sf.id = s.sf_guard_user_id
-        INNER JOIN student_info ifo ON s.id = ifo.student_id
+        FROM student s JOIN sf_guard_user sf ON sf.id = s.sf_guard_user_id JOIN  student_info ifo ON s.id = ifo.student_id
         JOIN student_detail sd ON s.id = sd.student_id
         WHERE ifo.record_status = 1 AND s.id != 0 AND ifo.year != 0
-        ORDER BY ifo.id DESC LIMIT  10000; 
+        ORDER BY ifo.id DESC LIMIT  30000; 
     "));
 
      $data = $results;

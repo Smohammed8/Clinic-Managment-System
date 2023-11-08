@@ -328,11 +328,11 @@ git <!-- Main Sidebar Container -->
                                 </ul>
                             </li>
 
-                            @can('view-any', App\Models\Student::class)
-                            @endcan
+                            {{-- @can('view-any', App\Models\Student::class)
+                            @endcan --}}
 
-                            <li
-                                class="nav-item has-treeview {{ Request::is('lab-test-requests*', 'lab-test-request-groups*') ? 'menu-open' : '' }}">
+
+                            <li class="nav-item has-treeview {{ Request::is('lab-test-requests*', 'lab-test-request-groups*') ? 'menu-open' : '' }}">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon  fas fa-flask"></i>
                                     <p>
@@ -340,10 +340,7 @@ git <!-- Main Sidebar Container -->
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
-
-
                                 <ul class="nav nav-treeview">
-
 
                                     @can('view-any', App\Models\LabTestRequest::class)
                                         <li class="nav-item">
@@ -354,69 +351,53 @@ git <!-- Main Sidebar Container -->
                                             </a>
                                         </li>
                                     @endcan
-                                    <ul class="nav nav-treeview">
 
-                                        @can('view-any', App\Models\LabTestRequest::class)
-                                            <li class="nav-item">
-                                                <a href="{{ route('lab-test-requests.index') }}"
-                                                    class="nav-link {{ Request::is('lab-test-requests*') ? 'active' : '' }}">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p> Lab Test Requests</p>
-                                                </a>
-                                            </li>
-                                        @endcan
+                                    @can('view-any', App\Models\LabTestRequestGroup::class)
+                                    <li class="nav-item">
+                                        <a href="{{ route('lab-test-request-groups.index') }}"
+                                            class="nav-link {{ Request::is('lab-test-request-groups*') ? 'active' : '' }}">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Lab Request Groups</p>
+                                        </a>
+                                       </li>
+                                @endcan
 
-                                        @can('view-any', App\Models\LabTestRequestGroup::class)
-                                            <li class="nav-item">
-                                                <a href="{{ route('lab-test-request-groups.index') }}"
-                                                    class="nav-link {{ Request::is('lab-test-request-groups*') ? 'active' : '' }}">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p>Lab Request Groups</p>
-                                                </a>
-                                            </li>
-                                        @endcan
+                                @can('view-any', App\Models\LabCatagory::class)
+                                <li class="nav-item">
+                                    <a href="{{ route('lab-catagories.index') }}"
+                                        class="nav-link {{ Request::is('lab-catagories*') ? 'active' : '' }}">
+                                        <i class="fa fa-caret-right nav-icon"></i>
+                                        <p>Lab Categories</p>
+                                    </a>
+                                </li>
+                            @endcan
 
-                                        @can('view-any', App\Models\LabCatagory::class)
-                                            <li class="nav-item">
-                                                <a href="{{ route('lab-catagories.index') }}"
-                                                    class="nav-link {{ Request::is('lab-catagories*') ? 'active' : '' }}">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p>Lab Categories</p>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                        @can('view-any', App\Models\LabCatagory::class)
-                                            <li class="nav-item">
-                                                <a href="{{ route('lab-catagories.index') }}"
-                                                    class="nav-link {{ Request::is('lab-catagories*') ? 'active' : '' }}">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p>Lab Categories</p>
-                                                </a>
-                                            </li>
-                                        @endcan
 
-                                        @can('view-any', App\Models\LabTest::class)
-                                            <li class="nav-item">
-                                                <a href="{{ route('lab-tests.index') }}"
-                                                    class="nav-link {{ Request::is('lab-tests*') ? 'active' : '' }}">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p>Lab Tests</p>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                    </ul>
-                                    {{-- </li> --}}
-                                    @can('view-any', App\Models\LabTest::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('lab-tests.index') }}"
-                                                class="nav-link {{ Request::is('lab-tests*') ? 'active' : '' }}">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Lab Tests</p>
-                                            </a>
-                                        </li>
-                                    @endcan
-                                </ul>
+                             
+                            @can('view-any', App\Models\LabCatagory::class)
+                            <li class="nav-item">
+                                <a href="{{ route('lab-catagories.index') }}"
+                                    class="nav-link {{ Request::is('lab-catagories*') ? 'active' : '' }}">
+                                    <i class="fa fa-caret-right nav-icon"></i>
+                                    <p>Lab Categories</p>
+                                </a>
                             </li>
+                        @endcan
+
+                        @can('view-any', App\Models\LabTest::class)
+                        <li class="nav-item">
+                            <a href="{{ route('lab-tests.index') }}"
+                                class="nav-link {{ Request::is('lab-tests*') ? 'active' : '' }}">
+                                <i class="fa fa-caret-right nav-icon"></i>
+                                <p>Lab Tests</p>
+                            </a>
+                        </li>
+                    @endcan
+
+              
+
+             </ul>
+             </li>
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon  nav-icon  fas fa-clinic-medical"></i>
@@ -468,8 +449,10 @@ git <!-- Main Sidebar Container -->
                                 </ul>
                             </li>
 
-                            <li
-                                class="nav-item has-treeview {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*', 'collages*', 'diagnoses*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'menu-open' : '' }}">
+
+
+
+                            <li class="nav-item has-treeview {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*', 'collages*', 'diagnoses*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'menu-open' : '' }}">
                                 <a href="#"
                                     class="nav-link {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*', 'collages*', 'diagnoses*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'active' : '' }}">
                                     <i class="nav-icon  fas fa-wrench"></i>
@@ -583,6 +566,8 @@ git <!-- Main Sidebar Container -->
                                         </li>
                                     @endcan
                                 </ul>
+                            </li>
+
                         @endif
 
 
@@ -596,6 +581,7 @@ git <!-- Main Sidebar Container -->
                             </a>
 
                         </li>
+
                     @endauth
                 </ul>
             </nav>
