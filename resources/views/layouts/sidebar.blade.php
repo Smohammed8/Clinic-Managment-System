@@ -245,86 +245,87 @@ git <!-- Main Sidebar Container -->
                                         </li>
                                     </ul>
                                 </li>
+
+
+                                <li class="nav-item has-treeview ">
+                                    <a href="  {{ route('students.index') }}" class="nav-link">
+
+                                        <i class="nav-icon fa fa-user-graduate"></i>
+                                        <p>
+                                            Academics
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+
+
+                                        {{-- @can('view-any', App\Models\Student::class) --}}
+                                        <li class="nav-item">
+                                            <a href="{{ route('students.index') }}" class="nav-link">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Student List</p>
+                                            </a>
+                                        </li>
+                                        {{-- @endcan --}}
+
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Department</p>
+                                            </a>
+                                        </li>
+
+
+                                        @can('view-any', App\Models\Program::class)
+                                            <li class="nav-item">
+                                                <a href="{{ route('programs.index') }}" class="nav-link">
+                                                    <i class="fa fa-caret-right nav-icon"></i>
+                                                    <p>Programs</p>
+                                                </a>
+                                            </li>
+                                        @endcan
+
+
+                                        @can('view-any', App\Models\Collage::class)
+                                            <li class="nav-item">
+                                                <a href="{{ route('collages.index') }}" class="nav-link">
+                                                    <i class="fa fa-caret-right nav-icon"></i>
+                                                    <p>Collages</p>
+                                                </a>
+                                            </li>
+                                        @endcan
+
+
+                                        @can('view-any', App\Models\Campus::class)
+                                            <li class="nav-item">
+                                                <a href="{{ route('campuses.index') }}" class="nav-link">
+                                                    <i class="fa fa-caret-right nav-icon"></i>
+                                                    <p>Campuses</p>
+                                                </a>
+                                            </li>
+                                        @endcan
+
+
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link ">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p> Program type</p>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link ">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p> Program Level</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             @endif
 
                             {{-- SRS RELATED DATA FECH end --}}
 
 
-
-                            <li class="nav-item has-treeview ">
-                                <a href="  {{ route('students.index') }}" class="nav-link">
-
-                                    <i class="nav-icon fa fa-user-graduate"></i>
-                                    <p>
-                                        Academics
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-
-
-                                    {{-- @can('view-any', App\Models\Student::class) --}}
-                                    <li class="nav-item">
-                                        <a href="{{ route('students.index') }}" class="nav-link">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p>Student List</p>
-                                        </a>
-                                    </li>
-                                    {{-- @endcan --}}
-
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p>Department</p>
-                                        </a>
-                                    </li>
-
-
-                                    @can('view-any', App\Models\Program::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('programs.index') }}" class="nav-link">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Programs</p>
-                                            </a>
-                                        </li>
-                                    @endcan
-
-
-                                    @can('view-any', App\Models\Collage::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('collages.index') }}" class="nav-link">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Collages</p>
-                                            </a>
-                                        </li>
-                                    @endcan
-
-
-                                    @can('view-any', App\Models\Campus::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('campuses.index') }}" class="nav-link">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Campuses</p>
-                                            </a>
-                                        </li>
-                                    @endcan
-
-
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link ">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p> Program type</p>
-                                        </a>
-                                    </li>
-
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link ">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p> Program Level</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
 
                             {{-- @can('view-any', App\Models\Student::class)
                             @endcan --}}
