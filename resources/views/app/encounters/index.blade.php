@@ -57,10 +57,10 @@
                                     {{-- @lang('crud.encounters.inputs.closed_at') --}}
                                     Age
                                 </th>
-                                <th class="text-left">
-                                    {{-- @lang('crud.encounters.inputs.priority') --}}
+                                {{-- <th class="text-left">
+                                    @lang('crud.encounters.inputs.priority')
                                     Prioriry
-                                </th>
+                                </th> --}}
                                 <th class="text-left">
                                     {{-- @lang('crud.encounters.inputs.priority') --}}
                                     Gender
@@ -104,7 +104,7 @@
                                             echo $age;
                                         @endphp
                                     </td>
-                                    <td>{{ $encounter->priority ?? '-' }}</td>
+                                    {{-- <td>{{ $encounter->priority ?? '-' }}</td> --}}
 
 
                                     <td>{{ optional($encounter->student)->sex ?? '-' }}</td>

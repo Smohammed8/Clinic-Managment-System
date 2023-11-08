@@ -537,6 +537,17 @@ git <!-- Main Sidebar Container -->
                                             </a>
                                         </li>
                                     @endcan
+
+                                    @can('view-any', App\Models\Video::class)
+                                        <li class="nav-item">
+                                            <a href="{{ route('videos.create') }}"
+                                                class="nav-link {{ Request::is('videos/create') ? 'active' : '' }}">
+                                                <i class="fas fa-video"></i>
+                                                <p>Upload Video</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+
                                 </ul>
                             </li>
                         @endif
