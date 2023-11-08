@@ -184,6 +184,8 @@ Route::prefix('/')
             ItemsInPharmacyController::class
         );
 
+        Route::resource('clinic/videos', '\App\Http\Controllers\VideoController');
+
 
         Route::get('/submit', [SpeechController::class, 'submit'])->name('submit');
     });

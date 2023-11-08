@@ -124,7 +124,7 @@
                                                         </button>
                                                     </a>
                                                 @endcan --}}
-                                                @can('delete', $student)
+                                                {{-- @can('delete', $student)
                                                     <form action="{{ route('students.destroy', $student) }}" method="POST"
                                                         onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                         @csrf @method('DELETE')
@@ -132,7 +132,7 @@
                                                             <i class="icon ion-md-trash"></i> Delete
                                                         </button>
                                                     </form>
-                                                @endcan
+                                                @endcan --}}
                                             </div>
                                         </td>
                                     </tr>
