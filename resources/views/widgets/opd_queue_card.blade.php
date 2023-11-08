@@ -19,7 +19,7 @@
                 <div class="inner">
                     {{-- @dump($encounter) --}}
                     <h3>{{ $encounter->student->id_number ?? '-' }}</h3>
-                    <p>{{ $opdQueue->first()->Doctor ? $opdQueue->first()->Doctor->user->name : '-' }}
+                    <p>{{ $encounter->first()->Doctor ? $encounter->first()->Doctor->user->name : '-' }}
 
                         {{-- {{ dd($opdQueue->first()->Doctor->rooms->first()->name) }} --}}
 
@@ -30,8 +30,9 @@
                     <i class="ion ion-stat text-light font-weight-bold"><span class="small text-md">
 
                             <?php
+                            
                             // PHP code goes here
-                            $string = $encounter->Doctor ? $opdQueue->first()->Doctor->rooms->first()->name ?? '-' : '-';
+                            $string = $encounter->Doctor ? $encounter->Doctor->room->name ?? '-' : '-';
                             $number = preg_replace('/[^0-9]/', '', $string) ?? '-';
                             $letters = preg_replace('/[^a-zA-Z]/', '', $string) ?? '-';
                             ?>

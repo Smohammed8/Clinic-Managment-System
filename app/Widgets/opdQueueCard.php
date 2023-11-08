@@ -5,6 +5,9 @@ namespace App\Widgets;
 use App\Models\Encounter;
 use Arrilot\Widgets\AbstractWidget;
 use Illuminate\Pagination\LengthAwarePaginator;
+use App\Models\ClinicUser;
+use App\Models\User;
+
 
 require_once app_path('Helper/constants.php');
 
@@ -55,6 +58,7 @@ class opdQueueCard extends AbstractWidget
         $opdQueue = Encounter::whereIn('status', [
             STATUS_IN_PROGRESS
         ])->get();
+        //dd($opdQueue->Doctor);
         // dd($opdQueue->first()->Doctor ? $opdQueue->first()->Doctor->user->name : '-');
         // dd($opdQueue->first()->Doctor->user->name);
 
@@ -71,6 +75,8 @@ class opdQueueCard extends AbstractWidget
 
         // Create a LengthAwarePaginator instance
         $opdQueuePaginated = new LengthAwarePaginator($currentPageItems, $opdQueue->count(), $perPage);
+
+        //dd($opdQueuePaginated->Doctor->rooms->first()->clinic->id);
 
         return view('widgets.opd_queue_card', [
             'config' => $this->config,

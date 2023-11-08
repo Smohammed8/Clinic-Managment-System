@@ -85,4 +85,9 @@ class ClinicUser extends Model
     {
         return $this->belongsToMany(Room::class);
     }
+
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 }
