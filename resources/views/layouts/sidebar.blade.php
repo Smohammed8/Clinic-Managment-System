@@ -218,40 +218,36 @@ git <!-- Main Sidebar Container -->
                                         @endcan
                                     </ul>
                                 </li>
+
+                                {{-- SRS RELATED DATA FECH Start --}}
+                                <li class="nav-item has-treeview ">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fa fa-sync-alt"></i>
+                                        <p>
+                                            Sync SRS Data
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('sync') }}" class="nav-link ">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p> Fetch Student</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Fetch Photo</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             @endif
 
-
-                            <li class="nav-item has-treeview ">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fa fa-sync-alt"></i>
-                                    <p>
-                                        Sync SRS Data
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
+                            {{-- SRS RELATED DATA FECH end --}}
 
 
-                                    <li class="nav-item">
-                                        <a href="{{ route('sync') }}" class="nav-link ">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p> Fetch Student</p>
-                                        </a>
-                                    </li>
-
-
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p>Fetch Photo</p>
-                                        </a>
-                                    </li>
-
-
-
-
-                                </ul>
-                            </li>
 
                             <li class="nav-item has-treeview ">
                                 <a href="  {{ route('students.index') }}" class="nav-link">
