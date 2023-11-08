@@ -93,7 +93,11 @@
                                         @endunless
                                     </td>
                                     <td> 
-                                        {{ \Carbon\Carbon::parse( $encounter->student->date_of_birth ?? '')->diff(\Carbon\Carbon::now())->format('%y years old') }}
+                                        @if($encounter->student->date_of_birth)
+                                            {{ \Carbon\Carbon::parse( $encounter->student->date_of_birth)->diff(\Carbon\Carbon::now())->format('%y years old') }}
+                                        @else
+                                            {{'-'}}
+                                        @endif
                                     </td>
                                     <td>{{ $encounter->priority ?? '-' }}</td>
 
