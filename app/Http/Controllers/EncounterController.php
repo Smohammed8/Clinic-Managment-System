@@ -180,6 +180,9 @@ class EncounterController extends Controller
         if ($nextEncounter) {
             $encounter = $nextEncounter;
             // dd($nextEncounter);
+            $encounter->status = STATUS_IN_PROGRESS;
+            $encounter->save();
+            //$patient = Patient::findOrFail($encounter->patient_id);
             $nextEncounterId = $nextEncounter->id;
             $nextEncounterUrl = route('encounters.show', ['encounter' => $nextEncounterId]);
 
@@ -307,17 +310,21 @@ class EncounterController extends Controller
 
     public function changeDoctor(Request $request, Encounter $encounter)
     {
-        $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
+        if ($request->isMethod('post')) {
+            $newDoctorId = $request->input('newDoctorId');
+            //dd($newDoctorId);
+            $encounter->doctor_id = $newDoctorId;
+            $encounter->save();
 
-        dd($request);
-        // $doctors = User::whereHas('roles', function ($query) {
-        //     $query->where('name', DOCTOR_ROLE);
-        // })->get();
-        // dd(Auth::user()->clinicUsers->id);
-        dd($encounter->ipdate(['doctor_id' => '2']));
+            // Redirect or return a response as needed
+            return redirect()->route('encounters.index')->with('success', 'Doctor assigned successfully');
+        }
+
+        $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
 
         return view('encounters.changeDoctor', compact('encounter', 'doctors'));
     }
+
 
     public function room(Request $request, Encounter $encounter)
     {
