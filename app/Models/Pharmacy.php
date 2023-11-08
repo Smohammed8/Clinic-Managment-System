@@ -17,7 +17,6 @@ class Pharmacy extends Model
         'campus_id',
         'status',
         'description',
-        'user_id',
         'clinic_id',
     ];
 

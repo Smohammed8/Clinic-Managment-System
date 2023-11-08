@@ -1,5 +1,55 @@
 @extends('layouts.app')
+@push('js')
+    <script>
+        function getCookie(name) {
+            let cookie = {};
+            document.cookie.split(';').forEach(function(el) {
+                let [key, value] = el.split('=');
+                cookie[key.trim()] = value;
+            });
+            return cookie[name];
+        }
+        $(function() {
+            switch (getCookie('tab')) {
+                case "0":
+                $('#ongoing-tabs').toggleClass('show');
+                    $('#ongoing-tabs').toggleClass('active');
+                    $('#ongoing-tab').toggleClass('active');
+                    break;
+                case "1":
+                    $('#approved-tabs').toggleClass('show');
+                    $('#approved-tabs').toggleClass('active');
+                    $('#approved-tab').toggleClass('active');
+                    break;
+                case "2":
+                    $('#rejected-tabs').toggleClass('show');
+                    $('#rejected-tabs').toggleClass('active');
+                    $('#rejected-tab').toggleClass('active');
+                    break;
+                default:
+                    $('#ongoing-tabs').toggleClass('show');
+                    $('#ongoing-tabs').toggleClass('active');
+                    $('#ongoing-tab').toggleClass('active');
+                    break;
+            }
+        })
 
+        function setTabCookie(tab) {
+            document.cookie = "tab=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "tab=" + tab + "; path={{ url()->current() }}";
+        }
+    </script>
+    <script>
+
+
+
+
+
+
+
+
+    </script>
+@endpush
 @section('content')
     <div class="container">
         <div class="card">
@@ -15,11 +65,11 @@
                         <li class="nav-item">
                             <a class="nav-link" id="schedule-tab" data-toggle="pill" href="#approved-tabs" role="tab"
                                 aria-controls="custom-tabs-one-tabs" aria-selected="false"
-                                onclick="setTabCookie(0)">Approved Requestes</a>
+                                onclick="setTabCookie(1)">Approved Requestes</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="on-progress-tab" data-toggle="pill" href="#rejected-tabs" role="tab"
-                                onclick="setTabCookie(1)" aria-controls="tabs-on-progress" aria-selected="false">Rejected
+                                onclick="setTabCookie(2)" aria-controls="tabs-on-progress" aria-selected="false">Rejected
                                 Requestes</a>
                         </li>
 
@@ -154,9 +204,6 @@
                                         <th class="text-left">
                                             @lang('crud.product_requests.inputs.amount')
                                         </th>
-                                        {{-- <th class="text-left">
-                                        @lang('crud.product_requests.inputs.clinic_id')
-                                    </th> --}}
                                         <th class="text-left">
                                             @lang('crud.product_requests.inputs.product_id')
                                         </th>
@@ -174,10 +221,7 @@
                                     @forelse($RejectedProductRequests as $RejectedRequest)
                                         <tr>
                                             <td>{{ $RejectedRequest->amount ?? '-' }}</td>
-                                            {{-- <td>
-                                        {{ optional($productRequest->clinic)->name ??
-                                        '-' }}
-                                    </td> --}}
+
                                             <td>
                                                 {{ optional($RejectedRequest->product)->name ?? '-' }}
                                             </td>
@@ -258,9 +302,7 @@
                                         <th class="text-left">
                                             @lang('crud.product_requests.inputs.amount')
                                         </th>
-                                        {{-- <th class="text-left">
-                                            @lang('crud.product_requests.inputs.clinic_id')
-                                        </th> --}}
+
                                         <th class="text-left">
                                             @lang('crud.product_requests.inputs.product_id')
                                         </th>

@@ -8,6 +8,8 @@ use App\Models\Pharmacy;
 use Illuminate\Http\Request;
 use App\Http\Requests\PharmacyStoreRequest;
 use App\Http\Requests\PharmacyUpdateRequest;
+use App\Models\Clinic;
+use App\Models\User;
 
 require_once app_path('Helper/constants.php');
 class PharmacyController extends Controller
@@ -39,8 +41,10 @@ class PharmacyController extends Controller
         $this->authorize('create', Pharmacy::class);
 
         $campuses = Campus::pluck('name', 'id');
+        $users=User::pluck('name','id');
+        $clinics=Clinic::pluck('name','id');
 
-        return view('app.pharmacies.create', compact('campuses'));
+        return view('app.pharmacies.create', compact('campuses','users','clinics'));
     }
 
     /**
@@ -49,14 +53,17 @@ class PharmacyController extends Controller
      */
     public function store(PharmacyStoreRequest $request)
     {
+        // dd($request);
         $this->authorize('create', Pharmacy::class);
+        $validated=
 
         $validated = $request->validated();
-
+        $validated['clinic_id']=$request->clinic_id;
+     //   dd($validated);
         $pharmacy = Pharmacy::create($validated);
 
         return redirect()
-            ->route('pharmacies.edit', $pharmacy)
+            ->route('pharmacies.index', $pharmacy)
             ->withSuccess(__('crud.common.created'));
     }
 
@@ -83,7 +90,9 @@ class PharmacyController extends Controller
 
         $campuses = Campus::pluck('name', 'id');
 
-        return view('app.pharmacies.edit', compact('pharmacy', 'campuses'));
+        $users=User::pluck('name','id');
+        $clinics=Clinic::pluck('name','id');
+        return view('app.pharmacies.edit', compact('pharmacy', 'campuses','users','clinics'));
     }
 
     /**
