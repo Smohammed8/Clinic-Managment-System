@@ -19,7 +19,9 @@
                 <div class="inner">
                     {{-- @dump($encounter) --}}
                     <h3>{{ $encounter->student->id_number ?? '-' }}</h3>
-                    <p>{{ $encounter->first()->Doctor ? $encounter->first()->Doctor->user->name : '-' }}
+                    <p>
+                        {{-- {{ $encounter->first()->Doctor ? $encounter->first()->Doctor->user->name : '-' }} --}}
+                        {{ $encounter->Doctor ? $encounter->Doctor->user->name : '-' }}
 
                         {{-- {{ dd($opdQueue->first()->Doctor->rooms->first()->name) }} --}}
 
