@@ -47,11 +47,11 @@
                                 <th class="text-left">
                                     @lang('crud.lab_tests.inputs.lab_catagory_id')
                                 </th>
-                                <th class="text-left">
+                                {{-- <th class="text-left">
                                     @lang('crud.lab_tests.inputs.status')
-                                </th>
+                                </th> --}}
                                 <th class="text-left">
-                                    @lang('crud.lab_tests.inputs.is_available')
+                              Status
                                 </th>
                                 <th class="text-right">
                                     @lang('crud.lab_tests.inputs.price')
@@ -71,8 +71,18 @@
                                     <td>
                                         {{ optional($labTest->labCatagory)->lab_name ?? '-' }}
                                     </td>
-                                    <td>{{ $labTest->status ?? '-' }}</td>
-                                    <td>{{ $labTest->is_available ?? '-' }}</td>
+                                    {{-- <td>{{ $labTest->status ?? '-' }}</td> --}}
+                                    <td>
+                                        
+                                    
+                                        @if ($labTest->is_available == true)
+                                        <span class="badge badge-success"> Avaliable</span>
+                                        @else
+                                            <span class="badge badge-danger">Not avaliable</span>
+                                        @endif
+
+                                    
+                                    </td>
                                     <td>{{ $labTest->price ?? '-' }}</td>
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">

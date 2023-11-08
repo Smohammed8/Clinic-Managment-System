@@ -142,13 +142,13 @@ class LabTestRequestController extends Controller
         $this->authorize('update', $labTestRequest);
         $validated = $request->validated();
         $now = Carbon::now();
-        $labTestRequest->sample_collected_by_id = Auth::user()->id;
-        $labTestRequest->sample_analyzed_by_id = Auth::user()->id;
-        $labTestRequest->approved_by_id  = Auth::user()->id;
+        $labTestRequest->sample_collected_by_id = Auth::user()->clinicUsers->id;
+        $labTestRequest->sample_analyzed_by_id =  Auth::user()->clinicUsers->id;
+        $labTestRequest->approved_by_id  = Auth::user()->clinicUsers->id;
         $labTestRequest->status  = 1;
         $labTestRequest->sample_collected_at  = $now;
         $labTestRequest->sample_analyzed_at = $now;
-        $labTestRequest->$labTestRequest->approved_at = $now;
+        $labTestRequest->approved_at = $now;
         $labTestRequest->updated_at = $now;
 
         $labTestRequest->update($validated);

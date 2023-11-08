@@ -44,9 +44,9 @@ class Encounter extends Model
         return $this->belongsTo(ClinicUser::class, 'registered_by');
     }
 
-    public function Doctor()
+    public function doctor()
     {
-        return $this->belongsTo(ClinicUser::class, 'doctor_id');
+        return $this->belongsTo(User::class);
     }
 
     public function clinic()

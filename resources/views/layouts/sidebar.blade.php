@@ -351,29 +351,6 @@ git <!-- Main Sidebar Container -->
                                             </a>
                                         </li>
                                     @endcan
-
-                                    @can('view-any', App\Models\LabTestRequestGroup::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('lab-test-request-groups.index') }}"
-                                                class="nav-link {{ Request::is('lab-test-request-groups*') ? 'active' : '' }}">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Lab Request Groups</p>
-                                            </a>
-                                        </li>
-                                    @endcan
-
-                                    @can('view-any', App\Models\LabCatagory::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('lab-catagories.index') }}"
-                                                class="nav-link {{ Request::is('lab-catagories*') ? 'active' : '' }}">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Lab Categories</p>
-                                            </a>
-                                        </li>
-                                    @endcan
-
-
-
                                     @can('view-any', App\Models\LabCatagory::class)
                                         <li class="nav-item">
                                             <a href="{{ route('lab-catagories.index') }}"
