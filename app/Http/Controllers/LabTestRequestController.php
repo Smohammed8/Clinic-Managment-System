@@ -28,14 +28,14 @@ class LabTestRequestController extends Controller
 
         $search = $request->get('search', '');
 
-        $labTestRequests = LabTestRequest::search($search)
-            ->latest()->paginate(10)->withQueryString();
+        $labTestRequests = LabTestRequest::search($search)->orderBy('created_at', 'ASC')->paginate(10)->withQueryString();
 
         return view(
             'app.lab_test_requests.index',
             compact('labTestRequests', 'search')
         );
     }
+
 
     public function insert(Request $request)
     {
@@ -153,7 +153,7 @@ class LabTestRequestController extends Controller
 
         $labTestRequest->update($validated);
 
-        return redirect()->route('lab-test-requests.edit', $labTestRequest)->withSuccess(__('crud.common.saved'));
+        return redirect()->route('lab-test-requests.index', $labTestRequest)->withSuccess(__('crud.common.saved'));
     }
 
     /**

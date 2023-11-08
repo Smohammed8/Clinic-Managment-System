@@ -17,10 +17,12 @@
                         </div>
                     </form>
                 </div>
+                {{-- {{ route('lab-test-requests.create') }} --}}
                 <div class="col-md-6 text-right">
                     @can('create', App\Models\LabTestRequest::class)
-                        <a href="{{ route('lab-test-requests.create') }}" class="btn btn-primary">
-                            <i class="icon ion-md-add"></i> @lang('crud.common.create')
+                        <a href="#" class="btn btn-primary">
+                       
+                        <i class="icon ion-md-list"> </i>   List of active lab requests
                         </a>
                     @endcan
                 </div>
