@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Constants;
 use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -102,7 +102,7 @@ class UserController extends Controller
 
         // ): RedirectResponse {
         // dd($request->roles);
-        if (in_array(4, $request->roles) and  in_array(3, $request->roles)) {
+        if (in_array(Constants::PHARMACY_USER_ROLE_ID, $request->roles) and  in_array(Constants::STORE_USER_ROLE_ID, $request->roles)) {
             return redirect()->back()->with('error', 'Store user and Pharmacy user can\'t be assigned simultaneously');
         }
         $this->authorize('update', $user);
@@ -120,12 +120,12 @@ class UserController extends Controller
 
         $user->syncRoles($request->roles);
 
-        if (in_array(4, $request->roles)) {
+        if (in_array(Constants::PHARMACY_USER_ROLE_ID, $request->roles)) {
             $pharmacy = true;
             $pharmacies = Pharmacy::pluck('name', 'id');;
 
             return view('app.roles.assignPlaceForPharmacyOrStore', compact('pharmacy', 'pharmacies', 'user'));
-        } elseif (in_array(3, $request->roles)) {
+        } elseif (in_array(Constants::STORE_USER_ROLE_ID, $request->roles)) {
             $pharmacy = false;
             $stores = Store::pluck('name', 'id');;
 

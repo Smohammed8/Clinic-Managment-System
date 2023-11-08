@@ -9,6 +9,8 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 
+require_once app_path('Helper/constants.php');
+
 
 class PermissionsSeeder extends Seeder
 {
@@ -19,7 +21,7 @@ class PermissionsSeeder extends Seeder
 
         // Create default permissions
         Permission::create(['name' => 'list appointments']);
-        Permission::create(['name' => ' appointments']);
+        Permission::create(['name' => 'view appointments']);
         Permission::create(['name' => 'create appointments']);
         Permission::create(['name' => 'update appointments']);
         Permission::create(['name' => 'delete appointments']);
@@ -165,8 +167,9 @@ class PermissionsSeeder extends Seeder
         // Create user role and assign existing permissions
         $currentPermissions = Permission::all();
         ///////////////////////////////////////////////////////
-    
+
         $userRole = Role::create(['name' => 'user']);
+        $doctorRole = Role::create(['name' => DOCTOR_ROLE]);
         $labTechnicianRole = Role::create(['name' => 'lab_technician']);
         $receptionRole = Role::create(['name' => 'reception']);
         $pharmacyRole = Role::create(['name' => 'pharmacist']);
@@ -179,7 +182,7 @@ class PermissionsSeeder extends Seeder
         // $pharmacyRole->givePermissionTo($currentPermissions);
         // $physicianRole->givePermissionTo($currentPermissions);
         // $nurseRole->givePermissionTo($currentPermissions);
-       ///////////////////////////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////////////////////////////
         // Create admin exclusive permissions
         Permission::create(['name' => 'list roles']);
         Permission::create(['name' => 'view roles']);
@@ -204,11 +207,79 @@ class PermissionsSeeder extends Seeder
         $adminRole = Role::create(['name' => 'super-admin']);
         $adminRole->givePermissionTo($allPermissions);
 
-        $user = \App\Models\User::whereEmail('admin@admin.com')->first();
+        $adminUser = \App\Models\User::whereEmail('admin@admin.com')->first();
 
-        if ($user) {
-            $user->assignRole($adminRole);
+        if ($adminUser) {
+            $adminUser->assignRole($adminRole);
         }
+
+
+        $doctorUser = \App\Models\User::whereEmail('doctor@doctor.com')->first();
+        $permissionsForDoctor = [
+            'list appointments',
+            'create appointments',
+            'update appointments',
+            'delete appointments',
+            'list encounters',
+            'view encounters',
+            'create encounters',
+            'update encounters',
+            'delete encounters',
+            'list diagnoses',
+            'view diagnoses',
+            'create diagnoses',
+            'update diagnoses',
+            'delete diagnoses',
+            'list labtests',
+            'view labtests',
+            'create labtests',
+            'update labtests',
+            'delete labtests',
+            'list prescriptions',
+            'view prescriptions',
+            'create prescriptions',
+            'update prescriptions',
+            'delete prescriptions',
+            'list medicalrecords',
+            'view medicalrecords',
+            'create medicalrecords',
+            'update medicalrecords',
+            'delete medicalrecords',
+            'list vitalsigns',
+            'view vitalsigns',
+            'create vitalsigns',
+            'update vitalsigns',
+            'delete vitalsigns',
+            // Add other doctor-specific permissions here
+        ];
+        $doctorRole->givePermissionTo($permissionsForDoctor);
+
+        if ($doctorUser) {
+
+            $doctorUser->assignRole($doctorRole);
+        }
+
+        $permissionsForReception = [
+            'list appointments',
+            'view appointments',
+            'create appointments',
+            'update appointments',
+            'delete appointments',
+            'list encounters',
+            'view encounters',
+            'create encounters',
+            'update encounters',
+            'delete encounters',
+            // Add other reception-specific permissions here
+        ];
+        $receptionRole->givePermissionTo($permissionsForReception);
+
+        $receptionUser = \App\Models\User::whereEmail('reception@reception.com')->first();
+
+        if ($receptionUser) {
+            $receptionUser->assignRole($receptionRole);
+        }
+
 
         Permission::findOrCreate('store.product.*');
         Permission::findOrCreate('store.product.index');
@@ -241,12 +312,66 @@ class PermissionsSeeder extends Seeder
 
 
 
-        $store_user= Role::findOrCreate(Constants::STORE_USER_ROLE);
-        $store_user->syncPermissions('store.product.*','store.product.index','store.product.create','store.product.update','store.product.view','store.product.item','store.request.*','store.request.index','store.request.approve','store.request.reject','store.records.*','store.records.index','store.records.view','store.records.edit','store.records.delete');
+        $store_user = Role::findOrCreate(Constants::STORE_USER_ROLE);
+        $store_user->syncPermissions('store.product.*', 'store.product.index', 'store.product.create', 'store.product.update', 'store.product.view', 'store.product.item', 'store.request.*', 'store.request.index', 'store.request.approve', 'store.request.reject', 'store.records.*', 'store.records.index', 'store.records.view', 'store.records.edit', 'store.records.delete');
 
-        $pharmacy_user=Role::findOrCreate(Constants::PHARMACY_USER);
-        $pharmacy_user->syncPermissions('pharmacy.prescriptions.*','pharmacy.prescriptions.index','pharmacy.prescriptions.approve','pharmacy.prescriptions.view','pharmacy.products.*','pharmacy.products.index','pharmacy.products.request','pharmacy.products.view','pharmacy.history.*');
+        $pharmacy_user = Role::findOrCreate(Constants::PHARMACY_USER);
+        $pharmacy_user->syncPermissions('pharmacy.prescriptions.*', 'pharmacy.prescriptions.index', 'pharmacy.prescriptions.approve', 'pharmacy.prescriptions.view', 'pharmacy.products.*', 'pharmacy.products.index', 'pharmacy.products.request', 'pharmacy.products.view', 'pharmacy.history.*');
 
+        // $doctorRole->syncPermissions([
+        //     'list appointments',
+        //     'view appointments',
+        //     'create appointments',
+        //     'update appointments',
+        //     'delete appointments',
 
+        //     'list encounters',
+        //     'view encounters',
+        //     'create encounters',
+        //     'update encounters',
+        //     'delete encounters',
+
+        //     'list labtests',
+        //     'view labtests',
+        //     'create labtests',
+        //     'update labtests',
+        //     'delete labtests',
+
+        //     'list prescriptions',
+        //     'view prescriptions',
+        //     'create prescriptions',
+        //     'update prescriptions',
+        //     'delete prescriptions',
+
+        //     'list medicalrecords',
+        //     'view medicalrecords',
+        //     'create medicalrecords',
+        //     'update medicalrecords',
+        //     'delete medicalrecords',
+
+        //     'list vitalsigns',
+        //     'view vitalsigns',
+        //     'create vitalsigns',
+        //     'update vitalsigns',
+        //     'delete vitalsigns',
+
+        //     'list diagnoses',
+        //     'view diagnoses',
+        //     'create diagnoses',
+        //     'update diagnoses',
+        //     'delete diagnoses',
+
+        //     'list labtestrequests',
+        //     'view labtestrequests',
+        //     'create labtestrequests',
+        //     'update labtestrequests',
+        //     'delete labtestrequests',
+
+        //     'list maindiagnoses',
+        //     'view maindiagnoses',
+        //     'create maindiagnoses',
+        //     'update maindiagnoses',
+        //     'delete maindiagnoses'
+        // ]);
     }
 }

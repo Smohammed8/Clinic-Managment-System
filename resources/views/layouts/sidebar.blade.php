@@ -95,7 +95,7 @@ git <!-- Main Sidebar Container -->
                             </li>
                         @elseif (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
                             <li class="nav-item">
-                                <a href="{{ route('products.index') }}"
+                                <a href="{{ route('prescriptions.index') }}"
                                     class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
                                     <i class="nav-icon icon fas fa-home"></i>
                                     <p>
@@ -218,40 +218,36 @@ git <!-- Main Sidebar Container -->
                                         @endcan
                                     </ul>
                                 </li>
+
+                                {{-- SRS RELATED DATA FECH Start --}}
+                                <li class="nav-item has-treeview ">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fa fa-sync-alt"></i>
+                                        <p>
+                                            Sync SRS Data
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a href="{{ route('sync') }}" class="nav-link ">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p> Fetch Student</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Fetch Photo</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             @endif
 
-
-                            <li class="nav-item has-treeview ">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fa fa-sync-alt"></i>
-                                    <p>
-                                        Sync SRS Data
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
+                            {{-- SRS RELATED DATA FECH end --}}
 
 
-                                    <li class="nav-item">
-                                        <a href="{{ route('sync') }}" class="nav-link ">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p> Fetch Student</p>
-                                        </a>
-                                    </li>
-
-
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p>Fetch Photo</p>
-                                        </a>
-                                    </li>
-
-
-
-
-                                </ul>
-                            </li>
 
                             <li class="nav-item has-treeview ">
                                 <a href="  {{ route('students.index') }}" class="nav-link">
@@ -407,6 +403,16 @@ git <!-- Main Sidebar Container -->
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
+
+                                    @can('view-any', App\Models\Encounter::class)
+                                        <li class="nav-item">
+                                            <a href="{{ route('reception') }}"
+                                                class="nav-link {{ Request::is('reception*') ? 'active' : '' }}">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Reception</p>
+                                            </a>
+                                        </li>
+                                    @endcan
 
 
 

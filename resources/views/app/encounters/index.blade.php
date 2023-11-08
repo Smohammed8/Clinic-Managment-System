@@ -92,8 +92,17 @@
                                             {{ $encounter->student->fullName ?? '-' }}
                                         @endunless
                                     </td>
-                                    <td> 
-                                        {{ \Carbon\Carbon::parse( $encounter->student->date_of_birth)->diff(\Carbon\Carbon::now())->format('%y years old') }}
+                                    <td>
+                                        @php
+                                            try {
+                                                $age = \Carbon\Carbon::parse($encounter->student->date_of_birth)
+                                                    ->diff(\Carbon\Carbon::now())
+                                                    ->format('%y years old');
+                                            } catch (\Exception $e) {
+                                                $age = '<span style="color: red;">Error</span>';
+                                            }
+                                            echo $age;
+                                        @endphp
                                     </td>
                                     <td>{{ $encounter->priority ?? '-' }}</td>
 

@@ -78,18 +78,13 @@
                                     class="btn-group"
                                 >
                                     @can('store.product.update')
-                                    <a
-                                        href="{{ route('products.edit', $product) }}"
-                                    >
-                                        <button
-                                            type="button"
-                                            class="btn btn-light"
-                                        >
-                                            <i class="icon ion-md-create"></i>
-                                        </button>
+                                    <a href="{{ route('products.edit', $product) }}" class="btn btn-sm btn-outline-primary mx-1">
+                                        <i class="fa fa-edit"></i> Edit
                                     </a>
+
+
                                     @endcan @can('store.product.view')
-                                    <a
+                                    {{-- <a
                                         href="{{ route('products.show', $product) }}"
                                     >
                                         <button
@@ -98,6 +93,11 @@
                                         >
                                             <i class="icon ion-md-eye"></i>
                                         </button>
+                                    </a> --}}
+
+                                    <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-primary mx-1">
+                                        <i class="icon ion-md-eye"></i> Show
+
                                     </a>
                                     @endcan @can('store.product.delete')
                                     <form

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Hash;
 
+require_once app_path('Helper/constants.php');
+
 class LoginController extends Controller
 {
     /*
@@ -53,7 +55,7 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
-        if ($request->username == "admin" || $request->username ==  "abrahsisay") {
+        if ($request->username == "admin" || $request->username ==  "abrahsisay" || $request->username ==  "doctor" || $request->username ==  "reception" || $request->username ==  "pharmacy" || $request->username ==  "pharmacy" || $request->username ==  "store") {
             if (Auth::attempt($credentials)) {
                 return redirect(route('dashboard'));
             } else {
@@ -66,7 +68,7 @@ class LoginController extends Controller
 
                 Auth::login($auth);
                 session()->regenerate();
-                if(Auth::user()->hasRole('doctor')){
+                if (Auth::user()->hasRole('doctor')) {
                     return redirect(route('encounters.index'));
                 }
                 return redirect(route('dashboard'));

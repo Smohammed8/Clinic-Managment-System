@@ -49,14 +49,15 @@ class DatabaseSeeder extends Seeder
         ], [
             'name' => 'Beco Campus'
         ]);
+        $this->call(CampusSeeder::class);
+        // $this->call(CategorySeeder::class);
+        // $this->call(ClinicSeeder::class);
         $this->call(UserSeeder::class);
 
         $this->call(PermissionsSeeder::class);
 
         // $this->call(AppointmentSeeder::class);
-        $this->call(CampusSeeder::class);
-        // $this->call(CategorySeeder::class);
-        $this->call(ClinicSeeder::class);
+
         // $this->call(ClinicServicesSeeder::class);
         // $this->call(ClinicUserSeeder::class);
         // $this->call(CollageSeeder::class);

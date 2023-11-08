@@ -29,7 +29,7 @@ class EncounterController extends Controller
 
     public function reception(Request $request): View
     {
-        $this->authorize('view-any', Student::class);
+        $this->authorize('view-any', Encounter::class);
 
         $request->validate([
             'search' => 'nullable|string',
@@ -45,11 +45,13 @@ class EncounterController extends Controller
                 ->paginate(10)
                 ->withQueryString();
         } elseif ($request->has('search') && strlen($search) < 2) {
-            dd($search);
             $searchError = 'Search term must be at least 2 characters.';
         }
 
-        $clinicUser = Auth::user()->clinicUsers?->clinics->first();
+
+        // $clinicUser = Auth::user()->clinicUsers?->clinics->first();
+        $clinicUser = Auth::user()->clinicUsers->room->clinic;
+        // dd(Auth::user()->clinicUsers->room->clinic);
 
         return view('app.reception.index', compact('students', 'search', 'searchError', 'clinicUser'));
     }
@@ -211,12 +213,22 @@ class EncounterController extends Controller
     public function accept(Encounter $encounter)
     {
         // Get the authenticated user's ID
-        $doctorId = Auth::id();
+        $doctorId = Auth()->user()->clinicUsers->id;
+        // dd($doctorId);
 
         // Update the encounter's status and doctor_id
         $encounter->status = STATUS_IN_PROGRESS;
+
         $encounter->doctor_id = $doctorId;
-        // dd($encounter);
+        //dd($encounter->Doctor->room->id);
+
+        //get the clinic id and add it to the encounter 
+        //dd($encounter->Doctor->rooms->first()->clinic->id);
+        $encounter->clinic_id = $encounter->Doctor->rooms->first()->clinic->id;
+
+
+        //dd($encounter->Doctor->user->name);
+        //dd($encounter);
 
         $encounter->save();
 
