@@ -29,7 +29,7 @@ class EncounterController extends Controller
 
     public function reception(Request $request): View
     {
-        $this->authorize('view-any', Student::class);
+        $this->authorize('view-any', Encounter::class);
 
         $request->validate([
             'search' => 'nullable|string',
