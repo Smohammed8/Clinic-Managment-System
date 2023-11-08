@@ -80,7 +80,7 @@
                                     <tr>
                                         {{-- @dd($students->first()) --}}
 
-                                        <td> {{ $key + 1 }}
+                                        <td> {{ $key + 1 }} </td>
                                         <td>{{ $student->first_name ?? '-' }}</td>
                                         <td>{{ $student->middle_name ?? '-' }}</td>
                                         <td>{{ $student->last_name ?? '-' }}</td>
@@ -110,7 +110,7 @@
                                                         </button>
                                                     </form>
                                                 @endcan
-{{-- 
+                                            {{-- 
                                                 @can('update', $student)
                                                     <a href="{{ route('students.edit', $student) }}">
                                                         <button type="button" class="btn btn-sm btn-outline-primary mx-1">
@@ -137,13 +137,14 @@
                                         </td>
                                     </tr>
                                 @empty
-                                @endif
-                                <tr>
-                                    <td colspan="8">
-                                        @lang('crud.common.no_items_found')
-                                    </td>
-                                </tr>
-                            @endforelse
+                                    <tr>
+                                        <td colspan="8">
+                                            @lang('crud.common.no_items_found')
+                                        </td>
+                                    </tr>    
+                                @endforelse
+                                
+                            @endif
                         </tbody>
                         <tfoot>
                             @if ($search)
