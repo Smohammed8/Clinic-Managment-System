@@ -49,7 +49,10 @@ class EncounterController extends Controller
             $searchError = 'Search term must be at least 2 characters.';
         }
 
-        $clinicUser = Auth::user()->clinicUsers?->clinics->first();
+
+        // $clinicUser = Auth::user()->clinicUsers?->clinics->first();
+        $clinicUser = Auth::user()->clinicUsers->room->clinic;
+        // dd(Auth::user()->clinicUsers->room->clinic);
 
         return view('app.reception.index', compact('students', 'search', 'searchError', 'clinicUser'));
     }
