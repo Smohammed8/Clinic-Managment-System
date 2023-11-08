@@ -154,6 +154,7 @@ git <!-- Main Sidebar Container -->
                                 </a>
                             </li>
 
+                            @can('view-dashboard')
                             <li class="nav-item {{ Request::is('dashboard*') ? 'menu-open' : '' }}">
                                 <a href="{{ route('dashboard') }}"
                                     class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">
@@ -163,6 +164,7 @@ git <!-- Main Sidebar Container -->
                                     </p>
                                 </a>
                             </li>
+                            @endcan
 
                             @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) ||
                                     Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))

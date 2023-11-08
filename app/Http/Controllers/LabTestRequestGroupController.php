@@ -24,12 +24,9 @@ class LabTestRequestGroupController extends Controller
 
         $search = $request->get('search', '');
 
-        $labTestRequestGroups = LabTestRequestGroup::search($search)
-            ->first()->paginate(10)->withQueryString();
+        $labTestRequestGroups = LabTestRequestGroup::search($search)->first()->paginate(10)->withQueryString();
 
-        return view(
-            'app.lab_test_request_groups.index',
-            compact('labTestRequestGroups', 'search')
+        return view('app.lab_test_request_groups.index',compact('labTestRequestGroups', 'search')
         );
     }
 
