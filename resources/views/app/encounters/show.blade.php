@@ -205,14 +205,13 @@
                                         {{ $doctor->name }}
                                     </li> --}}
                                 <form id="form"
-                                    action="{{ route('encounters.changeDoctor', ['encounter' => $encounter->id]) }}"
+                                    action="{{ route('encounters.changeDoctor', ['encounter' => $encounter]) }}"
                                     method="POST">
                                     @csrf
-                                    <input type="hidden" name="encounter_id" value="{{ $encounter->id }}">
-
                                     <div class="modal-body">
                                         <ul class="list-group">
-                                            <select id="doctorSelect" class="form-control" style="width: 100%;">
+                                            <select id="doctorSelect" class="form-control" style="width: 100%;"
+                                                name="newDoctorId">
                                                 @foreach ($doctors as $doctor)
                                                     <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
                                                 @endforeach
@@ -225,6 +224,7 @@
                                         <button type="submit" class="btn btn-primary">Assign Doctor</button>
                                     </div>
                                 </form>
+
                                 <script>
                                     $(document).ready(function() {
                                         $('#doctorSelect').select2();

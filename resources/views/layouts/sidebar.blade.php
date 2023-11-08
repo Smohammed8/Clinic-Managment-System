@@ -155,15 +155,15 @@ git <!-- Main Sidebar Container -->
                             </li>
 
                             @can('view-dashboard')
-                            <li class="nav-item {{ Request::is('dashboard*') ? 'menu-open' : '' }}">
-                                <a href="{{ route('dashboard') }}"
-                                    class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">
-                                    <i class="nav-icon icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Dashboard
-                                    </p>
-                                </a>
-                            </li>
+                                <li class="nav-item {{ Request::is('dashboard*') ? 'menu-open' : '' }}">
+                                    <a href="{{ route('dashboard') }}"
+                                        class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">
+                                        <i class="nav-icon icon fas fa-tachometer-alt"></i>
+                                        <p>
+                                            Dashboard
+                                        </p>
+                                    </a>
+                                </li>
                             @endcan
 
                             @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) ||
@@ -324,12 +324,6 @@ git <!-- Main Sidebar Container -->
                             @endif
 
                             {{-- SRS RELATED DATA FECH end --}}
-
-
-
-                            {{-- @can('view-any', App\Models\Student::class)
-                            @endcan --}}
-
 
                             <li
                                 class="nav-item has-treeview {{ Request::is('lab-test-requests*', 'lab-test-request-groups*') ? 'menu-open' : '' }}">

@@ -36,13 +36,7 @@ class OpdQueueTable extends AbstractWidget
     {
         //
         // 1 = Checked-In
-
-
-
         $opdQueueToBe = Encounter::whereIn('status', [STATUS_CHECKED_IN])->get();
-
-
-
         return view('widgets.opd_queue_table', [
             'config' => $this->config,
             'reloadTimeout' => $this->reloadTimeout,
