@@ -50,7 +50,7 @@ class EncounterController extends Controller
 
 
         // $clinicUser = Auth::user()->clinicUsers?->clinics->first();
-        $clinicUser = Auth::user()->clinicUsers->room->clinic;
+        $clinicUser = Auth::user()->clinicUsers->room?->clinic;
         // dd(Auth::user()->clinicUsers->room->clinic);
 
         return view('app.reception.index', compact('students', 'search', 'searchError', 'clinicUser'));
