@@ -399,10 +399,23 @@ git <!-- Main Sidebar Container -->
                                         <a href="{{ route('encounters.index') }}"
                                             class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
                                             <i class="fa fa-caret-right nav-icon"></i>
-                                            <p>Patients</p>
+                                            <p>Waiting Queues</p>
                                         </a>
                                     </li>
                                 @endcan
+
+
+                                @if(Auth::user()->hasRole('doctor'))
+
+                                  <li class="nav-item">
+                                      <a href=""
+                                          class="nav-link">
+                                          <i class="fa fa-caret-right nav-icon"></i>
+                                          <p> Active patients</p>
+                                      </a>
+                                  </li>
+                              @endcan
+
                                 @endif
                                     <li class="nav-item ">
                                         <a href="{{ route('lab-queue') }}" class="nav-link">
