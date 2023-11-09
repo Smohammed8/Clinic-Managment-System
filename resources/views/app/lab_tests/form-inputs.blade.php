@@ -11,12 +11,7 @@
         ></x-inputs.text>
     </x-inputs.group>
 
-    <x-inputs.group class="col-sm-12">
-        <x-inputs.textarea name="test_desc" label="Test Desc" maxlength="255"
-            >{{ old('test_desc', ($editing ? $labTest->test_desc : ''))
-            }}</x-inputs.textarea
-        >
-    </x-inputs.group>
+
 
     <x-inputs.group class="col-sm-12">
         <x-inputs.select name="lab_catagory_id" label="Lab Catagory">
@@ -28,7 +23,7 @@
         </x-inputs.select>
     </x-inputs.group>
 
-    <x-inputs.group class="col-sm-12">
+    {{-- <x-inputs.group class="col-sm-12">
         <x-inputs.text
             name="status"
             label="Status"
@@ -36,7 +31,7 @@
             maxlength="255"
             placeholder="Status"
         ></x-inputs.text>
-    </x-inputs.group>
+    </x-inputs.group> --}}
 
     <x-inputs.group class="col-sm-12">
         <x-inputs.checkbox
@@ -55,5 +50,13 @@
             step="0.01"
             placeholder="Price"
         ></x-inputs.number>
+    </x-inputs.group>
+
+
+    <x-inputs.group class="col-sm-12">
+        <x-inputs.textarea name="test_desc" label="Test Desc" maxlength="255"
+            >{{ old('test_desc', ($editing ? $labTest->test_desc : ''))
+            }}</x-inputs.textarea
+        >
     </x-inputs.group>
 </div>

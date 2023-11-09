@@ -488,7 +488,7 @@
                                             <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill"
                                                 href="#vert-tabs-diagnosis" role="tab"
                                                 aria-controls="vert-tabs-diagnosis" aria-selected="false"> <i
-                                                    class="fa fa-caret-right nav-icon"></i><b> Invistigation </b> </a>
+                                                    class="fa fa-caret-right nav-icon"></i><b> Laboratory </b> </a>
                                         </li>
 
                                         <li class="nav-item">
@@ -623,6 +623,7 @@
                                                     <livewire:encounter-lab-test-requests-detail :encounter="$encounter" />
                                                 </div>
                                             @endcan
+
 
                                             <style>
                                                 select.form-control[multiple],

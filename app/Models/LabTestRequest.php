@@ -58,6 +58,11 @@ class LabTestRequest extends Model
         return $this->belongsTo(Encounter::class);
     }
 
+    public function labTest()
+    {
+        return $this->belongsTo(LabTest::class);
+    }
+
 
     public function sampleCcollectedBy()
     {
@@ -78,4 +83,8 @@ class LabTestRequest extends Model
     {
         return $this->belongsTo(ClinicUser::class, 'approved_by_id');
     }
+
+
+
+   
 }
