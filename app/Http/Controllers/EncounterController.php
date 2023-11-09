@@ -232,7 +232,7 @@ class EncounterController extends Controller
         //get the clinic id and add it to the encounter 
         //dd($encounter->Doctor->rooms->first()->clinic->id);
         //dd($encounter->Doctor->room->clinic->id);
-        $encounter->clinic_id = $encounter->Doctor?->room?->clinic?->id;
+        $encounter->clinic_id = $encounter->doctor?->room?->clinic?->id;
 
 
         //dd($encounter->Doctor->user->name);
