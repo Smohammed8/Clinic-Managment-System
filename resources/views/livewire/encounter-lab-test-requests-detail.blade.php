@@ -223,7 +223,6 @@
 
                     {{-- @endif --}}
 
-
                 </tr>
             </thead>
             <tbody class="text-gray-600">
