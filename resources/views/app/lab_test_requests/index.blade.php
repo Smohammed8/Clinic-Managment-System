@@ -89,7 +89,7 @@
                                     <td>{{ $labTestRequest->labTest->price ?? '-' }}</td>
                                     <td>{{ $labTestRequest->created_at }}</td>
                                     <td>
-                                        {{ optional($labTestRequest->sampleAnalyzedBy)->user->name ?? '?' }}
+                                        {{ optional($labTestRequest->sampleAnalyzedBy)->user?->name ?? '?' }}
                                     </td>
                                     <td>
                                         @if ($labTestRequest->status === null)
@@ -109,7 +109,7 @@
                                                 </button>
                                             </a>
                                         @endcan
-                                        
+
                                             @can('update', $labTestRequest)
                                                 <a href="{{ route('lab-test-requests.edit', $labTestRequest) }}">
                                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1">

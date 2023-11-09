@@ -433,9 +433,9 @@
                                         </a>
                                     </li>
                                 @endcan
-                                @can('view_lab_waiting')
+                                @can('view_lab_waiting') 
                                   <li class="nav-item">
-                                      <a href=""
+                                      <a href="{{ route('lab.waiting') }}"
                                           class="nav-link">
                                           <i class="fa fa-caret-right nav-icon"></i>
                                           <p> Waiting Lab results </p>
