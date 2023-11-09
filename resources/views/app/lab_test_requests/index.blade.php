@@ -74,7 +74,7 @@
                                     @php $previousDate = $labTestRequest->created_at->toDateString(); @endphp
                                     <tr>
                                         <td colspan="18" class="bg-light">
-                                            Date: {{ $previousDate }} By<u> {{ $labTestRequest->encounter->doctor->name }} </u>
+                                            Date: {{ $previousDate }} By<u> {{ $labTestRequest->encounter->doctor?->name }} </u>
                                         </td>
                                     </tr>
                                 @endif
@@ -105,24 +105,35 @@
                                                     </button>
                                                 </a>
                                             @endcan
-                                            @can('view', $labTestRequest)
-                                                <a href="{{ route('lab-test-requests.show', $labTestRequest) }}">
+                                            @can('update', $labTestRequest)
+                                                <a href="#">
                                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="icon ion-md-eye"></i> Show
+                                                        <i class="fa fa-upload"></i> Upload
                                                     </button>
                                                 </a>
                                             @endcan
-                                            @can('delete', $labTestRequest)
+
+                                            @can('update', $labTestRequest)
+                                            <a href="#">
+                                                <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                    <i class="fa fa-flask"></i> Take sample
+                                                </button>
+                                            </a>
+                                        @endcan
+
+
+                                    
+                                            {{-- @can('delete', $labTestRequest)
                                                 <form action="{{ route('lab-test-requests.destroy', $labTestRequest) }}"
                                                     method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
-                                                        <i class="icon ion-md-trash"></i> Delete
+                                                        <i class="icon ion-md-trash"></i> Reject
                                                     </button>
                                                 </form>
-                                            @endcan
+                                            @endcan --}}
                                         </div>
                                     </td>
                                 </tr>

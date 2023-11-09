@@ -428,7 +428,7 @@
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
                         <span>Doctor:</span>
-                        {{ $encounter->Doctor ? $encounter->Doctor->user->name : '-' }}
+                        {{ $encounter->Doctor ? $encounter->Doctor?->user?->name : '-' }}
                     </div>
 
                     <div class="col-md-4 mb-2">
@@ -488,7 +488,7 @@
                                             <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill"
                                                 href="#vert-tabs-diagnosis" role="tab"
                                                 aria-controls="vert-tabs-diagnosis" aria-selected="false"> <i
-                                                    class="fa fa-caret-right nav-icon"></i><b> Invistigation </b> </a>
+                                                    class="fa fa-caret-right nav-icon"></i><b> Laboratory </b> </a>
                                         </li>
 
                                         <li class="nav-item">
@@ -623,6 +623,7 @@
                                                     <livewire:encounter-lab-test-requests-detail :encounter="$encounter" />
                                                 </div>
                                             @endcan
+                                            
 
                                             <style>
                                                 select.form-control[multiple],
@@ -706,7 +707,7 @@
                                                                 <div class="col-md-6">
                                                                     <p>
                                                                         <strong>Doctor Name:</strong>
-                                                                        {{ $encounter->Doctor ? $encounter->Doctor->user->name : '-' }}
+                                                                        {{ $encounter->Doctor ? $encounter?->doctor?->user?->name : '-' }}
 
                                                                     </p>
 
