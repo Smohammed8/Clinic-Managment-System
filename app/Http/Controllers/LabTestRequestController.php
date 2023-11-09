@@ -47,8 +47,12 @@ class LabTestRequestController extends Controller
                 'encounter_id' => $encounter
             ]);
         }
-        // return redirect()->route('encounters.index')->with('message', 'Lab sent successfully');
-        return redirect()->route('encounters.index')->withSuccess(__('crud.common.created'));
+    
+
+        return redirect()->route('encounters.show', ['encounter' => $encounter])->with('success', 'Lab sent successfully');
+       // return redirect()->route('encounters.show', ['encounter' => $encounter])->withSuccess(__('crud.common.created'));
+        
+
     }
     public function storesurvey(Request $request)
     {

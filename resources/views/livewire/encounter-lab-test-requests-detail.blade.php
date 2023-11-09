@@ -230,7 +230,11 @@
 
                 {{-- @if (Auth::user()->hasRole('Lab_technician ')) --}}
                     <tr class="hover:bg-gray-100">
-                    <td class="text-left"> <input type="checkbox" value="{{ $labTestRequest->id }}" wire:model="selected"/></td>
+               
+                        <td class="text-left">
+                            <input type="checkbox" value="{{ $labTestRequest->id }}" wire:model="selected" {{ $labTestRequest->status ? 'disabled' : '' }}>
+                        </td>
+
                     <td class="text-left"> {{ optional($labTestRequest->labTest->labCatagory)->lab_name ?? '-' }} - {{ $labTestRequest->labTest->test_name ?? '-' }} </td>
                     <td class="text-left"> {{ $labTestRequest->created_at->diffForHumans()}} </td>
 
