@@ -205,14 +205,13 @@
                                         {{ $doctor->name }}
                                     </li> --}}
                                 <form id="form"
-                                    action="{{ route('encounters.changeDoctor', ['encounter' => $encounter->id]) }}"
+                                    action="{{ route('encounters.changeDoctor', ['encounter' => $encounter]) }}"
                                     method="POST">
                                     @csrf
-                                    <input type="hidden" name="encounter_id" value="{{ $encounter->id }}">
-
                                     <div class="modal-body">
                                         <ul class="list-group">
-                                            <select id="doctorSelect" class="form-control" style="width: 100%;">
+                                            <select id="doctorSelect" class="form-control" style="width: 100%;"
+                                                name="newDoctorId">
                                                 @foreach ($doctors as $doctor)
                                                     <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
                                                 @endforeach
@@ -225,6 +224,7 @@
                                         <button type="submit" class="btn btn-primary">Assign Doctor</button>
                                     </div>
                                 </form>
+
                                 <script>
                                     $(document).ready(function() {
                                         $('#doctorSelect').select2();
@@ -428,7 +428,7 @@
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
                         <span>Doctor:</span>
-                        {{ $encounter->Doctor ? $encounter->Doctor->user->name : '-' }}
+                        {{ $encounter->Doctor ? $encounter->Doctor->name : '-' }}
                     </div>
 
                     <div class="col-md-4 mb-2">
@@ -440,7 +440,7 @@
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
                         <span>Receptionist:</span>
-                        {{ $encounter->RegisteredBy ? $encounter->RegisteredBy->user->name : '-' }}
+                        {{ $encounter->RegisteredBy ? $encounter->RegisteredBy->clinicUsers->user->name : '-' }}
                     </div>
                 </div>
 
@@ -488,7 +488,7 @@
                                             <a class="nav-link" id="vert-tabs-settings-tab" data-toggle="pill"
                                                 href="#vert-tabs-diagnosis" role="tab"
                                                 aria-controls="vert-tabs-diagnosis" aria-selected="false"> <i
-                                                    class="fa fa-caret-right nav-icon"></i><b> Invistigation </b> </a>
+                                                    class="fa fa-caret-right nav-icon"></i><b> Laboratory </b> </a>
                                         </li>
 
                                         <li class="nav-item">
@@ -624,6 +624,7 @@
                                                 </div>
                                             @endcan
 
+
                                             <style>
                                                 select.form-control[multiple],
                                                 select.form-control[size] {
@@ -706,7 +707,9 @@
                                                                 <div class="col-md-6">
                                                                     <p>
                                                                         <strong>Doctor Name:</strong>
-                                                                        {{ $encounter->Doctor ? $encounter->Doctor->user->name : '-' }}
+                                                                        <<<<<<< HEAD
+                                                                            {{ $encounter->Doctor ? $encounter->Doctor->clinicUsers->user->name : '-' }}======={{ $encounter->Doctor ? $encounter?->Doctor?->user?->name : '-' }}>
+                                                                            >>>>>> a696bff73a3e9a0024e04f51ab871e6c73a6de56
 
                                                                     </p>
 

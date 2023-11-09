@@ -80,7 +80,7 @@
                                     <tr>
                                         {{-- @dd($students->first()) --}}
 
-                                        <td> {{ $key + 1 }}
+                                        <td> {{ $key + 1 }} </td>
                                         <td>{{ $student->first_name ?? '-' }}</td>
                                         <td>{{ $student->middle_name ?? '-' }}</td>
                                         <td>{{ $student->last_name ?? '-' }}</td>
@@ -92,7 +92,7 @@
                                         </td>
                                         <td class="text-center">
                                             <div role="group" aria-label="Row Actions" class="btn-group">
-                                                @can('create', $student->encounter)
+                                                @can('create encounters')
                                                     <form method="POST" action="{{ route('encounters.store') }}">
                                                         @csrf
                                                         {{-- <!-- Hidden inputs --> --}}
@@ -110,7 +110,7 @@
                                                         </button>
                                                     </form>
                                                 @endcan
-{{-- 
+                                            {{-- 
                                                 @can('update', $student)
                                                     <a href="{{ route('students.edit', $student) }}">
                                                         <button type="button" class="btn btn-sm btn-outline-primary mx-1">
@@ -124,7 +124,7 @@
                                                         </button>
                                                     </a>
                                                 @endcan --}}
-                                                @can('delete', $student)
+                                                {{-- @can('delete', $student)
                                                     <form action="{{ route('students.destroy', $student) }}" method="POST"
                                                         onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                         @csrf @method('DELETE')
@@ -132,18 +132,19 @@
                                                             <i class="icon ion-md-trash"></i> Delete
                                                         </button>
                                                     </form>
-                                                @endcan
+                                                @endcan --}}
                                             </div>
                                         </td>
                                     </tr>
                                 @empty
-                                @endif
-                                <tr>
-                                    <td colspan="8">
-                                        @lang('crud.common.no_items_found')
-                                    </td>
-                                </tr>
-                            @endforelse
+                                    <tr>
+                                        <td colspan="8">
+                                            @lang('crud.common.no_items_found')
+                                        </td>
+                                    </tr>    
+                                @endforelse
+                                
+                            @endif
                         </tbody>
                         <tfoot>
                             @if ($search)

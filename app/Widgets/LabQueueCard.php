@@ -5,6 +5,9 @@ namespace App\Widgets;
 use App\Models\Encounter;
 use Arrilot\Widgets\AbstractWidget;
 
+require_once app_path('Helper/constants.php');
+
+
 
 class labQueueCard extends AbstractWidget
 {
@@ -47,8 +50,9 @@ class labQueueCard extends AbstractWidget
         // 13 = Test Available
 
 
-        $opdQueue = Encounter::whereIn('status', [12, 13])->get();
-        $opdQueueToBe = Encounter::whereIn('status', [12])->get();
+        $opdQueue = Encounter::whereIn('status', [STATUS_TEST_PENDING])->get();
+        $opdQueueToBe = Encounter::whereIn('status', [STATUS_WAITING])->get();
+        // dd($opdQueueToBe);
 
 
 

@@ -28,14 +28,14 @@ class LabTestRequestController extends Controller
 
         $search = $request->get('search', '');
 
-        $labTestRequests = LabTestRequest::search($search)
-            ->latest()->paginate(10)->withQueryString();
+        $labTestRequests = LabTestRequest::search($search)->orderBy('created_at', 'ASC')->paginate(10)->withQueryString();
 
         return view(
             'app.lab_test_requests.index',
             compact('labTestRequests', 'search')
         );
     }
+
 
     public function insert(Request $request)
     {
@@ -142,18 +142,18 @@ class LabTestRequestController extends Controller
         $this->authorize('update', $labTestRequest);
         $validated = $request->validated();
         $now = Carbon::now();
-        $labTestRequest->sample_collected_by_id = Auth::user()->id;
-        $labTestRequest->sample_analyzed_by_id = Auth::user()->id;
-        $labTestRequest->approved_by_id  = Auth::user()->id;
+        $labTestRequest->sample_collected_by_id = Auth::user()->clinicUsers->id;
+        $labTestRequest->sample_analyzed_by_id =  Auth::user()->clinicUsers->id;
+        $labTestRequest->approved_by_id  = Auth::user()->clinicUsers->id;
         $labTestRequest->status  = 1;
         $labTestRequest->sample_collected_at  = $now;
         $labTestRequest->sample_analyzed_at = $now;
-        $labTestRequest->$labTestRequest->approved_at = $now;
+        $labTestRequest->approved_at = $now;
         $labTestRequest->updated_at = $now;
 
         $labTestRequest->update($validated);
 
-        return redirect()->route('lab-test-requests.edit', $labTestRequest)->withSuccess(__('crud.common.saved'));
+        return redirect()->route('lab-test-requests.index', $labTestRequest)->withSuccess(__('crud.common.saved'));
     }
 
     /**

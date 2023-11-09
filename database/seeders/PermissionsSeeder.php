@@ -19,7 +19,7 @@ class PermissionsSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // Create default permissions
+        // findOrCreate default permissions
         Permission::create(['name' => 'list appointments']);
         Permission::create(['name' => 'view appointments']);
         Permission::create(['name' => 'create appointments']);
@@ -163,8 +163,9 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'create vitalsigns']);
         Permission::create(['name' => 'update vitalsigns']);
         Permission::create(['name' => 'delete vitalsigns']);
+        Permission::findOrCreate('view-dashboard');
 
-        // Create user role and assign existing permissions
+        // findOrCreate user role and assign existing permissions
         $currentPermissions = Permission::all();
         ///////////////////////////////////////////////////////
 
@@ -183,7 +184,7 @@ class PermissionsSeeder extends Seeder
         // $physicianRole->givePermissionTo($currentPermissions);
         // $nurseRole->givePermissionTo($currentPermissions);
         ///////////////////////////////////////////////////////////////////////////
-        // Create admin exclusive permissions
+        // findOrCreate admin exclusive permissions
         Permission::create(['name' => 'list roles']);
         Permission::create(['name' => 'view roles']);
         Permission::create(['name' => 'create roles']);
@@ -202,7 +203,7 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'update users']);
         Permission::create(['name' => 'delete users']);
 
-        // Create admin role and assign all permissions
+        // findOrCreate admin role and assign all permissions
         $allPermissions = Permission::all();
         $adminRole = Role::create(['name' => 'super-admin']);
         $adminRole->givePermissionTo($allPermissions);
@@ -307,9 +308,9 @@ class PermissionsSeeder extends Seeder
         Permission::findOrCreate('pharmacy.products.request');
         Permission::findOrCreate('pharmacy.products.view');
         Permission::findOrCreate('pharmacy.history.*');
+      
 
-
-
+        
 
 
         $store_user = Role::findOrCreate(Constants::STORE_USER_ROLE);

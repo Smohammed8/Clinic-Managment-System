@@ -17,10 +17,12 @@
                         </div>
                     </form>
                 </div>
+                {{-- {{ route('lab-test-requests.create') }} --}}
                 <div class="col-md-6 text-right">
                     @can('create', App\Models\LabTestRequest::class)
-                        <a href="{{ route('lab-test-requests.create') }}" class="btn btn-primary">
-                            <i class="icon ion-md-add"></i> @lang('crud.common.create')
+                        <a href="#" class="btn btn-primary">
+                       
+                        <i class="icon ion-md-list"> </i>   List of active lab requests
                         </a>
                     @endcan
                 </div>
@@ -31,133 +33,107 @@
             <div class="card-body">
                 <div style="display: flex; justify-content: space-between;">
                     <h4 class="card-title">
-                        @lang('crud.lab_test_requests.index_title')
+                        Laboratory Test Request List
                     </h4>
                 </div>
-
+        
                 <div class="table-responsive">
-                    <table class="table table-hover  table-sm table-condensed">
+                    <table class="table table-hover table-sm table-condensed">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.sample_collected_at')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.sample_analyzed_at')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.status')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.notification')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.note')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.result')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.comment')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.analyser_result')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.approved_at')
-                                </th>
-                                <th class="text-right">
-                                    @lang('crud.lab_test_requests.inputs.price')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.sample_id')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.ordered_on')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.lab_test_request_group_id')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.sample_collected_by_id')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.sample_analyzed_by_id')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.lab_catagory_id')
-                                </th>
-                                <th class="text-left">
-                                    @lang('crud.lab_test_requests.inputs.approved_by_id')
-                                </th>
-                                <th class="text-center">
-                                    @lang('crud.common.actions')
-                                </th>
+                                <th>Student</th>
+                                <!-- Other table headers -->
+                                <th class="text-left">Lab test</th>
+                                <th class="text-left">Result</th>
+                                <th class="text-left">Comment</th>
+                                <th class="text-right">Price</th>
+                                <th class="text-left">Date of requested</th>
+                                <th class="text-left">Lab Technician</th>
+                                <th class="text-left">Status</th>
+                                <th class="text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse($labTestRequests  as $key =>  $labTestRequest)
-                                <tr>
+                            @php $previousStudent = null; @endphp
+                            @php $previousDate = null; @endphp
+                            @forelse($labTestRequests as $key => $labTestRequest)
+                                @if ($previousStudent !== $labTestRequest->encounter->student->fullName)
+                                    @php $previousStudent = $labTestRequest->encounter->student->fullName; @endphp
+                                    @php $previousDate = null; @endphp
+                                    <tr>
+                                        <td colspan="18" class="bg-light">
 
-                                    <td> {{ $key + 1 }}
+                                            <span class="badge badge-info">  {{ $previousStudent }} - {{ $labTestRequest->encounter->student->id_number ?? '' }}</span>
+
+                                          
+                                        </td>
+                                    </tr>
+                                @endif
+                                @if ($previousDate !== $labTestRequest->created_at->toDateString())
+                                    @php $previousDate = $labTestRequest->created_at->toDateString(); @endphp
+                                    <tr>
+                                        <td colspan="18" class="bg-light">
+                                            Date: {{ $previousDate }} By<u> {{ $labTestRequest->encounter->Doctor?->name }} </u>
+                                        </td>
+                                    </tr>
+                                @endif
+                                <tr>
+                                    <td>{{ $key + 1 }}</td>
+                                    <td></td>
+                                    <td>{{ optional($labTestRequest->labTest->labCatagory)->lab_name ?? '-' }} - {{ $labTestRequest->labTest->test_name ?? '-' }}</td>
+                                    <td>{{ $labTestRequest->result ?? '?' }}</td>
+                                    <td>{{ $labTestRequest->comment ?? '?'  }}</td>
+                                    <td>{{ $labTestRequest->labTest->price ?? '-' }}</td>
+                                    <td>{{ $labTestRequest->created_at }}</td>
                                     <td>
-                                        {{ $labTestRequest->sample_collected_at ?? '-' }}
+                                        {{ optional($labTestRequest->sampleAnalyzedBy)->user->name ?? '?' }}
                                     </td>
                                     <td>
-                                        {{ $labTestRequest->sample_analyzed_at ?? '-' }}
-                                    </td>
-                                    <td>{{ $labTestRequest->status ?? '-' }}</td>
-                                    <td>{{ $labTestRequest->notification ?? '-' }}</td>
-                                    <td>{{ $labTestRequest->note ?? '-' }}</td>
-                                    <td>{{ $labTestRequest->result ?? '-' }}</td>
-                                    <td>{{ $labTestRequest->comment ?? '-' }}</td>
-                                    <td>
-                                        {{ $labTestRequest->analyser_result ?? '-' }}
-                                    </td>
-                                    <td>{{ $labTestRequest->approved_at ?? '-' }}</td>
-                                    <td>{{ $labTestRequest->price ?? '-' }}</td>
-                                    <td>{{ $labTestRequest->sample_id ?? '-' }}</td>
-                                    <td>{{ $labTestRequest->ordered_on ?? '-' }}</td>
-                                    <td>
-                                        {{ optional($labTestRequest->labTestRequestGroup)->id ?? '-' }}
-                                    </td>
-                                    <td>
-                                        {{ optional($labTestRequest->sampleCcollectedBy)->id ?? '-' }}
-                                    </td>
-                                    <td>
-                                        {{ optional($labTestRequest->sampleAnalyzedBy)->id ?? '-' }}
-                                    </td>
-                                    <td>
-                                        {{ optional($labTestRequest->labCatagory)->lab_name ?? '-' }}
-                                    </td>
-                                    <td>
-                                        {{ optional($labTestRequest->approvedBy)->id ?? '-' }}
+                                        @if ($labTestRequest->status === null)
+                                            <span class="badge badge-danger">Pending</span>
+                                        @else
+                                            <span class="badge badge-success">Closed</span>
+                                        @endif
                                     </td>
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $labTestRequest)
                                                 <a href="{{ route('lab-test-requests.edit', $labTestRequest) }}">
                                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="fa fa-edit"></i> Edit
+                                                        <i class="fa fa-plus"></i> Add Result
                                                     </button>
                                                 </a>
-                                                @endcan @can('view', $labTestRequest)
-                                                <a href="{{ route('lab-test-requests.show', $labTestRequest) }}">
+                                            @endcan
+                                            @can('update', $labTestRequest)
+                                                <a href="#">
                                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                        <i class="icon ion-md-eye"></i> Show
+                                                        <i class="fa fa-upload"></i> Upload
                                                     </button>
                                                 </a>
-                                                @endcan @can('delete', $labTestRequest)
+                                            @endcan
+
+                                            @can('update', $labTestRequest)
+                                            <a href="#">
+                                                <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                    <i class="fa fa-flask"></i> Take sample
+                                                </button>
+                                            </a>
+                                        @endcan
+
+
+                                    
+                                            {{-- @can('delete', $labTestRequest)
                                                 <form action="{{ route('lab-test-requests.destroy', $labTestRequest) }}"
                                                     method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                                    @csrf @method('DELETE')
+                                                    @csrf
+                                                    @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
-                                                        <i class="icon ion-md-trash"></i> Delete
+                                                        <i class="icon ion-md-trash"></i> Reject
                                                     </button>
                                                 </form>
-                                            @endcan
+                                            @endcan --}}
                                         </div>
                                     </td>
                                 </tr>
@@ -180,5 +156,8 @@
                 </div>
             </div>
         </div>
+        
+
+        
     </div>
 @endsection

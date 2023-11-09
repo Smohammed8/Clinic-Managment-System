@@ -144,7 +144,8 @@ git <!-- Main Sidebar Container -->
                                 </a>
 
                             </li>
-                        @else
+                        @endif
+                        
                             <li class="nav-item {{ Request::is('home*') ? 'menu-open' : '' }}">
                                 <a href="{{ route('home') }}" class="nav-link {{ Request::is('home*') ? 'active' : '' }}">
                                     <i class="nav-icon icon fas fa-home"></i>
@@ -154,22 +155,23 @@ git <!-- Main Sidebar Container -->
                                 </a>
                             </li>
 
-                            <li class="nav-item {{ Request::is('dashboard*') ? 'menu-open' : '' }}">
-                                <a href="{{ route('dashboard') }}"
-                                    class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">
-                                    <i class="nav-icon icon fas fa-tachometer-alt"></i>
-                                    <p>
-                                        Dashboard
-                                    </p>
-                                </a>
-                            </li>
+                            @can('view-dashboard')
+                                <li class="nav-item {{ Request::is('dashboard*') ? 'menu-open' : '' }}">
+                                    <a href="{{ route('dashboard') }}"
+                                        class="nav-link {{ Request::is('dashboard*') ? 'active' : '' }}">
+                                        <i class="nav-icon icon fas fa-tachometer-alt"></i>
+                                        <p>
+                                            Dashboard
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
 
-                            @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) ||
-                                    Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))
+                            @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) || Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))
                                 <li
-                                    class="nav-item has-treeview {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'menu-open' : '' }}">
+                                    class="nav-item has-treeview">
                                     <a href="#"
-                                        class="nav-link {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'active' : '' }}">
+                                        class="nav-link">
                                         <i class="nav-icon fa fa-users"></i>
                                         <p>
                                             User Management
@@ -218,121 +220,116 @@ git <!-- Main Sidebar Container -->
                                         @endcan
                                     </ul>
                                 </li>
-                            @endif
+                               @endif
 
 
-                            <li class="nav-item has-treeview ">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon fa fa-sync-alt"></i>
-                                    <p>
-                                        Sync SRS Data
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-
-
-                                    <li class="nav-item">
-                                        <a href="{{ route('sync') }}" class="nav-link ">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p> Fetch Student</p>
-                                        </a>
-                                    </li>
-
-
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p>Fetch Photo</p>
-                                        </a>
-                                    </li>
-
-
-
-
-                                </ul>
-                            </li>
-
-                            <li class="nav-item has-treeview ">
-                                <a href="  {{ route('students.index') }}" class="nav-link">
-
-                                    <i class="nav-icon fa fa-user-graduate"></i>
-                                    <p>
-                                        Academics
-                                        <i class="right fas fa-angle-left"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-
-
-                                    {{-- @can('view-any', App\Models\Student::class) --}}
-                                    <li class="nav-item">
-                                        <a href="{{ route('students.index') }}" class="nav-link">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p>Student List</p>
-                                        </a>
-                                    </li>
-                                    {{-- @endcan --}}
-
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p>Department</p>
-                                        </a>
-                                    </li>
-
-
-                                    @can('view-any', App\Models\Program::class)
+                          
+                                @if(Auth::user()->hasRole('super-admin'))
+                                <li class="nav-item has-treeview ">
+                                    <a href="#" class="nav-link">
+                                        <i class="nav-icon fa fa-sync-alt"></i>
+                                        <p>
+                                            Sync SRS Data
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
                                         <li class="nav-item">
-                                            <a href="{{ route('programs.index') }}" class="nav-link">
+                                            <a href="{{ route('sync') }}" class="nav-link ">
                                                 <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Programs</p>
+                                                <p> Fetch Student</p>
                                             </a>
                                         </li>
-                                    @endcan
-
-
-                                    @can('view-any', App\Models\Collage::class)
                                         <li class="nav-item">
-                                            <a href="{{ route('collages.index') }}" class="nav-link">
+                                            <a href="#" class="nav-link">
                                                 <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Collages</p>
+                                                <p>Fetch Photo</p>
                                             </a>
                                         </li>
-                                    @endcan
+                                    </ul>
+                                </li>
+                                @endif
+
+                 
+                                     @if(Auth::user()->hasRole('super-admin'))
+                                <li class="nav-item has-treeview ">
+                                    <a href="  {{ route('students.index') }}" class="nav-link">
+
+                                        <i class="nav-icon fa fa-user-graduate"></i>
+                                        <p>
+                                            Academics
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
 
 
-                                    @can('view-any', App\Models\Campus::class)
+                                        {{-- @can('view-any', App\Models\Student::class) --}}
                                         <li class="nav-item">
-                                            <a href="{{ route('campuses.index') }}" class="nav-link">
+                                            <a href="{{ route('students.index') }}" class="nav-link">
                                                 <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Campuses</p>
+                                                <p>Student List</p>
                                             </a>
                                         </li>
-                                    @endcan
+                                        {{-- @endcan --}}
+
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Department</p>
+                                            </a>
+                                        </li>
 
 
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link ">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p> Program type</p>
-                                        </a>
-                                    </li>
+                                        @can('view-any', App\Models\Program::class)
+                                            <li class="nav-item">
+                                                <a href="{{ route('programs.index') }}" class="nav-link">
+                                                    <i class="fa fa-caret-right nav-icon"></i>
+                                                    <p>Programs</p>
+                                                </a>
+                                            </li>
+                                        @endcan
 
-                                    <li class="nav-item">
-                                        <a href="#" class="nav-link ">
-                                            <i class="fa fa-caret-right nav-icon"></i>
-                                            <p> Program Level</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
 
-                            @can('view-any', App\Models\Student::class)
-                            @endcan
+                                        @can('view-any', App\Models\Collage::class)
+                                            <li class="nav-item">
+                                                <a href="{{ route('collages.index') }}" class="nav-link">
+                                                    <i class="fa fa-caret-right nav-icon"></i>
+                                                    <p>Collages</p>
+                                                </a>
+                                            </li>
+                                        @endcan
 
-                            <li
-                                class="nav-item has-treeview {{ Request::is('lab-test-requests*', 'lab-test-request-groups*') ? 'menu-open' : '' }}">
+
+                                        @can('view-any', App\Models\Campus::class)
+                                            <li class="nav-item">
+                                                <a href="{{ route('campuses.index') }}" class="nav-link">
+                                                    <i class="fa fa-caret-right nav-icon"></i>
+                                                    <p>Campuses</p>
+                                                </a>
+                                            </li>
+                                        @endcan
+
+
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link ">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p> Program type</p>
+                                            </a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a href="#" class="nav-link ">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p> Program Level</p>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                @endif
+                            
+                         @if(Auth::user()->hasRole('Lab_technician'))
+                          <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon  fas fa-flask"></i>
                                     <p>
@@ -340,10 +337,7 @@ git <!-- Main Sidebar Container -->
                                         <i class="right fas fa-angle-left"></i>
                                     </p>
                                 </a>
-
-
                                 <ul class="nav nav-treeview">
-
 
                                     @can('view-any', App\Models\LabTestRequest::class)
                                         <li class="nav-item">
@@ -354,58 +348,16 @@ git <!-- Main Sidebar Container -->
                                             </a>
                                         </li>
                                     @endcan
-                                    <ul class="nav nav-treeview">
+                                    @can('view-any', App\Models\LabCatagory::class)
+                                        <li class="nav-item">
+                                            <a href="{{ route('lab-catagories.index') }}"
+                                                class="nav-link {{ Request::is('lab-catagories*') ? 'active' : '' }}">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Lab Categories</p>
+                                            </a>
+                                        </li>
+                                    @endcan
 
-                                        @can('view-any', App\Models\LabTestRequest::class)
-                                            <li class="nav-item">
-                                                <a href="{{ route('lab-test-requests.index') }}"
-                                                    class="nav-link {{ Request::is('lab-test-requests*') ? 'active' : '' }}">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p> Lab Test Requests</p>
-                                                </a>
-                                            </li>
-                                        @endcan
-
-                                        @can('view-any', App\Models\LabTestRequestGroup::class)
-                                            <li class="nav-item">
-                                                <a href="{{ route('lab-test-request-groups.index') }}"
-                                                    class="nav-link {{ Request::is('lab-test-request-groups*') ? 'active' : '' }}">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p>Lab Request Groups</p>
-                                                </a>
-                                            </li>
-                                        @endcan
-
-                                        @can('view-any', App\Models\LabCatagory::class)
-                                            <li class="nav-item">
-                                                <a href="{{ route('lab-catagories.index') }}"
-                                                    class="nav-link {{ Request::is('lab-catagories*') ? 'active' : '' }}">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p>Lab Categories</p>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                        @can('view-any', App\Models\LabCatagory::class)
-                                            <li class="nav-item">
-                                                <a href="{{ route('lab-catagories.index') }}"
-                                                    class="nav-link {{ Request::is('lab-catagories*') ? 'active' : '' }}">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p>Lab Categories</p>
-                                                </a>
-                                            </li>
-                                        @endcan
-
-                                        @can('view-any', App\Models\LabTest::class)
-                                            <li class="nav-item">
-                                                <a href="{{ route('lab-tests.index') }}"
-                                                    class="nav-link {{ Request::is('lab-tests*') ? 'active' : '' }}">
-                                                    <i class="fa fa-caret-right nav-icon"></i>
-                                                    <p>Lab Tests</p>
-                                                </a>
-                                            </li>
-                                        @endcan
-                                    </ul>
-                                    {{-- </li> --}}
                                     @can('view-any', App\Models\LabTest::class)
                                         <li class="nav-item">
                                             <a href="{{ route('lab-tests.index') }}"
@@ -417,6 +369,9 @@ git <!-- Main Sidebar Container -->
                                     @endcan
                                 </ul>
                             </li>
+                            @endif
+
+                     @if(Auth::user()->hasRole('super-admin') or Auth::user()->hasRole('doctor') or Auth::user()->hasRole('Reception'))
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon  nav-icon  fas fa-clinic-medical"></i>
@@ -427,7 +382,8 @@ git <!-- Main Sidebar Container -->
                                 </a>
                                 <ul class="nav nav-treeview">
 
-                                    @can('view-any', App\Models\Encounter::class)
+                                 
+                               @if(Auth::user()->hasRole('Reception'))
                                         <li class="nav-item">
                                             <a href="{{ route('reception') }}"
                                                 class="nav-link {{ Request::is('reception*') ? 'active' : '' }}">
@@ -435,26 +391,37 @@ git <!-- Main Sidebar Container -->
                                                 <p>Reception</p>
                                             </a>
                                         </li>
-                                    @endcan
+                                @endif
+                                @if(Auth::user()->hasRole('doctor'))
+                                  @can('view-any', App\Models\Encounter::class)
+
+                                    <li class="nav-item">
+                                        <a href="{{ route('encounters.index') }}"
+                                            class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Waiting Queues</p>
+                                        </a>
+                                    </li>
+                                @endcan
 
 
+                                @if(Auth::user()->hasRole('doctor'))
 
+                                  <li class="nav-item">
+                                      <a href=""
+                                          class="nav-link">
+                                          <i class="fa fa-caret-right nav-icon"></i>
+                                          <p> Active patients</p>
+                                      </a>
+                                  </li>
+                              @endcan
 
-                                    @can('view-any', App\Models\Encounter::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('encounters.index') }}"
-                                                class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Patient Check-in</p>
-                                            </a>
-                                        </li>
-                                    @endcan
-
+                                @endif
                                     <li class="nav-item ">
                                         <a href="{{ route('lab-queue') }}" class="nav-link">
-                                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
+                                            <i class="fa fa-caret-right nav-icon"></i>
                                             <p>
-                                                LAB QUEUE
+                                                Lab Queue
 
                                             </p>
                                         </a>
@@ -463,25 +430,23 @@ git <!-- Main Sidebar Container -->
 
                                     <li class="nav-item ">
                                         <a href="{{ route('opd-queue') }}" class="nav-link">
-                                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
+                                    
+                                            <i class="fa fa-caret-right nav-icon"></i>
                                             <p>
-                                                OPD QUEUE
+                                                OPD Queue
 
                                             </p>
                                         </a>
 
                                     </li>
-
-
-
-
                                 </ul>
                             </li>
+                             @endif
 
-                            <li
-                                class="nav-item has-treeview {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*', 'collages*', 'diagnoses*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'menu-open' : '' }}">
+                           @if(Auth::user()->hasRole('super-admin'))
+                            <li class="nav-item has-treeview">
                                 <a href="#"
-                                    class="nav-link {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*', 'collages*', 'diagnoses*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'active' : '' }}">
+                                    class="nav-link">
                                     <i class="nav-icon  fas fa-wrench"></i>
                                     <p>
                                         Setting
@@ -592,7 +557,19 @@ git <!-- Main Sidebar Container -->
                                             </a>
                                         </li>
                                     @endcan
+
+                                    @can('view-any', App\Models\Video::class)
+                                        <li class="nav-item">
+                                            <a href="{{ route('videos.create') }}"
+                                                class="nav-link {{ Request::is('videos/create') ? 'active' : '' }}">
+                                                <i class="fas fa-video"></i>
+                                                <p>Upload Video</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+
                                 </ul>
+                            </li>
                         @endif
 
 
@@ -606,6 +583,7 @@ git <!-- Main Sidebar Container -->
                             </a>
 
                         </li>
+
                     @endauth
                 </ul>
             </nav>
