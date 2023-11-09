@@ -162,20 +162,31 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'view vitalsigns']);
         Permission::create(['name' => 'create vitalsigns']);
         Permission::create(['name' => 'update vitalsigns']);
-        Permission::create(['name' => 'delete vitalsigns']);
+
+
+        Permission::findOrCreate('delete vitalsigns');
         Permission::findOrCreate('view-dashboard');
+        Permission::findOrCreate('view-dashboard');
+        Permission::findOrCreate('sync-student');
+        Permission::findOrCreate('sync-photo');
+        Permission::findOrCreate('patient-checkin');
+        Permission::findOrCreate('view_lab_waiting');
+        Permission::findOrCreate('waiting-queue');
+        Permission::findOrCreate('view-lab-dispay');
+        Permission::findOrCreate('view-OPD-dispay');
+        Permission::findOrCreate('view-setting');
 
         // findOrCreate user role and assign existing permissions
         $currentPermissions = Permission::all();
         ///////////////////////////////////////////////////////
 
-        $userRole = Role::create(['name' => 'user']);
-        $doctorRole = Role::create(['name' => DOCTOR_ROLE]);
-        $labTechnicianRole = Role::create(['name' => 'lab_technician']);
-        $receptionRole = Role::create(['name' => 'reception']);
-        $pharmacyRole = Role::create(['name' => 'pharmacist']);
-        $physicianRole = Role::create(['name' => 'physician']);
-        $nurseRole = Role::create(['name' => 'nurse']);
+        $userRole = Role::updateOrCreate(['name' => 'user']);
+        $doctorRole = Role::updateOrCreate(['name' => DOCTOR_ROLE]);
+        $labTechnicianRole = Role::updateOrCreate(['name' => 'lab_technician']);
+        $receptionRole = Role::updateOrCreate(['name' => 'reception']);
+        $pharmacyRole = Role::updateOrCreate(['name' => 'pharmacist']);
+        $physicianRole = Role::updateOrCreate(['name' => 'physician']);
+        $nurseRole = Role::updateOrCreate(['name' => 'nurse']);
 
         // $userRole->givePermissionTo($currentPermissions);
         // $labTechnicianRole->givePermissionTo($currentPermissions);
@@ -208,12 +219,15 @@ class PermissionsSeeder extends Seeder
         $adminRole = Role::create(['name' => 'super-admin']);
         $adminRole->givePermissionTo($allPermissions);
 
+
+//         INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
+           // (7, 'App\\Models\\User', 1);
+
         $adminUser = \App\Models\User::whereEmail('admin@admin.com')->first();
 
         if ($adminUser) {
             $adminUser->assignRole($adminRole);
         }
-
 
         $doctorUser = \App\Models\User::whereEmail('doctor@doctor.com')->first();
         $permissionsForDoctor = [

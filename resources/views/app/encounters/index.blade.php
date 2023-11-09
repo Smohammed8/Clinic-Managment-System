@@ -89,7 +89,7 @@
                                     <td>{{ $encounter->student->id_number ?? '-' }}</td>
                                     <td>
                                         @unless (auth()->user()->hasRole('doctor'))
-                                            {{ $encounter->student->fullName ?? '-' }}
+                                            {{ $encounter->student?->fullName ?? '-' }}
                                         @endunless
                                     </td>
                                     <td>

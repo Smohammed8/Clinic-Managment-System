@@ -72,22 +72,14 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
-
-Route::prefix('/')
-    ->middleware('auth')
-    ->group(function () {
+Route::prefix('/')->middleware('auth')->group(function () {
         Route::resource('encounters', EncounterController::class); //->middleware('redirectIfDoctor');
-
         Route::resource('roles', RoleController::class);
         Route::resource('permissions', PermissionController::class);
-
         Route::resource('appointments', AppointmentController::class);
         Route::resource('campuses', CampusController::class);
         Route::resource('clinics', ClinicController::class);
-        Route::get('all-clinic-services', [
-            ClinicServicesController::class,
-            'index',
-        ])->name('all-clinic-services.index');
+        Route::get('all-clinic-services', [ ClinicServicesController::class,'index',])->name('all-clinic-services.index');
         Route::post('all-clinic-services', [
             ClinicServicesController::class,
             'store',
