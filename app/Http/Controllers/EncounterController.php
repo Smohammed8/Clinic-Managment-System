@@ -221,7 +221,7 @@ class EncounterController extends Controller
     {
         // Get the authenticated user's ID
         $doctorId = Auth()->user()->clinicUsers->id;
-        // dd($doctorId);
+        dd($doctorId);
 
         // Update the encounter's status and doctor_id
         $encounter->status = STATUS_IN_PROGRESS;
