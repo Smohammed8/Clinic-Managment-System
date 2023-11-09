@@ -240,7 +240,6 @@
                     <th class="text-left"> Approved by  </th> --}}
                     @endif
 
-
                 </tr>
             </thead>
             <tbody class="text-gray-600">

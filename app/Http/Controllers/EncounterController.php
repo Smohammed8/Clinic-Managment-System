@@ -157,7 +157,7 @@ class EncounterController extends Controller
         // $doctors = User::whereHas('roles', function ($query) {
         //     $query->where('name', DOCTOR_ROLE);
         // })->get();
-        $doctorId = Auth()->user()->clinicUsers->id;
+        $doctorId = Auth::user()->clinicUsers?->id;
 
         $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
 
@@ -182,7 +182,7 @@ class EncounterController extends Controller
         if ($nextEncounter) {
             $encounter = $nextEncounter;
             // dd($nextEncounter);
-            $encounter->doctor_id = Auth()->user()->clinicUsers?->id;
+            $encounter->doctor_id = Auth::user()->clinicUsers?->id;
 
             $encounter->status = STATUS_IN_PROGRESS;
             $encounter->save();
@@ -220,7 +220,7 @@ class EncounterController extends Controller
     public function accept(Encounter $encounter)
     {
         // Get the authenticated user's ID
-        $doctorId = Auth()->user()->clinicUsers->id;
+        $doctorId = Auth()->user()->clinicUsers?->id;
         // dd($doctorId);
 
         // Update the encounter's status and doctor_id
