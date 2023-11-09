@@ -718,12 +718,7 @@
                                                             <table class="table table-bordered">
                                                                 <livewire:encounter-prescriptions-detail :encounter="$encounter" />
                                                             </table>
-                                                            <div class="signature-section">
-                                                                <p>
-                                                                    <strong>Doctor's Signature:</strong>
-                                                                    ________________________
-                                                                </p>
-                                                            </div>
+
                                                         </div>
 
                                                     </div>

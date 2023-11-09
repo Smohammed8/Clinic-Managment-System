@@ -56,15 +56,15 @@
             {{-- @dd($clinic_name); --}}
             <tbody class="text-gray-600">
                 <tr class="hover:bg-gray-100">
-                    <td class="text-left">{{ $clinic_name  }}</td>
+                    <td class="text-left">{{ $clinic_name }}</td>
                     <td class="text-right" style="width: 70px;">
                         <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
                             @can('delete-any', App\Models\Clinic::class)
-                                <button class="btn btn-danger"
+                                <button class="btn btn-sm btn-outline-danger mx-1"
                                     onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
                                     wire:click="detach('{{ $clinic_id }}')">
                                     <i class="icon ion-md-trash"></i> Delete
-                                    @lang('crud.common.detach')
+                                    {{-- @lang('crud.common.detach') --}}
                                 </button>
                             @endcan
                         </div>
