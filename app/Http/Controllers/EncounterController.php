@@ -142,7 +142,7 @@ class EncounterController extends Controller
         //get rooms that belongs to the given encounter clinic
         // dd(Clinic::find(1)->rooms->first()->name);
         //dd($encounter->Doctor);
-        $clinc_id = $encounter->clinic->id;
+        $clinc_id = $encounter->clinic?->id;
         $rooms = Room::where('clinic_id', $encounter->clinic?->id)->get();
 
         // dd($rooms);
