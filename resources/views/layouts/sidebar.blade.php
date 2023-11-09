@@ -1,4 +1,3 @@
-git <!-- Main Sidebar Container -->
 <script>
     // Function to set the "menu-open" class for active menu items and their parent tree nodes
     function setActiveMenuItems() {
@@ -144,7 +143,8 @@ git <!-- Main Sidebar Container -->
                                 </a>
 
                             </li>
-                        @else
+                        @endif
+                        
                             <li class="nav-item {{ Request::is('home*') ? 'menu-open' : '' }}">
                                 <a href="{{ route('home') }}" class="nav-link {{ Request::is('home*') ? 'active' : '' }}">
                                     <i class="nav-icon icon fas fa-home"></i>
@@ -166,12 +166,11 @@ git <!-- Main Sidebar Container -->
                                 </li>
                             @endcan
 
-                            @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) ||
-                                    Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))
+                            @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) || Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))
                                 <li
-                                    class="nav-item has-treeview {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'menu-open' : '' }}">
+                                    class="nav-item has-treeview">
                                     <a href="#"
-                                        class="nav-link {{ Request::is('roles*', 'permissions*', 'clinic-users*', 'users*') ? 'active' : '' }}">
+                                        class="nav-link">
                                         <i class="nav-icon fa fa-users"></i>
                                         <p>
                                             User Management
@@ -220,8 +219,11 @@ git <!-- Main Sidebar Container -->
                                         @endcan
                                     </ul>
                                 </li>
+                               @endif
 
-                                {{-- SRS RELATED DATA FECH Start --}}
+
+                          
+                                @if(Auth::user()->hasRole('super-admin'))
                                 <li class="nav-item has-treeview ">
                                     <a href="#" class="nav-link">
                                         <i class="nav-icon fa fa-sync-alt"></i>
@@ -245,8 +247,10 @@ git <!-- Main Sidebar Container -->
                                         </li>
                                     </ul>
                                 </li>
+                                @endif
 
-
+                 
+                                     @if(Auth::user()->hasRole('super-admin'))
                                 <li class="nav-item has-treeview ">
                                     <a href="  {{ route('students.index') }}" class="nav-link">
 
@@ -321,12 +325,10 @@ git <!-- Main Sidebar Container -->
                                         </li>
                                     </ul>
                                 </li>
-                            @endif
-
-                            {{-- SRS RELATED DATA FECH end --}}
-
-                            <li
-                                class="nav-item has-treeview {{ Request::is('lab-test-requests*', 'lab-test-request-groups*') ? 'menu-open' : '' }}">
+                                @endif
+                            
+                         @if(Auth::user()->hasRole('lab_technician'))
+                          <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon  fas fa-flask"></i>
                                     <p>
@@ -364,11 +366,11 @@ git <!-- Main Sidebar Container -->
                                             </a>
                                         </li>
                                     @endcan
-
-
-
                                 </ul>
                             </li>
+                            @endif
+
+                     @if(Auth::user()->hasRole('super-admin') or Auth::user()->hasRole('doctor') or Auth::user()->hasRole('Reception'))
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon  nav-icon  fas fa-clinic-medical"></i>
@@ -379,7 +381,8 @@ git <!-- Main Sidebar Container -->
                                 </a>
                                 <ul class="nav nav-treeview">
 
-                                    @can('view-any', App\Models\Encounter::class)
+                                 
+                               @if(Auth::user()->hasRole('Reception'))
                                         <li class="nav-item">
                                             <a href="{{ route('reception') }}"
                                                 class="nav-link {{ Request::is('reception*') ? 'active' : '' }}">
@@ -387,23 +390,37 @@ git <!-- Main Sidebar Container -->
                                                 <p>Reception</p>
                                             </a>
                                         </li>
-                                    @endcan
+                                @endif
+                                @if(Auth::user()->hasRole('doctor'))
+                                  @can('view-any', App\Models\Encounter::class)
 
-                                    @can('view-any', App\Models\Encounter::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('encounters.index') }}"
-                                                class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Patient Check-in</p>
-                                            </a>
-                                        </li>
-                                    @endcan
+                                    <li class="nav-item">
+                                        <a href="{{ route('encounters.index') }}"
+                                            class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Waiting Queues</p>
+                                        </a>
+                                    </li>
+                                @endcan
 
+
+                                @if(Auth::user()->hasRole('doctor'))
+
+                                  <li class="nav-item">
+                                      <a href=""
+                                          class="nav-link">
+                                          <i class="fa fa-caret-right nav-icon"></i>
+                                          <p> Active patients</p>
+                                      </a>
+                                  </li>
+                              @endcan
+
+                                @endif
                                     <li class="nav-item ">
                                         <a href="{{ route('lab-queue') }}" class="nav-link">
-                                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
+                                            <i class="fa fa-caret-right nav-icon"></i>
                                             <p>
-                                                LAB QUEUE
+                                                Lab Queue
 
                                             </p>
                                         </a>
@@ -412,9 +429,10 @@ git <!-- Main Sidebar Container -->
 
                                     <li class="nav-item ">
                                         <a href="{{ route('opd-queue') }}" class="nav-link">
-                                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
+                                    
+                                            <i class="fa fa-caret-right nav-icon"></i>
                                             <p>
-                                                OPD QUEUE
+                                                OPD Queue
 
                                             </p>
                                         </a>
@@ -422,11 +440,12 @@ git <!-- Main Sidebar Container -->
                                     </li>
                                 </ul>
                             </li>
+                             @endif
 
-                            <li
-                                class="nav-item has-treeview {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*', 'collages*', 'diagnoses*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'menu-open' : '' }}">
+                           @if(Auth::user()->hasRole('super-admin'))
+                            <li class="nav-item has-treeview">
                                 <a href="#"
-                                    class="nav-link {{ Request::is('campuses*', 'clinics*', 'all-clinic-services*', 'collages*', 'diagnoses*', 'religions*', 'rooms*', 'stock-categories*', 'stock-units*', 'suppliers*') ? 'active' : '' }}">
+                                    class="nav-link">
                                     <i class="nav-icon  fas fa-wrench"></i>
                                     <p>
                                         Setting
