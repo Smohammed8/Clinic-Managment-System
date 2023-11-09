@@ -144,6 +144,8 @@
                 // Select2 options and configurations
             });
         });
+
+        
     </script>
 
     <script>

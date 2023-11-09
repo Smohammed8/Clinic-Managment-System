@@ -371,7 +371,7 @@ git <!-- Main Sidebar Container -->
                             </li>
                             @endif
 
-                     @if(Auth::user()->hasRole('super-admin') or Auth::user()->hasRole('Physician') or Auth::user()->hasRole('Reception'))
+                     @if(Auth::user()->hasRole('super-admin') or Auth::user()->hasRole('doctor') or Auth::user()->hasRole('Reception'))
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon  nav-icon  fas fa-clinic-medical"></i>
@@ -382,7 +382,8 @@ git <!-- Main Sidebar Container -->
                                 </a>
                                 <ul class="nav nav-treeview">
 
-                                    @can('view-any', App\Models\Encounter::class)
+                                 
+                               @if(Auth::user()->hasRole('Reception'))
                                         <li class="nav-item">
                                             <a href="{{ route('reception') }}"
                                                 class="nav-link {{ Request::is('reception*') ? 'active' : '' }}">
@@ -390,9 +391,10 @@ git <!-- Main Sidebar Container -->
                                                 <p>Reception</p>
                                             </a>
                                         </li>
-                                    @endcan
+                                @endif
+                                @if(Auth::user()->hasRole('doctor'))
+                                  @can('view-any', App\Models\Encounter::class)
 
-                                    @can('view-any', App\Models\Encounter::class)
                                     <li class="nav-item">
                                         <a href="{{ route('encounters.index') }}"
                                             class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
@@ -401,7 +403,7 @@ git <!-- Main Sidebar Container -->
                                         </a>
                                     </li>
                                 @endcan
-
+                                @endif
                                     <li class="nav-item ">
                                         <a href="{{ route('lab-queue') }}" class="nav-link">
                                             <i class="nav-icon icon fa fa-sign-out-alt"></i>
