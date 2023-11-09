@@ -419,9 +419,9 @@ git <!-- Main Sidebar Container -->
                                 @endif
                                     <li class="nav-item ">
                                         <a href="{{ route('lab-queue') }}" class="nav-link">
-                                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
+                                            <i class="fa fa-caret-right nav-icon"></i>
                                             <p>
-                                                LAB QUEUE
+                                                Lab Queue
 
                                             </p>
                                         </a>
@@ -430,9 +430,10 @@ git <!-- Main Sidebar Container -->
 
                                     <li class="nav-item ">
                                         <a href="{{ route('opd-queue') }}" class="nav-link">
-                                            <i class="nav-icon icon fa fa-sign-out-alt"></i>
+                                    
+                                            <i class="fa fa-caret-right nav-icon"></i>
                                             <p>
-                                                OPD QUEUE
+                                                OPD Queue
 
                                             </p>
                                         </a>
@@ -440,7 +441,7 @@ git <!-- Main Sidebar Container -->
                                     </li>
                                 </ul>
                             </li>
-         @endif
+                             @endif
 
                            @if(Auth::user()->hasRole('super-admin'))
                             <li class="nav-item has-treeview">
