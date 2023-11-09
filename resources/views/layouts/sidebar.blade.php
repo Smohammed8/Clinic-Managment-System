@@ -393,17 +393,6 @@ git <!-- Main Sidebar Container -->
                                     @endcan
 
                                     @can('view-any', App\Models\Encounter::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('encounters.index') }}"
-                                                class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Patient Check-in</p>
-                                            </a>
-                                        </li>
-                                    @endcan
-
-
-                                    @can('view-any', App\Models\Encounter::class)
                                     <li class="nav-item">
                                         <a href="{{ route('encounters.index') }}"
                                             class="nav-link {{ Request::is('encounters*') ? 'active' : '' }}">
