@@ -74,7 +74,7 @@
                                     @php $previousDate = $labTestRequest->created_at->toDateString(); @endphp
                                     <tr>
                                         <td colspan="18" class="bg-light">
-                                            Date: {{ $previousDate }} By<u> {{ $labTestRequest->encounter->doctor?->name }} </u>
+                                            Date: {{ $previousDate }} By<u> {{ $labTestRequest->encounter->Doctor?->name }} </u>
                                         </td>
                                     </tr>
                                 @endif
