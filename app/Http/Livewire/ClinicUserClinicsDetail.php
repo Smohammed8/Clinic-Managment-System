@@ -86,9 +86,14 @@ class ClinicUserClinicsDetail extends Component
     }
 
     public function render(): View
-    {
-        $clinic = $this->clinicUser->clinic;
-        // dd($clinic->name);
-        return view('livewire.clinic-user-clinics-detail', compact('clinic'));
-    }
+{
+    $clinic = $this->clinicUser->clinic;
+    $clinic_name = $clinic->name;
+    $clinic_id = $clinic->id;
+
+    return view('livewire.clinic-user-clinics-detail', [
+        'clinic_name' => $clinic_name,
+        'clinic_id' => $clinic_id,
+    ]);
+}
 }
