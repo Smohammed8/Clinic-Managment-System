@@ -220,7 +220,7 @@ class EncounterController extends Controller
     public function accept(Encounter $encounter)
     {
         // Get the authenticated user's ID
-        $doctorId = Auth()->user()->clinicUsers->id;
+        $doctorId = Auth()->user()->clinicUsers->user_id;
         dd($doctorId);
 
         // Update the encounter's status and doctor_id
