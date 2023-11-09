@@ -428,7 +428,7 @@
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
                         <span>Doctor:</span>
-                        {{ $encounter->Doctor ? $encounter->Doctor?->user?->name : '-' }}
+                        {{ $encounter->Doctor ? $encounter->Doctor->name : '-' }}
                     </div>
 
                     <div class="col-md-4 mb-2">
@@ -440,7 +440,7 @@
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
                         <span>Receptionist:</span>
-                        {{ $encounter->RegisteredBy ? $encounter->RegisteredBy->user->name : '-' }}
+                        {{ $encounter->RegisteredBy ? $encounter->RegisteredBy->clinicUsers->user->name : '-' }}
                     </div>
                 </div>
 
@@ -623,7 +623,7 @@
                                                     <livewire:encounter-lab-test-requests-detail :encounter="$encounter" />
                                                 </div>
                                             @endcan
-                                            
+
 
                                             <style>
                                                 select.form-control[multiple],
@@ -707,7 +707,9 @@
                                                                 <div class="col-md-6">
                                                                     <p>
                                                                         <strong>Doctor Name:</strong>
-                                                                        {{ $encounter->Doctor ? $encounter?->Doctor?->user?->name : '-' }}
+                                                                        <<<<<<< HEAD
+                                                                            {{ $encounter->Doctor ? $encounter->Doctor->clinicUsers->user->name : '-' }}======={{ $encounter->Doctor ? $encounter?->Doctor?->user?->name : '-' }}>
+                                                                            >>>>>> a696bff73a3e9a0024e04f51ab871e6c73a6de56
 
                                                                     </p>
 
