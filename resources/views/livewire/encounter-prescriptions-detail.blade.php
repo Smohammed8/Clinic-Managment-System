@@ -117,9 +117,9 @@
                         <td class="text-right" style="width: 134px;">
                             <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
                                 @can('update', $prescription)
-                                    <button type="button" class="btn btn-light"
+                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1""
                                         wire:click="editPrescription({{ $prescription->id }})">
-                                        <i class="icon ion-md-create"></i>
+                                        <i class="fa fa-edit"></i> Edit
                                     </button>
                                 @endcan
                             </div>
