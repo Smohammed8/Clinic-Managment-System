@@ -19,8 +19,8 @@
                 </div>
                 <div class="col-md-6 text-right">
                     @can('create', App\Models\Encounter::class)
-                        <a href="{{ route('encounters.create') }}" class="btn btn-primary">
-                            <i class="icon ion-md-add"></i> @lang('crud.common.create')
+                        <a href="" class="btn btn-primary">
+                            <i class="icon ion-md-list"></i> List of active lab requests
                         </a>
                     @endcan
                 </div>
@@ -30,9 +30,11 @@
         <div class="card">
             <div class="card-body">
                 <div style="display: flex; justify-content: space-between;">
-                    <h4 class="card-title">@lang('crud.encounters.index_title')</h4>
+                    <h4> Lab request for <u>{{ auth()->user()->fullName }} </u></h4>
                 </div>
 
+             
+                <hr>
                 <div class="table-responsive">
                     <table class="table table-hover  table-sm table-condensed">
                         <thead>
@@ -125,7 +127,7 @@
                                                     'color' => 'btn-outline-success',
                                                 ],
                                                 STATUS_IN_PROGRESS => [
-                                                    'name' => 'Called by the Doctor',
+                                                    'name' => 'Lab sent',
                                                     'description' => 'The patient is currently being seen by a healthcare provider.',
                                                     'color' => 'btn-outline-info',
                                                 ],
@@ -179,8 +181,7 @@
                                         @endphp
 
 
-                                        <button
-                                            class="btn btn-sm {{ $statusDetails[$encounter->status]['color'] ?? 'btn-outline-secondary' }} mx-1">
+            <button class="btn btn-sm {{ $statusDetails[$encounter->status]['color'] ?? 'btn-outline-secondary' }} mx-1">
                                             {{ $statusDetails[$encounter->status]['name'] ?? '-' }}
                                         </button>
 
@@ -191,56 +192,33 @@
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
 
-                                            {{-- @can('update', $encounter) --}}
-                                            {{-- <a href="{{ route('medical-sick-leaves.show', $encounter) }}">
-                                                <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                    <i class="fa fa-print"></i> Sick Leave
-                                                </button>
-                                            </a> --}}
-                                            {{-- @endcan  --}}
-
-                                            <!-- Check if user is a doctor -->
+                                
                                             @if (auth()->user()->hasRole(DOCTOR_ROLE))
-                                                @if ($key === 0 && $encounter->status === STATUS_CHECKED_IN)
-                                                    <a href="{{ route('encounters.accept', $encounter) }}">
-                                                        <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                            <i class="icon fa fa-user"></i> Accept
-                                                        </button>
-                                                    </a>
-                                                @else
+                                              
                                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1"
                                                         disabled>
-                                                        <i class="icon fa fa-user"></i> Accept
+                                                        <i class="icon fa fa-user"></i> Call patient
                                                     </button>
-                                                @endif
-                                            @else
+                                             @endif
+                                       
                                                 @can('view', $encounter)
+                                                @if( $encounter->labTestRequests->count() > 0)
                                                     <a href="{{ route('encounters.show', $encounter) }}">
                                                         <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                            <i class="icon fa fa-user"></i> Profile
+                                                            <i class="icon fa fa-download"></i> View Result
                                                         </button>
                                                     </a>
-                                                @endcan
-                                            @endif
-                                            @if (auth()->user()->hasRole(['admin', 'super-admin']))
-                                                @can('update', $encounter)
-                                                    <a href="{{ route('encounters.edit', $encounter) }}">
-                                                        <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                            <i class="fa fa-edit"></i> Edit
+                                                    @else
+                                                    <a href="{{ route('encounters.show', $encounter) }}">
+                                                        <button type="button" class="btn btn-sm btn-outline-danger mx-1">
+                                                            <i class="icon fa fa-flask"></i>  LabPending
                                                         </button>
                                                     </a>
+                                                    @endif
                                                 @endcan
-
-                                                @can('delete', $encounter)
-                                                    <form data-route="{{ route('encounters.destroy', $encounter) }}"
-                                                        method="POST" id="deletebtnid">
-                                                        @csrf @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                            <i class="fa fa-trash"></i> Delete
-                                                        </button>
-                                                    </form>
-                                                @endcan
-                                            @endif
+                                          
+                                     
+                                    
                                     </td>
                                 </tr>
                             @endforeach

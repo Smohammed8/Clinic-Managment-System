@@ -28,6 +28,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole('super-admin');
+    }
+
     public function getFullNameAttribute()
     {
         return ucfirst($this->name);
@@ -48,9 +53,8 @@ class User extends Authenticatable
 
 
 
-    public function isSuperAdmin(): bool
-    {
-        return $this->hasRole('super-admin');
-    }
+
+
+    
 
 }

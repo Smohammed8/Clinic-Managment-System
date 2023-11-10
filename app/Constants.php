@@ -14,6 +14,8 @@ class Constants{
     const PHARMACY_USER_ROLE_ID=10;
     const STORE_USER_ROLE_ID=9;
 
+   const USER_TYPE_SUPER_ADMIN= 'super-admin';
+
 
 }
 ?>

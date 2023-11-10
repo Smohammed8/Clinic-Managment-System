@@ -55,6 +55,28 @@ class EncounterController extends Controller
 
         return view('app.reception.index', compact('students', 'search', 'searchError', 'clinicUser'));
     }
+
+
+    public function labWaiting(Request $request): View
+    {
+        $this->authorize('view-any', Encounter::class);
+
+
+        $currentUserId = Auth::id();
+        $encounters = Encounter::where('status', 2)
+            ->whereNotNull('doctor_id')
+            ->where('doctor_id', $currentUserId)
+            ->oldest('id') // Order by 'id' in ascending order
+            ->paginate(10)
+            ->withQueryString();
+        $clinicUser = Auth::user()->clinicUsers->room?->clinic;
+
+
+        return view('app.encounters.waiting-lab', compact('encounters', 'clinicUser'));
+    }
+
+
+
     public function index(Request $request): View
     {
         //dd(STATUS_IN_PROGRESS);
@@ -130,7 +152,7 @@ class EncounterController extends Controller
         // })->get();
         // dd(User::where('id', '!=', 10));
 
-        $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
+        $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
 
 
 
@@ -143,7 +165,7 @@ class EncounterController extends Controller
         // dd(Clinic::find(1)->rooms->first()->name);
         //dd($encounter->Doctor);
         $clinc_id = $encounter->clinic->id;
-        $rooms = Room::where('clinic_id', $encounter->clinic->id)->get();
+        $rooms = Room::where('clinic_id', $encounter->clinic?->id)->get();
 
         // dd($rooms);
 
@@ -160,7 +182,7 @@ class EncounterController extends Controller
 
         $doctorId = Auth()->user()->id;
 
-        $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
+        $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
 
         $this->authorize('view', $encounter);
         //dd($encounter->status);
@@ -199,7 +221,7 @@ class EncounterController extends Controller
             //     $query->where('name', DOCTOR_ROLE);
             // })->get();
 
-            $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
+            $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
 
             //dd($doctors);
             $this->authorize('view', $encounter);
@@ -256,7 +278,7 @@ class EncounterController extends Controller
         //     $query->where('name', DOCTOR_ROLE);
         // })->get();
 
-        $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
+        $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
 
         $this->authorize('view', $encounter);
         //dd($encounter->status);
@@ -293,7 +315,7 @@ class EncounterController extends Controller
             // })->get();
 
 
-            $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
+            $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
 
 
 
@@ -327,7 +349,7 @@ class EncounterController extends Controller
             return redirect()->route('encounters.index')->with('success', 'Doctor assigned successfully');
         }
 
-        $doctors = User::where('id', '!=', Auth::user()->clinicUsers->id)->get();
+        $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
 
         return view('encounters.changeDoctor', compact('encounter', 'doctors'));
     }
