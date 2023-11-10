@@ -198,54 +198,37 @@
         </div>
     </x-modal>
 
+
     <div class="table-responsive">
         <table class="table table-hover  table-sm table-condensed">
             <thead>
                 <tr>
                     <th> <input type="checkbox"  wire:model="allSelected" wire:click="toggleFullSelection" title="{{ trans('crud.common.select_all') }}"/></th>
                    
-                    @if (Auth::user()->hasRole('Lab_technician'))
+                    {{-- @if (Auth::user()->hasRole('Lab_technician')) --}}
                
                     @can('view', $labTestRequest)
-
-                    <th class="text-left"> Test Name </th>
-                    <th class="text-left"> Order on   </th>
+                    <th class="text-left"> Lab Test </th>
+                    <th class="text-left"> Sent at   </th>
                     <th class="text-left"> Status </th>
                     <th class="text-left"> Result </th>
                     <th class="text-left"> Comment </th>
-                    <th class="text-right">Price </th>
-                    <th class="text-left"> Sample ID </th>
-                    <th class="text-left"> Sample taken</th>
-                    <th class="text-left"> Lab Category </th>
-                    <th class="text-left"> Approved by  </th>
-                    <th class="text-left"> Action</th>
+           
+        
+                    <th class="text-left"> Replied at</th>
+              
+                    <th class="text-left"> User  </th>
+                  
                     @endcan 
-                    {{-- @else
 
-                
-                    <th class="text-left"> Sample Collected at </th>
-                    <th class="text-left"> Sample Analysized at </th>
-                    <th class="text-left"> Status </th>
-                    <th class="text-left"> Note</th>
-                    <th class="text-left"> Result </th>
-                    <th class="text-left"> Comment </th>
-                    <th class="text-left"> Analyised result </th>
-                    <th class="text-left"> Approved at </th>
-                    <th class="text-right">Price </th>
-                    <th class="text-left"> Sample ID </th>
-                    <th class="text-left"> Order on </th>
-                    <th class="text-left"> Sample collected by </th>
-                    <th class="text-left"> Sample Analyzed </th>
-                    <th class="text-left"> Lab Category </th>
-                    <th class="text-left"> Approved by  </th> --}}
-                    @endif
+                    {{-- @endif --}}
 
                 </tr>
             </thead>
             <tbody class="text-gray-600">
                 @foreach ($labTestRequests as $labTestRequest)
 
-                @if (Auth::user()->hasRole('Lab_technician '))
+                {{-- @if (Auth::user()->hasRole('Lab_technician ')) --}}
                     <tr class="hover:bg-gray-100">
                
                         <td class="text-left">
@@ -256,82 +239,17 @@
                     <td class="text-left"> {{ $labTestRequest->created_at->diffForHumans()}} </td>
 
                     <td class="text-left"> @if($labTestRequest->status == 0) <span style= "color:red;"> Pending </span> @else <i class="fa fa-check"> </i>  @endif </td>
-                    <td class="text-left"> {{ $labTestRequest->result ?? '-' }} </td>
+                    <td class="text-left" title=" {{ $labTestRequest->comment ?? '-' }} " > {{ $labTestRequest->result ?? '-' }} </td>
                     <td class="text-left"> {{ $labTestRequest->comment ?? '-' }} </td>
-                    <td class="text-right">{{ $labTestRequest->price ?? '-' }} </td>
-                    <td class="text-left"> {{ $labTestRequest->sample_id ?? '-' }} </td>
+                   
                     <td class="text-left"> {{ $labTestRequest->sample_collected_at ?->format('j F,Y') ?? '-' }} </td>
-                    <td class="text-left"> {{ optional($labTestRequest->labCatagory)->lab_name ??'-' }}</td>
+                
                     <td class="text-left"> {{ optional($labTestRequest->approvedBy)->user->name ?? '-' }} </td>
-                        <td class="text-right">
-                        <div role="group" aria-label="Row Actions" class="btn-group">
-                            @can('update', $labTestRequest)
-                            <button type="button" class="btn btn-sm btn-outline-primary mx-1"  wire:click="editLabTestRequest({{ $labTestRequest->id }})" >
-                                <i class="fa fa-plus"></i> Take sample
-                            </button>
-                            @endcan
-
-                              @can('update', $labTestRequestGroup)
-                              <a href="{{ route('lab-test-request-groups.edit', $labTestRequestGroup) }}">
-                                  <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                    <i class="fa fa-upload"></i> Upload Result
-                                  </button>
-                                </button>
-                            </a>
-                            @endcan
-
-                                @can('update', $labTestRequest)
-                                <button type="button" class="btn btn-sm btn-outline-primary mx-1"  wire:click="editLabTestRequest({{ $labTestRequest->id }})" >
-                                    <i class="fa fa-plus"></i> Add Result
-                                </button>
-                                @endcan
-                        </div>
-                    </td>
+                        
                 </tr>
-                @endif
-
-                {{-- @else --}}
-
-                {{-- <tr class="hover:bg-gray-100">
-                    <td class="text-left"> <input type="checkbox" value="{{ $labTestRequest->id }}" wire:model="selected"/></td>
-                    <td class="text-left">{{ $labTestRequest->sample_collected_at ?? '-' }} </td>
-                    <td class="text-left"> {{ $labTestRequest->sample_analyzed_at ?? '-' }} </td>
-                    <td class="text-left"> {{ $labTestRequest->status ?? '-' }}</td>
-                    <td class="text-left"> {{ $labTestRequest->note ?? '-' }}  </td>
-                    <td class="text-left"> {{ $labTestRequest->result ?? '-' }} </td>
-                    <td class="text-left"> {{ $labTestRequest->comment ?? '-' }} </td>
-                    <td class="text-left"> {{ $labTestRequest->analyser_result ?? '-' }} </td>
-                    <td class="text-left"> {{ $labTestRequest->approved_at ?? '-' }}</td>
-                    <td class="text-right"> {{ $labTestRequest->price ?? '-' }} </td>
-                    <td class="text-left"> {{ $labTestRequest->sample_id ?? '-' }} </td>
-                    <td class="text-left"> {{ $labTestRequest->ordered_on ?? '-' }} </td>
-                    <td class="text-left"> {{ optional($labTestRequest->sampleCcollectedBy)->id ?? '-' }} </td>
-                    <td class="text-left"> {{ optional($labTestRequest->sampleAnalyzedBy)->id ?? '-' }}</td>
-                    <td class="text-left"> {{ optional($labTestRequest->labCatagory)->lab_name ??'-' }}</td>
-                    <td class="text-left"> {{ optional($labTestRequest->approvedBy)->id ?? '-' }} </td>
-
-        
-               
-                        <td class="text-right">
-                        <div role="group" aria-label="Row Actions" class="btn-group">
-                                @can('update', $labTestRequestGroup)
-                                <a href="{{ route('lab-test-request-groups.edit', $labTestRequestGroup) }}">
-                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                      <i class="fa fa-plus"></i> Take Sample
-                                    </button>
-                                  </button>
-                              </a>
-                              @endcan
-                                @can('update', $labTestRequest)
-                                <button type="button" class="btn btn-sm btn-outline-primary mx-1"  wire:click="editLabTestRequest({{ $labTestRequest->id }})" >
-                                    <i class="fa fa-edit"></i> Edit
-                                </button>
-                                @endcan
-                        </div>
-                    </td>
-                </tr> --}}
-
                 {{-- @endif --}}
+
+            
                 @endforeach
             </tbody>
             <tfoot>
