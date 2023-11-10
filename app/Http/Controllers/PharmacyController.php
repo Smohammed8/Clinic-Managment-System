@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Campus;
 use App\Models\Pharmacy;
+use App\Models\StoresToPharmacy;
 use Illuminate\Http\Request;
 use App\Http\Requests\PharmacyStoreRequest;
 use App\Http\Requests\PharmacyUpdateRequest;
 use App\Models\Clinic;
+use App\Models\Store;
 use App\Models\User;
 
 require_once app_path('Helper/constants.php');
@@ -43,8 +45,8 @@ class PharmacyController extends Controller
         $campuses = Campus::pluck('name', 'id');
         $users=User::pluck('name','id');
         $clinics=Clinic::pluck('name','id');
-
-        return view('app.pharmacies.create', compact('campuses','users','clinics'));
+        $stores=Store::pluck('name','id');
+        return view('app.pharmacies.create', compact('campuses','users','clinics','stores'));
     }
 
     /**
@@ -53,14 +55,17 @@ class PharmacyController extends Controller
      */
     public function store(PharmacyStoreRequest $request)
     {
-        // dd($request);
+
         $this->authorize('create', Pharmacy::class);
-        $validated=
+
 
         $validated = $request->validated();
         $validated['clinic_id']=$request->clinic_id;
-     //   dd($validated);
+        $validated['store_id']=$request->store_id;
+
         $pharmacy = Pharmacy::create($validated);
+
+        StoresToPharmacy::create(['pharmacy_id'=>$pharmacy->id,'store_id'=>$validated['store_id']]);
 
         return redirect()
             ->route('pharmacies.index', $pharmacy)
@@ -92,7 +97,8 @@ class PharmacyController extends Controller
 
         $users=User::pluck('name','id');
         $clinics=Clinic::pluck('name','id');
-        return view('app.pharmacies.edit', compact('pharmacy', 'campuses','users','clinics'));
+        $stores=Store::pluck('name','id');
+        return view('app.pharmacies.edit', compact('pharmacy', 'campuses','users','clinics','stores'));
     }
 
     /**
@@ -105,9 +111,11 @@ class PharmacyController extends Controller
         $this->authorize('update', $pharmacy);
 
         $validated = $request->validated();
+        $validated['store_id']=$request->store_id;
+        $validated['clinic_id']=$request->clinic_id;
 
         $pharmacy->update($validated);
-
+        StoresToPharmacy::where('pharmacy_id',$pharmacy->id)->update(['store_id'=>$validated['store_id']]);
         return redirect()
             ->route('pharmacies.edit', $pharmacy)
             ->withSuccess(__('crud.common.saved'));

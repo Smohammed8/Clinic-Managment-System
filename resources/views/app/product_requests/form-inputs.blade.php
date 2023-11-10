@@ -6,7 +6,7 @@
             name="amount"
             label="Amount"
             :value="old('amount', ($editing ? $productRequest->amount : ''))"
-            max="255"
+            max="1000"
             step="0.01"
             placeholder="Amount"
         ></x-inputs.number>
