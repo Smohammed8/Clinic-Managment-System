@@ -428,7 +428,7 @@
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
                         <span>Doctor:</span>
-                        {{ $encounter->Doctor ? $encounter->Doctor->name : '-' }}
+                        {{ $encounter->Doctor ? $encounter->Doctor->clinicUsers->user->name : '-' }}
                     </div>
 
                     <div class="col-md-4 mb-2">
@@ -707,9 +707,7 @@
                                                                 <div class="col-md-6">
                                                                     <p>
                                                                         <strong>Doctor Name:</strong>
-                                                                        <<<<<<< HEAD
-                                                                            {{ $encounter->Doctor ? $encounter->Doctor->clinicUsers->user->name : '-' }}======={{ $encounter->Doctor ? $encounter?->Doctor?->user?->name : '-' }}>
-                                                                            >>>>>> a696bff73a3e9a0024e04f51ab871e6c73a6de56
+                                                                        {{ $encounter->Doctor ? $encounter->Doctor->clinicUsers->user->name : '-' }}
 
                                                                     </p>
 

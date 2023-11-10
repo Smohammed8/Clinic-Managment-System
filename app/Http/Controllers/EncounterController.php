@@ -242,7 +242,7 @@ class EncounterController extends Controller
     public function accept(Encounter $encounter)
     {
         // Get the authenticated user's ID
-        $doctorId = Auth::user()->id;
+        $doctorId = Auth()->user()->id;
         //dd($doctorId);
 
         // Update the encounter's status and doctor_id
@@ -256,7 +256,8 @@ class EncounterController extends Controller
         //get the clinic id and add it to the encounter 
         //dd($encounter->Doctor->rooms->first()->clinic->id);
         //dd($encounter->Doctor->room->clinic->id);
-        $encounter->clinic_id = $encounter->Doctor?->clinicUsers->room?->clinic?->id; 
+        $encounter->clinic_id = $encounter->Doctor->clinicUsers->room->clinic->id;
+
 
         //dd($encounter->Doctor->user->name);
         //dd($encounter);

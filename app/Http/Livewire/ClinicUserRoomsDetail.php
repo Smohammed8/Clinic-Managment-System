@@ -81,11 +81,16 @@ class ClinicUserRoomsDetail extends Component
 
     public function render(): View
     {
+        // dd($this);
+        // $room = $this->clinicUser->room;
+        // dd($room);
+        // $room_name = $room->name;
+        // $room_id = $room->id;
+        $room_name = $this->clinicUser->room->name;
+        $room_id = $this->clinicUser->room->id;
         return view('livewire.clinic-user-rooms-detail', [
-            'clinicUserRooms' => $this->clinicUser
-                ->rooms()
-                ->withPivot([])
-                ->paginate(20),
+            'room_name' => $room_name,
+            'room_id' => $room_id,
         ]);
     }
 }
