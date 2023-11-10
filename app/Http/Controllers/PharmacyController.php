@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Constants;
 use App\Models\Campus;
 use App\Models\Pharmacy;
 use App\Models\StoresToPharmacy;
@@ -10,8 +10,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests\PharmacyStoreRequest;
 use App\Http\Requests\PharmacyUpdateRequest;
 use App\Models\Clinic;
+use App\Models\PharmacyUser;
 use App\Models\Store;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 require_once app_path('Helper/constants.php');
 class PharmacyController extends Controller
@@ -135,5 +137,18 @@ class PharmacyController extends Controller
         return redirect()
             ->route('pharmacies.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+
+    public function studentHistory(Request $request){
+
+        if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
+            $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
+            $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
+            // dd($pharmacy->id);
+
+            return view('app.history.pharmacy_student_history');
+        }
+
     }
 }

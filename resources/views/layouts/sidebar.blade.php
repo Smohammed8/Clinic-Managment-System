@@ -104,7 +104,7 @@ git <!-- Main Sidebar Container -->
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('products.index') }}"
+                                <a href="{{ route('pharmacy.student.history') }}"
                                     class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
                                     <i class="nav-icon icon fas fa-history"></i>
                                     <p>
@@ -145,7 +145,7 @@ git <!-- Main Sidebar Container -->
 
                             </li>
                         @endif
-                        
+
                             <li class="nav-item {{ Request::is('home*') ? 'menu-open' : '' }}">
                                 <a href="{{ route('home') }}" class="nav-link {{ Request::is('home*') ? 'active' : '' }}">
                                     <i class="nav-icon icon fas fa-home"></i>
@@ -223,7 +223,7 @@ git <!-- Main Sidebar Container -->
                                @endif
 
 
-                          
+
                                 @if(Auth::user()->hasRole('super-admin'))
                                 <li class="nav-item has-treeview ">
                                     <a href="#" class="nav-link">
@@ -250,7 +250,7 @@ git <!-- Main Sidebar Container -->
                                 </li>
                                 @endif
 
-                 
+
                                      @if(Auth::user()->hasRole('super-admin'))
                                 <li class="nav-item has-treeview ">
                                     <a href="  {{ route('students.index') }}" class="nav-link">
@@ -327,7 +327,7 @@ git <!-- Main Sidebar Container -->
                                     </ul>
                                 </li>
                                 @endif
-                            
+
                          @if(Auth::user()->hasRole('Lab_technician'))
                           <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
@@ -382,7 +382,7 @@ git <!-- Main Sidebar Container -->
                                 </a>
                                 <ul class="nav nav-treeview">
 
-                                 
+
                                @if(Auth::user()->hasRole('Reception'))
                                         <li class="nav-item">
                                             <a href="{{ route('reception') }}"
@@ -430,7 +430,7 @@ git <!-- Main Sidebar Container -->
 
                                     <li class="nav-item ">
                                         <a href="{{ route('opd-queue') }}" class="nav-link">
-                                    
+
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p>
                                                 OPD Queue
