@@ -55,22 +55,27 @@
                 </tr>
             </thead>
             {{-- @dd($room_name); --}}
-            <tbody class="text-gray-600">
-                <tr class="hover:bg-gray-100">
-                    <td class="text-left">{{ $room_name ?? '-' }}</td>
-                    <td class="text-right" style="width: 70px;">
-                        <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
-                            @can('delete-any', App\Models\Room::class)
-                                <button class="btn btn-sm btn-outline-danger mx-1"
-                                    onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
-                                    wire:click="detach('{{ $room_id }}')">
-                                    <i class="icon ion-md-trash"></i> Delete
-                                </button>
-                            @endcan
-                        </div>
-                    </td>
-                </tr>
-            </tbody>
+            @if ($room_name !== '-')
+                <tbody class="text-gray-600">
+                    <tr class="hover:bg-gray-100">
+                        <td class="text-left">{{ $room_name ?? '-' }}</td>
+                        <td class="text-right" style="width: 70px;">
+                            <div role="group" aria-label="Row Actions" class="relative inline-flex align-middle">
+                                @can('delete-any', App\Models\Room::class)
+                                    <button class="btn btn-sm btn-outline-danger mx-1"
+                                        onclick="confirm('Are you sure?') || event.stopImmediatePropagation()"
+                                        wire:click="detach('{{ $room_id }}')">
+                                        <i class="icon ion-md-trash"></i> Delete
+                                    </button>
+                                @endcan
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            @endif
+            @if ($room_name === '-')
+                <h2>Please atach room to the user </h2>
+            @endif
             <tfoot>
                 {{-- <tr>
                     <td colspan="2">{{ $clinicUserRooms->render() }}</td>
