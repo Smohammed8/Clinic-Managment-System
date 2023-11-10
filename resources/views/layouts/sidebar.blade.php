@@ -538,7 +538,7 @@ git <!-- Main Sidebar Container -->
                                         </li>
                                     @endcan
 
-                                    @can('view-any', App\Models\StockUnit::class)
+                                    {{-- @can('view-any', App\Models\StockUnit::class)
                                         <li class="nav-item">
                                             <a href="{{ route('stock-units.index') }}"
                                                 class="nav-link {{ Request::is('stock-units*') ? 'active' : '' }}">
@@ -556,7 +556,7 @@ git <!-- Main Sidebar Container -->
                                                 <p>Suppliers</p>
                                             </a>
                                         </li>
-                                    @endcan
+                                    @endcan --}}
 
                                     @can('view-any', App\Models\Video::class)
                                         <li class="nav-item">
