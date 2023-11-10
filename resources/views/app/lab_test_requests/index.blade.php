@@ -45,6 +45,7 @@
                                 <th>Student</th>
                                 <!-- Other table headers -->
                                 <th class="text-left">Lab test</th>
+                                <th class="text-left">SampleID</th>
                                 <th class="text-left">Result</th>
                                 <th class="text-left">Comment</th>
                                 <th class="text-right">Price</th>
@@ -58,13 +59,13 @@
                             @php $previousStudent = null; @endphp
                             @php $previousDate = null; @endphp
                             @forelse($labTestRequests as $key => $labTestRequest)
-                                @if ($previousStudent !== $labTestRequest->encounter->student->fullName)
-                                    @php $previousStudent = $labTestRequest->encounter->student->fullName; @endphp
+                                @if ($previousStudent !== $labTestRequest->encounter->student?->fullName)
+                                    @php $previousStudent = $labTestRequest->encounter->student?->fullName; @endphp
                                     @php $previousDate = null; @endphp
                                     <tr>
                                         <td colspan="18" class="bg-light">
 
-                                            <span class="badge badge-info">  {{ $previousStudent }} - {{ $labTestRequest->encounter->student->id_number ?? '' }}</span>
+                                            <span class="badge badge-info">  {{ $previousStudent }} - {{ $labTestRequest->encounter->student?->id_number ?? '' }}</span>
 
                                           
                                         </td>
@@ -82,12 +83,13 @@
                                     <td>{{ $key + 1 }}</td>
                                     <td></td>
                                     <td>{{ optional($labTestRequest->labTest->labCatagory)->lab_name ?? '-' }} - {{ $labTestRequest->labTest->test_name ?? '-' }}</td>
+                                    <td>{{ $labTestRequest->sample_id ?? '?' }}</td>
                                     <td>{{ $labTestRequest->result ?? '?' }}</td>
                                     <td>{{ $labTestRequest->comment ?? '?'  }}</td>
                                     <td>{{ $labTestRequest->labTest->price ?? '-' }}</td>
                                     <td>{{ $labTestRequest->created_at }}</td>
                                     <td>
-                                        {{ optional($labTestRequest->sampleAnalyzedBy)->user->name ?? '?' }}
+                                        {{ optional($labTestRequest->sampleAnalyzedBy)->user?->name ?? '?' }}
                                     </td>
                                     <td>
                                         @if ($labTestRequest->status === null)
@@ -98,6 +100,16 @@
                                     </td>
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
+
+
+                                            @can('update', $labTestRequest)
+                                            <a href="{{ route('lab-test-requests.edit', $labTestRequest) }}">
+                                                <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                    <i class="fa fa-flask"></i> Take sample
+                                                </button>
+                                            </a>
+                                        @endcan
+
                                             @can('update', $labTestRequest)
                                                 <a href="{{ route('lab-test-requests.edit', $labTestRequest) }}">
                                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1">
@@ -105,21 +117,14 @@
                                                     </button>
                                                 </a>
                                             @endcan
-                                            @can('update', $labTestRequest)
+                                            {{-- @can('update', $labTestRequest)
                                                 <a href="#">
                                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                         <i class="fa fa-upload"></i> Upload
                                                     </button>
                                                 </a>
-                                            @endcan
+                                            @endcan --}}
 
-                                            @can('update', $labTestRequest)
-                                            <a href="#">
-                                                <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                    <i class="fa fa-flask"></i> Take sample
-                                                </button>
-                                            </a>
-                                        @endcan
 
 
                                     
