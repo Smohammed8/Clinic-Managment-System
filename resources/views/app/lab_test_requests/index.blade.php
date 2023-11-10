@@ -92,7 +92,7 @@
                                         {{ optional($labTestRequest->sampleAnalyzedBy)->user?->name ?? '?' }}
                                     </td>
                                     <td>
-                                        @if ($labTestRequest->status === null)
+                                        @if ($labTestRequest->result === null)
                                             <span class="badge badge-danger">Pending</span>
                                         @else
                                             <span class="badge badge-success">Closed</span>
@@ -103,20 +103,39 @@
 
 
                                             @can('update', $labTestRequest)
+
+                                            @if($labTestRequest->sample_id === null and $labTestRequest->result === null)
                                             <a href="{{ route('lab-test-requests.edit', $labTestRequest) }}">
                                                 <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                     <i class="fa fa-flask"></i> Take sample
                                                 </button>
                                             </a>
+
+                                            @elseif($labTestRequest->sample_id  != null and $labTestRequest->result === null)
+
+                                            <a href="{{ route('lab-test-requests.edit', $labTestRequest) }}">
+                                                <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                    <i class="fa fa-flask"></i> Add Result
+                                                </button>
+                                            </a>
+                                            @else
+
+                                            <a href="{{ route('lab-test-requests.edit', $labTestRequest) }}">
+                                                <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                    <i class="fa fa-flask"></i> Edit Result
+                                                </button>
+                                            </a>
+
+                                            @endif
                                         @endcan
 
-                                            @can('update', $labTestRequest)
+                                            {{-- @can('update', $labTestRequest)
                                                 <a href="{{ route('lab-test-requests.edit', $labTestRequest) }}">
                                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                         <i class="fa fa-plus"></i> Add Result
                                                     </button>
                                                 </a>
-                                            @endcan
+                                            @endcan --}}
                                             {{-- @can('update', $labTestRequest)
                                                 <a href="#">
                                                     <button type="button" class="btn btn-sm btn-outline-primary mx-1">
