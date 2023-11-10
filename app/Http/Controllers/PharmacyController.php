@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constants;
+use App\Constants;
 use App\Models\Campus;
 use App\Models\Pharmacy;
 use App\Models\StoresToPharmacy;
@@ -13,6 +14,7 @@ use App\Models\Clinic;
 use App\Models\PharmacyUser;
 use App\Models\Store;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Auth;
 
 require_once app_path('Helper/constants.php');
@@ -138,9 +140,6 @@ class PharmacyController extends Controller
             ->route('pharmacies.index')
             ->withSuccess(__('crud.common.removed'));
     }
-
-
-
 
 
     public function studentHistory(Request $request){

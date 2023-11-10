@@ -66,7 +66,7 @@
                     role="menu">
                     @auth
 
-                    
+
 
                     <li class="nav-item {{ Request::is('home*') ? 'menu-open' : '' }}">
                         <a href="{{ route('home') }}" class="nav-link {{ Request::is('home*') ? 'active' : '' }}">
@@ -101,7 +101,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                      
+
                         @can('view-any', App\Models\Products::class)
                         <li class="nav-item">
                             <a href="{{ route('products.index') }}"
@@ -125,7 +125,7 @@
                         </li>
                     @endcan
 
-        
+
                     @can('view-any', App\Models\ProductRequests::class)
                         <li class="nav-item">
                             <a href="{{ route('product-requests.recordsOfRequests') }}"
@@ -190,6 +190,17 @@
                                 </p>
                             </a>
 
+                            </li>
+                        @endif
+
+                            <li class="nav-item {{ Request::is('home*') ? 'menu-open' : '' }}">
+                                <a href="{{ route('home') }}" class="nav-link {{ Request::is('home*') ? 'active' : '' }}">
+                                    <i class="nav-icon icon fas fa-home"></i>
+                                    <p>
+                                        Home
+                                    </p>
+                                </a>
+                            </li>
                         </li>
                         @endcan
 
@@ -197,8 +208,8 @@
                 </li>
 
                 @endcan
-                     
-                        
+
+
                 {{-- @dump(auth()->user()->roles) --}}
 
                             @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) || Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))
@@ -256,6 +267,9 @@
                                 </li>
                                @endif
 
+
+
+                                @if(Auth::user()->hasRole('super-admin'))
                                @canany(['sync-student', 'sync-photo'])
                                 <li class="nav-item has-treeview ">
                                     <a href="#" class="nav-link">
@@ -286,10 +300,12 @@
                                 </li>
                                 @endcanany
 
-                 
+
+                                     @if(Auth::user()->hasRole('super-admin'))
+
                          {{-- @if(Auth::user()->hasRole('super-admin')) --}}
 
-        
+
 
                             @if (Auth::user()->canAny(['view-any', App\Models\Student::class, 'view-any', App\Models\Program::class, 'view-any', App\Models\Collage::class, 'view-any', App\Models\Campus::class]))
 
@@ -344,10 +360,13 @@
                                         @endcan
                                     </ul>
                                 </li>
+                                @endif
+
+                         @if(Auth::user()->hasRole('Lab_technician'))
 
                                 @endcanany
                                 {{-- @endif --}}
-                            
+
                          {{-- @if(Auth::user()->hasRole('lab_technician') ) --}}
 
 
@@ -396,7 +415,7 @@
                             </li>
                             @endif
 
-                 
+
                      @canany(['patient-checkin', 'waiting-queue','view_lab_waiting','view-lab-dispay','view-OPD-dispay',''])
 
                      <li class="nav-item has-treeview">
@@ -409,8 +428,10 @@
                                 </a>
                                 <ul class="nav nav-treeview">
 
-                                 
-                             
+
+                               @if(Auth::user()->hasRole('Reception'))
+
+
                                @can('patient-checkin')
                                         <li class="nav-item">
                                             <a href="{{ route('reception') }}"
@@ -433,7 +454,7 @@
                                         </a>
                                     </li>
                                 @endcan
-                                @can('view_lab_waiting') 
+                                @can('view_lab_waiting')
                                   <li class="nav-item">
                                       <a href="{{ route('lab.waiting') }}"
                                           class="nav-link">
@@ -567,7 +588,7 @@
                                         </li>
                                     @endcan
 
-                                    @can('view-any', App\Models\StockUnit::class)
+                                    {{-- @can('view-any', App\Models\StockUnit::class)
                                         <li class="nav-item">
                                             <a href="{{ route('stock-units.index') }}"
                                                 class="nav-link {{ Request::is('stock-units*') ? 'active' : '' }}">
@@ -585,7 +606,7 @@
                                                 <p>Suppliers</p>
                                             </a>
                                         </li>
-                                    @endcan
+                                    @endcan --}}
 
                                     @can('view-any', App\Models\Video::class)
                                         <li class="nav-item">
