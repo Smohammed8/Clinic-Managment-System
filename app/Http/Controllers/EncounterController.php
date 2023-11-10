@@ -179,7 +179,7 @@ class EncounterController extends Controller
         // $doctors = User::whereHas('roles', function ($query) {
         //     $query->where('name', DOCTOR_ROLE);
         // })->get();
-        $doctorId = Auth::user()->clinicUsers?->id;
+        $doctorId = Auth()->user()->clinicUsers->id;
 
         $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
 
@@ -204,7 +204,7 @@ class EncounterController extends Controller
         if ($nextEncounter) {
             $encounter = $nextEncounter;
             // dd($nextEncounter);
-            $encounter->doctor_id = Auth::user()->clinicUsers?->id;
+            $encounter->doctor_id = Auth()->user()->clinicUsers->id;
 
             $encounter->status = STATUS_IN_PROGRESS;
             $encounter->save();
@@ -361,10 +361,12 @@ class EncounterController extends Controller
             'encounter_id' => 'required|exists:encounters,id',
             // 'room_id' => 'required|exists:rooms,id',
         ]);
-        $doctor = $encounter->doctor;
+        $room_id = $request->room_id;
+        //dd($encounter);
+        $doctor = $encounter->Doctor->clinicUsers;
+        // dd($doctor);
         $doctor->room_id = $request->room_id;
         $doctor->save();
-        // dd($doctor);
         //dd($encounter->doctor->user->name);
         return redirect()->back()->with('success', 'Room updated successfully.');
     }
