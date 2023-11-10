@@ -50,13 +50,14 @@ class ProductRequestController extends Controller
                 'app.product_requests.index',
                 compact('productRequests', 'search')
             );
-        } else if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
+        }
+        else if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
             // dd($pharmacy->id);
 
             $search = $request->get('search', '');
-            $productRequests = ProductRequest::where('pharmacy_id', $pharmacy->id)->search($search)
+            $productRequests = ProductRequest::where('pharmacy_id', $pharmacy->id)->search($search)->where('status',"Requested")
                 ->latest()
                 ->paginate(5)
                 ->withQueryString();
@@ -94,6 +95,7 @@ class ProductRequestController extends Controller
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
             $clinics = Clinic::pluck('name', 'id');
+            // dd(StoresToPharmacy::where('pharmacy_id', $pharmacy->id)->pluck('store_id')->pluck('name', 'id'));
             $products = Product::where('store_id', StoresToPharmacy::where('pharmacy_id', $pharmacy->id)->pluck('store_id'))->pluck('name', 'id');
             $storeToPharmacy = (StoresToPharmacy::where('pharmacy_id', $pharmacy->id))->get();
             $stores = array();
@@ -140,7 +142,7 @@ class ProductRequestController extends Controller
             $validated['status'] = "Requested";
             // dd($validated);
             $productRequest = ProductRequest::create($validated);
-            dd($productRequest);
+            // dd($productRequest);
             return redirect()
                 ->route('product-requests.edit', $productRequest)
                 ->withSuccess(__('crud.common.created'));
@@ -236,7 +238,16 @@ class ProductRequestController extends Controller
      */
     public function destroy(Request $request, ProductRequest $productRequest)
     {
-        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+        if (Auth::user()->hasRole(Constants::PHARMACY_USER)){
+            $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
+            $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
+
+            $productRequest->delete();
+            return redirect()
+            ->route('product-requests.index')
+            ->withSuccess(__('crud.common.removed'));
+        }
+        else if (Auth::user()->hasRole(Constants::STORE_USER_ROLE) ) {
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
             $store = Store::where('id', $storeUser->store_id)->first();
 
@@ -247,7 +258,8 @@ class ProductRequestController extends Controller
                 ->route('product-requests.index')
                 ->withSuccess(__('crud.common.removed'));
         }
-        abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
+        // dd("aa");
+        abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access l.');
     }
 
     public function approve(ProductRequest $productRequest)
@@ -258,10 +270,8 @@ class ProductRequestController extends Controller
             $totalAmountInStore = Item::where('product_id', $productRequest->product_id)->sum('number_of_units');
             if ($productRequest->amount > $totalAmountInStore) {
 
-                dd($productRequest->amount, $totalAmountInStore, $productRequest->product_id);
-                return redirect()
-                    ->route('product-requests.index')
-                    ->withErrors(__('There is no available amount for the given request'));
+                // dd($productRequest->amount, $totalAmountInStore, $productRequest->product_id,"There is no available amount for the given request ");
+                return redirect()->back()->with('error','There is no available amount for the given request');
             }
 
 

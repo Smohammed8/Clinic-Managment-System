@@ -20,6 +20,7 @@ return new class extends Migration {
             $table->boolean('status');
             $table->text('description');
             $table->unsignedBigInteger('admin_id')->nullable();
+            $table->unsignedBigInteger('store_id')->nullable();
             $table->unsignedBigInteger('clinic_id');
 
             $table->timestamps();

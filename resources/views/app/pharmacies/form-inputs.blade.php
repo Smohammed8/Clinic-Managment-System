@@ -22,7 +22,7 @@
             @endforeach
         </x-inputs.select>
 
-   
+
     </x-inputs.group>
 
     <x-inputs.group class="col-sm-12">
@@ -36,9 +36,18 @@
     </x-inputs.group>
     <x-inputs.group class="col-sm-12">
         <x-inputs.select name="clinic_id" label="Clinic" required>
-            @php $selected = old('clinic_id', ($editing ? $pharmacy->campus_id : '')) @endphp
+            @php $selected = old('clinic_id', ($editing ? $pharmacy->clinic_id : '')) @endphp
             <option disabled {{ empty($selected) ? 'selected' : '' }}>Please select the Clinic </option>
             @foreach($clinics as $value => $label)
+            <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
+            @endforeach
+        </x-inputs.select>
+    </x-inputs.group>
+    <x-inputs.group class="col-sm-12">
+        <x-inputs.select name="store_id" label="Store" required>
+            @php $selected = old('store_id', ($editing ? $pharmacy->store_id : '')) @endphp
+            <option disabled {{ empty($selected) ? 'selected' : '' }}>Please select the Store </option>
+            @foreach($stores as $value => $label)
             <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
             @endforeach
         </x-inputs.select>

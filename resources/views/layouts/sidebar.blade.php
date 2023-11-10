@@ -458,7 +458,7 @@
                                     @can('view-OPD-dispay')
                                     <li class="nav-item ">
                                         <a href="{{ route('opd-queue') }}" class="nav-link">
-                                    
+
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p>
                                                 OPD Queue

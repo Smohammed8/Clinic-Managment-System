@@ -96,7 +96,7 @@ class ProductController extends Controller
             $store = Store::where('id', $storeUser->store_id)->first();
             $validated = $request->validated();
             $validated['store_id'] = $store->id;
-            $product = Product::create($validated);
+            $product = Product::firstOrCreate($validated);
 
             return redirect()
                 ->route('products.edit', $product)
@@ -106,7 +106,7 @@ class ProductController extends Controller
 
         $validated = $request->validated();
 
-        $product = Product::create($validated);
+        $product = Product::firstOrCreate($validated);
 
         return redirect()
             ->route('products.edit', $product)
