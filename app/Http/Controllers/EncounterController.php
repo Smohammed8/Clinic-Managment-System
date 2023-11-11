@@ -59,13 +59,17 @@ class EncounterController extends Controller
     {
         //dd(STATUS_IN_PROGRESS);
         $this->authorize('view-any', Encounter::class);
+        $clinic_id = Auth::user()->clinicUsers->clinic_id;
+        // dd($clinic_id);
 
         $search = $request->get('search', '');
         $status = STATUS_CHECKED_IN; // list of students accepted by receptionist
 
+
         // Retrieve encounters with the desired status
         $desiredStatusEncounters = Encounter::search($search)
             ->where('status', $status)
+            ->where('clinic_id', $clinic_id) // Add this line to filter by clinic_id
             ->orderBy('created_at', 'asc') // Order by creation timestamp (first come, first served)
             ->paginate(10)
             ->withQueryString();
@@ -73,14 +77,21 @@ class EncounterController extends Controller
         // Retrieve encounters with other statuses (excluding the desired status)
         $otherStatusEncounters = Encounter::search($search)
             ->where('status', '<>', $status)
+            ->where('clinic_id', $clinic_id) // Add this line to filter by clinic_id
             ->orderBy('created_at', 'asc') // Order by creation timestamp in descending order
             ->paginate(10)
             ->withQueryString();
 
         // Combine the results
         $encounters = $desiredStatusEncounters->concat($otherStatusEncounters);
+        $reception_id = $encounters[0]->registered_by;
+        $rooms = Clinic::find($clinic_id)->rooms;
+        // dd($rooms);
 
-        return view('app.encounters.index', compact('encounters', 'search'));
+
+        // dd($encounters);
+
+        return view('app.encounters.index', compact('encounters', 'search', 'rooms'));
     }
 
 
@@ -333,7 +344,7 @@ class EncounterController extends Controller
     }
 
 
-    public function room(Request $request, Encounter $encounter)
+    public function roomChange(Request $request, Encounter $encounter)
     {
         // Validate the request data
         $request->validate([
@@ -349,6 +360,27 @@ class EncounterController extends Controller
         //dd($encounter->doctor->user->name);
         return redirect()->back()->with('success', 'Room updated successfully.');
     }
+
+
+
+    public function roomChangeAll(Request $request)
+    {
+        //dd("here");
+        // Validate the request data
+        $request->validate([
+            'room_id' => 'required|exists:room,id',
+            // 'room_id' => 'required|exists:rooms,id',
+        ]);
+        $room_id = $request->room_id;
+        //dd($encounter);
+        $doctor = Auth::user()->clinicUsers;
+        $doctor->room_id = $request->room_id;
+        // dd($doctor);
+
+        $doctor->save();
+        return redirect()->back()->with('success', 'Room updated successfully.');
+    }
+
 
 
     /**

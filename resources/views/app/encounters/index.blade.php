@@ -18,11 +18,50 @@
                     </form>
                 </div>
                 <div class="col-md-6 text-right">
-                    @can('create', App\Models\Encounter::class)
-                        <a href="{{ route('encounters.create') }}" class="btn btn-primary">
-                            <i class="icon ion-md-add"></i> @lang('crud.common.create')
-                        </a>
-                    @endcan
+
+
+
+                    <button type="button" class="btn btn-sm d-inline-block btn-outline-primary" data-toggle="modal"
+                        data-target="#roomChangeModal">
+                        <i class="fas fa-door-open"></i></i>&nbsp; {{ Auth::user()->clinicUsers?->room?->name }}: Change
+                        Room </button>
+                    <!-- Change Room Modal Start-->
+                    <div class="modal fade" id="roomChangeModal" tabindex="-1" role="dialog"
+                        aria-labelledby="roomChangeModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="roomChangeModallLabel">Select a Room</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <form action="{{ route('encounters.all') }}" method="POST">
+                                    @csrf
+                                    <div class="modal-body">
+
+                                        <ul class="list-group">
+                                            <select id="doctorSelect" class="form-control" style="width: 100%;"
+                                                name="room_id">
+                                                @foreach ($rooms as $room)
+                                                    <option value="{{ $room->id }}">{{ $room->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </ul>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Choose Room</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Change Room Modal end-->
+
                 </div>
             </div>
         </div>

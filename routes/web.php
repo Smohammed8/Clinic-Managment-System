@@ -157,7 +157,8 @@ Route::prefix('/')
         Route::post('/encounters/{encounter}/changeDoctor', [EncounterController::class, 'changeDoctor'])->name('encounters.changeDoctor');
 
 
-        Route::post('/encounters/{encounter}/room', [EncounterController::class, 'room'])->name('encounters.room');
+        Route::post('/encounters/{encounter}/room', [EncounterController::class, 'roomChange'])->name('encounters.room');
+
 
         Route::get('/encounters/{encounter}/accept', [EncounterController::class, 'accept'])->name('encounters.accept');
 
@@ -188,4 +189,5 @@ Route::prefix('/')
 
 
         Route::get('/submit', [SpeechController::class, 'submit'])->name('submit');
+        Route::post('/changeRoomAll', [EncounterController::class, 'roomChangeAll'])->name('encounters.all');
     });
