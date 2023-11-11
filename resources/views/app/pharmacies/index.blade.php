@@ -51,10 +51,13 @@
                                 @lang('crud.pharmacies.inputs.name')
                             </th>
                             <th class="text-left">
-                                @lang('crud.pharmacies.inputs.admin_id')
+                                Admin Name
                             </th>
                             <th class="text-left">
                                 @lang('crud.pharmacies.inputs.campus_id')
+                            </th>
+                            <th class="text-left">
+                                Store
                             </th>
                             <th class="text-left">
                                 @lang('crud.pharmacies.inputs.status')
@@ -71,9 +74,12 @@
                         @forelse($pharmacies as $pharmacy)
                         <tr>
                             <td>{{ $pharmacy->name ?? '-' }}</td>
-                            <td>{{ $pharmacy->admin_id ?? '-' }}</td>
+                            <td>{{ $pharmacy->admin->name ?? '-' }}</td>
                             <td>
                                 {{ optional($pharmacy->campus)->name ?? '-' }}
+                            </td>
+                            <td>
+                                {{ optional($pharmacy->store)->name ?? '-' }}
                             </td>
                             <td>{{ $pharmacy->status ?? '-' }}</td>
                             <td>{{ $pharmacy->description ?? '-' }}</td>

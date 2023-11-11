@@ -138,6 +138,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
         Route::post('/user/{user}/assignPharmacy', [UserController::class, 'assignPharamacyPlace'])->name('user.assignPharamacyPlace');
         Route::post('/user/{user}/assignStore', [UserController::class, 'assignStorePlace'])->name('user.assignStorePlace');
+        Route::get('/pharmacy/student/history',[PharmacyController::class,'studentHistory'])->name('pharmacy.student.history');
 
         // Route::post('/')
         Route::resource('users', UserController::class);
