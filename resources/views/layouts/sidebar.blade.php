@@ -360,14 +360,8 @@
                         @endif
 
 
-                        @if (Auth::user()->canAny([
-                                'view-any',
-                                App\Models\LabTestRequest::class,
-                                'view-any',
-                                App\Models\LabCatagory::class,
-                                'view-any',
-                                App\Models\LabTest::class,
-                            ]))
+@if (Auth::check() && Auth::user()->canAny(['view-any', App\Models\LabTestRequest::class, 'view-any', App\Models\LabCatagory::class, 'view-any', App\Models\LabTest::class]))
+
                             <li class="nav-item has-treeview">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon  fas fa-flask"></i>

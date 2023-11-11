@@ -163,7 +163,7 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'create vitalsigns']);
         Permission::create(['name' => 'update vitalsigns']);
 
-
+        
         Permission::findOrCreate('delete vitalsigns');
         Permission::findOrCreate('view-dashboard');
         Permission::findOrCreate('view-dashboard');
