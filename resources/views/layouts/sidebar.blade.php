@@ -431,6 +431,15 @@
                                         </li>
                                     @endcan
 
+                                    @can('view-any', App\Models\Encounter::class)
+                                    <li class="nav-item">
+                                        <a href="{{ route('encounter-list') }}"
+                                            class="nav-link {{ Request::is('reception*') ? 'active' : '' }}">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Encounters </p>
+                                        </a>
+                                    </li>
+                                @endcan
 
                                     @can('waiting-queue')
                                         <li class="nav-item">
