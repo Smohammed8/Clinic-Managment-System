@@ -98,6 +98,11 @@
                             {{ $statusDetails[$encounter->status]['name'] ?? '-' }} encounter
                         </span> </span>
 
+                    <div
+                        class="btn btn-sm btn-outline-{{ $statusDetails[$encounter->status]['color'] ?? 'badge-secondary' }}">
+                        <i class="fas fa-door-open"></i>{{ $encounter?->Doctor?->clinicUsers?->room?->name }}
+                    </div>
+
                     <!-- Status Description (Hidden) -->
                     {{-- {{ $statusDetails[$encounter->status]['description'] ?? '-' }} --}}
                 </div>
