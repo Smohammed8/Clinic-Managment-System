@@ -38,7 +38,7 @@ class ProductItemsController extends Controller
      */
     public function store(Request $request, Product $product)
     {
-        dd("I am here");
+        // dd("I am here");
         // $this->authorize('create', Item::class);
         if (Auth::user()->can('store.product.index')) {
 
