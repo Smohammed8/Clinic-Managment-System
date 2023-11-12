@@ -108,9 +108,35 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
 
 
-    Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('lab-queue');
-    Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('opd-queue');
+       Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('lab-queue');
+       Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('opd-queue');
+       Route::post('/check-in', [HomeController::class, 'checkIn'])->name('checkin');
+        Route::post('/unmap-rfid', [HomeController::class,'unmapRfid'])->name('unmap-rfid');
+        Route::post('/map-rfid', [HomeController::class,'mapRfid'])->name('map-rfid');
+        
+        Route::resource('clinic-users', ClinicUserController::class);
+        Route::resource('collages', CollageController::class);
+        Route::resource('diagnoses', DiagnosisController::class);
+        Route::get('/reception', [EncounterController::class, 'reception'])->name('reception');
+        Route::get('/lab-waiting', [EncounterController::class, 'labWaiting'])->name('lab.waiting');
+        Route::resource('lab-catagories', LabCatagoryController::class);
+        Route::resource('lab-tests', LabTestController::class);
+        Route::resource('lab-test-requests', LabTestRequestController::class);
 
+        Route::post('/labtest/request', [LabTestRequestController::class, 'insert'])->name('labTest.insert');
+
+        Route::resource('lab-test-request-groups', LabTestRequestGroupController::class);
+        Route::resource('main-diagnoses', MainDiagnosisController::class);
+        Route::resource('medical-records', MedicalRecordController::class);
+        Route::resource('prescriptions', PrescriptionController::class);
+        Route::resource('programs', ProgramController::class);
+        Route::resource('religions', ReligionController::class);
+        Route::resource('rooms', RoomController::class);
+        Route::resource('stocks', StockController::class);
+        Route::resource('stock-categories', StockCategoryController::class);
+        Route::resource('stock-units', StockUnitController::class);
+        Route::resource('students', StudentController::class);
+        Route::resource('suppliers', SupplierController::class);
 
     Route::resource('clinic-users', ClinicUserController::class);
     Route::post('/clinc/clinc-user-clinic-chage', [ClinicUserController::class, 'changeClinicClinic'])->name('clinic-change-user-clinic');

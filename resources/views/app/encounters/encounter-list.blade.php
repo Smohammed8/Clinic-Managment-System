@@ -1,10 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
-
-     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <div class="">
     <div class="row justify-content-center">
         <div class="col-md-12">
@@ -15,18 +8,13 @@
 
                 </div>
 
-                <div class="card-body">
-
-                  
-                        <section class="content">
+        <div class="card-body">  
+             <section class="content">
                 <div class="container-fluid">
               
                     <div class="row">
-                        <div class="col-md-8 offset-md-2">
-                        
-
-
-
+                      <div class="col-md-8 offset-md-2">
+                    
                       <form id="checkInForm" action="{{ route('checkin') }}" method="post">
                         @csrf
                       <div class="input-group">
@@ -48,7 +36,7 @@
                 </div>
             </section>
                    
-<br><br>
+                <br><br>
                         <div class="table-responsive">
                             <table class="table table-hover table-striped table-sm table-condensed">
                                 <thead>
@@ -169,8 +157,8 @@
         
                         @if ($encounters->isEmpty())
                             <tr>
-                                <td colspan="6">
-                                    @lang('crud.common.no_items_found')
+                                <td colspan="12" style="color:red;">
+                                  No check-in records today!
                                 </td>
                             </tr>
                         @endif
@@ -191,147 +179,3 @@
         </div>
     </div>
 </div>
-
-{{-- <script>
-    $(document).ready(function() {
-        var typingTimer; // Timer identifier
-        var doneTypingInterval = 2000; // Time in milliseconds (0.5 seconds)
-
-        // Handle keyup event on the manual input field
-        $('#manualInput').keyup(function() {
-            clearTimeout(typingTimer);
-            typingTimer = setTimeout(doneTyping, doneTypingInterval);
-        });
-
-        // Handle input event on the manual input field (for non-keyboard input)
-        $('#manualInput').on('input', function() {
-            clearTimeout(typingTimer);
-            typingTimer = setTimeout(doneTyping, doneTypingInterval);
-        });
-
-        // Function to execute when typing is done
-        function doneTyping() {
-            // Trigger the form submission
-            $('#checkInForm').submit();
-        }
-    });
-</script> --}}
-{{-- 
-<script>
-    $(document).ready(function() {
-        // Handle keyup event on the manual input field for auto-submit
-        $('#manualInput').keyup(function(event) {
-            if (event.keyCode === 13) {  // Check if the Enter key is pressed
-                // Trigger the form submission
-                $('#checkInForm').submit();
-            }
-        });
-    });
-</script> --}}
-
-<!-- Include jQuery -->
-{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> --}}
-<script>
-    
-
-    $(function() {
-    var audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    var manualInput = document.getElementById("manualInput");
-    var recordFoundAudio = new Audio('assets/checked-in.mp3');
-   // event.preventDefault();
-       manualInput.addEventListener('input', function() {
-        var manualInput = document.getElementById("manualInput");
-        var currentSearchValue = manualInput.value.replace(/\s/g, '');
-        localStorage.setItem('lastSearchValue', currentSearchValue);
-         manualInput.value = currentSearchValue;
-
-        event.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '{{ route("checkin") }}',
-            data: $('#checkInForm').serialize(),
-            dataType: 'json',
-            success: function(response) {
-                console.log('Record exists:', response.success);
-
-                if (response.success) {
-                    // Play the record found audio
-                    playRecordFoundSound();
-                   // Set a timeout to delay the redirect until after the sound playback
-                   setTimeout(function() {
-                            window.location.href = '{{ route("home") }}';
-                        }, recordFoundAudio.duration * 1000); // Convert duration to milliseconds
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error:', error);
-            }
-        });
-    });
-
-    function playRecordFoundSound() {
-        if (audioContext.state === 'suspended') {
-            audioContext.resume().then(function() {
-                playAudio(recordFoundAudio);
-            });
-        } else {
-            playAudio(recordFoundAudio);
-        }
-    }
-
-    function playAudio(audio) {
-        // Play the audio directly
-        audio.play();
-    }
-
-    manualInput.focus();
-});
-
-</script>
-<!-- Your JavaScript code -->
-
-{{-- <script>
-    $(document).ready(function() {
-        // Track the last input time for barcode detection
-        var lastInputTime = 0;
-        
-        // Track whether the input is coming from a barcode scanner
-        var isBarcodeInput = false;
-
-        // Set a threshold for considering input as coming from a barcode scanner
-        var barcodeThreshold = 100;
-
-        // Handle keyup event on the manual input field
-        $('#manualInput').keyup(function() {
-            isBarcodeInput = false;
-        });
-
-        // Handle input event on the barcode input field
-        $('#barcodeInput').on('input', function() {
-            isBarcodeInput = true;
-        });
-
-        // Handle keypress event on the document to detect barcode scanner input
-        $(document).keypress(function(event) {
-            var currentTime = new Date().getTime();
-
-            if (currentTime - lastInputTime < barcodeThreshold) {
-                // Input is coming too fast, likely from a barcode scanner
-                isBarcodeInput = true;
-            }
-
-            lastInputTime = currentTime;
-        });
-
-        // Trigger the checkIn function on form submission
-        $('#checkInForm').submit(function() {
-            // Use the appropriate input based on the detection
-            var inputField = isBarcodeInput ? $('#barcodeInput') : $('#manualInput');
-
-            // Set the value of the hidden field to the input value
-            $('input[name="student_id"]').val(inputField.val());
-        });
-    });
-</script> --}}
-
-@endsection

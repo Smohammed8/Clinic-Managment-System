@@ -95,21 +95,26 @@
 
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
 
-    @if (session()->has('success'))
-        <script>
-            var notyf = new Notyf({
-                dismissible: true
-            })
-            notyf.success('{{ session('success') }}')
-        </script>
-    @elseif (session()->has('error'))
+
+    @if (session()->has('success') || session()->has('error'))
     <script>
         var notyf = new Notyf({
-            dismissible: true
-        })
-        notyf.error('{{ session('error') }}')
+            dismissible: true,
+            position: {
+                x: 'right',
+                y: 'top',
+            },
+            width: '500px', // Set the desired width here
+        });
+
+        @if (session()->has('success'))
+            notyf.success('{{ session('success') }}');
+        @elseif (session()->has('error'))
+            notyf.error('{{ session('error') }}');
+        @endif
     </script>
-    @endif
+   @endif
+
 
     <script>
         /* Simple Alpine Image Viewer */
@@ -209,6 +214,9 @@
             });
         }
     </script>
+
+
+
 
 </body>
 
