@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\ClinicUser;
 use App\Models\Encounter;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -60,7 +60,13 @@ class HomeController extends Controller
             $alreadyCheckedInToday = Encounter::where('student_id', $student->id)->whereDate('created_at', $now->toDateString())->count();
             if ($alreadyCheckedInToday > 0) {
                 return redirect()->route('home')->with('error', 'Already checked in today!');
-            } else {
+            } 
+                  $openedCase = Encounter::where('student_id', $student->id)->where('status', 2)->count();
+           if ($openedCase >0){
+               return redirect()->route('home')->with('error', 'There is existing opened case associated with given ID');
+            }
+            
+            else {
                 Encounter::create([
                     'student_id' => $student->id,
                     'status' => 1,
@@ -115,6 +121,50 @@ class HomeController extends Controller
         }
         return redirect()->route('home')->with('error', 'Student not found or RFID unmapping failed.');
     }
+
+
+    public function getEncouter(){
+
+
+        $users = ClinicUser::all();
+       
+        $encounterLists = Encounter::orderBy('id', 'desc')->paginate(15);
+         
+            return view('app.encounters.encounter-list', compact('encounterLists','users'));
+        
+
+    }
+
+    public function autoSearch(Request $request)
+    {
+        try {
+           
+
+           $query = trim($request->input('query'));
+            if (empty($query)) {
+                $encounterLists = Encounter::all();
+
+               // return redirect()->route('encouter-list');
+            }
+             else {
+             $student = Student::where('rfid', 'LIKE', "%$query%")->first();
+
+            if (!$student) {
+                return response()->json(['error' => 'Student not found.'], 404);
+            }
+
+            $encounterLists = Encounter::where('id', $query)->get();
+        }
+        
+      return response()->json($encounterLists);
+        } 
+    catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+    
+    }
+
+
 
     public function dashboard()
     {
