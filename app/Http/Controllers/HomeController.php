@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\ClinicUser;
 use App\Models\Encounter;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -115,6 +115,50 @@ class HomeController extends Controller
         }
         return redirect()->route('home')->with('error', 'Student not found or RFID unmapping failed.');
     }
+
+
+
+    public function getEncouter(){
+
+
+        $users = ClinicUser::all();
+       
+        $encounterLists = Encounter::orderBy('id', 'desc')->paginate(15);
+         
+            return view('app.encounters.encounter-list', compact('encounterLists','users'));
+        
+
+    }
+
+    public function autoSearch(Request $request)
+    {
+        try {
+           
+
+           $query = trim($request->input('query'));
+            if (empty($query)) {
+                $encounterLists = Encounter::all();
+
+               // return redirect()->route('encouter-list');
+            }
+             else {
+             $student = Student::where('rfid', 'LIKE', "%$query%")->first();
+
+            if (!$student) {
+                return response()->json(['error' => 'Student not found.'], 404);
+            }
+
+            $encounterLists = Encounter::where('id', $query)->get();
+        }
+        
+      return response()->json($encounterLists);
+        } 
+    catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
+    }
+    
+    }
+
 
     public function dashboard()
     {
