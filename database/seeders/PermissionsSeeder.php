@@ -163,7 +163,7 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'create vitalsigns']);
         Permission::create(['name' => 'update vitalsigns']);
 
-        
+
         Permission::findOrCreate('delete vitalsigns');
         Permission::findOrCreate('view-dashboard');
         Permission::findOrCreate('view-dashboard');
@@ -188,48 +188,64 @@ class PermissionsSeeder extends Seeder
         $physicianRole = Role::updateOrCreate(['name' => 'physician']);
         $nurseRole = Role::updateOrCreate(['name' => 'nurse']);
 
-        // $userRole->givePermissionTo($currentPermissions);
-        // $labTechnicianRole->givePermissionTo($currentPermissions);
-        // $receptionRole->givePermissionTo($currentPermissions);
-        // $pharmacyRole->givePermissionTo($currentPermissions);
-        // $physicianRole->givePermissionTo($currentPermissions);
-        // $nurseRole->givePermissionTo($currentPermissions);
-        ///////////////////////////////////////////////////////////////////////////
+
         // findOrCreate admin exclusive permissions
-        Permission::create(['name' => 'list roles']);
-        Permission::create(['name' => 'view roles']);
-        Permission::create(['name' => 'create roles']);
-        Permission::create(['name' => 'update roles']);
-        Permission::create(['name' => 'delete roles']);
+        Permission::firstOrCreate(['name' => 'list roles']);
+        Permission::firstOrCreate(['name' => 'view roles']);
+        Permission::firstOrCreate(['name' => 'create roles']);
+        Permission::firstOrCreate(['name' => 'update roles']);
+        Permission::firstOrCreate(['name' => 'delete roles']);
 
-        Permission::create(['name' => 'list permissions']);
-        Permission::create(['name' => 'view permissions']);
-        Permission::create(['name' => 'create permissions']);
-        Permission::create(['name' => 'update permissions']);
-        Permission::create(['name' => 'delete permissions']);
+        Permission::firstOrCreate(['name' => 'list permissions']);
+        Permission::firstOrCreate(['name' => 'view permissions']);
+        Permission::firstOrCreate(['name' => 'create permissions']);
+        Permission::firstOrCreate(['name' => 'update permissions']);
+        Permission::firstOrCreate(['name' => 'delete permissions']);
 
-        Permission::create(['name' => 'list users']);
-        Permission::create(['name' => 'view users']);
-        Permission::create(['name' => 'create users']);
-        Permission::create(['name' => 'update users']);
-        Permission::create(['name' => 'delete users']);
-
-        // findOrCreate admin role and assign all permissions
-        $allPermissions = Permission::all();
-        $adminRole = Role::create(['name' => 'super-admin']);
-        $adminRole->givePermissionTo($allPermissions);
+        Permission::firstOrCreate(['name' => 'list users']);
+        Permission::firstOrCreate(['name' => 'view users']);
+        Permission::firstOrCreate(['name' => 'create users']);
+        Permission::firstOrCreate(['name' => 'update users']);
+        Permission::firstOrCreate(['name' => 'delete users']);
 
 
-//         INSERT INTO `model_has_roles` (`role_id`, `model_type`, `model_id`) VALUES
-           // (7, 'App\\Models\\User', 1);
+        // Check if the 'super-admin' role already exists
+        $adminRole = Role::where('name', 'super-admin')->first();
 
+        // If the 'super-admin' role doesn't exist, create it
+        if (!$adminRole) {
+            $adminRole = Role::create(['name' => 'super-admin']);
+
+            // Give the 'super-admin' role all permissions
+            $allPermissions = Permission::all();
+            $adminRole->givePermissionTo($allPermissions);
+        }
+
+        // Check if the admin user already exists
         $adminUser = \App\Models\User::whereEmail('admin@admin.com')->first();
 
-        if ($adminUser) {
+        // If the admin user doesn't exist, create it and assign the 'super-admin' role
+        if (!$adminUser) {
+            $adminUser = \App\Models\User::create([
+                'email' => 'admin@admin.com',
+                // Add other user details as needed
+            ]);
+
             $adminUser->assignRole($adminRole);
         }
 
+        // Similar checks for the doctor user
         $doctorUser = \App\Models\User::whereEmail('doctor@doctor.com')->first();
+
+        if (!$doctorUser) {
+            $doctorUser = \App\Models\User::create([
+                'email' => 'doctor@doctor.com',
+                // Add other user details as needed
+            ]);
+
+            // Assign roles to the doctor user if needed
+        }
+
         $permissionsForDoctor = [
             'list appointments',
             'create appointments',
@@ -322,9 +338,9 @@ class PermissionsSeeder extends Seeder
         Permission::findOrCreate('pharmacy.products.request');
         Permission::findOrCreate('pharmacy.products.view');
         Permission::findOrCreate('pharmacy.history.*');
-      
 
-        
+
+
 
 
         $store_user = Role::findOrCreate(Constants::STORE_USER_ROLE);
@@ -332,61 +348,5 @@ class PermissionsSeeder extends Seeder
 
         $pharmacy_user = Role::findOrCreate(Constants::PHARMACY_USER);
         $pharmacy_user->syncPermissions('pharmacy.prescriptions.*', 'pharmacy.prescriptions.index', 'pharmacy.prescriptions.approve', 'pharmacy.prescriptions.view', 'pharmacy.products.*', 'pharmacy.products.index', 'pharmacy.products.request', 'pharmacy.products.view', 'pharmacy.history.*');
-
-        // $doctorRole->syncPermissions([
-        //     'list appointments',
-        //     'view appointments',
-        //     'create appointments',
-        //     'update appointments',
-        //     'delete appointments',
-
-        //     'list encounters',
-        //     'view encounters',
-        //     'create encounters',
-        //     'update encounters',
-        //     'delete encounters',
-
-        //     'list labtests',
-        //     'view labtests',
-        //     'create labtests',
-        //     'update labtests',
-        //     'delete labtests',
-
-        //     'list prescriptions',
-        //     'view prescriptions',
-        //     'create prescriptions',
-        //     'update prescriptions',
-        //     'delete prescriptions',
-
-        //     'list medicalrecords',
-        //     'view medicalrecords',
-        //     'create medicalrecords',
-        //     'update medicalrecords',
-        //     'delete medicalrecords',
-
-        //     'list vitalsigns',
-        //     'view vitalsigns',
-        //     'create vitalsigns',
-        //     'update vitalsigns',
-        //     'delete vitalsigns',
-
-        //     'list diagnoses',
-        //     'view diagnoses',
-        //     'create diagnoses',
-        //     'update diagnoses',
-        //     'delete diagnoses',
-
-        //     'list labtestrequests',
-        //     'view labtestrequests',
-        //     'create labtestrequests',
-        //     'update labtestrequests',
-        //     'delete labtestrequests',
-
-        //     'list maindiagnoses',
-        //     'view maindiagnoses',
-        //     'create maindiagnoses',
-        //     'update maindiagnoses',
-        //     'delete maindiagnoses'
-        // ]);
     }
 }

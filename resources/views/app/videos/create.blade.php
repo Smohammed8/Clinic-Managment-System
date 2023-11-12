@@ -2,62 +2,48 @@
 
 @section('content')
     <div class="container">
+
+
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <form action="{{ route('videos.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div class="form-group">
-                <label for="description">Video Description:</label>
-                <input type="text" name="description" class="form-control" required>
+            <div class="mb-3">
+                <label for="videoTitle" class="form-label">Video Title</label>
+                <input type="text" class="form-control" id="videoTitle" name="videoTitle" required>
             </div>
-            <div class="form-group">
-                <label for="status">Video Status:</label>
-                <input type="text" name="status" class="form-control" required>
+
+            <div class="mb-3">
+                <label for="videoDescription" class="form-label">Video Description</label>
+                <textarea class="form-control" id="videoDescription" name="videoDescription" rows="3" required></textarea>
             </div>
-            <div class="form-group">
-                <label for="video">Upload Video:</label>
-                <input type="file" name="video" class="form-control" required>
+
+            <div class="mb-3">
+                <label for="videoFile" class="form-label">Video File</label>
+                <input type="file" class="form-control" id="videoFile" name="videoFile" required>
             </div>
-            <div class="progress" style="display: none;">
-                <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0"
-                    aria-valuemax="100"></div>
+
+            <div class="mb-3">
+                <label for="videoStatus" class="form-label">Video Status</label>
+                <select class="form-select" id="videoStatus" name="videoStatus" required>
+                    <option value="active">Active</option>
+                    <option value="inactive">Inactive</option>
+                </select>
             </div>
-            <div class="form-group mt-2">
-                <button type="submit" class="btn btn-primary">Upload Video</button>
-            </div>
+            <button type="submit" class="btn btn-primary">Upload Video</button>
         </form>
         <div class="video-preview" style="display: none;">
             <h4>Video Preview:</h4>
             <video id="preview" width="320" height="240" controls></video>
         </div>
     </div>
-@section('scripts')
-    <script>
-        const form = document.querySelector('form');
-        const progressBar = document.querySelector('.progress');
-        const progressBarInner = document.querySelector('.progress-bar');
-        const videoPreview = document.querySelector('#preview');
-        const videoPreviewContainer = document.querySelector('.video-preview');
-
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            progressBar.style.display = 'block';
-
-            const formData = new FormData(form);
-            const response = await axios.post(form.action, formData, {
-                onUploadProgress: (progressEvent) => {
-                    const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent
-                        .total);
-                    progressBarInner.style.width = percentCompleted + '%';
-                },
-            });
-
-            progressBar.style.display = 'none';
-
-            if (response.status === 200) {
-                videoPreview.src = response.data.file_path;
-                videoPreviewContainer.style.display = 'block';
-            }
-        });
-    </script>
-@endsection
-
 @endsection

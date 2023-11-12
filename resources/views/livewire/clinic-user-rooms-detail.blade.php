@@ -1,48 +1,62 @@
 <div>
     <div class="mb-4">
         @can('create', App\Models\Room::class)
-            <button class="btn btn-primary" wire:click="newRoom">
+            <button class="btn btn-primary" data-toggle="modal" data-target="#clinicUserRoomModal">
                 <i class="icon ion-md-add"></i>
                 @lang('crud.common.attach')
             </button>
         @endcan
-    </div>
 
-    <x-modal id="clinic-user-rooms-modal" wire:model="showingModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{{ $modalTitle }}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
 
-            <div class="modal-body">
-                <div>
-                    <x-inputs.group class="col-sm-12">
-                        <x-inputs.select name="room_id" label="Room" wire:model="room_id">
-                            <option value="null" disabled>Please select the Room</option>
-                            @foreach ($roomsForSelect as $value => $label)
-                                <option value="{{ $value }}">{{ $label }}</option>
-                            @endforeach
-                        </x-inputs.select>
-                    </x-inputs.group>
+        <div class="modal fade" id="clinicUserRoomModal" tabindex="-1" role="dialog"
+            aria-labelledby="clinicUserRoomModalLabel" aria-hidden="true">
+            <form action="{{ route('clinic-change-user-room') }}" method="post">
+                @csrf
+                <div class="modal-dialog" role="document">
+                    <!-- Your modal content goes here -->
+                    <form action="{{ route('clinic-change-user-room') }}" method="post">
+                        @csrf
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">{{ $modalTitle }}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <div class="modal-body">
+                                <div>
+                                    <div class="col-12">
+                                        <label for="room_id">Room: </label>
+                                        <input type="hidden" name="clinic_user_id" value="{{ $clinicUser->id }}" />
+                                        <select name="room_id" id="room_id" class="form-control select2">
+                                            <option value="null" disabled>Please select the Clinic</option>
+                                            @foreach ($roomsForSelect as $value => $label)
+                                                <option value="{{ $value }}">{{ $label }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light float-left" data-dismiss="modal">
+                                    <i class="icon ion-md-close"></i>
+                                    Cancel
+                                </button>
+
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="icon ion-md-save"></i>
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-light float-left" wire:click="$toggle('showingModal')">
-                    <i class="icon ion-md-close"></i>
-                    @lang('crud.common.cancel')
-                </button>
-
-                <button type="button" class="btn btn-primary" wire:click="save">
-                    <i class="icon ion-md-save"></i>
-                    @lang('crud.common.save')
-                </button>
-            </div>
+            </form>
         </div>
-    </x-modal>
+
+    </div>
 
     <div class="table-responsive">
         <table class="table table-hover  table-sm table-condensed">

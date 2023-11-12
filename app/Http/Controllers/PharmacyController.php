@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Constants;
-use App\Constants;
+
 use App\Models\Campus;
 use App\Models\Pharmacy;
 use App\Models\StoresToPharmacy;
@@ -15,7 +15,7 @@ use App\Models\PharmacyUser;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Auth;
+
 
 require_once app_path('Helper/constants.php');
 class PharmacyController extends Controller
@@ -144,7 +144,7 @@ class PharmacyController extends Controller
 
     public function studentHistory(Request $request){
 
-        if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
+        if (Auth::user()->can('pharmacy.history.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
             // dd($pharmacy->id);
