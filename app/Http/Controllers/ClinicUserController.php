@@ -136,4 +136,23 @@ class ClinicUserController extends Controller
             ->route('clinic-users.index')
             ->withSuccess(__('crud.common.removed'));
     }
+
+
+    public function updateClinicUserClinic(Request $request)
+    {
+        // Validate the form data
+        dd($request->clinic_id);
+        $request->validate([
+            'clinic_id' => 'required', // Add any other validation rules if needed
+        ]);
+
+        // Your authorization logic goes here
+
+        // Access the selected clinic_id from the request
+        $selectedClinicId = $request->input('clinic_id');
+
+        // Your updating logic goes here
+
+        // Redirect or return a response as needed
+    }
 }

@@ -15,7 +15,8 @@ class ClinicUserClinicsDetail extends Component
     public ClinicUser $clinicUser;
     public Clinic $clinic;
     public $clinicsForSelect = [];
-    public $clinic_id = null;
+    public $clinic_id;
+
 
     public $showingModal = false;
     public $modalTitle = 'New Clinic';
@@ -61,15 +62,16 @@ class ClinicUserClinicsDetail extends Component
 
     public function save(): void
     {
-        //dd($this->clinic_id);
+
+        dd($this);
         // dd($this->clinicUser->clinic_id);
-        $this->validate();
+        // $this->validate();
 
         $this->authorize('create', Clinic::class);
 
         $clincUser = $this->clinicUser;
         $clincUser->clinic_id = $this->clinic_id;
-        // dd($clincUser);
+        dd($clincUser);
         // $this->clinicUser->clinics()->attach($this->clinic_id, []);
 
         $clincUser->save();
