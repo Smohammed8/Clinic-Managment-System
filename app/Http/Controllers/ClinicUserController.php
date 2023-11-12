@@ -137,22 +137,25 @@ class ClinicUserController extends Controller
             ->withSuccess(__('crud.common.removed'));
     }
 
-
-    public function updateClinicUserClinic(Request $request)
+    public function changeClinicClinic(Request $request, ClinicUser $clinicUser)
     {
-        // Validate the form data
-        dd($request->clinic_id);
-        $request->validate([
-            'clinic_id' => 'required', // Add any other validation rules if needed
-        ]);
+        $clinicUser = ClinicUser::find($request->clinic_user_id);
+        if (!$clinicUser) {
+            return redirect()->back()->with('error', 'Clinic user not found.');
+        }
+        $clinicUser->clinic_id = $request->clinic_id;
+        $clinicUser->save();
+        return redirect()->back()->with('success', 'Clinic changed successfully.');
+    }
 
-        // Your authorization logic goes here
-
-        // Access the selected clinic_id from the request
-        $selectedClinicId = $request->input('clinic_id');
-
-        // Your updating logic goes here
-
-        // Redirect or return a response as needed
+    public function changeClinicRoom(Request $request, ClinicUser $clinicUser)
+    {
+        $clinicUser = ClinicUser::find($request->clinic_user_id);
+        if (!$clinicUser) {
+            return redirect()->back()->with('error', 'Room user not found.');
+        }
+        $clinicUser->room_id = $request->room_id;
+        $clinicUser->save();
+        return redirect()->back()->with('success', 'Room changed successfully.');
     }
 }

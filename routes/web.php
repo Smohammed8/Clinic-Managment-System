@@ -40,6 +40,7 @@ use App\Http\Controllers\MedicalSickLeaveController;
 use App\Http\Controllers\LabTestRequestGroupController;
 use App\Http\Controllers\SRSController;
 use App\LabQueueCard;
+use App\Models\ClinicUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,7 +113,10 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
 
     Route::resource('clinic-users', ClinicUserController::class);
-    Route::post('/update-clinic/clinic-user', [ClinicUserController::class, 'updateClinicUserClinic'])->name('update.clinicuser.Clinic');
+    Route::post('/clinc/clinc-user-clinic-chage', [ClinicUserController::class, 'changeClinicClinic'])->name('clinic-change-user-clinic');
+    Route::post('/clinc/clinc-user-room-chage', [ClinicUserController::class, 'changeClinicRoom'])->name('clinic-change-user-room');
+
+
 
     Route::resource('collages', CollageController::class);
     Route::resource('diagnoses', DiagnosisController::class);
