@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\ItemResource;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ItemCollection;
-
+use Illuminate\Support\Facades\Auth;
 class ProductItemsController extends Controller
 {
     /**
@@ -17,7 +17,7 @@ class ProductItemsController extends Controller
      */
     public function index(Request $request, Product $product)
     {
-        dd("Here");
+        // dd("Here");
         // $this->authorize('view', $product);
 
         $search = $request->get('search', '');
@@ -40,7 +40,7 @@ class ProductItemsController extends Controller
     {
         dd("I am here");
         // $this->authorize('create', Item::class);
-        if(Auth::user()->hasRole('Constants::STORE_USER_ROLE')){
+        if (Auth::user()->can('store.product.index')) {
 
             $validated = $request->validate([
                 'batch_number' => ['nullable', 'max:255', 'string'],

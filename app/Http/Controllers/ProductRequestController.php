@@ -32,7 +32,7 @@ class ProductRequestController extends Controller
     {
 
 
-        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+        if (Auth::user()->can('store.request.*')) {
 
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
             // dd($storeUser);
@@ -51,7 +51,7 @@ class ProductRequestController extends Controller
                 compact('productRequests', 'search')
             );
         }
-        else if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
+        else   if (Auth::user()->can('pharmacy.products.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
             // dd($pharmacy->id);
@@ -90,7 +90,7 @@ class ProductRequestController extends Controller
      */
     public function create(Request $request)
     {
-        if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
+        if (Auth::user()->can('pharmacy.products.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
@@ -131,7 +131,7 @@ class ProductRequestController extends Controller
     public function store(ProductRequestStoreRequest $request)
     {
 
-        if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
+        if (Auth::user()->can('pharmacy.products.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
@@ -172,7 +172,7 @@ class ProductRequestController extends Controller
     public function edit(Request $request, ProductRequest $productRequest)
     {
 
-        if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
+        if (Auth::user()->can('pharmacy.products.*')) {
 
 
 
@@ -214,7 +214,7 @@ class ProductRequestController extends Controller
 
 
 
-        if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
+        if (Auth::user()->can('pharmacy.products.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
@@ -238,7 +238,7 @@ class ProductRequestController extends Controller
      */
     public function destroy(Request $request, ProductRequest $productRequest)
     {
-        if (Auth::user()->hasRole(Constants::PHARMACY_USER)){
+        if (Auth::user()->can('pharmacy.products.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
@@ -247,7 +247,7 @@ class ProductRequestController extends Controller
             ->route('product-requests.index')
             ->withSuccess(__('crud.common.removed'));
         }
-        else if (Auth::user()->hasRole(Constants::STORE_USER_ROLE) ) {
+        else if (Auth::user()->can('store.request.*')) {
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
             $store = Store::where('id', $storeUser->store_id)->first();
 
@@ -264,7 +264,7 @@ class ProductRequestController extends Controller
 
     public function approve(ProductRequest $productRequest)
     {
-        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+        if (Auth::user()->can('store.request.*')) {
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
             $store = Store::where('id', $storeUser->store_id)->first();
             $totalAmountInStore = Item::where('product_id', $productRequest->product_id)->sum('number_of_units');
@@ -312,7 +312,7 @@ class ProductRequestController extends Controller
 
     public function reject(ProductRequest $productRequest)
     {
-        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+        if (Auth::user()->can('store.request.*')) {
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
             $store = Store::where('id', $storeUser->store_id)->first();
             $products = Product::where('store_id', $store->id);
@@ -330,7 +330,7 @@ class ProductRequestController extends Controller
     public function sentRequests(Request $request)
     {
         // dd(Auth::user()->hasRole(Constants::PHARMACY_USER));
-        if (Auth::user()->hasRole(Constants::PHARMACY_USER)) {
+        if (Auth::user()->can('pharmacy.products.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
@@ -361,7 +361,7 @@ class ProductRequestController extends Controller
 
     public function recordsOfRequests(Request $request)
     {
-        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+        if (Auth::user()->can('store.request.*')) {
 
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
             // dd($storeUser);
