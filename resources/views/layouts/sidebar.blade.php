@@ -124,7 +124,7 @@
                         @endcan
 
                         {{-- This one will displayed once we implement it --}}
-                        @can('pharmacy.prescriptions.*')
+                        {{-- @can('pharmacy.prescriptions.*')
                             <li class="nav-item">
                                 <a href="{{ route('prescriptions.index') }}"
                                     class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
@@ -145,7 +145,7 @@
                                     </p>
                                 </a>
                             </li>
-                        @endcan
+                        @endcan --}}
                         {{-- --------------------------------------------- --}}
                         @can('pharmacy.products.*')
                             <li class="nav-item">
