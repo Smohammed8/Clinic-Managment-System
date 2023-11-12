@@ -146,6 +146,9 @@ class PharmacyController extends Controller
 
         if (Auth::user()->can('pharmacy.history.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
+            if($pharmacyUser==null){
+                return back()->withError('Pharmacist has been assigned to any pharmacy yet ');
+            }
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
             // dd($pharmacy->id);
 

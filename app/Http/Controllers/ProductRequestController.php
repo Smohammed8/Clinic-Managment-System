@@ -36,6 +36,9 @@ class ProductRequestController extends Controller
 
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
             // dd($storeUser);
+            if($storeUser==null){
+                return back()->withError('Store user hasn\'t been assigned to any store yet ');
+            }
             $store = Store::where('id', $storeUser->store_id)->first();
 
 
@@ -53,6 +56,9 @@ class ProductRequestController extends Controller
         }
         else   if (Auth::user()->can('pharmacy.products.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
+            if($pharmacyUser==null){
+                return back()->withError('Pharmacist hasn\'t been assigned to any pharmacy yet ');
+            }
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
             // dd($pharmacy->id);
 
@@ -92,6 +98,9 @@ class ProductRequestController extends Controller
     {
         if (Auth::user()->can('pharmacy.products.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
+            if($pharmacyUser==null){
+                return back()->withError('Pharmacist hasn\'t been assigned to any pharmacy yet ');
+            }
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
             $clinics = Clinic::pluck('name', 'id');
@@ -133,6 +142,9 @@ class ProductRequestController extends Controller
 
         if (Auth::user()->can('pharmacy.products.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
+            if($pharmacyUser==null){
+                return back()->withError('Pharmacist hasn\'t been assigned to any pharmacy yet ');
+            }
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
 
@@ -177,6 +189,9 @@ class ProductRequestController extends Controller
 
 
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
+            if($pharmacyUser==null){
+                return back()->withError('Pharmacist hasn\'t been assigned to any pharmacy yet ');
+            }
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
             $clinics = Clinic::pluck('name', 'id');
@@ -216,6 +231,9 @@ class ProductRequestController extends Controller
 
         if (Auth::user()->can('pharmacy.products.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
+            if($pharmacyUser==null){
+                return back()->withError('Pharmacist hasn\'t been assigned to any pharmacy yet ');
+            }
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
             $validated = $request->validated();
@@ -240,6 +258,9 @@ class ProductRequestController extends Controller
     {
         if (Auth::user()->can('pharmacy.products.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
+            if($pharmacyUser==null){
+                return back()->withError('Pharmacist hasn\'t been assigned to any pharmacy yet ');
+            }
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
             $productRequest->delete();
@@ -249,6 +270,9 @@ class ProductRequestController extends Controller
         }
         else if (Auth::user()->can('store.request.*')) {
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+            if($storeUser==null){
+                return back()->withError('Store user hasn\'t been assigned to any store yet ');
+            }
             $store = Store::where('id', $storeUser->store_id)->first();
 
 
@@ -266,6 +290,9 @@ class ProductRequestController extends Controller
     {
         if (Auth::user()->can('store.request.*')) {
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+            if($storeUser==null){
+                return back()->withError('Store user hasn\'t been assigned to any store yet ');
+            }
             $store = Store::where('id', $storeUser->store_id)->first();
             $totalAmountInStore = Item::where('product_id', $productRequest->product_id)->sum('number_of_units');
             if ($productRequest->amount > $totalAmountInStore) {
@@ -314,6 +341,9 @@ class ProductRequestController extends Controller
     {
         if (Auth::user()->can('store.request.*')) {
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+            if($storeUser==null){
+                return back()->withError('Store user hasn\'t been assigned to any store yet ');
+            }
             $store = Store::where('id', $storeUser->store_id)->first();
             $products = Product::where('store_id', $store->id);
 
@@ -332,6 +362,9 @@ class ProductRequestController extends Controller
         // dd(Auth::user()->hasRole(Constants::PHARMACY_USER));
         if (Auth::user()->can('pharmacy.products.*')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
+            if($pharmacyUser==null){
+                return back()->withError('Pharmacist hasn\'t been assigned to any pharmacy yet ');
+            }
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
             $searchApproved = $request->get('searchApproved', '');
@@ -364,6 +397,9 @@ class ProductRequestController extends Controller
         if (Auth::user()->can('store.request.*')) {
 
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+            if($storeUser==null){
+                return back()->withError('Store user hasn\'t been assigned to any store yet ');
+            }
             // dd($storeUser);
             $store = Store::where('id', $storeUser->store_id)->first();
 
