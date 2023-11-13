@@ -73,6 +73,11 @@ class Encounter extends Model
         return $this->hasMany(MedicalRecord::class);
     }
 
+
+    public function labRequests()
+    {
+        return $this->hasMany(LabTestRequest::class);
+    }
     public function labTestRequestGroups()
     {
         return $this->hasMany(LabTestRequestGroup::class);
