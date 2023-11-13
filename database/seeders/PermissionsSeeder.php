@@ -175,6 +175,8 @@ class PermissionsSeeder extends Seeder
         Permission::findOrCreate('view-lab-dispay');
         Permission::findOrCreate('view-OPD-dispay');
         Permission::findOrCreate('view-setting');
+        Permission::findOrCreate('accept_patient');
+       
 
         // findOrCreate user role and assign existing permissions
         $currentPermissions = Permission::all();
