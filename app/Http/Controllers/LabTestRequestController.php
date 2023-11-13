@@ -26,13 +26,15 @@ class LabTestRequestController extends Controller
     {
         $this->authorize('view-any', LabTestRequest::class);
 
+        $labCategories = LabCatagory::all();
+
         $search = $request->get('search', '');
 
         $labTestRequests = LabTestRequest::search($search)->orderBy('created_at', 'ASC')->paginate(10)->withQueryString();
 
         return view(
             'app.lab_test_requests.index',
-            compact('labTestRequests', 'search')
+            compact('labTestRequests', 'labCategories','search')
         );
     }
 

@@ -20,10 +20,10 @@
                     <h5>@lang('crud.pharmacies.inputs.admin_id')</h5>
                     <span>{{ $pharmacy->admin_id ?? '-' }}</span>
                 </div>
-                <div class="mb-4">
+                {{-- <div class="mb-4">
                     <h5>@lang('crud.pharmacies.inputs.campus_id')</h5>
                     <span>{{ optional($pharmacy->campus)->name ?? '-' }}</span>
-                </div>
+                </div> --}}
                 <div class="mb-4">
                     <h5>@lang('crud.pharmacies.inputs.status')</h5>
                     <span>{{ $pharmacy->status ?? '-' }}</span>

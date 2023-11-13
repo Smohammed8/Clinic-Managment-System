@@ -1,31 +1,82 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+
+</section>
     <div class="">
         <div class="searchbar mt-0 mb-4">
             <div class="row">
-                <div class="col-md-6">
-                    <form>
-                        <div class="input-group">
-                            <input id="indexSearch" type="text" name="search" placeholder="{{ __('crud.common.search') }}"
-                                value="{{ $search ?? '' }}" class="form-control" autocomplete="off" />
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="icon io-md-search"></i>
-                                </button>
+              
+           
+
+                        <div class="col-md-3 col-sm-6 col-12">
+                          <div class="info-box">
+                            <span class="info-box-icon bg-info"><i class="fa fa-users"></i></span>
+                
+                            <div class="info-box-content">
+                              <span class="info-box-text">Total Patients </span>
+                              <span class="info-box-number">{{ $myPateints ?? '-' }}</span>
                             </div>
+                            <!-- /.info-box-content -->
+                          </div>
+                          <!-- /.info-box -->
                         </div>
-                    </form>
-                </div>
-                <div class="col-md-6 text-right">
-                    @can('create', App\Models\Encounter::class)
-                        <a href="" class="btn btn-primary">
-                            <i class="icon ion-md-list"></i> List of active lab requests
-                        </a>
-                    @endcan
-                </div>
-            </div>
-        </div>
+                            <!-- /.col -->
+                            <div class="col-md-3 col-sm-6 col-12">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-warning"><i class="fa fa-flask"></i></span>
+                    
+                                <div class="info-box-content">
+                                <span class="info-box-text">Total labs</span>
+                                <span class="info-box-number">{{ $mylabs ?? '-' }}</span>
+                                </div>
+                                <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                            </div>
+                            
+                        <!-- /.col -->
+                        <div class="col-md-3 col-sm-6 col-12">
+                          <div class="info-box">
+                            <span class="info-box-icon bg-success"><i class="fa fa-upload"></i></span>
+                
+                            <div class="info-box-content">
+                              <span class="info-box-text">Pending labs</span>
+                              <span class="info-box-number">{{ $pendinglabs }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                          </div>
+                          <!-- /.info-box -->
+                        </div>
+          
+                        <!-- /.col -->
+                        <div class="col-md-3 col-sm-6 col-12">
+                          <div class="info-box">
+                            <span class="info-box-icon bg-danger"><i class="fa fa-download"></i></span>
+                
+                            <div class="info-box-content">
+                              <span class="info-box-text"> Active Results</span>
+                              <span class="info-box-number">{{ $labResults }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                          </div>
+                          <!-- /.info-box -->
+                        </div>
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                
+                    </div>
+
+
+
+
+
+
+
+ 
 
         <div class="card">
             <div class="card-body">
@@ -72,6 +123,7 @@
                                     Date of visit
                                 </th>
 
+                                <th> No of labs </th>
                                 <th class="text-left">
                                     Status
                                 </th>
@@ -113,6 +165,8 @@
 
                                     <td>{{ $encounter->check_in_time ? \Carbon\Carbon::parse($encounter->check_in_time)->format('M d, Y') : '-' }}
                                     </td>
+
+                                    <td> {{  $encounter->labRequests->count() }} </td>
                                     <td>
                                         @php
                                             $statusDetails = [

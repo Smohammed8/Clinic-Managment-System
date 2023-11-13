@@ -52,6 +52,11 @@ class User extends Authenticatable
     }
 
 
+    public function encounters()
+    {
+        return $this->hasMany(Encounter::class,'doctor_id');
+    }
+
 
 
 

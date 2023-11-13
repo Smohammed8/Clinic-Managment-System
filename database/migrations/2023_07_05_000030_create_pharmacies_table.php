@@ -16,8 +16,8 @@ return new class extends Migration {
             $table->bigIncrements('id');
             $table->string('name');
             // $table->foreignId('admin_id');
-            $table->unsignedBigInteger('campus_id');
-            $table->boolean('status');
+            $table->unsignedBigInteger('campus_id')->nullable();
+            $table->boolean('status')->nullable();
             $table->text('description');
             $table->unsignedBigInteger('admin_id')->nullable();
             $table->unsignedBigInteger('store_id')->nullable();

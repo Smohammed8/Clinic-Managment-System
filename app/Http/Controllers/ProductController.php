@@ -23,8 +23,11 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+        if (Auth::user()->can('store.product.index')) {
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+            if($storeUser==null){
+                return back()->withError('Store user hasn\'t been assigned to any store yet ');
+            }
             $store = Store::where('id', $storeUser->store_id)->first();
             // dd($products);
             $search = $request->get('search', '');
@@ -56,8 +59,11 @@ class ProductController extends Controller
     {
 
 
-        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+        if (Auth::user()->can('store.product.create')) {
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+            if($storeUser==null){
+                return back()->withError('Store user hasn\'t been assigned to any store yet ');
+            }
             $store = Store::where('id', $storeUser->store_id)->first();
             // dd($products);
 
@@ -91,8 +97,11 @@ class ProductController extends Controller
     public function store(ProductStoreRequest $request)
     {
         // dd($request->name);
-        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+        if (Auth::user()->can('store.product.create')) {
             $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+            if($storeUser==null){
+                return back()->withError('Store user hasn\'t been assigned to any store yet ');
+            }
             $store = Store::where('id', $storeUser->store_id)->first();
             $validated = $request->validated();
             $validated['store_id'] = $store->id;
@@ -121,7 +130,7 @@ class ProductController extends Controller
     public function show(Request $request, Product $product)
     {
         // $this->authorize('view', $product);
-        if (Auth::user()->hasRole(Constants::STORE_USER_ROLE)) {
+        if (Auth::user()->can('store.product.view')) {
             // $storeUser=StoreUser::where('user_id',Auth::user()->id)->first();
             // $store=Store::where('id',$storeUser->store_id)->first();
             // // dd($products);
