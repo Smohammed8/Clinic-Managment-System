@@ -270,7 +270,7 @@
 
                                                             <a href="#">
                                                         <button type="button" class="btn btn-sm btn-outline-success mx-1">
-                                                            <i class="icon fa fa-user"></i> Checked-in
+                                                            <i class="icon fa fa-user"></i> Waiting
                                                         </button>
                                                     </a>
                                                     @endif
