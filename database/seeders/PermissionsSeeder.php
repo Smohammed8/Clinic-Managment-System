@@ -43,7 +43,7 @@ class PermissionsSeeder extends Seeder
             'list stockunits', 'view stockunits', 'create stockunits', 'update stockunits', 'delete stockunits',
             'list students', 'view students', 'create students', 'update students', 'delete students',
             'list suppliers', 'view suppliers', 'create suppliers', 'update suppliers', 'delete suppliers',
-            'list vitalsigns', 'view vitalsigns', 'create vitalsigns', 'update vitalsigns', 'accept_patient'
+            'list vitalsigns', 'view vitalsigns', 'create vitalsigns', 'update vitalsigns', 'accept_patient', 'list videos', 'view videos', 'create videos', 'update videos', 'delete videos'
         ];
 
         foreach ($permissions as $permission) {
@@ -121,7 +121,7 @@ class PermissionsSeeder extends Seeder
                 // Add other user details as needed
             ]);
 
-            $adminUser->assignRole($adminRole);
+            $adminUser->assignRole($e);
         }
 
         // Similar checks for the doctor user

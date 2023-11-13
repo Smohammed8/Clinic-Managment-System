@@ -1,7 +1,10 @@
 <?php
 
+use App\LabQueueCard;
+use App\Models\ClinicUser;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SRSController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoomController;
@@ -9,6 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\QueueController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\StoreController;
+use App\Http\Controllers\VideoController;
 use App\Http\Controllers\CampusController;
 use App\Http\Controllers\ClinicController;
 use App\Http\Controllers\SpeechController;
@@ -38,9 +42,6 @@ use App\Http\Controllers\ProductRequestController;
 use App\Http\Controllers\ItemsInPharmacyController;
 use App\Http\Controllers\MedicalSickLeaveController;
 use App\Http\Controllers\LabTestRequestGroupController;
-use App\Http\Controllers\SRSController;
-use App\LabQueueCard;
-use App\Models\ClinicUser;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,37 +107,40 @@ Route::prefix('/')->middleware('auth')->group(function () {
         'destroy',
     ])->name('all-clinic-services.destroy');
 
-         Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('lab-queue');
-         Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('opd-queue');
-         Route::post('/check-in', [HomeController::class, 'checkIn'])->name('checkin');
-         Route::post('/unmap-rfid', [HomeController::class,'unmapRfid'])->name('unmap-rfid');
-         Route::post('/map-rfid', [HomeController::class,'mapRfid'])->name('map-rfid');
-         Route::get('/encouter-list', [HomeController::class,'getEncouter'])->name('encounter-list');
-         Route::post('/autosearch-encounters', [HomeController::class, 'autoSearch'])->name('autosearch-encounters');
-        
-        Route::resource('clinic-users', ClinicUserController::class);
-        Route::resource('collages', CollageController::class);
-        Route::resource('diagnoses', DiagnosisController::class);
-        Route::get('/reception', [EncounterController::class, 'reception'])->name('reception');
-        Route::get('/lab-waiting', [EncounterController::class, 'labWaiting'])->name('lab.waiting');
-        Route::resource('lab-catagories', LabCatagoryController::class);
-        Route::resource('lab-tests', LabTestController::class);
-        Route::resource('lab-test-requests', LabTestRequestController::class);
+    Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('lab-queue');
+    Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('opd-queue');
+    Route::post('/check-in', [HomeController::class, 'checkIn'])->name('checkin');
+    Route::post('/unmap-rfid', [HomeController::class, 'unmapRfid'])->name('unmap-rfid');
+    Route::post('/map-rfid', [HomeController::class, 'mapRfid'])->name('map-rfid');
+    Route::get('/encouter-list', [HomeController::class, 'getEncouter'])->name('encounter-list');
+    Route::post('/autosearch-encounters', [HomeController::class, 'autoSearch'])->name('autosearch-encounters');
 
-        Route::post('/labtest/request', [LabTestRequestController::class, 'insert'])->name('labTest.insert');
+    Route::resource('clinic-users', ClinicUserController::class);
+    Route::resource('collages', CollageController::class);
+    Route::resource('diagnoses', DiagnosisController::class);
+    Route::get('/reception', [EncounterController::class, 'reception'])->name('reception');
+    Route::get('/lab-waiting', [EncounterController::class, 'labWaiting'])->name('lab.waiting');
+    Route::resource('lab-catagories', LabCatagoryController::class);
+    Route::resource('lab-tests', LabTestController::class);
+    Route::resource('lab-test-requests', LabTestRequestController::class);
 
-        Route::resource('lab-test-request-groups', LabTestRequestGroupController::class);
-        Route::resource('main-diagnoses', MainDiagnosisController::class);
-        Route::resource('medical-records', MedicalRecordController::class);
-        Route::resource('prescriptions', PrescriptionController::class);
-        Route::resource('programs', ProgramController::class);
-        Route::resource('religions', ReligionController::class);
-        Route::resource('rooms', RoomController::class);
-        Route::resource('stocks', StockController::class);
-        Route::resource('stock-categories', StockCategoryController::class);
-        Route::resource('stock-units', StockUnitController::class);
-        Route::resource('students', StudentController::class);
-        Route::resource('suppliers', SupplierController::class);
+    Route::post('/labtest/request', [LabTestRequestController::class, 'insert'])->name('labTest.insert');
+
+    Route::resource('lab-test-request-groups', LabTestRequestGroupController::class);
+    Route::resource('main-diagnoses', MainDiagnosisController::class);
+    Route::resource('medical-records', MedicalRecordController::class);
+    Route::resource('prescriptions', PrescriptionController::class);
+    Route::resource('programs', ProgramController::class);
+    Route::resource('religions', ReligionController::class);
+    Route::resource('rooms', RoomController::class);
+    Route::resource('stocks', StockController::class);
+    Route::resource('stock-categories', StockCategoryController::class);
+    Route::resource('stock-units', StockUnitController::class);
+    Route::resource('students', StudentController::class);
+    Route::resource('suppliers', SupplierController::class);
+
+    Route::resource('videos', VideoController::class);
+
 
     Route::resource('clinic-users', ClinicUserController::class);
     Route::post('/clinc/clinc-user-clinic-chage', [ClinicUserController::class, 'changeClinicClinic'])->name('clinic-change-user-clinic');
@@ -210,7 +214,6 @@ Route::prefix('/')->middleware('auth')->group(function () {
         ItemsInPharmacyController::class
     );
 
-    Route::resource('clinic/videos', '\App\Http\Controllers\VideoController');
 
 
     Route::get('/submit', [SpeechController::class, 'submit'])->name('submit');
