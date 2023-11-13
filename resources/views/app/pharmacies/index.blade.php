@@ -53,9 +53,9 @@
                             <th class="text-left">
                                 Admin Name
                             </th>
-                            <th class="text-left">
+                            {{-- <th class="text-left">
                                 @lang('crud.pharmacies.inputs.campus_id')
-                            </th>
+                            </th> --}}
                             <th class="text-left">
                                 Store
                             </th>
@@ -75,9 +75,9 @@
                         <tr>
                             <td>{{ $pharmacy->name ?? '-' }}</td>
                             <td>{{ $pharmacy->admin->name ?? '-' }}</td>
-                            <td>
+                            {{-- <td>
                                 {{ optional($pharmacy->campus)->name ?? '-' }}
-                            </td>
+                            </td> --}}
                             <td>
                                 {{ optional($pharmacy->store)->name ?? '-' }}
                             </td>

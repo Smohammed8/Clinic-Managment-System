@@ -30,7 +30,7 @@ class ItemsInPharmacyController extends Controller
             if($pharmacyUser==null){
                 return back()->withError('Pharmacist hasn\'t been assigned to any pharmacy yet ');
             }
-            dd($pharmacyUser);
+            // dd($pharmacyUser);
             $pharmacy = Pharmacy::where('id', $pharmacyUser->pharmacy_id)->first();
 
             $search = $request->get('search', '');
