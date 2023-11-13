@@ -270,7 +270,7 @@
 
                                                             <a href="#">
                                                         <button type="button" class="btn btn-sm btn-outline-info mx-1">
-                                                            <i class="icon fa fa-clock-o"></i> Waiting
+                                                            <i class="icon far fa-clock"></i> Waiting
                                                         </button>
                                                     </a>
                                                     @endif
