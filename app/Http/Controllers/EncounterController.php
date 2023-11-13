@@ -113,7 +113,8 @@ class EncounterController extends Controller
 
         // Combine the results
         $encounters = $desiredStatusEncounters->concat($otherStatusEncounters);
-       // $reception_id = $encounters[0]?->registered_by;
+       // dd(   $encounters);
+        //$reception_id = $encounters[0]?->registered_by;
         $rooms = Clinic::find($clinic_id)?->rooms;
         // dd($rooms);
 

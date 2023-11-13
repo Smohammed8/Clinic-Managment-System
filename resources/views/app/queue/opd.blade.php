@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container-fluid" style="height: 100vh;">
-        <div class="row" style="height: 63%!important;;" height: 65%!important;>
+        <div class="row" style="height: 63%!important;">
             <div class="col-7" style="height: 63%;">
                 <div class="p-2">
                     {{ Widget::run('opdQueueCard') }}
