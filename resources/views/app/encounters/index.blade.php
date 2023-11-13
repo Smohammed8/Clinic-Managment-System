@@ -2,13 +2,24 @@
 
 @section('content')
     <div class="">
+        @if (!$rooms)
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Attention!</strong> You need to assign clinic and rooms to this user.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <div class="searchbar mt-0 mb-4">
+
             <div class="row">
+
                 <div class="col-md-6">
                     <form>
                         <div class="input-group">
-                            <input id="indexSearch" type="text" name="search" placeholder="{{ __('crud.common.search') }}"
-                                value="{{ $search ?? '' }}" class="form-control" autocomplete="off" />
+                            <input id="indexSearch" type="text" name="search"
+                                placeholder="{{ __('crud.common.search') }}" value="{{ $search ?? '' }}"
+                                class="form-control" autocomplete="off" />
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="icon io-md-search"></i>
@@ -43,9 +54,12 @@
                                         <ul class="list-group">
                                             <select id="doctorSelect" class="form-control" style="width: 100%;"
                                                 name="room_id">
-                                                @foreach ($rooms as $room)
-                                                    <option value="{{ $room->id }}">{{ $room->name }}</option>
-                                                @endforeach
+
+                                                @if ($rooms)
+                                                    @foreach ($rooms as $room)
+                                                        <option value="{{ $room->id }}">{{ $room->name }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </ul>
 
@@ -87,9 +101,7 @@
                                 <th class="text-left">
                                     {{-- @lang('crud.encounters.inputs.status') --}}
 
-                                    @unless (auth()->user()->hasRole('doctor'))
-                                        Patient Name
-                                    @endunless
+                                    Patient Name
                                 </th>
 
                                 <th class="text-left">
@@ -127,9 +139,9 @@
                                         {{-- <td>{{ $encounter->student->id_number ?? '-' }}</td> --}}
                                     <td>{{ $encounter->student->id_number ?? '-' }}</td>
                                     <td>
-                                        @unless (auth()->user()->hasRole('doctor'))
-                                            {{ $encounter->student?->fullName ?? '-' }}
-                                        @endunless
+                                        {{-- @unless (auth()->user()->hasRole('doctor')) --}}
+                                        {{ $encounter->student?->fullName ?? '-' }}
+                                        {{-- @endunless --}}
                                     </td>
                                     <td>
                                         @php

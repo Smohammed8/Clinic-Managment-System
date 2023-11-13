@@ -89,25 +89,38 @@ class EncounterController extends Controller
 
 
         // Retrieve encounters with the desired status
-        $desiredStatusEncounters = Encounter::search($search)
-            ->where('status', $status)
-            ->where('clinic_id', $clinic_id) // Add this line to filter by clinic_id
-            ->orderBy('created_at', 'asc') // Order by creation timestamp (first come, first served)
-            ->paginate(10)
-            ->withQueryString();
-        // dd($desiredStatusEncounters);
-        // Retrieve encounters with other statuses (excluding the desired status)
-        $otherStatusEncounters = Encounter::search($search)
-            ->where('status', '<>', $status)
-            ->where('clinic_id', $clinic_id) // Add this line to filter by clinic_id
-            ->orderBy('created_at', 'asc') // Order by creation timestamp in descending order
+        $desiredStatusEncountersQuery = Encounter::search($search)
+            ->where('status', $status);
+
+        if ($clinic_id) {
+            $desiredStatusEncountersQuery->where('clinic_id', $clinic_id);
+        }
+
+        $desiredStatusEncounters = $desiredStatusEncountersQuery
+            ->orderBy('created_at', 'asc')
             ->paginate(10)
             ->withQueryString();
 
+        // Retrieve encounters with other statuses (excluding the desired status)
+        $otherStatusEncountersQuery = Encounter::search($search)
+            ->where('status', '<>', $status);
+
+        if ($clinic_id) {
+            $otherStatusEncountersQuery->where('clinic_id', $clinic_id);
+        }
+
+        $otherStatusEncounters = $otherStatusEncountersQuery
+            ->orderBy('created_at', 'asc')
+            ->paginate(10)
+            ->withQueryString();
+
+
         // Combine the results
         $encounters = $desiredStatusEncounters->concat($otherStatusEncounters);
-        $reception_id = $encounters[0]->registered_by;
-        $rooms = Clinic::find($clinic_id)->rooms;
+        if ($encounters !== null) {
+            $reception_id = $encounters[0]?->registered_by;
+            $rooms = Clinic::find($clinic_id)?->rooms;
+        }
         // dd($rooms);
 
 
