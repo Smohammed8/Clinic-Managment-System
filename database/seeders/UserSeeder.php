@@ -19,17 +19,17 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // $roles = ['admin', 'doctor', 'reception', 'laboratory', 'pharmacy', 'store'];
+        $roles = ['admin', 'doctor', 'reception', 'laboratory', 'pharmacy', 'store'];
 
-        // DB::table('users')->delete();
-        // foreach ($roles as $role) {
-        //     User::create([
-        //         'name' => ucfirst($role) . ' User',
-        //         'username' => $role,
-        //         'email' => $role . '@' . $role . '.com',
-        //         'password' => Hash::make('password'),
-        //     ]);
-        // }
+        DB::table('users')->delete();
+        foreach ($roles as $role) {
+            User::create([
+                'name' => ucfirst($role) . ' User',
+                'username' => $role,
+                'email' => $role . '@' . $role . '.com',
+                'password' => Hash::make('password'),
+            ]);
+        }
 
 
         DB::table('clinic')->delete();

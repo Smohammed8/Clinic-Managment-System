@@ -182,33 +182,32 @@ class PermissionsSeeder extends Seeder
 
     //////////////////////////////////////////////////////////
 
-
-
-    Permission::updateOrCreate(['name' => 'store.product.*']);
-    Permission::updateOrCreate(['name' => 'store.product.index']);
-    Permission::updateOrCreate(['name' => 'store.product.updateOrCreate']);
-    Permission::updateOrCreate(['name' => 'store.product.update']);
-    Permission::updateOrCreate(['name' => 'store.product.view']);
-    Permission::updateOrCreate(['name' => 'store.product.item']);
-    Permission::updateOrCreate(['name' => 'store.request.*']);
-    Permission::updateOrCreate(['name' => 'store.request.index']);
-    Permission::updateOrCreate(['name' => 'store.request.approve']);
-    Permission::updateOrCreate(['name' => 'store.request.reject']);
-    Permission::updateOrCreate(['name' => 'store.records.*']);
-    Permission::updateOrCreate(['name' => 'store.records.index']);
-    Permission::updateOrCreate(['name' => 'store.records.edit']);
-    Permission::updateOrCreate(['name' => 'store.records.view']);
-    Permission::updateOrCreate(['name' => 'store.records.delete']);
-    Permission::updateOrCreate(['name' => 'pharmacy.prescriptions.*']);
-    Permission::updateOrCreate(['name' => 'pharmacy.prescriptions.index']);
-    Permission::updateOrCreate(['name' => 'pharmacy.prescriptions.approve']);
-    Permission::updateOrCreate(['name' => 'pharmacy.prescriptions.view']);
-    Permission::updateOrCreate(['name' => 'pharmacy.products.*']);
-    Permission::updateOrCreate(['name' => 'pharmacy.products.index']);
-    Permission::updateOrCreate(['name' => 'pharmacy.products.request']);
-    Permission::updateOrCreate(['name' => 'pharmacy.products.view']);
-    Permission::updateOrCreate(['name' => 'pharmacy.history.*']);
-    
+        Permission::findOrCreate('store.product.*');
+        Permission::findOrCreate('store.product.index');
+        Permission::findOrCreate('store.product.create');
+        Permission::findOrCreate('store.product.update');
+        Permission::findOrCreate('store.product.view');
+        Permission::findOrCreate('store.product.item');
+        Permission::findOrCreate('store.request.*');
+        Permission::findOrCreate('store.request.index');
+        Permission::findOrCreate('store.request.approve');
+        Permission::findOrCreate('store.request.reject');
+        Permission::findOrCreate('store.records.*');
+        Permission::findOrCreate('store.records.index');
+        Permission::findOrCreate('store.records.edit');
+        Permission::findOrCreate('store.records.view');
+        Permission::findOrCreate('store.records.delete');
+        Permission::findOrCreate('pharmacy.prescriptions.*');
+        Permission::findOrCreate('pharmacy.prescriptions.index');
+        Permission::findOrCreate('pharmacy.prescriptions.approve');
+        Permission::findOrCreate('pharmacy.prescriptions.view');
+        Permission::findOrCreate('pharmacy.products.*');
+        Permission::findOrCreate('pharmacy.products.index');
+        Permission::findOrCreate('pharmacy.products.*');
+        Permission::findOrCreate('pharmacy.products.index');
+        Permission::findOrCreate('pharmacy.products.request');
+        Permission::findOrCreate('pharmacy.products.view');
+        Permission::findOrCreate('pharmacy.history.*');
 
     //////////////////////////////////////////////////////////////////
 
@@ -263,7 +262,22 @@ class PermissionsSeeder extends Seeder
             $store_user = Role::updateOrCreate(['name' => Constants::STORE_USER_ROLE]);
 
   
+              $allPermissions = Permission::all();
+            // $allPermissions = Permission::pluck('name');
+               $superadminRole = Role::where('name', 'super-admin')->first();
+               $clinicHeadRole = Role::where('name', 'clinic-head')->first();
+             if ($superadminRole) {
+             
+                 $superadminRole->givePermissionTo($allPermissions);
+                 $superadminRole->assignRole($superadminRole);
+             }
+             if ($clinicHeadRole ) {
+             
+                 $clinicHeadRole->givePermissionTo($allPermissions);
+                 $clinicHeadRole->assignRole($clinicHeadRole);
+             }
 
+//'password' => Hash::make('password'),
         $adminUser = \App\Models\User::whereEmail('admin@admin.com')->first();
         // If the admin user doesn't exist, updateOrCreate it and assign the 'super-admin' role
         if (!$adminUser) {
@@ -359,44 +373,6 @@ class PermissionsSeeder extends Seeder
     
 
         $pharmacy_user->syncPermissions('pharmacy.prescriptions.*', 'pharmacy.prescriptions.index', 'pharmacy.prescriptions.approve', 'pharmacy.prescriptions.view', 'pharmacy.products.*', 'pharmacy.products.index', 'pharmacy.products.request', 'pharmacy.products.view', 'pharmacy.history.*');
-
-
-        $allPermissions = Permission::all();
-
-        $superadminRole = Role::where('name', 'super-admin')->first();
-        $clinicHeadRole = Role::where('name', 'clinic-head')->first();
-        
-        if ($superadminRole) {
-            // Give permissions to the super-admin role
-            $superadminRole->givePermissionTo($allPermissions);
-        
-            // Find or create the user with the email 'admin@admin.com'
-            $superadminUser = \App\Models\User::updateOrCreate([
-                'name' => 'Admin User',
-                'username' => 'admin',
-                'email' => 'admin@admin.com',
-                // Add other user details as needed
-            ]);
-        
-            // Assign the super-admin role to the user
-            $superadminUser->assignRole($superadminRole);
-        }
-        
-        if ($clinicHeadRole) {
-            // Give permissions to the clinic-head role
-            $clinicHeadRole->givePermissionTo($allPermissions);
-        
-            // Find or create the user with the email 'clinichead@clinichead.com'
-            $clinicHeadUser = \App\Models\User::updateOrCreate([
-                'name' => 'Clinic head',
-                'username' => 'head',
-                'email' => 'head@admin.com',
-            ]);
-        
-            // Assign the clinic-head role to the user
-            $clinicHeadUser->assignRole($clinicHeadRole);
-        }
-        
 
     }
     

@@ -67,16 +67,16 @@
                     @auth
 
 
-
-                        <li class="nav-item {{ Request::is('home*') ? 'menu-open' : '' }}">
-                            <a href="{{ route('home') }}" class="nav-link {{ Request::is('home*') ? 'active' : '' }}">
+                @can('patient-checkin')
+                        <li class="nav-item">
+                            <a href="{{ route('home') }}" class="nav-link">
                                 <i class="nav-icon icon fas fa-home"></i>
                                 <p>
                                     Home
                                 </p>
                             </a>
                         </li>
-
+                 @endcan
                         @can('view-dashboard')
                             <li class="nav-item {{ Request::is('dashboard*') ? 'menu-open' : '' }}">
                                 <a href="{{ route('dashboard') }}"
@@ -421,15 +421,6 @@
 
 
 
-                                    @can('patient-checkin')
-                                        <li class="nav-item">
-                                            <a href="{{ route('reception') }}"
-                                                class="nav-link {{ Request::is('reception*') ? 'active' : '' }}">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Reception</p>
-                                            </a>
-                                        </li>
-                                    @endcan
 
                                     @can('view-any', App\Models\Encounter::class)
                                     <li class="nav-item">

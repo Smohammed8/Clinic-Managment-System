@@ -32,7 +32,7 @@
                                             <option value="">Filter by receptions</option>
                                             
                                             @foreach($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                <option value="{{ $user->user->id }}">{{ $user->user->name }}</option>
                                             @endforeach
                                         </select>
                                         
@@ -43,7 +43,7 @@
                                             <option value="">Filter by physician</option>
                                             
                                             @foreach($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                <option value="{{ $user->user->id }}">{{ $user->user->name }}</option>
                                             @endforeach
                                         </select>
                                         
