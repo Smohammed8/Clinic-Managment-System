@@ -106,17 +106,14 @@ Route::prefix('/')->middleware('auth')->group(function () {
         'destroy',
     ])->name('all-clinic-services.destroy');
 
-
-
-        Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('lab-queue');
-        Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('opd-queue');
-        Route::post('/check-in', [HomeController::class, 'checkIn'])->name('checkin');
-        Route::post('/unmap-rfid', [HomeController::class,'unmapRfid'])->name('unmap-rfid');
-        Route::post('/map-rfid', [HomeController::class,'mapRfid'])->name('map-rfid');
-        Route::get('/encouter-list', [HomeController::class,'getEncouter'])->name('encounter-list');
-        Route::post('/autosearch-encounters', [HomeController::class, 'autoSearch'])->name('autosearch-encounters');
-
-
+         Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('lab-queue');
+         Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('opd-queue');
+         Route::post('/check-in', [HomeController::class, 'checkIn'])->name('checkin');
+         Route::post('/unmap-rfid', [HomeController::class,'unmapRfid'])->name('unmap-rfid');
+         Route::post('/map-rfid', [HomeController::class,'mapRfid'])->name('map-rfid');
+         Route::get('/encouter-list', [HomeController::class,'getEncouter'])->name('encounter-list');
+         Route::post('/autosearch-encounters', [HomeController::class, 'autoSearch'])->name('autosearch-encounters');
+        
         Route::resource('clinic-users', ClinicUserController::class);
         Route::resource('collages', CollageController::class);
         Route::resource('diagnoses', DiagnosisController::class);

@@ -122,7 +122,6 @@ class HomeController extends Controller
         return redirect()->route('home')->with('error', 'Student not found or RFID unmapping failed.');
     }
 
-
     public function getEncouter(){
 
 
@@ -163,9 +162,6 @@ class HomeController extends Controller
     }
     
     }
-
-
-
     public function dashboard()
     {
 

@@ -17,6 +17,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\EncounterStoreRequest;
 use App\Http\Requests\EncounterUpdateRequest;
 use App\Models\ClinicUser;
+use App\Models\LabTestRequest;
 
 require_once app_path('Helper/constants.php');
 
@@ -61,6 +62,22 @@ class EncounterController extends Controller
     {
         $this->authorize('view-any', Encounter::class);
 
+   
+
+
+
+     $pendinglabs = Auth::user()->encounters->flatMap->labRequests->where('status', null)->where('result', null)->count();
+     $labResults =  Auth::user()->encounters->flatMap->labRequests->whereNotNull('status')->whereNotNull('result')->count();
+   
+
+     $myPateints =   Auth::user()->encounters->count();
+
+    
+     $labRequests = LabTestRequest::whereNull('status')
+    ->whereNull('result')
+    ->get();
+
+     $mylabs =   $pendinglabs +     $labResults ; 
 
         $currentUserId = Auth::id();
         $encounters = Encounter::where('status', 2)
@@ -72,7 +89,7 @@ class EncounterController extends Controller
         $clinicUser = Auth::user()->clinicUsers->room?->clinic;
 
 
-        return view('app.encounters.waiting-lab', compact('encounters', 'clinicUser'));
+        return view('app.encounters.waiting-lab', compact('encounters', 'labResults', 'labRequests', 'pendinglabs','clinicUser','mylabs','myPateints'));
     }
 
 

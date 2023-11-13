@@ -441,11 +441,6 @@
                                     </li>
                                 @endcan
 
-
-
-
-                                  
-
                                     @can('waiting-queue')
                                         <li class="nav-item">
                                             <a href="{{ route('encounters.index') }}"
