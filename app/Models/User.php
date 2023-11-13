@@ -52,6 +52,12 @@ class User extends Authenticatable
     }
 
 
+    public function clinics()
+    {
+        return $this->belongsToMany(Clinic::class, 'clinic_clinic_user');
+    }
+    
+
     public function encounters()
     {
         return $this->hasMany(Encounter::class,'doctor_id');

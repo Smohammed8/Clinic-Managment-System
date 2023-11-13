@@ -56,4 +56,7 @@ class Clinic extends Model
     {
         return $this->belongsToMany(ClinicUser::class);
     }
+
+
+   
 }

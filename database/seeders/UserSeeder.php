@@ -19,17 +19,17 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = ['admin', 'doctor', 'reception', 'laboratory', 'pharmacy', 'store'];
+        // $roles = ['admin', 'doctor', 'reception', 'laboratory', 'pharmacy', 'store'];
 
-        DB::table('users')->delete();
-        foreach ($roles as $role) {
-            User::create([
-                'name' => ucfirst($role) . ' User',
-                'username' => $role,
-                'email' => $role . '@' . $role . '.com',
-                'password' => Hash::make('password'),
-            ]);
-        }
+        // DB::table('users')->delete();
+        // foreach ($roles as $role) {
+        //     User::create([
+        //         'name' => ucfirst($role) . ' User',
+        //         'username' => $role,
+        //         'email' => $role . '@' . $role . '.com',
+        //         'password' => Hash::make('password'),
+        //     ]);
+        // }
 
 
         DB::table('clinic')->delete();
@@ -51,15 +51,15 @@ class UserSeeder extends Seeder
             'description' => '',
             'clinic_id' => 1,
         ]);
-        DB::table('clinic_users')->delete();
+        // DB::table('clinic_users')->delete();
 
-        $i = 2;
-        foreach ($roles as $role) {
-            ClinicUser::create([
-                'user_id' => $i,
-                'room_id' => 1,
-            ]);
-            $i++;
-        }
+        // $i = 2;
+        // foreach ($roles as $role) {
+        //     ClinicUser::create([
+        //         'user_id' => $i,
+        //         'room_id' => 1,
+        //     ]);
+        //     $i++;
+        // }
     }
 }
