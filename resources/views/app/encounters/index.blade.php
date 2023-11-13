@@ -115,6 +115,7 @@
                                 <th class="text-left">
                                     Status
                                 </th>
+                                Accepted by
                                 <th class="text-center">
                                     @lang('crud.common.actions')
                                 </th>
@@ -250,8 +251,16 @@
                                                             <i class="icon fa fa-user"></i> Accept
                                                         </button>
                                                     </a>
-                                             
-                                                @endif
+                                                @else
+
+                                                <a href="#">
+                                                    <button type="button" class="btn btn-sm btn-outline-success mx-1">
+                                                        <i class="icon fa fa-user"></i> Accepted
+                                                    </button>
+                                                </a>
+                                         
+                                             @endif
+
                                                 @endcan
 
                                                 @can('view', $encounter)
@@ -262,15 +271,18 @@
                                                     </a>
                                                 @endcan
      
-                                            @can('view', $encounter)
+                              
                                       
-                                                    <a href="{{ route('encounters.show', $encounter) }}" class="btn btn-sm btn-outline-dange">
+                                                    <a href="#" class="btn btn-sm btn-outline-dange">
                                                   
+                                                        <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                            <i class="fa fa-user"></i> {{ $encounter->doctor->name ?? '-' }}
+                                                        </button>
                                                    
-                                                            <i class="fa fa-trash"></i> Delete
+                                                         
                                                  
                                                     </a>
-                                              @endcan
+                                       
                                           
                                     </td>
                                 </tr>
