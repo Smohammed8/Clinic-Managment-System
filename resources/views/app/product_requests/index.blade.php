@@ -50,16 +50,22 @@
                                 <th class="text-left">
                                     @lang('crud.product_requests.inputs.product_id')
                                 </th>
-                                @if (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
+
+                                @can('pharmacy.*')
+
                                 <th class="text-left">
                                    Pharmacy
                                 </th>
+                                @endcan
 
-                                @elseif (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
+
+                                @can('store.*')
+
                                 <th class="text-left">
                                     @lang('crud.product_requests.inputs.store_id')
                                 </th>
-                                @endif
+                                @endcan
+
                                 <th class="text-center">
                                     @lang('crud.common.actions')
                                 </th>
@@ -76,15 +82,21 @@
                                     <td>
                                         {{ optional($productRequest->product)->name ?? '-' }}
                                     </td>
-                                    @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
+                                    {{-- @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER)) --}}
+                                    @can('pharmacy.*')
+
                                     <td>
                                         {{ optional($productRequest->store)->name ?? '-' }}
                                     </td>
-                                @elseif (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
+                                    @endcan
+                                {{-- @elseif (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE)) --}}
+                                    @can('store.*')
                                     <td>
+
                                         {{ optional($productRequest->pharmacy)->name ?? '-' }}
                                     </td>
-                                @endif
+                                    @endcan
+                                {{-- @endif --}}
                                     <td class="text-center" style="width: 134px;">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             {{-- @can('update', $productRequest) --}}
@@ -109,18 +121,21 @@
                                             <i class="icon ion-md-eye"></i>
                                         </button>
                                     </a> --}}
-                                    @if (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
-                                            <a href="{{ route('product-requests.approve', ['productRequest'=>$productRequest]) }}">
-                                                <button type="button" class="btn btn-primary">
-                                                    Approve
-                                                </button>
-                                            </a>
 
-                                            <a href="{{ route('product-requests.reject', ['productRequest'=>$productRequest]) }}">
-                                                <button type="button" class="btn btn-danger" onclick="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                                    Reject
-                                                </button>
-                                            </a>
+                                     @can('store.*')
+
+                                     <a href="{{ route('product-requests.approve', ['productRequest'=>$productRequest]) }}">
+                                         <button type="button" class="btn btn-primary">
+                                             Approve
+                                         </button>
+                                     </a>
+
+                                     <a href="{{ route('product-requests.reject', ['productRequest'=>$productRequest]) }}">
+                                         <button type="button" class="btn btn-danger" onclick="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                             Reject
+                                         </button>
+                                     </a>
+                                            @endcan
 
                                             {{-- <form action="{{ route('product-requests.reject', ['product-request'=>$productRequest]) }}"
                                             method="GET"
@@ -130,18 +145,20 @@
                                                 Reject
                                             </button>
                                         </form> --}}
-                                    @endif
-                                            {{-- @endcan @can('delete', $productRequest) --}}
-                                            @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
-                                                <form action="{{ route('product-requests.destroy', $productRequest) }}"
-                                                    method="POST"
-                                                    onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                                    @csrf @method('DELETE')
-                                                    <button type="submit" class="btn btn-light text-danger">
-                                                        Cancel
-                                                    </button>
-                                                </form>
-                                            @endif
+
+                                            @can('pharmacy.*')
+
+                                            <form action="{{ route('product-requests.destroy', $productRequest) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                @csrf @method('DELETE')
+                                                <button type="submit" class="btn btn-light text-danger">
+                                                    Cancel
+                                                </button>
+                                            </form>
+                                            @endcan
+
+                                            {{-- @endif --}}
                                             {{-- @endcan --}}
                                         </div>
                                     </td>
