@@ -62,22 +62,11 @@ class EncounterController extends Controller
     {
         $this->authorize('view-any', Encounter::class);
 
-   
-
-
-
      $pendinglabs = Auth::user()->encounters->flatMap->labRequests->where('status', null)->where('result', null)->count();
      $labResults =  Auth::user()->encounters->flatMap->labRequests->whereNotNull('status')->whereNotNull('result')->count();
-   
-
      $myPateints =   Auth::user()->encounters->count();
-
-    
-     $labRequests = LabTestRequest::whereNull('status')
-    ->whereNull('result')
-    ->get();
-
-     $mylabs =   $pendinglabs +     $labResults ; 
+     $labRequests = LabTestRequest::whereNull('status')->whereNull('result')->get();
+     $mylabs =   $pendinglabs + $labResults ; 
 
   
         $currentUserId = Auth::id();
