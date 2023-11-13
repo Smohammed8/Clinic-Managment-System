@@ -43,11 +43,10 @@
                                         <ul class="list-group">
                                             <select id="doctorSelect" class="form-control" style="width: 100%;"
                                                 name="room_id">
-                                                @if($rooms)
-
-                                                @foreach ($rooms as $room)
-                                                    <option value="{{ $room->id }}">{{ $room->name }}</option>
-                                                @endforeach
+                                                @if ($rooms)
+                                                    @foreach ($rooms as $room)
+                                                        <option value="{{ $room->id }}">{{ $room->name }}</option>
+                                                    @endforeach
                                                 @endif
                                             </select>
                                         </ul>
@@ -115,7 +114,11 @@
                                 <th class="text-left">
                                     Status
                                 </th>
-                                Accepted by
+
+                                <th class="text-left">
+                                    Doctor
+                                </th>
+
                                 <th class="text-center">
                                     @lang('crud.common.actions')
                                 </th>
@@ -152,6 +155,9 @@
 
                                     <td>{{ optional($encounter->student)->sex ?? '-' }}</td>
 
+
+
+
                                     <td>{{ $encounter->check_in_time ? \Carbon\Carbon::parse($encounter->check_in_time)->format('M d, Y') : '-' }}
                                     </td>
                                     <td>
@@ -163,7 +169,7 @@
                                                     'color' => 'btn-outline-primary',
                                                 ],
                                                 STATUS_CHECKED_IN => [
-                                                    'name' => 'Accepted by Reception',
+                                                    'name' => 'Checked-in',
                                                     'description' => 'The patient has arrived at the clinic and registered their presence.',
                                                     'color' => 'btn-outline-success',
                                                 ],
@@ -230,6 +236,7 @@
                                         <!-- Status Description (Hidden) -->
                                         {{-- {{ $statusDetails[$encounter->status]['description'] ?? '-' }} --}}
                                     </td>
+                                    <td>  {{ $encounter->doctor->name ?? '-' }}</td>
 
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
@@ -244,7 +251,7 @@
 
                                             <!-- Check if user is a doctor -->
                                             {{-- @if (auth()->user()->hasRole(DOCTOR_ROLE)) --}}
-                                              @can('accept_patient')
+                                            @can('accept_patient')
                                                 @if ($key === 0 && $encounter->status === STATUS_CHECKED_IN)
                                                     <a href="{{ route('encounters.accept', $encounter) }}">
                                                         <button type="button" class="btn btn-sm btn-outline-primary mx-1">
@@ -252,38 +259,27 @@
                                                         </button>
                                                     </a>
                                                 @else
+                                                    <a href="#">
+                                                        <button type="button" class="btn btn-sm btn-outline-success mx-1">
+                                                            <i class="icon fa fa-user"></i> Accepted
+                                                        </button>
+                                                    </a>
+                                                @endif
+                                            @endcan
 
-                                                <a href="#">
-                                                    <button type="button" class="btn btn-sm btn-outline-success mx-1">
-                                                        <i class="icon fa fa-user"></i> Accepted
+                                            @can('view', $encounter)
+                                                <a href="{{ route('encounters.show', $encounter) }}">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                        <i class="icon fa fa-user"></i> Profile
                                                     </button>
                                                 </a>
-                                         
-                                             @endif
+                                            @endcan
 
-                                                @endcan
 
-                                                @can('view', $encounter)
-                                                    <a href="{{ route('encounters.show', $encounter) }}">
-                                                        <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                            <i class="icon fa fa-user"></i> Profile
-                                                        </button>
-                                                    </a>
-                                                @endcan
-     
-                              
-                                      
-                                                    <a href="#" class="btn btn-sm btn-outline-dange">
-                                                  
-                                                        <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                            <i class="fa fa-user"></i> {{ $encounter->doctor->name ?? '-' }}
-                                                        </button>
-                                                   
-                                                         
-                                                 
-                                                    </a>
-                                       
-                                          
+
+
+
+
                                     </td>
                                 </tr>
                             @endforeach
