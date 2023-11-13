@@ -262,7 +262,7 @@
                                                 @if($encounter->status === STATUS_IN_PROGRESS)
                                                     <a href="#">
                                                         <button type="button" class="btn btn-sm btn-outline-success mx-1">
-                                                            <i class="icon fa fa-tick"></i> Accepted
+                                                            <i class="icon fa fa-check"></i> Accepted
                                                         </button>
                                                     </a>
 
