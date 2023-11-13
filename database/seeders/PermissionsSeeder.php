@@ -43,7 +43,7 @@ class PermissionsSeeder extends Seeder
             'list stockunits', 'view stockunits', 'create stockunits', 'update stockunits', 'delete stockunits',
             'list students', 'view students', 'create students', 'update students', 'delete students',
             'list suppliers', 'view suppliers', 'create suppliers', 'update suppliers', 'delete suppliers',
-            'list vitalsigns', 'view vitalsigns', 'create vitalsigns', 'update vitalsigns',
+            'list vitalsigns', 'view vitalsigns', 'create vitalsigns', 'update vitalsigns', 'accept_patient'
         ];
 
         foreach ($permissions as $permission) {
@@ -64,7 +64,7 @@ class PermissionsSeeder extends Seeder
         Permission::findOrCreate('view-OPD-dispay');
         Permission::findOrCreate('view-setting');
         Permission::findOrCreate('accept_patient');
-       
+
 
         // findOrCreate user role and assign existing permissions
         $currentPermissions = Permission::all();
