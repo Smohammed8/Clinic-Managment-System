@@ -4,25 +4,64 @@
     <div class="">
         <div class="searchbar mt-0 mb-4">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-3">
                     <form>
                         <div class="input-group">
-                            <input id="indexSearch" type="text" name="search" placeholder="{{ __('crud.common.search') }}"
-                                value="{{ $search ?? '' }}" class="form-control" autocomplete="off" />
+                            <select name="dept" class="form-control select2"  required>
+                                <option value="">Filter by duration</option>
+                             
+                                    <option value="1">Today</option>
+                                    <option value="2">Last week</option>
+                                    <option value="3">Last month</option>
+                                    <option value="4">Last 3 months</option>
+                                    <option value="4">Last 6 months</option>
+                                    <option value="5">Last Year</option>
+                            </select>
+                        </div>
+                        
+                    </form>
+                </div>
+
+                <div class="col-md-3">
+               
+                        <div class="input-group">
+                            <select name="dept" class="form-control select2"  required>
+                                <option value="">Filter by Lab category</option>
+                                <option value="0">All categories</option>
+                                @foreach($labCategories as $labCategory)
+                                
+                                <option value="{{ $labCategory->id }}">{{ $labCategory->lab_name }} </option>
+                              @endforeach
+                            </select>
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="icon ion-md-search"></i>
+                                <button type="submit" class="btn btn-primary ml-2">
+                                    <i class="icon ion-md-search"></i> Filter
                                 </button>
                             </div>
                         </div>
+                        
                     </form>
                 </div>
+
+
+                @php
+
+$closedlabRequests = \App\Models\LabTestRequest::whereNotNull('status')
+    ->whereNotNull('result')
+    ->get();
+
+               
+$labRequests = \App\Models\LabTestRequest::whereNull('status')
+                    ->whereNull('result')
+                    ->get();
+            @endphp 
+
                 {{-- {{ route('lab-test-requests.create') }} --}}
                 <div class="col-md-6 text-right">
                     @can('create', App\Models\LabTestRequest::class)
-                        <a href="#" class="btn btn-primary">
+                        <a href="#" class="btn btn-warning">
 
-                            <i class="icon ion-md-list"> </i> List of active lab requests
+                            <i class="icon ion-md-list"> </i> List of active lab requests(  {{  $labRequests->count() }} )
                         </a>
                     @endcan
                 </div>
@@ -35,7 +74,7 @@
 
                         <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne"
                             aria-expanded="false" aria-controls="collapseOne" style="font-size: 15px;">
-                            <i class="fa fa-list"> </i> Incoming Lab Test Requests
+                            <i class="fa fa-list"> </i> Incoming Lab Test Requests [{{ $labRequests->count() ?? '0'  }}]
                         </button>
 
 
@@ -52,7 +91,7 @@
 
                         <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"
                             aria-expanded="false" aria-controls="collapseTwo" style="font-size: 15px;">
-                            <i class="fa fa-list"> </i> Closed Lab Results
+                            <i class="fa fa-list"> </i> Closed Lab Results[ {{ $closedlabRequests->count() ?? '0' }}]
                         </button>
 
 
