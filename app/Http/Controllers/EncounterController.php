@@ -79,6 +79,7 @@ class EncounterController extends Controller
 
      $mylabs =   $pendinglabs +     $labResults ; 
 
+  
         $currentUserId = Auth::id();
         $encounters = Encounter::where('status', 2)
             ->whereNotNull('doctor_id')
