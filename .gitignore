@@ -1,10 +1,11 @@
 /node_modules
 /public/build
+/public/desk_image/videos/2.mp4
 /public/hot
 /public/storage
 /storage/*.key
 /vendor
-#.env
+.env
 .env.backup
 .env.production
 .phpunit.result.cache
