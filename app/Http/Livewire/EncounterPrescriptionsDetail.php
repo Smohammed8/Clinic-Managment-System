@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Encounter;
+use App\Models\ItemsInPharmacy;
 use Livewire\WithPagination;
 use App\Models\Prescription;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -20,6 +21,7 @@ class EncounterPrescriptionsDetail extends Component
     public $editing = false;
     public $allSelected = false;
     public $showingModal = false;
+    public $itemsInPharmcy;
 
     public $modalTitle = 'New Prescription';
 
@@ -68,6 +70,11 @@ class EncounterPrescriptionsDetail extends Component
     {
         $this->resetErrorBag();
         $this->showingModal = true;
+        // dd($this->encounter->Doctor?->clinicUsers?->clinic?->clinicPharmcy?->id);
+        // $id = $this->encounter?->Doctor?->clinicUsers?->clinic?->clinicPharmcy?->id;
+        // $items = ItemsInPharmacy::where('pharmacy_id', $id)->pluck('id', 'name');
+        // $this->itemsInPharmcy = $items;
+
     }
 
     public function hideModal()
@@ -121,8 +128,13 @@ class EncounterPrescriptionsDetail extends Component
 
     public function render()
     {
+        $id = $this->encounter?->Doctor?->clinicUsers?->clinic?->clinicPharmcy?->id;
+        $items = ItemsInPharmacy::where('pharmacy_id', $id);
+        $this->itemsInPharmcy = $items->get();
+        // dd($this->itemsInPharmcy->get());
         return view('livewire.encounter-prescriptions-detail', [
             'prescriptions' => $this->encounter->prescriptions()->paginate(20),
+            'itemsInPharmcy' => [$this->itemsInPharmcy]
         ]);
     }
 }
