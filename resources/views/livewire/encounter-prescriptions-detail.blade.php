@@ -13,7 +13,7 @@
             </button>
         @endcan
     </div>
-
+    {{-- @dd($itemsInPharmcy) --}}
     <x-modal id="encounter-prescriptions-modal" wire:model="showingModal">
         <div class="modal-content">
             <div class="modal-header">
@@ -25,9 +25,23 @@
 
             <div class="modal-body">
                 <div>
+                    <div class="form-group">
+                        <x-inputs.group class="col-sm-12">
+
+                            {{-- <x-inputs.text name="prescription.dose" label="Dose" wire:model="prescription.dose"
+                                maxlength="255" placeholder="Dose"></x-inputs.text> --}}
+                            <p>Drug name</p>
+                            <select name="item" id="" class="form-control select2">
+                                @foreach ($itemsInPharmcy as $item)
+                                    <option value="{{ $item->id }}">{{ $item->item->product->name }} </option>
+                                @endforeach
+                            </select>
+                        </x-inputs.group>
+                        {{-- <label for="item" class="form-control">Drug Name </label> --}}
+                    </div>
                     <x-inputs.group class="col-sm-12">
-                        <x-inputs.textarea name="prescription.drug_name" label="Drug Name"
-                            wire:model="prescription.drug_name" maxlength="255"></x-inputs.textarea>
+                        <x-inputs.text name="prescription.drug_name" label="Drug Name"
+                            wire:model="prescription.drug_name" maxlength="255"></x-inputs.text>
                     </x-inputs.group>
 
                     <x-inputs.group class="col-sm-12">
