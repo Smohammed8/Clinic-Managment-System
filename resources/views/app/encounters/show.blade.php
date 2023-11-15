@@ -642,37 +642,37 @@
                                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                                 <input type="hidden" name="encounter" value="{{ $encounter->id }}">
 
-                                                <div class="card-body">
-                                                    <div class="row">
-                                                        <div class="col-12">
-                                                            <div class="form-group">
-                                                                <select multiple="multiple" size="72"
-                                                                    max-height="500px" overflow-y="auto"
-                                                                    name="duallistbox_demo1[]"
-                                                                    title="duallistbox_demo1[]">
-                                                                    @foreach ($labCategories as $labCategory)
-                                                                        <optgroup id="label"
-                                                                            label="{{ $labCategory->lab_name }}">
-                                                                            @foreach ($labCategory->labTests as $lab)
-                                                                                <option value="{{ $lab->id }}">
-                                                                                    {{ $lab->labCatagory->lab_name }}-{{ $lab->test_name }}
-                                                                                </option>
-                                                                            @endforeach
-                                                                        </optgroup>
-                                                                    @endforeach
-                                                                </select>
-                                                                <br>
-                                                                <div class="row">
-                                                                    <div class="col-md-6 offset-md-6">
-                                                                        <button type="submit"
-                                                                            class="btn btn-primary w-100">Send lab
-                                                                            request</button>
-                                                                    </div>
-                                                                </div>
+                              <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <select multiple="multiple" size="72"
+                                                max-height="500px" overflow-y="auto"
+                                                name="duallistbox_demo1[]"
+                                                title="duallistbox_demo1[]">
+                                                @foreach ($labCategories as $labCategory)
+                                                    <optgroup id="label" label="{{ $labCategory->lab_name }}">
+                                                        {{-- @foreach ($labCategory->labTests as $lab) --}}
+                                                        @foreach ($labCategory?->labTests->where('is_available', 1) as $lab)
+                                                            <option value="{{ $lab->id }}">
+                                                                {{ $lab->labCatagory->lab_name }}-{{ $lab->test_name }}
+                                                            </option>
+                                                        @endforeach
+                                                    </optgroup>
+                                                @endforeach
+                                            </select>
+                                            <br>
+                                            <div class="row">
+                                                <div class="col-md-6 offset-md-6">
+                                                    <button type="submit"
+                                                        class="btn btn-primary w-100">Send lab
+                                                        request</button>
+                                                </div>
+                                            </div>
 
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                        </div>
+                                    </div>
+                                </div>
                                                 </div>
                                             </form>
 
