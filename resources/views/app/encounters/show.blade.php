@@ -230,7 +230,7 @@
                                     </div>
                                 </form>
 
-                                <script>
+                                {{-- <script>
                                     $(document).ready(function() {
                                         $('#doctorSelect').select2();
 
@@ -243,7 +243,7 @@
                                             $(this).attr('data', JSON.stringify(data));
                                         });
                                     });
-                                </script>
+                                </script> --}}
                                 {{-- @endforeach --}}
                             </ul>
                         </div>

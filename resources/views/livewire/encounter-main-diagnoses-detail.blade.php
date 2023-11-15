@@ -44,7 +44,7 @@
                             @endforeach
                         </x-inputs.select>
                     </x-inputs.group> --}}
-                    
+
 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.select name="mainDiagnosis.diagnosis_id" label="Diagnosis"
