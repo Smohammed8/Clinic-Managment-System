@@ -2,14 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Scopes\Searchable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Video extends Model
 {
     use HasFactory;
-    protected $table = 'videos';
-    protected $fillable = [
-        'title', 'video', 'desc', 'status'
-    ];
+    use Searchable;
+
+    protected $fillable = ['title', 'desc', 'status', 'path'];
+
+    protected $searchableFields = ['*'];
 }

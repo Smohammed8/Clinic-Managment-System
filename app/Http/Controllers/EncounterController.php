@@ -62,13 +62,13 @@ class EncounterController extends Controller
     {
         $this->authorize('view-any', Encounter::class);
 
-     $pendinglabs = Auth::user()->encounters->flatMap->labRequests->where('status', null)->where('result', null)->count();
-     $labResults =  Auth::user()->encounters->flatMap->labRequests->whereNotNull('status')->whereNotNull('result')->count();
-     $myPateints =   Auth::user()->encounters->count();
-     $labRequests = LabTestRequest::whereNull('status')->whereNull('result')->get();
-     $mylabs =   $pendinglabs + $labResults ; 
+        $pendinglabs = Auth::user()->encounters->flatMap->labRequests->where('status', null)->where('result', null)->count();
+        $labResults =  Auth::user()->encounters->flatMap->labRequests->whereNotNull('status')->whereNotNull('result')->count();
+        $myPateints =   Auth::user()->encounters->count();
+        $labRequests = LabTestRequest::whereNull('status')->whereNull('result')->get();
+        $mylabs =   $pendinglabs + $labResults;
 
-  
+
         $currentUserId = Auth::id();
         $encounters = Encounter::where('status', 2)
             ->whereNotNull('doctor_id')
@@ -79,7 +79,7 @@ class EncounterController extends Controller
         $clinicUser = Auth::user()->clinicUsers->room?->clinic;
 
 
-        return view('app.encounters.waiting-lab', compact('encounters', 'labResults', 'labRequests', 'pendinglabs','clinicUser','mylabs','myPateints'));
+        return view('app.encounters.waiting-lab', compact('encounters', 'labResults', 'labRequests', 'pendinglabs', 'clinicUser', 'mylabs', 'myPateints'));
     }
 
 
@@ -96,25 +96,35 @@ class EncounterController extends Controller
 
 
         // Retrieve encounters with the desired status
-        $desiredStatusEncounters = Encounter::search($search)
-            ->where('status', $status)
-            ->where('clinic_id', $clinic_id) // Add this line to filter by clinic_id
-            ->orderBy('created_at', 'asc') // Order by creation timestamp (first come, first served)
-            ->paginate(10)
-            ->withQueryString();
-        // dd($desiredStatusEncounters);
-        // Retrieve encounters with other statuses (excluding the desired status)
-        $otherStatusEncounters = Encounter::search($search)
-            ->where('status', '<>', $status)
-            ->where('clinic_id', $clinic_id) // Add this line to filter by clinic_id
-            ->orderBy('created_at', 'asc') // Order by creation timestamp in descending order
+        $desiredStatusEncountersQuery = Encounter::search($search)
+            ->where('status', $status);
+
+        if ($clinic_id) {
+            $desiredStatusEncountersQuery->where('clinic_id', $clinic_id);
+        }
+
+        $desiredStatusEncounters = $desiredStatusEncountersQuery
+            ->orderBy('created_at', 'asc')
             ->paginate(10)
             ->withQueryString();
 
+        // Retrieve encounters with other statuses (excluding the desired status)
+        $otherStatusEncountersQuery = Encounter::search($search)
+            ->where('status', '<>', $status);
+
+        if ($clinic_id) {
+            $otherStatusEncountersQuery->where('clinic_id', $clinic_id);
+        }
+
+        $otherStatusEncounters = $otherStatusEncountersQuery
+            ->orderBy('created_at', 'asc')
+            ->paginate(10)
+            ->withQueryString();
+
+
         // Combine the results
         $encounters = $desiredStatusEncounters->concat($otherStatusEncounters);
-       // dd(   $encounters);
-        //$reception_id = $encounters[0]?->registered_by;
+        // $reception_id = $encounters[0]?->registered_by;
         $rooms = Clinic::find($clinic_id)?->rooms;
         // dd($rooms);
 

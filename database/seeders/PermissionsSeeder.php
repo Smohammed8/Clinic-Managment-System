@@ -286,7 +286,7 @@ class PermissionsSeeder extends Seeder
                 // Add other user details as needed
             ]);
 
-            $adminUser->assignRole($adminRole);
+            $adminUser->assignRole($e);
         }
 
         // Similar checks for the doctor user

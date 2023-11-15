@@ -2,13 +2,24 @@
 
 @section('content')
     <div class="">
+        @if (!$rooms)
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Attention!</strong> You need to assign clinic and rooms to this user.
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
         <div class="searchbar mt-0 mb-4">
+
             <div class="row">
+
                 <div class="col-md-6">
                     <form>
                         <div class="input-group">
-                            <input id="indexSearch" type="text" name="search" placeholder="{{ __('crud.common.search') }}"
-                                value="{{ $search ?? '' }}" class="form-control" autocomplete="off" />
+                            <input id="indexSearch" type="text" name="search"
+                                placeholder="{{ __('crud.common.search') }}" value="{{ $search ?? '' }}"
+                                class="form-control" autocomplete="off" />
                             <div class="input-group-append">
                                 <button type="submit" class="btn btn-primary">
                                     <i class="icon io-md-search"></i>
@@ -89,9 +100,7 @@
                                 <th class="text-left">
                                     {{-- @lang('crud.encounters.inputs.status') --}}
 
-                                    @unless (auth()->user()->hasRole('doctor'))
-                                        Patient Name
-                                    @endunless
+                                    Patient Name
                                 </th>
 
                                 <th class="text-left">
@@ -134,9 +143,9 @@
                                         {{-- <td>{{ $encounter->student->id_number ?? '-' }}</td> --}}
                                     <td>{{ $encounter->student->id_number ?? '-' }}</td>
                                     <td>
-                                        @unless (auth()->user()->hasRole('doctor'))
-                                            {{ $encounter->student?->fullName ?? '-' }}
-                                        @endunless
+                                        {{-- @unless (auth()->user()->hasRole('doctor')) --}}
+                                        {{ $encounter->student?->fullName ?? '-' }}
+                                        {{-- @endunless --}}
                                     </td>
                                     <td>
                                         @php
@@ -236,7 +245,7 @@
                                         <!-- Status Description (Hidden) -->
                                         {{-- {{ $statusDetails[$encounter->status]['description'] ?? '-' }} --}}
                                     </td>
-                                    <td>  {{ $encounter->doctor->name ?? '-' }}</td>
+                                    <td> {{ $encounter->doctor->name ?? '-' }}</td>
 
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
@@ -255,24 +264,29 @@
                                                 @if ($key === 0 && $encounter->status === STATUS_CHECKED_IN)
                                                     <a href="{{ route('encounters.accept', $encounter) }}">
                                                         <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                            <i class="icon fa fa-user"></i> Accept
+                                                             <i class="icon far fa-clock"></i>  Accept
                                                         </button>
                                                     </a>
+
+                                                @elseif ($key != 0 && $encounter->status === STATUS_CHECKED_IN)
+                                                <a href="{{ route('encounters.accept', $encounter) }}">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                            <i class="icon far fa-clock"></i>  Waiting
+                                                    </button>
+                                                </a>
+                                          
                                                 @else
-                                                @if($encounter->status === STATUS_IN_PROGRESS)
-                                                    <a href="#">
-                                                        <button type="button" class="btn btn-sm btn-outline-success mx-1">
-                                                            <i class="icon fa fa-check"></i> Accepted
-                                                        </button>
-                                                    </a>
-
+                                                    @if ($encounter->status === STATUS_IN_PROGRESS)
+                                                        <a href="#">
+                                                            <button type="button" class="btn btn-sm btn-outline-success mx-1">
+                                                                 <i class="icon fa fa-user"></i>  In-progress
+                                                            </button>
+                                                        </a>
                                                     @else
-
-                                                            <a href="#">
-                                                        <button type="button" class="btn btn-sm btn-outline-info mx-1">
-                                                            <i class="icon far fa-clock"></i> Waiting
-                                                        </button>
-                                                    </a>
+                                                        <a href="#">
+                                                            <button type="button" class="btn btn-sm btn-outline-info mx-1">
+                                                                <i class="icon fa fa-check"></i> Case closed 
+                                                        </a>
                                                     @endif
                                                 @endif
                                             @endcan

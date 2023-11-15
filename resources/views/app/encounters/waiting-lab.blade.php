@@ -84,7 +84,7 @@
                     <h4> Lab request for <u>{{ auth()->user()->fullName }} </u></h4>
                 </div>
 
-             
+
                 <hr>
                 <div class="table-responsive">
                     <table class="table table-hover  table-sm table-condensed">
@@ -101,9 +101,9 @@
                                 <th class="text-left">
                                     {{-- @lang('crud.encounters.inputs.status') --}}
 
-                                    @unless (auth()->user()->hasRole('doctor'))
-                                        Patient Name
-                                    @endunless
+                                    {{-- @unless (auth()->user()->hasRole('doctor')) --}}
+                                    Patient Name
+                                    {{-- @endunless --}}
                                 </th>
 
                                 <th class="text-left">
@@ -142,9 +142,9 @@
                                         {{-- <td>{{ $encounter->student->id_number ?? '-' }}</td> --}}
                                     <td>{{ $encounter->student->id_number ?? '-' }}</td>
                                     <td>
-                                        @unless (auth()->user()->hasRole('doctor'))
-                                            {{ $encounter->student?->fullName ?? '-' }}
-                                        @endunless
+                                        {{-- @unless (auth()->user()->hasRole('doctor')) --}}
+                                        {{ $encounter->student?->fullName ?? '-' }}
+                                        {{-- @endunless --}}
                                     </td>
                                     <td>
                                         @php
@@ -235,7 +235,8 @@
                                         @endphp
 
 
-            <button class="btn btn-sm {{ $statusDetails[$encounter->status]['color'] ?? 'btn-outline-secondary' }} mx-1">
+                                        <button
+                                            class="btn btn-sm {{ $statusDetails[$encounter->status]['color'] ?? 'btn-outline-secondary' }} mx-1">
                                             {{ $statusDetails[$encounter->status]['name'] ?? '-' }}
                                         </button>
 
@@ -246,33 +247,31 @@
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
 
-                                
+
                                             @if (auth()->user()->hasRole(DOCTOR_ROLE))
-                                              
-                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1"
-                                                        disabled>
-                                                        <i class="icon fa fa-user"></i> Call patient
-                                                    </button>
-                                             @endif
-                                       
-                                                @can('view', $encounter)
-                                                @if( $encounter->labTestRequests->count() > 0)
+                                                <button type="button" class="btn btn-sm btn-outline-primary mx-1" disabled>
+                                                    <i class="icon fa fa-user"></i> Call patient
+                                                </button>
+                                            @endif
+
+                                            @can('view', $encounter)
+                                                @if ($encounter->labTestRequests->count() > 0)
                                                     <a href="{{ route('encounters.show', $encounter) }}">
                                                         <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                             <i class="icon fa fa-download"></i> View Result
                                                         </button>
                                                     </a>
-                                                    @else
+                                                @else
                                                     <a href="{{ route('encounters.show', $encounter) }}">
                                                         <button type="button" class="btn btn-sm btn-outline-danger mx-1">
-                                                            <i class="icon fa fa-flask"></i>  LabPending
+                                                            <i class="icon fa fa-flask"></i> LabPending
                                                         </button>
                                                     </a>
-                                                    @endif
-                                                @endcan
-                                          
-                                     
-                                    
+                                                @endif
+                                            @endcan
+
+
+
                                     </td>
                                 </tr>
                             @endforeach

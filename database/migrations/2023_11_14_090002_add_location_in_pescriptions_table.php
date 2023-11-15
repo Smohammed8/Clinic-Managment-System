@@ -13,10 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('videos', function (Blueprint $table) {
+        Schema::table('prescriptions', function (Blueprint $table) {
             //
-
-            $table->string('title')->nullable();
+            $table->tinyInteger('location_of_medication')->nullable();
         });
     }
 
@@ -27,9 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('videos', function (Blueprint $table) {
-            //
-            $table->dropColumn('title');
+        Schema::table('prescriptions', function (Blueprint $table) {
+            $table->dropColumn('location_of_medication');
         });
     }
 };

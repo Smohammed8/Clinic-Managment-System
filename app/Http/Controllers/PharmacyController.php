@@ -46,11 +46,11 @@ class PharmacyController extends Controller
     {
         $this->authorize('create', Pharmacy::class);
 
-        $campuses = Campus::pluck('name', 'id');
+        // $campuses = Campus::pluck('name', 'id');
         $users=User::pluck('name','id');
         $clinics=Clinic::pluck('name','id');
         $stores=Store::pluck('name','id');
-        return view('app.pharmacies.create', compact('campuses','users','clinics','stores'));
+        return view('app.pharmacies.create', compact('users','clinics','stores'));
     }
 
     /**

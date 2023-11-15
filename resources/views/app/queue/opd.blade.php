@@ -51,11 +51,11 @@
             </script>
 
         </div>
-        <div class="col-md-12 bg-info" style="height: 35%;">
-            <!-- Content for the bottom section -->
+        <div class="col-md-12 bg-info" style="min-height: 35%;">
             <div class="p-2">
                 {{ Widget::run('opdQueueTable') }}
             </div>
         </div>
+
     </div>
 @endsection

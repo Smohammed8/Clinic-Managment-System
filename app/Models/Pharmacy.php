@@ -14,7 +14,7 @@ class Pharmacy extends Model
     protected $fillable = [
         'name',
         'admin_id',
-        'campus_id',
+        // 'campus_id',
         'status',
         'description',
         'clinic_id',
@@ -27,10 +27,10 @@ class Pharmacy extends Model
         'status' => 'boolean',
     ];
 
-    public function campus()
-    {
-        return $this->belongsTo(Campus::class);
-    }
+    // public function campus()
+    // {
+    //     return $this->belongsTo(Campus::class);
+    // }
 
     public function itemsInPharmacies()
     {

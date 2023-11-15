@@ -306,15 +306,19 @@
                                         <th class="text-left">
                                             @lang('crud.product_requests.inputs.product_id')
                                         </th>
-                                        @if (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
-                                            <th class="text-left">
-                                                Pharmacy
-                                            </th>
-                                        @elseif (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
-                                            <th class="text-left">
-                                                @lang('crud.product_requests.inputs.store_id')
-                                            </th>
-                                        @endif
+
+                                        @can('store.*')
+
+                                        <th class="text-left">
+                                            Pharmacy
+                                        </th>
+                                        @endcan
+                                        @can('pharmacy.*')
+
+                                        <th class="text-left">
+                                            @lang('crud.product_requests.inputs.store_id')
+                                        </th>
+                                        @endcan
                                         <th class="text-center">
                                             @lang('crud.common.actions')
                                         </th>
@@ -331,10 +335,13 @@
                                             <td>
                                                 {{ optional($requestedProductRequest->product)->name ?? '-' }}
                                             </td>
-                                            @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
-                                                <td>
-                                                    {{ optional($requestedProductRequest->store)->name ?? '-' }}
-                                                </td>
+                                            {{-- @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER)) --}}
+                                            @can('pharmacy.*')
+
+                                            <td>
+                                                {{ optional($requestedProductRequest->store)->name ?? '-' }}
+                                            </td>
+                                            @endcan
                                             @elseif (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
                                                 <td>
                                                     {{ optional($requestedProductRequest->pharmacy)->name ?? '-' }}
@@ -366,17 +373,20 @@
                                                 </a> --}}
 
                                                     {{-- @endcan @can('delete', $productRequest) --}}
-                                                    @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER))
-                                                        <form
-                                                            action="{{ route('product-requests.destroy', $requestedProductRequest) }}"
-                                                            method="POST"
-                                                            onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                                            @csrf @method('DELETE')
-                                                            <button type="submit" class="btn btn-light text-danger">
-                                                                Cancel
-                                                            </button>
-                                                        </form>
-                                                    @endif
+                                                    {{-- @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER)) --}}
+                                                    @can('pharmacy.*')
+
+                                                    <form
+                                                        action="{{ route('product-requests.destroy', $requestedProductRequest) }}"
+                                                        method="POST"
+                                                        onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                        @csrf @method('DELETE')
+                                                        <button type="submit" class="btn btn-light text-danger">
+                                                            Cancel
+                                                        </button>
+                                                    </form>
+                                                    @endcan
+                                                    {{-- @endif --}}
                                                     {{-- @endcan --}}
                                                 </div>
                                             </td>
