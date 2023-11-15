@@ -264,21 +264,28 @@
                                                 @if ($key === 0 && $encounter->status === STATUS_CHECKED_IN)
                                                     <a href="{{ route('encounters.accept', $encounter) }}">
                                                         <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                            <i class="icon fa fa-user"></i> CallNext
+                                                             <i class="icon far fa-clock"></i>  Accept
                                                         </button>
                                                     </a>
+
+                                                @elseif ($key != 0 && $encounter->status === STATUS_CHECKED_IN)
+                                                <a href="{{ route('encounters.accept', $encounter) }}">
+                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                            <i class="icon far fa-clock"></i>  Waiting
+                                                    </button>
+                                                </a>
+                                          
                                                 @else
                                                     @if ($encounter->status === STATUS_IN_PROGRESS)
                                                         <a href="#">
                                                             <button type="button" class="btn btn-sm btn-outline-success mx-1">
-                                                                <i class="icon fa fa-check"></i> In-progress
+                                                                 <i class="icon fa fa-user"></i>  In-progress
                                                             </button>
                                                         </a>
                                                     @else
                                                         <a href="#">
                                                             <button type="button" class="btn btn-sm btn-outline-info mx-1">
-                                                                <i class="icon far fa-clock"></i> Closed
-                                                            </button>
+                                                                <i class="icon fa fa-check"></i> Case closed 
                                                         </a>
                                                     @endif
                                                 @endif

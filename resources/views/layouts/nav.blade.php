@@ -66,7 +66,7 @@
                        @if( $labResultsCount > 0)
                         <span class="badge badge-warning navbar-badge large-badge notification-badge" style="color:black;">
                         @else
-                        <span class="badge badge-warning navbar-badge large-badge" style="color:black;">
+                        {{-- <span class="badge badge-warning navbar-badge large-badge" style="color:black;"> --}}
                         @endif
                         <b>{{ $labResultsCount ?? '-' }} </b></span>
                     </a>
@@ -115,7 +115,7 @@
           @if( $labRequests->count() > 0)
           <span class="badge badge-warning navbar-badge  large-badge notification-badge" style="color:black;">
           @else
-          <span class="badge badge-warning navbar-badge large-badge " style="color:black;">
+          {{-- <span class="badge badge-warning navbar-badge large-badge " style="color:black;"> --}}
           @endif
             
             <b> {{ $labRequests->count() ?? '0' }}</b></span>
