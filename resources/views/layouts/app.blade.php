@@ -70,6 +70,10 @@
         .nav-icon.icon:before {
             width: 25px;
         }
+
+        /* * {
+            outline: 1px solid red;
+        } */
     </style>
 
     @livewireStyles
@@ -97,23 +101,23 @@
 
 
     @if (session()->has('success') || session()->has('error'))
-    <script>
-        var notyf = new Notyf({
-            dismissible: true,
-            position: {
-                x: 'right',
-                y: 'top',
-            },
-            width: '500px', // Set the desired width here
-        });
+        <script>
+            var notyf = new Notyf({
+                dismissible: true,
+                position: {
+                    x: 'right',
+                    y: 'top',
+                },
+                width: '500px', // Set the desired width here
+            });
 
-        @if (session()->has('success'))
-            notyf.success('{{ session('success') }}');
-        @elseif (session()->has('error'))
-            notyf.error('{{ session('error') }}');
-        @endif
-    </script>
-   @endif
+            @if (session()->has('success'))
+                notyf.success('{{ session('success') }}');
+            @elseif (session()->has('error'))
+                notyf.error('{{ session('error') }}');
+            @endif
+        </script>
+    @endif
 
 
     <script>
@@ -149,8 +153,6 @@
                 // Select2 options and configurations
             });
         });
-
-        
     </script>
 
     <script>
