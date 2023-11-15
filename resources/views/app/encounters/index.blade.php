@@ -264,20 +264,20 @@
                                                 @if ($key === 0 && $encounter->status === STATUS_CHECKED_IN)
                                                     <a href="{{ route('encounters.accept', $encounter) }}">
                                                         <button type="button" class="btn btn-sm btn-outline-primary mx-1">
-                                                            <i class="icon fa fa-user"></i> Accept
+                                                            <i class="icon fa fa-user"></i> CallNext
                                                         </button>
                                                     </a>
                                                 @else
                                                     @if ($encounter->status === STATUS_IN_PROGRESS)
                                                         <a href="#">
                                                             <button type="button" class="btn btn-sm btn-outline-success mx-1">
-                                                                <i class="icon fa fa-check"></i> Accepted
+                                                                <i class="icon fa fa-check"></i> In-progress
                                                             </button>
                                                         </a>
                                                     @else
                                                         <a href="#">
                                                             <button type="button" class="btn btn-sm btn-outline-info mx-1">
-                                                                <i class="icon far fa-clock"></i> Waiting
+                                                                <i class="icon far fa-clock"></i> Closed
                                                             </button>
                                                         </a>
                                                     @endif
