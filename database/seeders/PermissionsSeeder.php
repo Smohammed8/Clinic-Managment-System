@@ -366,14 +366,45 @@ class PermissionsSeeder extends Seeder
             $receptionUser->assignRole($receptionRole);
         }
 
-      //  $store_user = Role::updateOrCreate(Constants::STORE_USER_ROLE);
-   
-        $store_user->syncPermissions('store.product.*', 'store.product.index', 'store.product.create', 'store.product.update', 'store.product.view', 'store.product.item', 'store.request.*', 'store.request.index', 'store.request.approve', 'store.request.reject', 'store.records.*', 'store.records.index', 'store.records.view', 'store.records.edit', 'store.records.delete');
 
-    
+        Permission::findOrCreate('store.*');
+        Permission::findOrCreate('store.product.*');
+        Permission::findOrCreate('store.product.index');
+        Permission::findOrCreate('store.product.create');
+        Permission::findOrCreate('store.product.update');
+        Permission::findOrCreate('store.product.view');
+        Permission::findOrCreate('store.product.item');
+        Permission::findOrCreate('store.request.*');
+        Permission::findOrCreate('store.request.index');
+        Permission::findOrCreate('store.request.approve');
+        Permission::findOrCreate('store.request.reject');
+        Permission::findOrCreate('store.records.*');
+        Permission::findOrCreate('store.records.index');
+        Permission::findOrCreate('store.records.edit');
+        Permission::findOrCreate('store.records.view');
+        Permission::findOrCreate('store.records.delete');
+        Permission::findOrCreate('pharmacy.*');
+        Permission::findOrCreate('pharmacy.prescriptions.*');
+        Permission::findOrCreate('pharmacy.prescriptions.index');
+        Permission::findOrCreate('pharmacy.prescriptions.approve');
+        Permission::findOrCreate('pharmacy.prescriptions.view');
+        Permission::findOrCreate('pharmacy.products.*');
+        Permission::findOrCreate('pharmacy.products.index');
+        Permission::findOrCreate('pharmacy.products.*');
+        Permission::findOrCreate('pharmacy.products.index');
+        Permission::findOrCreate('pharmacy.products.request');
+        Permission::findOrCreate('pharmacy.products.view');
+        Permission::findOrCreate('pharmacy.history.*');
 
-        $pharmacy_user->syncPermissions('pharmacy.prescriptions.*', 'pharmacy.prescriptions.index', 'pharmacy.prescriptions.approve', 'pharmacy.prescriptions.view', 'pharmacy.products.*', 'pharmacy.products.index', 'pharmacy.products.request', 'pharmacy.products.view', 'pharmacy.history.*');
 
+
+
+
+        $store_user = Role::findOrCreate(Constants::STORE_USER_ROLE);
+        $store_user->syncPermissions('store.*', 'store.product.*', 'store.product.index', 'store.product.create', 'store.product.update', 'store.product.view', 'store.product.item', 'store.request.*', 'store.request.index', 'store.request.approve', 'store.request.reject', 'store.records.*', 'store.records.index', 'store.records.view', 'store.records.edit', 'store.records.delete');
+
+        $pharmacy_user = Role::findOrCreate(Constants::PHARMACY_USER);
+        $pharmacy_user->syncPermissions('pharmacy.*', 'pharmacy.prescriptions.*', 'pharmacy.prescriptions.index', 'pharmacy.prescriptions.approve', 'pharmacy.prescriptions.view', 'pharmacy.products.*', 'pharmacy.products.index', 'pharmacy.products.request', 'pharmacy.products.view', 'pharmacy.history.*');
     }
     
     catch (\Exception $e) {
