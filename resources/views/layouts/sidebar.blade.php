@@ -124,28 +124,29 @@
                             @endcan
 
                             {{-- This one will displayed once we implement it --}}
-                            {{-- @can('pharmacy.prescriptions.*')
-                            <li class="nav-item">
-                                <a href="{{ route('prescriptions.index') }}"
-                                    class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
-                                    <i class="nav-icon icon fas fa-home"></i>
-                                    <p>
-                                        Prescriptions
-                                    </p>
-                                </a>
-                            </li>
-                        @endcan
-                        @can('pharmacy.history.*')
-                            <li class="nav-item">
-                                <a href="{{ route('products.index') }}"
-                                    class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
-                                    <i class="nav-icon icon fas fa-history"></i>
-                                    <p>
-                                        History
-                                    </p>
-                                </a>
-                            </li>
-                        @endcan --}}
+                            @can('pharmacy.prescriptions.*')
+                                <li class="nav-item">
+                                    <a href="{{ route('prescriptions.index') }}"
+                                        class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                                        <i class="nav-icon icon fas fa-home"></i>
+                                        <p>
+                                            Prescriptions
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
+
+                            @can('pharmacy.history.*')
+                                <li class="nav-item">
+                                    <a href="{{ route('prescriptions.history') }}"
+                                        class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                                        <i class="nav-icon icon fas fa-history"></i>
+                                        <p>
+                                            History
+                                        </p>
+                                    </a>
+                                </li>
+                            @endcan
                             {{-- --------------------------------------------- --}}
                             @can('pharmacy.products.*')
                                 <li class="nav-item">

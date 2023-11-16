@@ -90,7 +90,7 @@ class EncounterPrescriptionsDetail extends Component
 
     public function save()
     {
-        dd($this);
+        // dd($this);
         $this->validate();
 
         if (!$this->prescription->encounter_id) {
@@ -102,16 +102,17 @@ class EncounterPrescriptionsDetail extends Component
         } else {
             $this->authorize('update', $this->prescription);
         }
-        dd($this);
+        // dd($this);
         if ($this->prescription->drug_name == null) {
             $this->prescription->location_of_medication = 0;
-            $this->prescription->product_id = Null;
-            // $item = ItemsInPharmacy::where('id', $this->prescription->items_in_pharmacies_id)->first();
-            // $product=$item->item->product->id;
-            // $product = $item->item->product;
-            // $this->prescription->product_id = $item->item->product->id;
-            // $this->prescription->drug_name = $product->name;
+            // dd($this->prescription->items_in_pharmacies_id);
+            $item = ItemsInPharmacy::where('id', $this->prescription->items_in_pharmacies_id)->first();
+            $product = $item->item->product->id;
+            $product = $item->item->product;
+            $this->prescription->product_id = $item->item->product->id;
+            $this->prescription->drug_name = $product->name;
         } else {
+            $this->prescription->product_id = Null;
             $this->prescription->location_of_medication = 1;
         }
 

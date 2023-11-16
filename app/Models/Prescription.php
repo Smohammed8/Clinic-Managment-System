@@ -37,4 +37,9 @@ class Prescription extends Model
     {
         return $this->belongsTo(Encounter::class, 'encounter_id');
     }
+
+    public function itemInPharmacy()
+    {
+        return $this->belongsTo(ItemsInPharmacy::class, 'items_in_pharmacies_id');
+    }
 }

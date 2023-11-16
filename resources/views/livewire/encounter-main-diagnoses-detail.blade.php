@@ -50,6 +50,7 @@
                         <x-inputs.selecmodal name="mainDiagnosis.diagnosis_id" label="Diagnosis"
                             wire:model="mainDiagnosis.diagnosis_id">
                             <option value="null" disabled>-</option>
+
                             @foreach ($diagnosesForSelect as $value => $label)
                                 <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach

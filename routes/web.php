@@ -129,7 +129,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::resource('lab-test-request-groups', LabTestRequestGroupController::class);
     Route::resource('main-diagnoses', MainDiagnosisController::class);
     Route::resource('medical-records', MedicalRecordController::class);
-    Route::resource('prescriptions', PrescriptionController::class);
+    // Route::resource('prescriptions', PrescriptionController::class);
     Route::resource('programs', ProgramController::class);
     Route::resource('religions', ReligionController::class);
     Route::resource('rooms', RoomController::class);
@@ -161,7 +161,6 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::resource('lab-test-request-groups', LabTestRequestGroupController::class);
     Route::resource('main-diagnoses', MainDiagnosisController::class);
     Route::resource('medical-records', MedicalRecordController::class);
-    Route::resource('prescriptions', PrescriptionController::class);
     Route::resource('programs', ProgramController::class);
     Route::resource('religions', ReligionController::class);
     Route::resource('rooms', RoomController::class);
@@ -204,6 +203,9 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::get('/product-requests/sentRequests', [ProductRequestController::class, 'sentRequests'])->name('product-requests.sentRequests');
     Route::get('/product-requests/records', [ProductRequestController::class, 'recordsOfRequests'])->name('product-requests.recordsOfRequests');
 
+    Route::get('/prescriptions/history', [PrescriptionController::class, 'history'])->name('prescriptions.history');
+    Route::get('/prescriptions/approve/{prescription}', [PrescriptionController::class, 'approve'])->name('prescriptions.approve');
+    Route::get('/prescriptions/reject/{prescription}', [PrescriptionController::class, 'reject'])->name('prescriptions.reject');
 
     Route::resource('stores', StoreController::class);
     Route::resource('products', ProductController::class);
@@ -213,6 +215,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
         'items-in-pharmacies',
         ItemsInPharmacyController::class
     );
+    Route::resource('prescriptions', PrescriptionController::class);
 
 
 
