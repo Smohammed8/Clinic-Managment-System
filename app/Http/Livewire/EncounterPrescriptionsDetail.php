@@ -22,6 +22,10 @@ class EncounterPrescriptionsDetail extends Component
     public $allSelected = false;
     public $showingModal = false;
     public $itemsInPharmcy;
+    public $items_in_pharmacies_id;
+    public $location_of_medication;
+
+
 
     public $modalTitle = 'New Prescription';
 
@@ -31,11 +35,13 @@ class EncounterPrescriptionsDetail extends Component
         'prescription.frequency' => ['nullable', 'max:255', 'string'],
         'prescription.duration' => ['nullable', 'max:255', 'string'],
         'prescription.other_info' => ['nullable', 'max:255', 'string'],
+        'prescription.items_in_pharmacies_id' => ['nullable'],
     ];
 
     public function mount(Encounter $encounter)
     {
         $this->encounter = $encounter;
+
         $this->resetPrescriptionData();
     }
 
@@ -84,18 +90,30 @@ class EncounterPrescriptionsDetail extends Component
 
     public function save()
     {
+        dd($this);
         $this->validate();
 
         if (!$this->prescription->encounter_id) {
             $this->authorize('create', Prescription::class);
 
             $this->prescription->encounter_id = $this->encounter->id;
+            // dd($this->encounter->Doctor->clinicUsers->clinic);
+            $this->prescription->clinic_id = $this->encounter->Doctor->clinicUsers->clinic->id;
         } else {
             $this->authorize('update', $this->prescription);
         }
-        // dd($this->prescription);
-
-        $this->prescription->product_id = NULL;
+        dd($this);
+        if ($this->prescription->drug_name == null) {
+            $this->prescription->location_of_medication = 0;
+            $this->prescription->product_id = Null;
+            // $item = ItemsInPharmacy::where('id', $this->prescription->items_in_pharmacies_id)->first();
+            // $product=$item->item->product->id;
+            // $product = $item->item->product;
+            // $this->prescription->product_id = $item->item->product->id;
+            // $this->prescription->drug_name = $product->name;
+        } else {
+            $this->prescription->location_of_medication = 1;
+        }
 
         $this->prescription->save();
 
@@ -134,7 +152,11 @@ class EncounterPrescriptionsDetail extends Component
         // dd($this->itemsInPharmcy->get());
         return view('livewire.encounter-prescriptions-detail', [
             'prescriptions' => $this->encounter->prescriptions()->paginate(20),
-            'itemsInPharmcy' => [$this->itemsInPharmcy]
+            'itemsInPharmcy' => [$this->itemsInPharmcy],
+            'clinic_id' => $this->encounter?->Doctor?->clinicUsers?->clinic->id,
+            'encounter_id' => $this->encounter->id,
+
+
         ]);
     }
 }

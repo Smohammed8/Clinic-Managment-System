@@ -25,10 +25,56 @@
 
             <div class="modal-body">
                 <div>
-                    <x-inputs.group class="col-sm-12">
-                        <x-inputs.textarea name="prescription.drug_name" label="Drug Name"
-                            wire:model="prescription.drug_name" maxlength="255"></x-inputs.textarea>
-                    </x-inputs.group>
+                    {{-- lable for the radio toggle start --}}
+                    <div>
+                        {{-- Label for the radio toggle start --}}
+                        {{-- <div class="form-group">
+                            <label for="medication">Select Source:</label>
+                            <input type="radio" wire:model="location_of_medication" value="pharmacy"
+                                id="pharmacyRadio"> Pharmacy
+                            <input type="radio" wire:model="location_of_medication" value="prescription"
+                                id="prescriptionRadio"> Prescription
+                        </div>
+ --}}
+
+                        <div class="form-group">
+                            <label for="medication">Select Source:</label>
+                            <input type="radio" wire:model="location_of_medication" value="pharmacy"
+                                id="pharmacyRadio"> Pharmacy
+                            <input type="radio" wire:model="location_of_medication" value="prescription"
+                                id="prescriptionRadio"> Prescription
+                        </div>
+                        {{-- Label for the radio toggle end --}}
+
+
+
+                        {{-- Livewire conditional rendering --}}
+                        @if ($location_of_medication == 'pharmacy')
+                            {{-- <div id="pharmacyInputs">
+                                <label for="medication">Drug Name</label>
+                                <select name="items_in_pharmacies_id" wire:model="prescription.items_in_pharmacies_id"
+                                    maxlength="255">
+                                    @foreach ($itemsInPharmcy as $item)
+                                        <option value="{{ $item->id }}">{{ $item->item->product->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div> --}}
+                            <div id="pharmacyInputs">
+                                <label for="medication">Drug Name</label>
+                                <select name="prescription.items_in_pharmacies_id"
+                                    wire:model="prescription.items_in_pharmacies_id" maxlength="255">
+                                    @foreach ($itemsInPharmcy as $item)
+                                        <option value="{{ $item->id }}">{{ $item->item->product->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        @elseif ($location_of_medication == 'prescription')
+                            <x-inputs.group class="col-sm-12" id="prescriptionInputs">
+                                <x-inputs.text name="prescription.drug_name" label="Drug Name"
+                                    wire:model="prescription.drug_name" maxlength="255"></x-inputs.text>
+                            </x-inputs.group>
+                        @endif
+                    </div>
 
                     <x-inputs.group class="col-sm-12">
                         <x-inputs.text name="prescription.dose" label="Dose" wire:model="prescription.dose"
@@ -50,6 +96,11 @@
                             wire:model="prescription.other_info" maxlength="255"></x-inputs.textarea>
                     </x-inputs.group>
                 </div>
+
+                {{-- Livewire script for the radio toggle start --}}
+
+                {{-- Livewire script for the radio toggle end --}}
+
             </div>
 
             @if ($editing)
