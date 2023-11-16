@@ -51,8 +51,8 @@
                 <div class="d-flex justify-content-between">
                     <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link" id="schedule-tab" data-toggle="pill" href="#ongoing-tabs" role="tab"
-                                aria-controls="custom-tabs-one-tabs" aria-selected="false"
+                            <a class="nav-link active" id="schedule-tab" data-toggle="pill" href="#ongoing-tabs"
+                                role="tab" aria-controls="custom-tabs-one-tabs" aria-selected="false"
                                 onclick="setTabCookie(0)">OnGoing</a>
                         </li>
                         <li class="nav-item">
@@ -257,7 +257,7 @@
                         <div style="display: flex; justify-content: space-between;">
                             <h4 class="card-title">
                                 On Going Production Request Lists
-                                On Going Production Request Lists
+
                             </h4>
                         </div>
 
@@ -342,22 +342,23 @@
                                                     {{ optional($requestedProductRequest->store)->name ?? '-' }}
                                                 </td>
                                             @endcan
-                                        @elseif (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
-                                            <td>
-                                                {{ optional($requestedProductRequest->pharmacy)->name ?? '-' }}
+                                            @can('store.*')
+                                                {{-- @elseif (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE)) --}}
+                                                <td>
+                                                    {{ optional($requestedProductRequest->pharmacy)->name ?? '-' }}
 
-                                            </td>
-                                        @endcan
-                                        {{-- @elseif (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
+                                                </td>
+                                            @endcan
+                                            {{-- @elseif (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
                                             <td>
                                                 </td>
                                             @endif --}}
-                                        </td> --}}
-                                        {{-- @endif --}}
-                                        <td class="text-center" style="width: 134px;">
-                                            <div role="group" aria-label="Row Actions" class="btn-group">
-                                                {{-- @can('update', $productRequest) --}}
-                                                {{-- <a
+                                            {{-- </td>  --}}
+                                            {{-- @endif --}}
+                                            <td class="text-center" style="width: 134px;">
+                                                <div role="group" aria-label="Row Actions" class="btn-group">
+                                                    {{-- @can('update', $productRequest) --}}
+                                                    {{-- <a
                                                     href="{{ route('product-requests.edit', $productRequest) }}"
                                                 >
                                                     <button
@@ -367,8 +368,8 @@
                                                         <i class="icon ion-md-create"></i>
                                                     </button>
                                                 </a> --}}
-                                                {{-- @endcan @can('view', $productRequest) --}}
-                                                {{-- <a
+                                                    {{-- @endcan @can('view', $productRequest) --}}
+                                                    {{-- <a
                                                     href="{{ route('product-requests.show', $productRequest) }}"
                                                 >
                                                     <button
@@ -379,40 +380,43 @@
                                                     </button>
                                                 </a> --}}
 
-                                                {{-- @endcan @can('delete', $productRequest) --}}
-                                                {{-- @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER)) --}}
-                                                @can('pharmacy.*')
-                                                    <form
-                                                        action="{{ route('product-requests.destroy', $requestedProductRequest) }}"
-                                                        method="POST"
-                                                        onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                                        @csrf @method('DELETE')
-                                                        <button type="submit" class="btn btn-light text-danger">
-                                                            Cancel
-                                                        </button>
-                                                    </form>
-                                                @endcan
-                                                {{-- @endif --}}
-                                                {{-- @endcan --}}
-                                            </div>
-                                        </td>
-                                    </tr>
-                                @empty
+                                                    {{-- @endcan @can('delete', $productRequest) --}}
+                                                    {{-- @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER)) --}}
+                                                    @can('pharmacy.*')
+                                                        <form
+                                                            action="{{ route('product-requests.destroy', $requestedProductRequest) }}"
+                                                            method="POST"
+                                                            onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                            @csrf @method('DELETE')
+                                                            <button type="submit" class="btn btn-light text-danger">
+                                                                Cancel
+                                                            </button>
+                                                        </form>
+                                                    @endcan
+                                                    {{-- @endif --}}
+                                                    {{-- @endcan --}}
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="5">
+                                                @lang('crud.common.no_items_found')
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                </tbody>
+                                <tfoot>
                                     <tr>
                                         <td colspan="5">
-                                            @lang('crud.common.no_items_found')
+                                            {!! $RequestedProductRequests->render() !!}
                                         </td>
                                     </tr>
-                                @endforelse
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td colspan="5">
-                                        {!! $RequestedProductRequests->render() !!}
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                                </tfoot>
+                            </table>
+                        </div>
+
+
                     </div>
 
 
@@ -423,8 +427,5 @@
 
 
         </div>
-
-
     </div>
-</div>
 @endsection
