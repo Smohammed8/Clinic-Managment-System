@@ -60,24 +60,29 @@
                                     <td>{{ $labCatagory->lab_desc ?? '-' }}</td>
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
+                                      
+                                            @can('view', $labCatagory)
+                                            <a href="{{ route('lab-catagories.show', $labCatagory) }}">
+                                                <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                    <i class="fa fa-list"></i> Details
+                                                </button>
+                                            </a>
+                                            @endcan
+
                                             @can('update', $labCatagory)
                                                 <a href="{{ route('lab-catagories.edit', $labCatagory) }}">
-                                                    <button type="button" class="btn btn-light">
+                                                    <button type="button" class="btn btn-sm btn-outline-info mx-1">
                                                         <i class="fa fa-edit"></i> Edit
                                                     </button>
                                                 </a>
-                                                @endcan @can('view', $labCatagory)
-                                                <a href="{{ route('lab-catagories.show', $labCatagory) }}">
-                                                    <button type="button" class="btn btn-light">
-                                                        <i class="icon ion-md-eye"></i> Show
-                                                    </button>
-                                                </a>
-                                                @endcan @can('delete', $labCatagory)
+                                           
+                                                @endcan
+                                                 @can('delete', $labCatagory)
                                                 <form action="{{ route('lab-catagories.destroy', $labCatagory) }}"
                                                     method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
-                                                    <button type="submit" class="btn btn-light text-danger">
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
                                                         <i class="icon ion-md-trash"></i> Delete
                                                     </button>
                                                 </form>
