@@ -11,6 +11,22 @@
 
                 <div class="mt-4">
                     <div class="mb-4">
+                        <h5>@lang('crud.videos.inputs.path')</h5>
+                        @if (isset($video->path))
+                            <div class="card">
+                                <div class="card-body">
+                                    <video width="400" controls>
+                                        <source src="{{ $video->path }}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+                        @else
+                            <span>-</span>
+                        @endif
+                    </div>
+
+                    <div class="mb-4">
                         <h5>@lang('crud.videos.inputs.title')</h5>
                         <span>{{ $video->title ?? '-' }}</span>
                     </div>
@@ -21,10 +37,6 @@
                     <div class="mb-4">
                         <h5>@lang('crud.videos.inputs.status')</h5>
                         <span>{{ $video->status ?? '-' }}</span>
-                    </div>
-                    <div class="mb-4">
-                        <h5>@lang('crud.videos.inputs.path')</h5>
-                        <span>{{ $video->path ?? '-' }}</span>
                     </div>
                     <div class="mb-4">
                         <h5>@lang('crud.videos.inputs.path')</h5>

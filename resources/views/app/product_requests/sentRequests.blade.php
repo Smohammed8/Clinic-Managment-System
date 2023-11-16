@@ -12,7 +12,7 @@
         $(function() {
             switch (getCookie('tab')) {
                 case "0":
-                $('#ongoing-tabs').toggleClass('show');
+                    $('#ongoing-tabs').toggleClass('show');
                     $('#ongoing-tabs').toggleClass('active');
                     $('#ongoing-tab').toggleClass('active');
                     break;
@@ -39,16 +39,7 @@
             document.cookie = "tab=" + tab + "; path={{ url()->current() }}";
         }
     </script>
-    <script>
-
-
-
-
-
-
-
-
-    </script>
+    <script></script>
 @endpush
 @section('content')
     <div class="container">
@@ -263,7 +254,7 @@
 
                         <div style="display: flex; justify-content: space-between;">
                             <h4 class="card-title">
-                               On Going Production Request Lists
+                                On Going Production Request Lists
                             </h4>
                         </div>
 
@@ -308,16 +299,14 @@
                                         </th>
 
                                         @can('store.*')
-
-                                        <th class="text-left">
-                                            Pharmacy
-                                        </th>
+                                            <th class="text-left">
+                                                Pharmacy
+                                            </th>
                                         @endcan
                                         @can('pharmacy.*')
-
-                                        <th class="text-left">
-                                            @lang('crud.product_requests.inputs.store_id')
-                                        </th>
+                                            <th class="text-left">
+                                                @lang('crud.product_requests.inputs.store_id')
+                                            </th>
                                         @endcan
                                         <th class="text-center">
                                             @lang('crud.common.actions')
@@ -337,16 +326,21 @@
                                             </td>
                                             {{-- @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER)) --}}
                                             @can('pharmacy.*')
-
-                                            <td>
-                                                {{ optional($requestedProductRequest->store)->name ?? '-' }}
-                                            </td>
+                                                <td>
+                                                    {{ optional($requestedProductRequest->store)->name ?? '-' }}
+                                                </td>
                                             @endcan
-                                            @elseif (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
+
+                                            @can('store.*')
                                                 <td>
                                                     {{ optional($requestedProductRequest->pharmacy)->name ?? '-' }}
+
                                                 </td>
-                                            @endif
+                                            @endcan
+                                            {{-- @elseif (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE))
+                                            <td>
+                                                </td>
+                                            @endif --}}
                                             <td class="text-center" style="width: 134px;">
                                                 <div role="group" aria-label="Row Actions" class="btn-group">
                                                     {{-- @can('update', $productRequest) --}}
@@ -375,16 +369,15 @@
                                                     {{-- @endcan @can('delete', $productRequest) --}}
                                                     {{-- @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER)) --}}
                                                     @can('pharmacy.*')
-
-                                                    <form
-                                                        action="{{ route('product-requests.destroy', $requestedProductRequest) }}"
-                                                        method="POST"
-                                                        onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                                        @csrf @method('DELETE')
-                                                        <button type="submit" class="btn btn-light text-danger">
-                                                            Cancel
-                                                        </button>
-                                                    </form>
+                                                        <form
+                                                            action="{{ route('product-requests.destroy', $requestedProductRequest) }}"
+                                                            method="POST"
+                                                            onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                            @csrf @method('DELETE')
+                                                            <button type="submit" class="btn btn-light text-danger">
+                                                                Cancel
+                                                            </button>
+                                                        </form>
                                                     @endcan
                                                     {{-- @endif --}}
                                                     {{-- @endcan --}}
