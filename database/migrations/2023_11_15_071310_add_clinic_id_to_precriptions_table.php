@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('videos', function (Blueprint $table) {
-            //
+        Schema::table('prescriptions', function (Blueprint $table) {
 
-            $table->string('title')->nullable();
+            //
+            $table->unsignedBigInteger('clinic_id')->nullable();
+            $table->foreign('clinic_id')->references('id')->on('clinic');
         });
     }
 
@@ -27,9 +28,10 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('videos', function (Blueprint $table) {
+        Schema::table('prescriptions', function (Blueprint $table) {
             //
-            $table->dropColumn('title');
+            $table->dropForeign('clinic_id');
+            $table->dropColumn('clinic_id');
         });
     }
 };

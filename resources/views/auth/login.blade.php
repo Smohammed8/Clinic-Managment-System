@@ -31,7 +31,7 @@
                             <div class="form-group">
                                 <input id="username" type="text"
                                     class="form-control @error('username') is-invalid @enderror" name="username"
-                                    placeholder="Password" value="{{ old('username') }}" required
+                                    placeholder="Username" value="{{ old('username') }}" required
                                     autocomplete="username" autofocus>
 
                                 @error('username')

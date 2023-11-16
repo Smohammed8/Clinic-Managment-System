@@ -51,15 +51,15 @@ class UserSeeder extends Seeder
             'description' => '',
             'clinic_id' => 1,
         ]);
-        DB::table('clinic_users')->delete();
+        // DB::table('clinic_users')->delete();
 
-        $i = 2;
-        foreach ($roles as $role) {
-            ClinicUser::create([
-                'user_id' => $i,
-                'room_id' => 1,
-            ]);
-            $i++;
-        }
+        // $i = 2;
+        // foreach ($roles as $role) {
+        //     ClinicUser::create([
+        //         'user_id' => $i,
+        //         'room_id' => 1,
+        //     ]);
+        //     $i++;
+        // }
     }
 }

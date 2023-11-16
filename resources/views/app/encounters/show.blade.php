@@ -653,7 +653,8 @@
                                                                     @foreach ($labCategories as $labCategory)
                                                                         <optgroup id="label"
                                                                             label="{{ $labCategory->lab_name }}">
-                                                                            @foreach ($labCategory->labTests as $lab)
+                                                                            {{-- @foreach ($labCategory->labTests as $lab) --}}
+                                                                            @foreach ($labCategory?->labTests->where('is_available', 1) as $lab)
                                                                                 <option value="{{ $lab->id }}">
                                                                                     {{ $lab->labCatagory->lab_name }}-{{ $lab->test_name }}
                                                                                 </option>

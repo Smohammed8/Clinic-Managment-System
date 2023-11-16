@@ -1,3 +1,16 @@
+<style>
+    .notification-badge {
+        animation: blinkAnimation 1s infinite; /* Blinking animation */
+    }
+
+    @keyframes blinkAnimation {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+
+</style>
+
 <div class="row m-2">
     <div class="container-fluid">
         <div class="row">
@@ -5,38 +18,21 @@
                 <h2>OPD Queue To Be</h2>
                 <table class="table">
                     <tbody>
-                        @foreach ($opdQueueToBe->chunk(3) as $chunk)
+                        @foreach ($opdQueueToBe->chunk(4) as $chunk)
                             <tr>
                                 @foreach ($chunk as $encounter)
                                     <td>
                                         <h4>Student ID: {{ $encounter->student->id_number ?? '-' }}</h4>
-                                        <p>Status:
-                                            @if ($encounter->status === 0)
-                                                Checked In
-                                            @elseif ($encounter->status === 1)
-                                                Encounter Closed
+                                        <p class="notification-badge" style="font-size:20px; color:yellow; font-weight:bold;">
+                                            <i class="fa fa-wheelchair"> </i>
+                                            @if ($encounter->status === 1)
+                                                Waiting
                                             @elseif ($encounter->status === 2)
                                                 Called by the Doctor
                                             @elseif ($encounter->status === 3)
-                                                Missed and Closed
-                                            @elseif ($encounter->status === 4)
-                                                Rescheduled
-                                            @elseif ($encounter->status === 5)
-                                                Waiting
-                                            @elseif ($encounter->status === 6)
-                                                On Hold
-                                            @elseif ($encounter->status === 7)
-                                                Test Pending
-                                            @elseif ($encounter->status === 8)
-                                                Test Available
-                                            @elseif ($encounter->status === 9)
-                                                Test Reviewed
-                                            @elseif ($encounter->status === 10)
-                                                Follow-up Scheduled
-                                            @elseif ($encounter->status === 11)
-                                                Follow-up Completed
+                                                Encounter Closed
                                             @else
-                                                Unknown
+                                            Waiting
                                             @endif
                                         </p>
                                     </td>

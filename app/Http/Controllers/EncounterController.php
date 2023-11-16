@@ -21,7 +21,6 @@ use App\Models\LabTestRequest;
 
 require_once app_path('Helper/constants.php');
 
-
 class EncounterController extends Controller
 {
     /**
@@ -88,7 +87,7 @@ class EncounterController extends Controller
     {
         //dd(STATUS_IN_PROGRESS);
         $this->authorize('view-any', Encounter::class);
-        $clinic_id = Auth::user()->clinicUsers->clinic_id;
+        $clinic_id = Auth::user()->clinicUsers?->clinic_id;
         // dd($clinic_id);
 
         $search = $request->get('search', '');
