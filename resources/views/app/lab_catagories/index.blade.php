@@ -46,6 +46,11 @@
                                 <th class="text-left">
                                     @lang('crud.lab_catagories.inputs.lab_desc')
                                 </th>
+
+                                <th class="text-left">
+                                  Total labs
+                                </th>
+
                                 <th class="text-center">
                                     @lang('crud.common.actions')
                                 </th>
@@ -58,6 +63,7 @@
                                     <td> {{ $key + 1 }}
                                     <td>{{ $labCatagory->lab_name ?? '-' }}</td>
                                     <td>{{ $labCatagory->lab_desc ?? '-' }}</td>
+                                    <td>{{ $labCatagory->labTests->count() }} </td>
                                     <td class="text-center">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                       

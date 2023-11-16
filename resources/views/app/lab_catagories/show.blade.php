@@ -15,7 +15,7 @@
             <table class="table" style="font-size: 20px;">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
+         
                     <th scope="col">Lab Name</th>
                     <th scope="col">  Description:</th>
             
@@ -23,7 +23,7 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <th scope="row">1</th>
+         
                     <td>{{ $labCatagory->lab_name ?? '-' }} </td>
                     <td>{{ $labCatagory->lab_desc ?? '-' }}</td>
           
