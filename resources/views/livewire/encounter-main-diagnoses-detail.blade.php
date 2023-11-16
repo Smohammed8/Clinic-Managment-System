@@ -47,13 +47,13 @@
 
 
                     <x-inputs.group class="col-sm-12">
-                        <x-inputs.select name="mainDiagnosis.diagnosis_id" label="Diagnosis"
+                        <x-inputs.selecmodal name="mainDiagnosis.diagnosis_id" label="Diagnosis"
                             wire:model="mainDiagnosis.diagnosis_id">
                             <option value="null" disabled>-</option>
                             @foreach ($diagnosesForSelect as $value => $label)
                                 <option value="{{ $value }}">{{ $label }}</option>
                             @endforeach
-                        </x-inputs.select>
+                        </x-inputs.selecmodal>
                     </x-inputs.group>
                 </div>
             </div>
