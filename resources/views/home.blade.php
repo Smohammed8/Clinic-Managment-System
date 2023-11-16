@@ -95,12 +95,29 @@
                                             <td>
                                                
         
-                                                <span class="badge badge-info">
+                                          
                                                  
                                                     @if($encounter->status ==1 )
-                                                      <span class="typcn typcn-input-checked-outline"> Checked-in</span>
+                                                      <span class="badge badge-info"> Checked-in</span>
+                                                   @elseif($encounter->status ==2 )
+                                                   <span class="badge badge-primary"> In-progress</span>
+                                                
+
+                                                   @elseif($encounter->status ==3 )
+                                                   <span class="badge badge-info"> Case closed</span>
                                                    @else
-                                                   <span class="typcn typcn-input-checked-outline"> Called by Doctor </span>
+
+                                        
+                                                <form method="post" action="{{ route('rechecin') }}">
+                                                @csrf
+                                                <input type="hidden" name="encounter_id" value="{{ $encounter->id }}">
+                                                <button type="submit" class="badge badge-danger" >
+                                                Missing call
+                                                </button>
+                                                </form>
+
+
+                                        
                                                    @endif
                                                    
                                                    
@@ -154,11 +171,24 @@
                                                                     <i class="fa fa-user-minus"></i> Uncheck
                                                                 </button>
                                                             </form>
-                                                            @else
+                                                            @elseif($encounter->status ==2)
                                                             <button type="submit" class="btn btn-sm btn-outline-info">
                                                                 <i class="fa fa-user"></i> In-Process
                                                             </button>
+
+
+                                                            @elseif($encounter->status ==3)
+                                                            <button type="submit" class="btn btn-sm btn-outline-info">
+                                                                <i class="fa fa-user"></i> Case Closed
+                                                            </button>
+
+                                                            @else
+                                                            <button type="submit" class="btn btn-sm btn-outline-info">
+                                                                <i class="fa fa-user"></i> Missing
+                                                            </button>
                                                             @endif
+
+
                                                         @endcan
 
                                                   

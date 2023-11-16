@@ -112,6 +112,11 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::post('/check-in', [HomeController::class, 'checkIn'])->name('checkin');
     Route::post('/unmap-rfid', [HomeController::class, 'unmapRfid'])->name('unmap-rfid');
     Route::post('/map-rfid', [HomeController::class, 'mapRfid'])->name('map-rfid');
+    Route::post('/changeStatuss', [EncounterController::class, 'changeStatus'])->name('changeStatuss');
+
+    Route::post('/rechecin', [EncounterController::class, 'rechecin'])->name('rechecin');
+
+
     Route::get('/encouter-list', [HomeController::class, 'getEncouter'])->name('encounter-list');
     Route::post('/autosearch-encounters', [HomeController::class, 'autoSearch'])->name('autosearch-encounters');
 
@@ -120,6 +125,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::resource('diagnoses', DiagnosisController::class);
     Route::get('/reception', [EncounterController::class, 'reception'])->name('reception');
     Route::get('/lab-waiting', [EncounterController::class, 'labWaiting'])->name('lab.waiting');
+
     Route::resource('lab-catagories', LabCatagoryController::class);
     Route::resource('lab-tests', LabTestController::class);
     Route::resource('lab-test-requests', LabTestRequestController::class);

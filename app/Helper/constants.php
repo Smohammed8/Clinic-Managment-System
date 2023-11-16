@@ -5,8 +5,9 @@ define('DOCTOR_ROLE', 'doctor');
 define('STATUS_CHECKED_IN',  1); //Accepted ny receptionTESTESTEST
 define('STATUS_IN_PROGRESS',  2); // Called by the doctor
 define('STATUS_COMPLETED',  3); // Encounter Colsed
-
 define('STATUS_MISSED',  4); //Missed and closed
+
+
 define('STATUS_RESCHEDULED',  5); //
 define('STATUS_WAITING',  6); //Sent to labratory and waitin 
 define('STATUS_ON_HOLD',  7);

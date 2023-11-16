@@ -18,6 +18,7 @@ use App\Http\Requests\EncounterStoreRequest;
 use App\Http\Requests\EncounterUpdateRequest;
 use App\Models\ClinicUser;
 use App\Models\LabTestRequest;
+use App\Constants;
 
 require_once app_path('Helper/constants.php');
 
@@ -266,6 +267,62 @@ class EncounterController extends Controller
             return view('app.encounters.show', compact('encounter',  'doctors', 'labCategories', 'rooms', 'danger_message'));
         }
     }
+
+    
+
+
+
+    public function rechecin(Request $request)
+    {
+
+        $encounterId = trim($request->input('encounter_id'));
+        $encounter = Encounter::where('id',   $encounterId)->first();
+
+        if ($encounter) {
+         
+            $encounter->update([
+                'status' => STATUS_CHECKED_IN,
+                'doctor_id' => null
+            ]);
+        
+
+      
+            return redirect()->back()->with('success', 'Status changed successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Error happen while changing status.');
+    }
+
+
+
+    public function  changeStatus(Request $request)
+    {
+
+        $encounterId = trim($request->input('encounter_id'));
+        $encounter = Encounter::where('id',   $encounterId)->first();
+
+        if ($encounter) {
+            if($encounter->status == STATUS_IN_PROGRESS) {  
+            $encounter->update([
+                'status' => STATUS_MISSED
+            ]);
+            }else{
+
+                $encounter->update([
+                    'status' => STATUS_IN_PROGRESS
+                ]);
+
+            }
+
+      
+            return redirect()->back()->with('success', 'Status changed successfully.');
+        }
+
+        return redirect()->back()->with('error', 'Error happen while changing status.');
+    }
+
+
+
 
     //doctor accept encounter 
     public function accept(Encounter $encounter)
