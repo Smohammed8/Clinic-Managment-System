@@ -242,9 +242,11 @@
 
                                 <ul class="list-group">
                                     <select id="doctorSelect" class="form-control" style="width: 100%;" name="room_id">
+                                        @if($rooms)
                                         @foreach ($rooms as $room)
                                             <option value="{{ $room->id }}">{{ $room->name }}</option>
                                         @endforeach
+                                        @endif
                                     </select>
                                 </ul>
 

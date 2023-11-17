@@ -76,7 +76,7 @@ class EncounterController extends Controller
             ->oldest('id') // Order by 'id' in ascending order
             ->paginate(10)
             ->withQueryString();
-        $clinicUser = Auth::user()->clinicUsers->room?->clinic;
+        $clinicUser = Auth::user()?->clinicUsers?->room?->clinic;
 
 
         return view('app.encounters.waiting-lab', compact('encounters', 'labResults', 'labRequests', 'pendinglabs', 'clinicUser', 'mylabs', 'myPateints'));
@@ -258,7 +258,7 @@ class EncounterController extends Controller
             $labCategories =  LabCatagory::all();
 
             //get rooms that belongs to the given encounter clinic
-            $rooms = $encounter->clinic->rooms;
+            $rooms = $encounter?->clinic?->rooms;
             // dd($rooms);
             $danger_message = 'No more encounters available.';
 
@@ -342,7 +342,7 @@ class EncounterController extends Controller
         //get the clinic id and add it to the encounter 
         //dd($encounter->Doctor->rooms->first()->clinic->id);
         //dd($encounter->Doctor->room->clinic->id);
-        $encounter->clinic_id = $encounter->Doctor->clinicUsers->room->clinic->id;
+        $encounter->clinic_id = $encounter?->Doctor?->clinicUsers?->room?->clinic?->id;
 
 
         //dd($encounter->Doctor->user->name);
