@@ -31,6 +31,10 @@ class UserSeeder extends Seeder
         Role::findOrCreate('nurse');
         Role::findOrCreate('clinic-head');
         Role::findOrCreate('SORE_USER');
+
+        // Role::updateOrCreate(['name' => Constants::PHARMACY_USER]);
+        // Role::updateOrCreate(['name' => Constants::STORE_USER_ROLE]);
+
                 
         $user = User::where('username', 'admin')->first();
         if ($user == null){
@@ -41,7 +45,7 @@ class UserSeeder extends Seeder
                         'email' => 'super@hrm.com', // Search criteria for email
                     ],
                     [
-                        'name' => 'Seid Mohammed',
+                        'name' => 'Super Admin',
                         'password' => Hash::make('password'),
                     ]
                 );

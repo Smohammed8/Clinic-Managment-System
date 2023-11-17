@@ -464,7 +464,7 @@
                         <i class="fa fa-caret-right"></i>
                         <span>Encounter Priority:</span>
                         <span
-                            style="color: {{ $encounter->status == 0 ? 'green' : 'red' }};">{{ $encounter->status == 0 ? 'FCFS' : 'High' }}</span>
+                            style="color: {{ $encounter->status == 0 ? 'green' : 'red' }};">{{ $encounter->status == 0 ? 'FCFS' : 'FCFS' }}</span>
                     </div>
 
                     <div class="col-md-4 mb-2">
@@ -491,6 +491,17 @@
                         {{ $encounter->created_at?->format('d M Y') ?? '-' }}
 
                     </div>
+
+                    <div class="col-md-4 mb-2">
+                        <i class="fa fa-caret-right"></i>
+                        <span>Age:</span>
+                        <span style="color:red;"> {{ \Carbon\Carbon::parse($encounter->student->date_of_birth)->diff(\Carbon\Carbon::now())->format('%y years old') }} </span>
+
+                    </div>
+
+
+                    
+                
 
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
@@ -540,8 +551,18 @@
                                     aria-orientation="vertical">
 
                                     <ul class="nav nav-pills flex-column">
+
+
                                         <li class="nav-item">
-                                            <a class="nav-link active" id="vert-tabs-profile-tab" data-toggle="pill"
+                                            <a class="nav-link active" id="vert-tabs-tb-tab" data-toggle="pill"
+                                                href="#vert-tabs-tb" role="tab"
+                                                aria-controls="vert-tabs-tb" aria-selected="false"> <i
+                                                    class="fa fa-caret-right nav-icon"></i><b>
+                                                    TB Screening </b></a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill"
                                                 href="#vert-tabs-profile" role="tab"
                                                 aria-controls="vert-tabs-profile" aria-selected="false"> <i
                                                     class="fa fa-caret-right nav-icon"></i><b>

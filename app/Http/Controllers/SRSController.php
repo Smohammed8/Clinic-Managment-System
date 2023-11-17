@@ -39,6 +39,7 @@ class SRSController extends Controller
     }
     public function insert() {
 
+
     try {
         $dbcon = DB::connection('mysql_srs');
     } catch (\Throwable $th) {
@@ -64,8 +65,8 @@ class SRSController extends Controller
             // Convert the result object to an associative array
             $value = (array) $value;
             try {
-                $moh = DB::connection('mysql');
-                $result = $moh->table($targetTable)->updateOrInsert(
+                $conn = DB::connection('mysql');
+                $result = $conn->table($targetTable)->updateOrInsert(
                     ['id_number' => $value['student_id']],
                     [
                         //'username' => $value['username'],   	

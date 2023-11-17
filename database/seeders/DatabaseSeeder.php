@@ -50,45 +50,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'Beco Campus'
         ]);
         $this->call(CampusSeeder::class);
-        // $this->call(CategorySeeder::class);
-        // $this->call(ClinicSeeder::class);
         $this->call(UserSeeder::class);
-
         $this->call(PermissionsSeeder::class);
 
-        // $this->call(AppointmentSeeder::class);
 
-        // $this->call(ClinicServicesSeeder::class);
-        // $this->call(ClinicUserSeeder::class);
-        // $this->call(CollageSeeder::class);
-        // $this->call(DiagnosisSeeder::class);
-        // $this->call(EncounterSeeder::class);
-        // $this->call(ItemSeeder::class);
-        // $this->call(ItemRequestSeeder::class);
-        // $this->call(ItemsInPharmacySeeder::class);
-        // $this->call(LabCatagorySeeder::class);
-        // $this->call(LabTestSeeder::class);
-        // $this->call(LabTestRequestSeeder::class);
-        // $this->call(LabTestRequestGroupSeeder::class);
-        // $this->call(MainDiagnosisSeeder::class);
-        // $this->call(MedicalRecordSeeder::class);
-        // $this->call(PharmacySeeder::class);
-        // $this->call(PharmacyUserSeeder::class);
-        // $this->call(PrescriptionSeeder::class);
-        // $this->call(ProductSeeder::class);
-        // $this->call(ProductRequestSeeder::class);
-        // $this->call(ProductResponseSeeder::class);
-        // $this->call(ProgramSeeder::class);
-        // $this->call(ReligionSeeder::class);
-        // $this->call(RoomSeeder::class);
-        // $this->call(StockSeeder::class);
-        // $this->call(StockCategorySeeder::class);
-        // $this->call(StockUnitSeeder::class);
-        // $this->call(StoreSeeder::class);
-        // $this->call(StoresToPharmacySeeder::class);
-        // $this->call(StoreUserSeeder::class);
-        // $this->call(StudentSeeder::class);
-        // $this->call(SupplierSeeder::class);
-        // $this->call(VitalSignSeeder::class);
     }
 }
