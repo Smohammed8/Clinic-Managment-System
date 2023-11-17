@@ -142,19 +142,22 @@
                                 method="POST" class="d-inline-block">
                                 @csrf
                                 <input type="hidden" name="status" value="{{ $encounter->status }}">
-                                <button type="submit" class="btn btn-sm btn-outline-primary">     <i class="fa fa-check"></i> Close Encounter</button>
+                                <button type="submit" class="btn btn-sm btn-outline-primary"> <i class="fa fa-check"></i>
+                                    Close Encounter</button>
                             </form>
 
-    
-                           @if($encounter->status ==4 )
-                            <button type="button" class="btn btn-sm d-inline-block btn-outline-primary mr-3" data-toggle="modal" 
-                            data-target="#confirmationModal" data-record-id="{{ $encounter->id }}"><i class="fa fa-user-minus"></i>  
-                            Re-accept
-                            </button>
+
+                            @if ($encounter->status == 4)
+                                <button type="button" class="btn btn-sm d-inline-block btn-outline-primary mr-3"
+                                    data-toggle="modal" data-target="#confirmationModal"
+                                    data-record-id="{{ $encounter->id }}"><i class="fa fa-user-minus"></i>
+                                    Re-accept
+                                </button>
                             @else
-                            <button type="button" class="btn btn-sm d-inline-block btn-outline-primary mr-3" data-toggle="modal" 
-                            data-target="#confirmationModal" data-record-id="{{ $encounter->id }}"><i class="fa fa-user-minus"></i>  Missing
-                            </button>
+                                <button type="button" class="btn btn-sm d-inline-block btn-outline-primary mr-3"
+                                    data-toggle="modal" data-target="#confirmationModal"
+                                    data-record-id="{{ $encounter->id }}"><i class="fa fa-user-minus"></i> Missing
+                                </button>
                             @endif
 
 
@@ -163,13 +166,13 @@
 
                             <a href="{{ route('encounters.index') }}"
                                 class="btn btn-sm d-inline-block btn-outline-primary mr-3">
-                               
+
                                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
 
                                 Close</a>
 
-                          
-                            
+
+
 
                         </div>
                     </div>
@@ -417,7 +420,8 @@
             </script> --}}
             <!-- Referral Modal End-->
 
-            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -431,10 +435,10 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <form method="post" action="{{ route('changeStatuss') }}">
+                            <form method="post" action="{{ route('changeStatuss') }}">
                                 @csrf
                                 <input type="hidden" name="encounter_id" value="{{ $encounter->id }}">
-                                <button type="submit" class="btn btn-primary" >
+                                <button type="submit" class="btn btn-primary">
                                     Confirm
                                 </button>
                             </form>
@@ -442,7 +446,7 @@
                     </div>
                 </div>
             </div>
-            
+
 
 
 
@@ -471,23 +475,23 @@
                         <i class="fa fa-caret-right"></i>
                         <span> Visit status:</span>
 
-                        @if($encounter->status == 1)
-                        <span class="badge badge-secondary"> Checked-in</span>
+                        @if ($encounter->status == 1)
+                            <span class="badge badge-secondary"> Checked-in</span>
                         @elseif($encounter->status == 2)
-                        <span class="badge  badge-info">  In-progress</span>
+                            <span class="badge  badge-info"> In-progress</span>
                         @elseif($encounter->status == 3)
-                        <span class="badge  badge-success">  Completed </span>
+                            <span class="badge  badge-success"> Completed </span>
                         @else
-                        <span class="badge  badge-danger"> Missed </span>
+                            <span class="badge  badge-danger"> Missed </span>
                         @endif
 
 
-                       
+
                     </div>
 
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
-                        <span>Date of  visit:</span>
+                        <span>Date of visit:</span>
                         {{ $encounter->created_at?->format('d M Y') ?? '-' }}
 
                     </div>
@@ -495,18 +499,20 @@
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
                         <span>Age:</span>
-                        <span style="color:red;"> {{ \Carbon\Carbon::parse($encounter->student->date_of_birth)->diff(\Carbon\Carbon::now())->format('%y years old') }} </span>
+                        <span style="color:red;">
+                            {{ \Carbon\Carbon::parse($encounter->student->date_of_birth)->diff(\Carbon\Carbon::now())->format('%y years old') }}
+                        </span>
 
                     </div>
 
 
-                    
-                
+
+
 
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
                         <span>Health officer:</span>
-                        {{ $encounter->Doctor ? $encounter->Doctor?->clinicUsers?->user->name : '-' }}
+                        {{ $encounter->Doctor?->clinicUsers?->user->name }}
                     </div>
 
                     <div class="col-md-4 mb-2">
@@ -518,7 +524,7 @@
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
                         <span>Receptionist:</span>
-                        {{ $encounter->RegisteredBy ? $encounter?->RegisteredBy?->clinicUsers?->user->name : '-' }}
+                        {{ $encounter?->RegisteredBy?->clinicUsers?->user->name }}
                     </div>
 
                     <div class="col-md-4 mb-2">
@@ -527,7 +533,7 @@
                         {{ $encounter->student->id_number ?? '-' }}
                     </div>
 
-                
+
 
                 </div>
 
@@ -553,20 +559,20 @@
                                     <ul class="nav nav-pills flex-column">
 
 
-                                        <li class="nav-item">
-                                            <a class="nav-link active" id="vert-tabs-tb-tab" data-toggle="pill"
-                                                href="#vert-tabs-tb" role="tab"
-                                                aria-controls="vert-tabs-tb" aria-selected="false"> <i
-                                                    class="fa fa-caret-right nav-icon"></i><b>
-                                                    TB Screening </b></a>
-                                        </li>
 
                                         <li class="nav-item">
-                                            <a class="nav-link" id="vert-tabs-profile-tab" data-toggle="pill"
+                                            <a class="nav-link active" id="vert-tabs-profile-tab" data-toggle="pill"
                                                 href="#vert-tabs-profile" role="tab"
                                                 aria-controls="vert-tabs-profile" aria-selected="false"> <i
                                                     class="fa fa-caret-right nav-icon"></i><b>
                                                     Clinical Note </b></a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link " id="vert-tabs-tb-tab" data-toggle="pill"
+                                                href="#vert-tabs-tb" role="tab" aria-controls="vert-tabs-tb"
+                                                aria-selected="false"> <i class="fa fa-caret-right nav-icon"></i><b>
+                                                    TB Screening </b></a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" id="vert-tabs-sign-tab" data-toggle="pill"
@@ -601,7 +607,7 @@
                                                 aria-controls="vert-tabs-home" aria-selected="true"> <i
                                                     class="fa fa-caret-right nav-icon"></i><b>
                                                     Appointments </b> <span
-                                                    class="badge bg-primary float-right">12</span></a>
+                                                    class="badge bg-primary float-right">0</span></a>
 
                                         </li>
                                         <li class="nav-item">
@@ -611,6 +617,8 @@
                                                     Referral Service</b> </a>
                                         </li>
 
+
+                                      
                                         <li class="nav-item">
                                             <a class="nav-link" id="vert-tabs-history-tab  vert-tabs-history"
                                                 data-toggle="pill" href="#vert-tabs-history" role="tab"
@@ -654,26 +662,57 @@
 
                                     </div>
 
-
-
-
-
-
                                     <div class="tab-pane fade" id="vert-tabs-tb" role="tabpanel"
                                         aria-labelledby="vert-tabs-tb-tab">
 
                                         {{-- @can('view-any', App\Models\VitalSign::class) --}}
-                                            <div class="card mt-4">
-                                                <div class="card-body">
-                                                    <h4 class="card-title w-100 mb-2">TB Screening</h4>
-                                                    <hr>
-                                                    -
-                                                    {{-- <livewire:encounter-vital-signs-detail :encounter="$encounter" /> --}}
-                                                </div>
+                                        <div class="card mt-4">
+                                            <div class="card-body">
+                                                <h4 class="card-title w-100 mb-2">TB Screening</h4><br>
+                                                <hr>
+                                                -
+                                                {{-- <livewire:encounter-vital-signs-detail :encounter="$encounter" /> --}}
                                             </div>
+                                        </div>
                                         {{-- @endcan --}}
 
                                     </div>
+
+
+
+
+                                    <div class="tab-pane fade" id="vert-tabs-refer" role="tabpanel"
+                                        aria-labelledby="vert-tabs-refer-tab">
+
+                                        {{-- @can('view-any', App\Models\VitalSign::class) --}}
+                                        <div class="card mt-4">
+                                            <div class="card-body">
+                                                <h4 class="card-title w-100 mb-2">Patient Referral Service</h4><br>
+                                                <hr>
+                                                -
+                                                {{-- <livewire:encounter-vital-signs-detail :encounter="$encounter" /> --}}
+                                            </div>
+                                        </div>
+                                        {{-- @endcan --}}
+
+                                    </div>
+
+
+                                    <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel"
+                                    aria-labelledby="vert-tabs-history-tab">
+
+                                    {{-- @can('view-any', App\Models\VitalSign::class) --}}
+                                    <div class="card mt-4">
+                                        <div class="card-body">
+                                            <h4 class="card-title w-100 mb-2">Visit History</h4><br>
+                                            <hr>
+                                            -
+                                            {{-- <livewire:encounter-vital-signs-detail :encounter="$encounter" /> --}}
+                                        </div>
+                                    </div>
+                                    {{-- @endcan --}}
+
+                                </div>
 
 
 
@@ -823,8 +862,8 @@
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <p>
-                                                                        <strong>Doctor Name:</strong>
-                                                                        {{ $encounter->Doctor ? $encounter->Doctor?->clinicUsers?->user->name : '-' }}
+                                                                        <strong>Health Officer:</strong>
+                                                                  {{ $encounter->Doctor?->clinicUsers?->user->name  }}
 
                                                                     </p>
 
@@ -844,7 +883,7 @@
                                             </div>
                                         @endcan
                                     </div>
-
+{{-- 
                                     <div class="tab-pane fade" id="vert-tabs-appointment" role="tabpanel"
                                         aria-labelledby="vert-tabs-appointment-tab">
 
@@ -858,9 +897,9 @@
                                             </div>
                                         @endcan
 
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="tab-pane fade" id="vert-tabs-sign-tab" role="tabpanel"
+                                    {{-- <div class="tab-pane fade" id="vert-tabs-sign-tab" role="tabpanel"
                                         aria-labelledby="vert-tabs-sign">
 
                                         @can('view-any', App\Models\VitalSign::class)
@@ -872,9 +911,9 @@
                                             </div>
                                         @endcan
 
-                                    </div>
+                                    </div> --}}
 
-                                    <div class="tab-pane fade" id="vert-tabs-sign" role="tabpanel"
+                                    {{-- <div class="tab-pane fade" id="vert-tabs-sign" role="tabpanel"
                                         aria-labelledby="vert-tabs-sign-tab">
 
                                         @can('view-any', App\Models\VitalSign::class)
@@ -890,7 +929,7 @@
                                             Tab 6 Visit history
                                         </div>
 
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                             </div>
