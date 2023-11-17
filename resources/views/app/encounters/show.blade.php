@@ -506,7 +506,7 @@
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
                         <span>Health officer:</span>
-                        {{ $encounter->Doctor ? $encounter->Doctor->clinicUsers->user->name : '-' }}
+                        {{ $encounter->Doctor ? $encounter->Doctor?->clinicUsers?->user->name : '-' }}
                     </div>
 
                     <div class="col-md-4 mb-2">
@@ -518,7 +518,7 @@
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
                         <span>Receptionist:</span>
-                        {{ $encounter->RegisteredBy ? $encounter->RegisteredBy->clinicUsers->user->name : '-' }}
+                        {{ $encounter->RegisteredBy ? $encounter?->RegisteredBy?->clinicUsers?->user->name : '-' }}
                     </div>
 
                     <div class="col-md-4 mb-2">
@@ -655,6 +655,25 @@
                                     </div>
 
 
+
+
+
+
+                                    <div class="tab-pane fade" id="vert-tabs-tb" role="tabpanel"
+                                        aria-labelledby="vert-tabs-tb-tab">
+
+                                        {{-- @can('view-any', App\Models\VitalSign::class) --}}
+                                            <div class="card mt-4">
+                                                <div class="card-body">
+                                                    <h4 class="card-title w-100 mb-2">TB Screening</h4>
+                                                    <hr>
+                                                    -
+                                                    {{-- <livewire:encounter-vital-signs-detail :encounter="$encounter" /> --}}
+                                                </div>
+                                            </div>
+                                        {{-- @endcan --}}
+
+                                    </div>
 
 
 
@@ -805,7 +824,7 @@
                                                                 <div class="col-md-6">
                                                                     <p>
                                                                         <strong>Doctor Name:</strong>
-                                                                        {{ $encounter->Doctor ? $encounter->Doctor->clinicUsers->user->name : '-' }}
+                                                                        {{ $encounter->Doctor ? $encounter->Doctor?->clinicUsers?->user->name : '-' }}
 
                                                                     </p>
 
