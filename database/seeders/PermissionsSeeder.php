@@ -377,7 +377,7 @@ class PermissionsSeeder extends Seeder
         $pharmacy_user->syncPermissions('pharmacy.prescriptions.*', 'pharmacy.prescriptions.index', 'pharmacy.prescriptions.approve', 'pharmacy.prescriptions.view', 'pharmacy.products.*', 'pharmacy.products.index', 'pharmacy.products.request', 'pharmacy.products.view', 'pharmacy.history.*');
 
     }
-
+        }
     catch (\Exception $e) {
         Log::error('Error in PermissionsSeeder: ' . $e->getMessage());
     }
