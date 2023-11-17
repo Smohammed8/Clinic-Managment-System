@@ -44,6 +44,7 @@
                 <table class="table table-borderless table-hover">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th class="text-left">
                                 @lang('crud.stores.inputs.name')
                             </th>
@@ -62,8 +63,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $i=1;
+                        @endphp
                         @forelse($stores as $store)
                         <tr>
+                            <th>{{$i++}}</th>
                             <td>{{ $store->name ?? '-' }}</td>
                             <td>{{ optional($store->campus)->name ?? '-' }}</td>
                             <td>{{ $store->description ?? '-' }}</td>

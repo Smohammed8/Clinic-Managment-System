@@ -58,9 +58,10 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-borderless table-hover">
+                <table class="table table-hover  table-sm table-condensed">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th class="text-left">
                                 Name
                             </th>
@@ -76,8 +77,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $i=1;
+                        @endphp
                         @forelse($itemsInPharmacies as $itemsInPharmacy)
                         <tr>
+                            <td>{{$i++}}</td>
                             <td>
                                 {{
                                 optional(($itemsInPharmacy->item)->product)->name

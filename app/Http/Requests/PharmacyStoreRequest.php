@@ -26,6 +26,8 @@ class PharmacyStoreRequest extends FormRequest
         return [
             'name' => ['required', 'max:255', 'string'],
             'admin_id' => ['required', 'max:255'],
+            'clinic_id'=>['required'],
+            'store_id'=>['required'],
             // 'campus_id' => ['required', 'exists:campus,id'],
             'status' => ['required', 'boolean'],
             'description' => ['required', 'max:255', 'string'],

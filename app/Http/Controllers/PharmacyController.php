@@ -64,8 +64,8 @@ class PharmacyController extends Controller
 
 
         $validated = $request->validated();
-        $validated['clinic_id']=$request->clinic_id;
-        $validated['store_id']=$request->store_id;
+        // $validated['clinic_id']=$request->clinic_id;
+        // $validated['store_id']=$request->store_id;
 
         $pharmacy = Pharmacy::create($validated);
 
