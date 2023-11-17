@@ -24,7 +24,14 @@ class UserSeeder extends Seeder
         DB::table('users')->delete();
 
         Role::findOrCreate('super-admin');
-
+        Role::findOrCreate('doctor');
+        Role::findOrCreate('lab_technician');
+        Role::findOrCreate('reception');
+        Role::findOrCreate('PHARMACY_USER');
+        Role::findOrCreate('nurse');
+        Role::findOrCreate('clinic-head');
+        Role::findOrCreate('SORE_USER');
+                
         $user = User::where('username', 'admin')->first();
         if ($user == null){
             if (User::count() == 0) {
@@ -38,15 +45,12 @@ class UserSeeder extends Seeder
                         'password' => Hash::make('password'),
                     ]
                 );
-
-
                 if ($user !== null) {
                 $user->assignRole(Constants::USER_TYPE_SUPER_ADMIN);
                   }
 
             }
         }    
- 
 
         DB::table('clinic')->delete();
 

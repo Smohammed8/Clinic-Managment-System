@@ -11,7 +11,7 @@
         ></x-inputs.text>
     </x-inputs.group>
 
-    <x-inputs.group class="col-sm-12">
+    {{-- <x-inputs.group class="col-sm-12">
         <x-inputs.textarea
             name="description"
             label="Description"
@@ -19,8 +19,8 @@
             >{{ old('description', ($editing ? $room->description : ''))
             }}</x-inputs.textarea
         >
-    </x-inputs.group>
-
+    </x-inputs.group> --}}
+{{-- 
     <x-inputs.group class="col-sm-12">
         <x-inputs.text
             name="status"
@@ -29,9 +29,9 @@
             maxlength="255"
             placeholder="Status"
         ></x-inputs.text>
-    </x-inputs.group>
+    </x-inputs.group> --}}
 
-    <x-inputs.group class="col-sm-12">
+    {{-- <x-inputs.group class="col-sm-12">
         <x-inputs.text
             name="is_active"
             label="Is Active"
@@ -39,7 +39,7 @@
             maxlength="255"
             placeholder="Is Active"
         ></x-inputs.text>
-    </x-inputs.group>
+    </x-inputs.group> --}}
 
     <x-inputs.group class="col-sm-12">
         <x-inputs.select name="clinic_id" label="Clinic">
@@ -50,7 +50,7 @@
             @endforeach
         </x-inputs.select>
     </x-inputs.group>
-
+{{-- 
     <x-inputs.group class="col-sm-12">
         <x-inputs.select name="encounter_id" label="Encounter">
             @php $selected = old('encounter_id', ($editing ? $room->encounter_id : '')) @endphp
@@ -59,9 +59,9 @@
             <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }} >{{ $label }}</option>
             @endforeach
         </x-inputs.select>
-    </x-inputs.group>
+    </x-inputs.group> --}}
 
-    <div class="form-group col-sm-12 mt-4">
+    {{-- <div class="form-group col-sm-12 mt-4">
         <h4>Assign @lang('crud.clinic_users.name')</h4>
 
         @foreach ($clinicUsers as $clinicUser)
@@ -76,5 +76,5 @@
             ></x-inputs.checkbox>
         </div>
         @endforeach
-    </div>
+    </div> --}}
 </div>
