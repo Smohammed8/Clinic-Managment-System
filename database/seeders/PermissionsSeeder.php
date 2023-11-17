@@ -18,7 +18,7 @@ class PermissionsSeeder extends Seeder
 {
     public function run(): void
     {
-     
+
         try {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
@@ -182,6 +182,7 @@ class PermissionsSeeder extends Seeder
 
     //////////////////////////////////////////////////////////
 
+        Permission::findOrCreate('store.*');
         Permission::findOrCreate('store.product.*');
         Permission::findOrCreate('store.product.index');
         Permission::findOrCreate('store.product.create');
@@ -197,6 +198,7 @@ class PermissionsSeeder extends Seeder
         Permission::findOrCreate('store.records.edit');
         Permission::findOrCreate('store.records.view');
         Permission::findOrCreate('store.records.delete');
+        Permission::findOrCreate('pharmacy.*');
         Permission::findOrCreate('pharmacy.prescriptions.*');
         Permission::findOrCreate('pharmacy.prescriptions.index');
         Permission::findOrCreate('pharmacy.prescriptions.approve');
@@ -248,7 +250,7 @@ class PermissionsSeeder extends Seeder
             $doctorUser->encounters()->delete(); // Assuming encounters is a relationship method
             $doctorUser->delete();
         }
-        
+
 
             // Create or update roles
             $doctorRole = Role::updateOrCreate(['name' => 'doctor']);
@@ -261,18 +263,18 @@ class PermissionsSeeder extends Seeder
             $pharmacy_user = Role::updateOrCreate(['name' => Constants::PHARMACY_USER]);
             $store_user = Role::updateOrCreate(['name' => Constants::STORE_USER_ROLE]);
 
-  
+
               $allPermissions = Permission::all();
             // $allPermissions = Permission::pluck('name');
                $superadminRole = Role::where('name', 'super-admin')->first();
                $clinicHeadRole = Role::where('name', 'clinic-head')->first();
              if ($superadminRole) {
-             
+
                  $superadminRole->givePermissionTo($allPermissions);
                  $superadminRole->assignRole($superadminRole);
              }
              if ($clinicHeadRole ) {
-             
+
                  $clinicHeadRole->givePermissionTo($allPermissions);
                  $clinicHeadRole->assignRole($clinicHeadRole);
              }
@@ -367,18 +369,18 @@ class PermissionsSeeder extends Seeder
         }
 
       //  $store_user = Role::updateOrCreate(Constants::STORE_USER_ROLE);
-   
+
         $store_user->syncPermissions('store.product.*', 'store.product.index', 'store.product.create', 'store.product.update', 'store.product.view', 'store.product.item', 'store.request.*', 'store.request.index', 'store.request.approve', 'store.request.reject', 'store.records.*', 'store.records.index', 'store.records.view', 'store.records.edit', 'store.records.delete');
 
-    
+
 
         $pharmacy_user->syncPermissions('pharmacy.prescriptions.*', 'pharmacy.prescriptions.index', 'pharmacy.prescriptions.approve', 'pharmacy.prescriptions.view', 'pharmacy.products.*', 'pharmacy.products.index', 'pharmacy.products.request', 'pharmacy.products.view', 'pharmacy.history.*');
 
     }
-    
+
     catch (\Exception $e) {
         Log::error('Error in PermissionsSeeder: ' . $e->getMessage());
     }
     }
-    
+
 }
