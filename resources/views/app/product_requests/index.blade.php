@@ -38,23 +38,24 @@
                 </div>
 
                 <div class="table-responsive">
-                    <table class="table table-borderless table-hover">
+                    <table class="table table-hover  table-sm table-condensed">
                         <thead>
                             <tr>
+                                <th>#</th>
+                                <th class="text-left">
+                                    @lang('crud.product_requests.inputs.product_id')
+                                </th>
                                 <th class="text-left">
                                     @lang('crud.product_requests.inputs.amount')
                                 </th>
                                 {{-- <th class="text-left">
                                 @lang('crud.product_requests.inputs.clinic_id')
                             </th> --}}
-                                <th class="text-left">
-                                    @lang('crud.product_requests.inputs.product_id')
-                                </th>
 
                                 @can('pharmacy.*')
 
                                 <th class="text-left">
-                                   Pharmacy
+                                   Store
                                 </th>
                                 @endcan
 
@@ -62,7 +63,7 @@
                                 @can('store.*')
 
                                 <th class="text-left">
-                                    @lang('crud.product_requests.inputs.store_id')
+                                   Pharmacy
                                 </th>
                                 @endcan
 
@@ -72,16 +73,20 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                            $i=1;
+                        @endphp
                             @forelse($productRequests as $productRequest)
                                 <tr>
+                                    <td>{{$i++}}</td>
+                                    <td>
+                                        {{ optional($productRequest->product)->name ?? '-' }}
+                                    </td>
                                     <td>{{ $productRequest->amount ?? '-' }}</td>
                                     {{-- <td>
                                 {{ optional($productRequest->clinic)->name ??
                                 '-' }}
                             </td> --}}
-                                    <td>
-                                        {{ optional($productRequest->product)->name ?? '-' }}
-                                    </td>
                                     {{-- @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER)) --}}
                                     @can('pharmacy.*')
 
@@ -135,6 +140,9 @@
                                              Reject
                                          </button>
                                      </a>
+                                     {{-- <a href="#" wire:click.prevent="rejectProductRequest('{{ $productRequest->id }}')" class="btn btn-danger" onclick="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                        Reject
+                                    </a> --}}
                                             @endcan
 
                                             {{-- <form action="{{ route('product-requests.reject', ['product-request'=>$productRequest]) }}"

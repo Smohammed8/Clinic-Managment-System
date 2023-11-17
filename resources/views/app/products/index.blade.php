@@ -44,9 +44,10 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table table-borderless table-hover">
+                <table class="table table-hover  table-sm table-condensed">
                     <thead>
                         <tr>
+                            <th>#</th>
                             <th class="text-left">
                                 @lang('crud.products.inputs.name')
                             </th>
@@ -62,8 +63,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $i=1;
+                        @endphp
                         @forelse($products as $product)
                         <tr>
+                            <td>{{$i++}}</td>
                             <td>{{ $product->name ?? '-' }}</td>
                             <td>
                                 {{ optional($product->category)->name ?? '-' }}

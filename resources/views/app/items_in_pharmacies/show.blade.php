@@ -13,19 +13,18 @@
 
             <div class="mt-4">
                 <div class="mb-4">
-                    <h5>@lang('crud.items_in_pharmacies.inputs.item_id')</h5>
+                    <h5>Item Name</h5>
                     <span
-                        >{{ optional($itemsInPharmacy->item)->batch_number ??
+                        >{{ optional($itemsInPharmacy->item)->product->name ??
                         '-' }}</span
                     >
                 </div>
                 <div class="mb-4">
-                    <h5>@lang('crud.items_in_pharmacies.inputs.count')</h5>
+                    <h5>Total Amount</h5>
                     <span>{{ $itemsInPharmacy->count ?? '-' }}</span>
                 </div>
                 <div class="mb-4">
-                    <h5>
-                        @lang('crud.items_in_pharmacies.inputs.pharmacy_id')
+                    <h5>Location
                     </h5>
                     <span
                         >{{ optional($itemsInPharmacy->pharmacy)->name ?? '-'

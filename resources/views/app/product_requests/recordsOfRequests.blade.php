@@ -7,7 +7,7 @@
                 <div class="d-flex justify-content-between">
                     <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
                         <li class="nav-item">
-                            <a class="nav-link" id="schedule-tab" data-toggle="pill" href="#approved-tabs" role="tab"
+                            <a class="nav-link active" id="schedule-tab" data-toggle="pill" href="#approved-tabs" role="tab"
                                 aria-controls="custom-tabs-one-tabs" aria-selected="false"
                                 onclick="setTabCookie(0)">Approved Requestes</a>
                         </li>

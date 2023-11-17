@@ -20,6 +20,7 @@ use App\Models\StoreUser;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Livewire\Livewire;
 
 require_once app_path('Helper/constants.php');
 class ProductRequestController extends Controller
@@ -337,6 +338,28 @@ class ProductRequestController extends Controller
         abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
     }
 
+    // public function reject(Request $request ,ProductRequest $productRequest)
+    // {
+    //     if (Auth::user()->can('store.request.*')) {
+    //         $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+    //         if($storeUser==null){
+    //             return back()->withError('Store user hasn\'t been assigned to any store yet ');
+    //         }
+    //         $store = Store::where('id', $storeUser->store_id)->first();
+    //         $products = Product::where('store_id', $store->id);
+
+    //         $productRequest->status = 'Rejected';
+    //         $productRequest->save();
+
+    //         return redirect()
+    //             ->route('product-requests.index')
+    //             ->withSuccess(__('crud.common.rejected'));
+    //     }
+    //     abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
+    // }
+
+
+
     public function reject(ProductRequest $productRequest)
     {
         if (Auth::user()->can('store.request.*')) {
@@ -356,6 +379,32 @@ class ProductRequestController extends Controller
         }
         abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
     }
+//     public function reject(ProductRequest $productRequest)
+// {
+//     if (Auth::user()->can('store.request.*')) {
+//         $storeUser = StoreUser::where('user_id', Auth::user()->id)->first();
+
+//         if ($storeUser == null) {
+//             return back()->withError('Store user hasn\'t been assigned to any store yet ');
+//         }
+
+//         $store = Store::where('id', $storeUser->store_id)->first();
+//         $products = Product::where('store_id', $store->id);
+
+//         // Set the product request status to 'Rejected' but don't save it yet
+//         $productRequest->status = 'Rejected';
+
+//         // Emit Livewire event to open the rejection modal
+//         Livewire::emit('openRejectionModal', $productRequest);
+
+//         // You can choose to save the status in the Livewire component when the modal is submitted
+
+//         // Return a response or redirect if needed
+//         return response()->json(['message' => 'Modal opened successfully']);
+//     }
+
+//     abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
+// }
 
     public function sentRequests(Request $request)
     {
