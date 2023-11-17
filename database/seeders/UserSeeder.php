@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Hash;
 
-
 class UserSeeder extends Seeder
 {
     /**
@@ -20,71 +19,56 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-     $roles = ['admin', 'doctor', 'reception', 'laboratory', 'pharmacy', 'store'];
-        DB::table('users')->delete();
-
-        Role::findOrCreate('super-admin');
-        Role::findOrCreate('doctor');
-        Role::findOrCreate('lab_technician');
-        Role::findOrCreate('reception');
-        Role::findOrCreate('PHARMACY_USER');
-        Role::findOrCreate('nurse');
-        Role::findOrCreate('clinic-head');
-        Role::findOrCreate('SORE_USER');
-
-        // Role::updateOrCreate(['name' => Constants::PHARMACY_USER]);
-        // Role::updateOrCreate(['name' => Constants::STORE_USER_ROLE]);
-
-                
-        $user = User::where('username', 'admin')->first();
-        if ($user == null){
-            if (User::count() == 0) {
-                $user = User::updateOrCreate(
-                    [
-                        'username' =>'admin', // Search criteria for username
-                        'email' => 'super@hrm.com', // Search criteria for email
-                    ],
-                    [
-                        'name' => 'Super Admin',
-                        'password' => Hash::make('password'),
-                    ]
-                );
-                if ($user !== null) {
-                $user->assignRole(Constants::USER_TYPE_SUPER_ADMIN);
-                  }
-
-            }
-        }    
-
-        DB::table('clinic')->delete();
-
-        $clinics = [
-            ['id' => 1, 'name' => 'Main-Clinic', 'description' => 'Main Campus'],
-            ['id' => 2, 'name' => 'JiT-Clinic', 'description' => 'JiT'],
-            ['id' => 3, 'name' => 'Agri-Clinic', 'description' => 'GAVM-Agri'],
-
-        ];
-
-        Clinic::insert($clinics);
 
 
+        // DB::table('users')->delete();
 
-        // DB::table('room')->delete();
-        // Room::create([
-        //     'name' => 'OPD 001',
-        //     'description' => '',
-        //     'clinic_id' => 1,
-        // ]);
-        // DB::table('clinic_users')->delete();
+        // Role::findOrCreate('super-admin');
+        // Role::findOrCreate('doctor');
+        // Role::findOrCreate('lab_technician');
+        // Role::findOrCreate('reception');
+        // Role::findOrCreate('PHARMACY_USER');
+        // Role::findOrCreate('nurse');
+        // Role::findOrCreate('clinic-head');
+        // Role::findOrCreate('SORE_USER');
 
-        // $i = 2;
-        // foreach ($roles as $role) {
-        //     ClinicUser::create([
-        //         'user_id' => $i,
-        //         'room_id' => 1,
-        //     ]);
-        //     $i++;
-        // }
+        // // Role::updateOrCreate(['name' => Constants::PHARMACY_USER]);
+        // // Role::updateOrCreate(['name' => Constants::STORE_USER_ROLE]);
+
+
+        // $user = User::where('username', 'admin')->first();
+        // if ($user == null){
+        //     if (User::count() == 0) {
+        //         $user = User::updateOrCreate(
+        //             [
+        //                 'username' =>'admin', // Search criteria for username
+        //                 'email' => 'super@hrm.com', // Search criteria for email
+        //             ],
+        //             [
+        //                 'name' => 'Super Admin',
+        //                 'password' => Hash::make('password'),
+        //             ]
+        //         );
+        //         if ($user !== null) {
+        //         $user->assignRole(Constants::USER_TYPE_SUPER_ADMIN);
+            
+        //           }
+
+        //     }
+        // }    
+
+        // DB::table('clinic')->delete();
+
+        // $clinics = [
+        //     ['id' => 1, 'name' => 'Main-Clinic', 'description' => 'Main Campus'],
+        //     ['id' => 2, 'name' => 'JiT-Clinic', 'description' => 'JiT'],
+        //     ['id' => 3, 'name' => 'Agri-Clinic', 'description' => 'GAVM-Agri'],
+
+        // ];
+
+        // Clinic::insert($clinics);
+
+
     }
 }
 

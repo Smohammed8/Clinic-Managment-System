@@ -93,15 +93,58 @@
                     @endphp
 
 
-                    <span class="badge {{ $statusDetails[$encounter->status]['color'] ?? 'badge-secondary' }}"> <i
+
+<div id="accordion">
+    <div class="card">
+        <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+
+                <button class="btn btn-defult btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne"
+                    aria-expanded="false" aria-controls="collapseOne" style="font-size: 15px;">
+                    <i class="fa fa-user"> </i> <u> {{ $encounter->student->fullName ?? '-' }}'s </u>Visiting Histoty[ {{ $encounter->count() }}]
+                </button>
+
+
+                <button class="btn float-right" data-toggle="collapse" data-target="#collapseOne"><i class="fa fa-angle-down"></i></button>
+
+
+            </h5>
+        </div>
+
+
+       
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+            <div class="card-body">
+                <div class="row">
+                    <div class="card col-md-12 mb-2" style="border-radius:1%; border-top-width:2px;">
+                        <div class="card-body">
+                         
+                             <div class="table-responsive">
+                               <table class="table table-hover table-sm table-condensed">
+                                -
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+     
+    </div>
+
+</div>
+
+                    {{-- <span class="badge {{ $statusDetails[$encounter->status]['color'] ?? 'badge-secondary' }}"> <i
                             class="fas fa-list"></i><span style="font-size: 15px;">
                             {{ $statusDetails[$encounter->status]['name'] ?? '-' }} encounter
-                        </span> </span>
+                        </span> 
+                    </span>
 
                     <div
                         class="btn btn-sm btn-outline-{{ $statusDetails[$encounter->status]['color'] ?? 'badge-secondary' }}">
                         <i class="fas fa-door-open"></i>{{ $encounter?->Doctor?->clinicUsers?->room?->name }}
-                    </div>
+                    </div> --}}
 
                     <!-- Status Description (Hidden) -->
                     {{-- {{ $statusDetails[$encounter->status]['description'] ?? '-' }} --}}
@@ -624,7 +667,7 @@
                                                 data-toggle="pill" href="#vert-tabs-history" role="tab"
                                                 aria-controls="vert-tabs-history" aria-selected="false"> <i
                                                     class="fa fa-caret-right nav-icon"></i><b>
-                                                    Visit History </b> </a>
+                                                    Last Visit History </b> </a>
                                         </li>
                                     </ul>
                                 </div>

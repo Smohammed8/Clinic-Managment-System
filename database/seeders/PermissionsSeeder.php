@@ -180,7 +180,8 @@ class PermissionsSeeder extends Seeder
         Permission::updateOrCreate(['name'=>'view-setting']);
         Permission::updateOrCreate(['name'=>'accept_patient']);
         Permission::updateOrCreate(['name' => 'reporting']);
-
+        Permission::updateOrCreate(['name' => 'lab_notification']);
+        Permission::updateOrCreate(['name' => 'result_notification']);
     //////////////////////////////////////////////////////////
 
         Permission::findOrCreate('store.*');
