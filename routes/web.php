@@ -113,13 +113,9 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::post('/unmap-rfid', [HomeController::class, 'unmapRfid'])->name('unmap-rfid');
     Route::post('/map-rfid', [HomeController::class, 'mapRfid'])->name('map-rfid');
     Route::post('/changeStatuss', [EncounterController::class, 'changeStatus'])->name('changeStatuss');
-
     Route::post('/rechecin', [EncounterController::class, 'rechecin'])->name('rechecin');
-
-
     Route::get('/encouter-list', [HomeController::class, 'getEncouter'])->name('encounter-list');
     Route::post('/autosearch-encounters', [HomeController::class, 'autoSearch'])->name('autosearch-encounters');
-
     Route::resource('clinic-users', ClinicUserController::class);
     Route::resource('collages', CollageController::class);
     Route::resource('diagnoses', DiagnosisController::class);

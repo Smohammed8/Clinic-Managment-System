@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Constants;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Clinic;
@@ -19,18 +20,33 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        $roles = ['admin', 'doctor', 'reception', 'laboratory', 'pharmacy', 'store'];
-
+     $roles = ['admin', 'doctor', 'reception', 'laboratory', 'pharmacy', 'store'];
         DB::table('users')->delete();
-        foreach ($roles as $role) {
-            User::create([
-                'name' => ucfirst($role) . ' User',
-                'username' => $role,
-                'email' => $role . '@' . $role . '.com',
-                'password' => Hash::make('password'),
-            ]);
-        }
 
+        Role::findOrCreate('super-admin');
+
+        $user = User::where('username', 'admin')->first();
+        if ($user == null){
+            if (User::count() == 0) {
+                $user = User::updateOrCreate(
+                    [
+                        'username' =>'admin', // Search criteria for username
+                        'email' => 'super@hrm.com', // Search criteria for email
+                    ],
+                    [
+                        'name' => 'Seid Mohammed',
+                        'password' => Hash::make('password'),
+                    ]
+                );
+
+
+                if ($user !== null) {
+                $user->assignRole(Constants::USER_TYPE_SUPER_ADMIN);
+                  }
+
+            }
+        }    
+ 
 
         DB::table('clinic')->delete();
 
@@ -45,12 +61,12 @@ class UserSeeder extends Seeder
 
 
 
-        DB::table('room')->delete();
-        Room::create([
-            'name' => 'OPD 001',
-            'description' => '',
-            'clinic_id' => 1,
-        ]);
+        // DB::table('room')->delete();
+        // Room::create([
+        //     'name' => 'OPD 001',
+        //     'description' => '',
+        //     'clinic_id' => 1,
+        // ]);
         // DB::table('clinic_users')->delete();
 
         // $i = 2;
@@ -63,3 +79,10 @@ class UserSeeder extends Seeder
         // }
     }
 }
+
+
+
+
+
+
+

@@ -288,8 +288,8 @@ class PermissionsSeeder extends Seeder
                 // Add other user details as needed
             ]);
 
-            $adminUser->assignRole($e);
-        }
+            $adminUser->assignRole($adminUser);
+        
 
         // Similar checks for the doctor user
         $doctorUser = \App\Models\User::whereEmail('doctor@doctor.com')->first();
