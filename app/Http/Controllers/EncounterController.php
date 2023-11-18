@@ -268,7 +268,7 @@ class EncounterController extends Controller
         }
     }
 
-    
+
 
 
 
@@ -279,14 +279,14 @@ class EncounterController extends Controller
         $encounter = Encounter::where('id',   $encounterId)->first();
 
         if ($encounter) {
-         
+
             $encounter->update([
                 'status' => STATUS_CHECKED_IN,
                 'doctor_id' => null
             ]);
-        
 
-      
+
+
             return redirect()->back()->with('success', 'Status changed successfully.');
         }
 
@@ -302,19 +302,18 @@ class EncounterController extends Controller
         $encounter = Encounter::where('id',   $encounterId)->first();
 
         if ($encounter) {
-            if($encounter->status == STATUS_IN_PROGRESS) {  
-            $encounter->update([
-                'status' => STATUS_MISSED
-            ]);
-            }else{
+            if ($encounter->status == STATUS_IN_PROGRESS) {
+                $encounter->update([
+                    'status' => STATUS_MISSED
+                ]);
+            } else {
 
                 $encounter->update([
                     'status' => STATUS_IN_PROGRESS
                 ]);
-
             }
 
-      
+
             return redirect()->back()->with('success', 'Status changed successfully.');
         }
 
@@ -335,6 +334,7 @@ class EncounterController extends Controller
         $encounter->status = STATUS_IN_PROGRESS;
 
         $encounter->doctor_id = $doctorId;
+        $encounter->accepted_at = now();
         //dd($encounter);
 
         //dd($encounter->Doctor->room->id);
