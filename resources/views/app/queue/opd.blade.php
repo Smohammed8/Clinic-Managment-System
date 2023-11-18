@@ -16,46 +16,71 @@
                     </video>
                 </div>
             </div>
-
-            <script>
-                // Unmute the video after 5 seconds
-                const videoPlayer = document.getElementById('videoPlayer');
-
-
-                // videoPlayer.muted = false;
-
-                // const videoPlayer = document.getElementById('videoPlayer');
-                const videoSources = [
-                    '{{ asset('desk_image/videos/1.mp4') }}',
-                    '{{ asset('desk_image/videos/2.mp4') }}',
-                    '{{ asset('desk_image/videos/3.mp4') }}'
-                ];
-                let currentVideoIndex = 0;
-
-                videoPlayer.addEventListener('ended', playNextVideo);
-
-                function playNextVideo() {
-                    if (currentVideoIndex < videoSources.length - 1) {
-                        currentVideoIndex++;
-                        videoPlayer.src = videoSources[currentVideoIndex];
-                        videoPlayer.load();
-                        videoPlayer.play();
-                    } else {
-                        // All videos have played
-                        // You can add any further actions here, like looping back to the first video
-                    }
-                }
-
-                // Start playing the first video
-                videoPlayer.play();
-            </script>
-
         </div>
         <div class="col-md-12 bg-info" style="min-height: 35%;">
             <div class="p-2">
-                {{ Widget::run('opdQueueTable') }}
+                {{-- {{ Widget::run('opdQueueTable') }} --}}
+                <!-- resources/views/your-view.blade.php -->
+
+                <div id="opdQueueContainer">
+                    <x-queue.que-to-be-table :opdQueueToBe="$opdQueueToBe" />
+                </div>
+
+                <script>
+                    // Function to update the OPD Queue To Be component using Ajax
+                    function updateOPDQueue() {
+                        $.ajax({
+                            url: '{{ route('opd-to-be') }}',
+                            type: 'GET',
+                            success: function(data) {
+                                // Update the content of the component container
+                                $('#opdQueueContainer').html(data);
+                            },
+                            error: function(error) {
+                                console.error('Error updating OPD Queue:', error);
+                            },
+                        });
+                    }
+
+                    // Update the OPD Queue every 5 seconds
+                    setInterval(updateOPDQueue, 2000);
+                </script>
             </div>
         </div>
+
+        {{--         
+        <script>
+            // Unmute the video after 5 seconds
+            const videoPlayer = document.getElementById('videoPlayer');
+
+
+            // videoPlayer.muted = false;
+
+            // const videoPlayer = document.getElementById('videoPlayer');
+            const videoSources = [
+                '{{ asset('desk_image/videos/1.mp4') }}',
+                '{{ asset('desk_image/videos/2.mp4') }}',
+                '{{ asset('desk_image/videos/3.mp4') }}'
+            ];
+            let currentVideoIndex = 0;
+
+            videoPlayer.addEventListener('ended', playNextVideo);
+
+            function playNextVideo() {
+                if (currentVideoIndex < videoSources.length - 1) {
+                    currentVideoIndex++;
+                    videoPlayer.src = videoSources[currentVideoIndex];
+                    videoPlayer.load();
+                    videoPlayer.play();
+                } else {
+                    // All videos have played
+                    // You can add any further actions here, like looping back to the first video
+                }
+            }
+
+            // Start playing the first video
+            videoPlayer.play();
+        </script> --}}
 
     </div>
 @endsection
