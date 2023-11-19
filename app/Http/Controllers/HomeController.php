@@ -174,11 +174,36 @@ class HomeController extends Controller
         // $count = Student::where('status','=','1')->count();
 
 
+
+
+        $genderCounts = Encounter::join('students', 'encounters.student_id', '=', 'students.id')
+        ->select('students.sex', DB::raw('COUNT(*) as count'))
+        ->groupBy('students.sex')
+        ->get();
+       
+       // Initialize counters
+       $maleCount = 0;
+       $femaleCount = 0;
+       // Count male and female encounters
+       foreach ($genderCounts as $genderCount) {
+        if ($genderCount->sex === 'M') {
+            $maleCount = $genderCount->count;
+        } elseif ($genderCount->sex === 'F') {
+            $femaleCount = $genderCount->count;
+        }
+       }
+    
+  // Calculate percentages
+  $totalEncounters = $maleCount + $femaleCount;
+
+  // Avoid division by zero
+  $malePercentage = ($totalEncounters > 0) ? round(($maleCount / $totalEncounters) * 100) : 0;
+  $femalePercentage = ($totalEncounters > 0) ? round(($femaleCount / $totalEncounters) * 100) : 0;
+
+   
 // Retrieve data for the current month grouped by week
 $startDate = now()->startOfMonth();
 $endDate = now()->endOfMonth();
-
-
 $dataPoints = Encounter::selectRaw('MONTH(created_at) as x, COUNT(id) as y')
     ->whereYear('created_at', now()->year)
     ->groupBy('x')
@@ -186,6 +211,9 @@ $dataPoints = Encounter::selectRaw('MONTH(created_at) as x, COUNT(id) as y')
     ->get()
     ->toArray();
    // dd($dataPoints);
+
+
+
         return view('dashboard', compact(
             'users',
             'students',
@@ -193,7 +221,9 @@ $dataPoints = Encounter::selectRaw('MONTH(created_at) as x, COUNT(id) as y')
             'programs',
             'clinic_users',
             'encounters',
-            'dataPoints'
+            'dataPoints',
+            'malePercentage',
+            'femalePercentage'
 
         ));
     }
