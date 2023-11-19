@@ -59,9 +59,14 @@ class HomeController extends Controller
             if ($alreadyCheckedInToday > 0) {
                 return redirect()->route('home')->with('error', 'Already checked in today!');
             } 
-                  $openedCase = Encounter::where('student_id', $student->id)->where('status', 2)->count();
-           if ($openedCase >0){
-               return redirect()->route('home')->with('error', 'There is existing opened case associated with given ID');
+
+            $opened = Encounter::where('student_id', $student->id)->where('status', 2)->count();
+            if ($opened > 0){
+                $openedCase = Encounter::where('student_id', $student->id)->where('status', 2);
+               // dd(  $openedCase->id);
+               //return redirect()->route('home')->with('error', 'There is existing opened case associated with given ID');
+               return view('app.encounters.confirm', compact('student')); // A
+         
             }
             
             else {
@@ -86,6 +91,17 @@ class HomeController extends Controller
         }
     }
 
+    public function closeOpenCase(Request $request){
+
+
+        Encounter::where('student_id', $request->id)->where('status', 2)->update(['status' => STATUS_COMPLETED]);
+
+        // Encounter::where('id', $request->id)->update(['status' => STATUS_COMPLETED]);
+
+         return redirect()->route('home')->with('success', 'Opened case succssfully closed!');
+
+
+    }
     public function mapRfid(Request $request)
     {
 

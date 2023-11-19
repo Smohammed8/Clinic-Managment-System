@@ -21,7 +21,7 @@
                                                     class="fas fa-users"></i></span>
 
                                             <div class="info-box-content">
-                                                <span class="info-box-text">Users</span>
+                                                <span class="info-box-text"> Today visits</span>
                                                 <span class="info-box-number">
                                                     {{ $users }}
 
@@ -66,7 +66,7 @@
                                                     class="fas fa-book"></i></span>
 
                                             <div class="info-box-content">
-                                                <span class="info-box-text"> Active cases</span>
+                                                <span class="info-box-text"> Closed cases</span>
                                                 <span class="info-box-number">
                                                     0
 
