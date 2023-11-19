@@ -48,7 +48,7 @@
                             <div class="signature text-right text-primary font-weight-bold">
                                 Sincerely,
                                 <br>
-                                By Dr. {{ optional($medicalSickLeaves?->encounter?->Doctor?->user)?->name ?? '-' }}
+                                By Dr. {{ optional($medicalSickLeaves?->encounter?->Doctor)?->name ?? '-' }}
 
                                 <br>
                                 {{ optional($medicalSickLeaves?->encounter?->clinic)?->name ?? '-' }}

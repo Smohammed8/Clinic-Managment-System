@@ -110,6 +110,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
     Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('lab-queue');
     Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('opd-queue');
+    Route::get('/opd-queue-to-be', [QueueController::class, 'TableCOntent'])->name('opd-to-be');
     Route::post('/check-in', [HomeController::class, 'checkIn'])->name('checkin');
     Route::post('/unmap-rfid', [HomeController::class, 'unmapRfid'])->name('unmap-rfid');
     Route::post('/map-rfid', [HomeController::class, 'mapRfid'])->name('map-rfid');
