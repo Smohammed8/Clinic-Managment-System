@@ -883,13 +883,13 @@
                                         aria-labelledby="vert-tabs-medication-tab">
                                         @can('view-any', App\Models\Prescription::class)
                                             <div class="card mt-4">
-                                                {{-- <div class="card-body">
+                                                <div class="card-body">
                                                     <h4 class="card-title w-100 mb-2">Medicine Prescription</h4>
 
                                                     <livewire:encounter-prescriptions-detail :encounter="$encounter" />
-                                                </div> --}}
+                                                </div>
 
-                                                <div class="p-3">
+                                                {{-- <div class="p-3">
                                                     <div class="prescription-view">
                                                         <h3>Medicine Prescription</h3>
                                                         <div class="prescription-info">
@@ -924,7 +924,7 @@
                                                         </div>
 
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         @endcan
                                     </div>
