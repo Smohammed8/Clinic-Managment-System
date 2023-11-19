@@ -9,6 +9,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>JU-SIS-V2</title>
+
+
     <style>
         html {
             background-color: #f4f6f9;
@@ -69,6 +71,8 @@
 
     <!-- Additional Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+
+    @stack('styles')
 
     <!-- Livewire Styles -->
     @livewireStyles

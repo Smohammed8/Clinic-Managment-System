@@ -142,19 +142,22 @@
                                 method="POST" class="d-inline-block">
                                 @csrf
                                 <input type="hidden" name="status" value="{{ $encounter->status }}">
-                                <button type="submit" class="btn btn-sm btn-outline-primary">     <i class="fa fa-check"></i> Close Encounter</button>
+                                <button type="submit" class="btn btn-sm btn-outline-primary"> <i class="fa fa-check"></i>
+                                    Close Encounter</button>
                             </form>
 
-    
-                           @if($encounter->status ==4 )
-                            <button type="button" class="btn btn-sm d-inline-block btn-outline-primary mr-3" data-toggle="modal" 
-                            data-target="#confirmationModal" data-record-id="{{ $encounter->id }}"><i class="fa fa-user-minus"></i>  
-                            Re-accept
-                            </button>
+
+                            @if ($encounter->status == 4)
+                                <button type="button" class="btn btn-sm d-inline-block btn-outline-primary mr-3"
+                                    data-toggle="modal" data-target="#confirmationModal"
+                                    data-record-id="{{ $encounter->id }}"><i class="fa fa-user-minus"></i>
+                                    Re-accept
+                                </button>
                             @else
-                            <button type="button" class="btn btn-sm d-inline-block btn-outline-primary mr-3" data-toggle="modal" 
-                            data-target="#confirmationModal" data-record-id="{{ $encounter->id }}"><i class="fa fa-user-minus"></i>  Missing
-                            </button>
+                                <button type="button" class="btn btn-sm d-inline-block btn-outline-primary mr-3"
+                                    data-toggle="modal" data-target="#confirmationModal"
+                                    data-record-id="{{ $encounter->id }}"><i class="fa fa-user-minus"></i> Missing
+                                </button>
                             @endif
 
 
@@ -163,13 +166,13 @@
 
                             <a href="{{ route('encounters.index') }}"
                                 class="btn btn-sm d-inline-block btn-outline-primary mr-3">
-                               
+
                                 <i class="fa fa-arrow-left" aria-hidden="true"></i>
 
                                 Close</a>
 
-                          
-                            
+
+
 
                         </div>
                     </div>
@@ -417,7 +420,8 @@
             </script> --}}
             <!-- Referral Modal End-->
 
-            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -431,10 +435,10 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                <form method="post" action="{{ route('changeStatuss') }}">
+                            <form method="post" action="{{ route('changeStatuss') }}">
                                 @csrf
                                 <input type="hidden" name="encounter_id" value="{{ $encounter->id }}">
-                                <button type="submit" class="btn btn-primary" >
+                                <button type="submit" class="btn btn-primary">
                                     Confirm
                                 </button>
                             </form>
@@ -442,7 +446,7 @@
                     </div>
                 </div>
             </div>
-            
+
 
 
 
@@ -471,23 +475,23 @@
                         <i class="fa fa-caret-right"></i>
                         <span> Visit status:</span>
 
-                        @if($encounter->status == 1)
-                        <span class="badge badge-secondary"> Checked-in</span>
+                        @if ($encounter->status == 1)
+                            <span class="badge badge-secondary"> Checked-in</span>
                         @elseif($encounter->status == 2)
-                        <span class="badge  badge-info">  In-progress</span>
+                            <span class="badge  badge-info"> In-progress</span>
                         @elseif($encounter->status == 3)
-                        <span class="badge  badge-success">  Completed </span>
+                            <span class="badge  badge-success"> Completed </span>
                         @else
-                        <span class="badge  badge-danger"> Missed </span>
+                            <span class="badge  badge-danger"> Missed </span>
                         @endif
 
 
-                       
+
                     </div>
 
                     <div class="col-md-4 mb-2">
                         <i class="fa fa-caret-right"></i>
-                        <span>Date of  visit:</span>
+                        <span>Date of visit:</span>
                         {{ $encounter->created_at?->format('d M Y') ?? '-' }}
 
                     </div>
@@ -516,7 +520,7 @@
                         {{ $encounter->student->id_number ?? '-' }}
                     </div>
 
-                
+
 
                 </div>
 
@@ -759,13 +763,13 @@
                                         aria-labelledby="vert-tabs-medication-tab">
                                         @can('view-any', App\Models\Prescription::class)
                                             <div class="card mt-4">
-                                                {{-- <div class="card-body">
+                                                <div class="card-body">
                                                     <h4 class="card-title w-100 mb-2">Medicine Prescription</h4>
 
                                                     <livewire:encounter-prescriptions-detail :encounter="$encounter" />
-                                                </div> --}}
+                                                </div>
 
-                                                <div class="p-3">
+                                                {{-- <div class="p-3">
                                                     <div class="prescription-view">
                                                         <h3>Medicine Prescription</h3>
                                                         <div class="prescription-info">
@@ -800,7 +804,7 @@
                                                         </div>
 
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                         @endcan
                                     </div>
