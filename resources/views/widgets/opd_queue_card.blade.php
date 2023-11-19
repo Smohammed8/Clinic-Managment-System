@@ -21,7 +21,7 @@
                     <h3>{{ $encounter->student->id_number ?? '-' }}</h3>
                     <div class="d-flex justify-content">
                         <p>
-                            {{ $encounter->updated_at->diffForHumans() }} 
+                          Called  {{ $encounter->updated_at->diffForHumans() }} 
                         </p>
                         {{-- <p class="px-2">
                         
