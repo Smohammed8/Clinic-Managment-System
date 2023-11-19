@@ -137,7 +137,7 @@
                     suffix: ""
                 },
                 axisX: {
-                    title: "Year of months",
+                   // title: "Year of months",
                     interval: 1,
                     intervalType: "month",
                     valueFormatString: "MMMM",
