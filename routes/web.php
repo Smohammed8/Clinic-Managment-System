@@ -82,6 +82,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::resource('campuses', CampusController::class);
     Route::resource('clinics', ClinicController::class);
     Route::get('all-clinic-services', [ClinicServicesController::class, 'index',])->name('all-clinic-services.index');
+    Route::post('/update-status',[HomeController::class, 'closeOpenCase'])->name('update.status');
     Route::post('all-clinic-services', [
         ClinicServicesController::class,
         'store',

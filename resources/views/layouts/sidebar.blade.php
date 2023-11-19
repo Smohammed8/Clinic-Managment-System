@@ -219,27 +219,19 @@
                                             <a href="{{ route('roles.index') }}"
                                                 class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
                                                 <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Roles</p>
+                                                <p> User groups</p>
                                             </a>
                                         </li>
                                     @endcan
 
-                                    @can('view-any', Spatie\Permission\Models\Permission::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('permissions.index') }}"
-                                                class="nav-link {{ Request::is('permissions*') ? 'active' : '' }}">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Permissions</p>
-                                            </a>
-                                        </li>
-                                    @endcan
+                       
 
                                     @can('view-any', App\Models\User::class)
                                         <li class="nav-item">
                                             <a href="{{ route('users.index') }}"
                                                 class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
                                                 <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Users</p>
+                                                <p>List of Users</p>
                                             </a>
                                         </li>
                                     @endcan
@@ -253,6 +245,18 @@
                                             </a>
                                         </li>
                                     @endcan
+
+
+                                    @can('view-any', Spatie\Permission\Models\Permission::class)
+                                    <li class="nav-item">
+                                        <a href="{{ route('permissions.index') }}"
+                                            class="nav-link {{ Request::is('permissions*') ? 'active' : '' }}">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Permissions</p>
+                                        </a>
+                                    </li>
+                                    @endcan
+
                                 </ul>
                             </li>
                         @endif
@@ -607,6 +611,36 @@
                             </li>
                         @endcan
 
+
+
+                        @canany('reporting')
+                        <li class="nav-item has-treeview ">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-print"></i>
+                                <p>
+                                    Reporting
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                               
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link ">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p> Lab Report</p>
+                                        </a>
+                                    </li>
+                        
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>HMIS Report</p>
+                                        </a>
+                                    </li>
+                           
+                            </ul>
+                        </li>
+                    @endcanany
 
                         <li class="nav-item ">
                             <a href="{{ route('logout') }}" class="nav-link">

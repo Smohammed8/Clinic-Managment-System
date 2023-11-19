@@ -21,7 +21,9 @@
                     <h3>{{ $encounter->student->id_number ?? '-' }}</h3>
                     <p>
                         {{-- {{ $encounter->first()->Doctor ? $encounter->first()->Doctor->user->name : '-' }} --}}
-                        {{ $encounter->Doctor ? $encounter->Doctor->name : '-' }}
+                        {{-- {{ $encounter->Doctor ? $encounter->Doctor->name : '-' }} --}}
+
+                        {{ $encounter->updated_at->diffForHumans() }} 
 
                         {{-- {{ dd($opdQueue->first()->Doctor->rooms->first()->name) }} --}}
 

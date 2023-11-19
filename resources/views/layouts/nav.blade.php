@@ -58,7 +58,7 @@
 
     
             
-                   @if (Auth::user()->hasRole('doctor')or Auth::user()->hasRole('super-admin'))
+                   @can('result_notification')
 
                    <li class="nav-item dropdown">
                     <a class="nav-link" data-toggle="dropdown" href="#">
@@ -95,16 +95,17 @@
 
                       <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                     </div>
-                    
+                
+
                   </li>
-                  @endif
+                  @endcan
                 @php
                
                   $labRequests = \App\Models\LabTestRequest::whereNull('status')
                       ->whereNull('result')
                       ->get();
               @endphp   
-      @if (Auth::user()->hasRole('lab_technician') or Auth::user()->hasRole('super-admin') )
+      @can('lab_notification')
      <div class="dropdown-divider"></div>
                 <!-- Notifications Dropdown Menu -->
      <li class="nav-item dropdown">
@@ -136,7 +137,7 @@
         </div>
       </li>
 
-      @endif
+      @endcan
                 <li class="nav-item">
 
                     <a class="nav-link" data-toggle="dropdown" style="color:white; href="#">

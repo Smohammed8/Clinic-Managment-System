@@ -59,9 +59,14 @@ class HomeController extends Controller
             if ($alreadyCheckedInToday > 0) {
                 return redirect()->route('home')->with('error', 'Already checked in today!');
             } 
-                  $openedCase = Encounter::where('student_id', $student->id)->where('status', 2)->count();
-           if ($openedCase >0){
-               return redirect()->route('home')->with('error', 'There is existing opened case associated with given ID');
+
+            $opened = Encounter::where('student_id', $student->id)->where('status', 2)->count();
+            if ($opened > 0){
+                $openedCase = Encounter::where('student_id', $student->id)->where('status', 2);
+               // dd(  $openedCase->id);
+               //return redirect()->route('home')->with('error', 'There is existing opened case associated with given ID');
+               return view('app.encounters.confirm', compact('student')); // A
+         
             }
             
             else {
@@ -86,6 +91,17 @@ class HomeController extends Controller
         }
     }
 
+    public function closeOpenCase(Request $request){
+
+
+        Encounter::where('student_id', $request->id)->where('status', 2)->update(['status' => STATUS_COMPLETED]);
+
+        // Encounter::where('id', $request->id)->update(['status' => STATUS_COMPLETED]);
+
+         return redirect()->route('home')->with('success', 'Opened case succssfully closed!');
+
+
+    }
     public function mapRfid(Request $request)
     {
 
@@ -173,6 +189,47 @@ class HomeController extends Controller
         // $count = DB::table('students')->count();
         // $count = Student::where('status','=','1')->count();
 
+
+
+
+        $genderCounts = Encounter::join('students', 'encounters.student_id', '=', 'students.id')
+        ->select('students.sex', DB::raw('COUNT(*) as count'))
+        ->groupBy('students.sex')
+        ->get();
+       
+       // Initialize counters
+       $maleCount = 0;
+       $femaleCount = 0;
+       // Count male and female encounters
+       foreach ($genderCounts as $genderCount) {
+        if ($genderCount->sex === 'M') {
+            $maleCount = $genderCount->count;
+        } elseif ($genderCount->sex === 'F') {
+            $femaleCount = $genderCount->count;
+        }
+       }
+    
+  // Calculate percentages
+  $totalEncounters = $maleCount + $femaleCount;
+
+  // Avoid division by zero
+  $malePercentage = ($totalEncounters > 0) ? round(($maleCount / $totalEncounters) * 100) : 0;
+  $femalePercentage = ($totalEncounters > 0) ? round(($femaleCount / $totalEncounters) * 100) : 0;
+
+   
+// Retrieve data for the current month grouped by week
+$startDate = now()->startOfMonth();
+$endDate = now()->endOfMonth();
+$dataPoints = Encounter::selectRaw('MONTH(created_at) as x, COUNT(id) as y')
+    ->whereYear('created_at', now()->year)
+    ->groupBy('x')
+    ->orderBy('x', 'asc') // Order by the month number (x)
+    ->get()
+    ->toArray();
+   // dd($dataPoints);
+
+
+
         return view('dashboard', compact(
             'users',
             'students',
@@ -180,6 +237,9 @@ class HomeController extends Controller
             'programs',
             'clinic_users',
             'encounters',
+            'dataPoints',
+            'malePercentage',
+            'femalePercentage'
 
         ));
     }
