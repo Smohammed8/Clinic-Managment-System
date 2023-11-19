@@ -173,6 +173,19 @@ class HomeController extends Controller
         // $count = DB::table('students')->count();
         // $count = Student::where('status','=','1')->count();
 
+
+// Retrieve data for the current month grouped by week
+$startDate = now()->startOfMonth();
+$endDate = now()->endOfMonth();
+
+
+$dataPoints = Encounter::selectRaw('MONTH(created_at) as x, COUNT(id) as y')
+    ->whereYear('created_at', now()->year)
+    ->groupBy('x')
+    ->orderBy('x', 'asc') // Order by the month number (x)
+    ->get()
+    ->toArray();
+   // dd($dataPoints);
         return view('dashboard', compact(
             'users',
             'students',
@@ -180,6 +193,7 @@ class HomeController extends Controller
             'programs',
             'clinic_users',
             'encounters',
+            'dataPoints'
 
         ));
     }

@@ -8,14 +8,13 @@
                 <div class="card">
                     <div class="card-header">{{ __('Dashboard') }}</div>
 
-                    <div class="card-body">
-                        {{-- @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
 
-                    {{ __('You are logged in!') }} --}}
+
+
+
+
+                    <div class="card-body">
+                        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 
 
                         <section class="content">
@@ -163,4 +162,51 @@
         </div>
     </div>
     </div>
+
+    <script src="{{ asset('assets/js/canvasjs.min.js') }}"></script>
+
+    <script>
+        window.onload = function () {
+            // Assuming $dataPoints contains data for each month, and months are represented as numbers (1 to 12)
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                title: {
+                    text: "Number of Visitors by Month (Current Year)"
+                },
+                axisY: {
+                    title: "Number of Visitors",
+                    valueFormatString: "#0",
+                    suffix: ""
+                },
+                axisX: {
+                    title: "Month",
+                    interval: 1,
+                    intervalType: "month",
+                    valueFormatString: "MMMM",
+                    labelFormatter: function (e) {
+                        // Convert month number to month name
+                        var monthNames = [
+                            "January", "February", "March", "April", "May", "June",
+                            "July", "August", "September", "October", "November", "December"
+                        ];
+                        return monthNames[e.value - 1]; // Months are zero-indexed
+                    }
+                },
+                data: [{
+                    type: "spline",
+                    markerSize: 5,
+                    yValueFormatString: "#0",
+                    dataPoints: <?php echo json_encode($dataPoints, JSON_NUMERIC_CHECK); ?>
+                }]
+            });
+    
+            chart.render();
+        }
+    </script>
+    
+    
+    
+    
+    
+    
 @endsection
