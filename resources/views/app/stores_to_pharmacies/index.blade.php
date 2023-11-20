@@ -65,14 +65,14 @@
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $storesToPharmacy)
                                                 <a href="{{ route('stores-to-pharmacies.edit', $storesToPharmacy) }}">
-                                                    <button type="button" class="btn btn-light">
-                                                        <i class="icon ion-md-create"></i>
+                                                   <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                        <i class="fa fa-edit"></i> Edit
                                                     </button>
                                                 </a>
                                                 @endcan @can('view', $storesToPharmacy)
                                                 <a href="{{ route('stores-to-pharmacies.show', $storesToPharmacy) }}">
-                                                    <button type="button" class="btn btn-light">
-                                                        <i class="icon ion-md-eye"></i>
+                                                   <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                        <i class="icon ion-md-eye"></i> Show
                                                     </button>
                                                 </a>
                                                 @endcan @can('delete', $storesToPharmacy)
@@ -80,8 +80,8 @@
                                                     method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
-                                                    <button type="submit" class="btn btn-light text-danger">
-                                                        <i class="icon ion-md-trash"></i>
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
+                                                        <i class="icon ion-md-trash"></i> Delete
                                                     </button>
                                                 </form>
                                             @endcan
