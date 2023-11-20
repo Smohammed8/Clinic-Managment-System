@@ -99,12 +99,11 @@ class UserController extends Controller
         UserUpdateRequest $request,
         User $user
     ) {
-
         // ): RedirectResponse {
-        // dd($request->roles);
-        if (in_array(Constants::PHARMACY_USER_ROLE_ID, $request->roles) and  in_array(Constants::STORE_USER_ROLE_ID, $request->roles)) {
-            return redirect()->back()->with('error', 'Store user and Pharmacy user can\'t be assigned simultaneously');
-        }
+        // dd(?$request->roles);
+        // if (in_array(Constants::PHARMACY_USER_ROLE_ID, $request->roles) and  in_array(Constants::STORE_USER_ROLE_ID, $request->roles)) {
+        //     return redirect()->back()->with('error', 'Store user and Pharmacy user can\'t be assigned simultaneously');
+        // }
         $this->authorize('update', $user);
 
         $validated = $request->validated();
@@ -119,13 +118,15 @@ class UserController extends Controller
 
 
         $user->syncRoles($request->roles);
-
-        if (in_array(Constants::PHARMACY_USER_ROLE_ID, $request->roles)) {
+        $passedRoles = Role::where('id', $request->roles)->first();
+        if ($passedRoles && stripos($passedRoles->name, 'phar') !== false) {
             $pharmacy = true;
             $pharmacies = Pharmacy::pluck('name', 'id');;
 
             return view('app.roles.assignPlaceForPharmacyOrStore', compact('pharmacy', 'pharmacies', 'user'));
-        } elseif (in_array(Constants::STORE_USER_ROLE_ID, $request->roles)) {
+        } elseif ($passedRoles && stripos($passedRoles->name, 'store') !== false) {
+
+
             $pharmacy = false;
             $stores = Store::pluck('name', 'id');;
 
@@ -134,6 +135,7 @@ class UserController extends Controller
 
         return redirect()
             ->route('users.edit', $user)
+
             ->withSuccess(__('crud.common.saved'));
     }
 
