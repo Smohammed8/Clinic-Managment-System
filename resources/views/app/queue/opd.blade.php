@@ -50,22 +50,7 @@
                                                                 @endif
                                                                 <span id="timeCounter" class="right badge badge-danger">
                                                                     @if ($encounter->created_at)
-                                                                        @php
-                                                                            $acceptedTime = \Carbon\Carbon::parse($encounter->created_at);
-                                                                            $diffInMinutes = $acceptedTime->diffInMinutes();
-                                                                            $diffInHours = $acceptedTime->diffInHours();
-                                                                            $diffInDays = $acceptedTime->diffInDays();
-                                                                        @endphp
-
-                                                                        @if ($diffInMinutes < 60)
-                                                                            {{ $diffInMinutes }} minutes ago
-                                                                        @elseif($diffInHours < 24)
-                                                                            {{ $diffInHours }} hours ago
-                                                                        @else
-                                                                            {{ $diffInDays }} days ago
-                                                                        @endif
-                                                                    @else
-                                                                        /
+                                                                        {{ $encounter->created_at?->diffForHumans() }}4
                                                                     @endif
                                                                 </span>
 

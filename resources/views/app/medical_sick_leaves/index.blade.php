@@ -6,7 +6,7 @@
             <!-- Content Wrapper. Contains page content -->
             <!-- Content Header (Page header) -->
             <div class="content-header">
-                <div class="container">
+                <div class="">
                     <h1 class="text-center">Medical Sick Leave Letter</h1>
                 </div>
             </div>

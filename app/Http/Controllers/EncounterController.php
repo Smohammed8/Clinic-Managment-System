@@ -135,6 +135,40 @@ class EncounterController extends Controller
     }
 
 
+    public function openedEencounter(Request $request): View
+    {
+        //dd(STATUS_IN_PROGRESS);
+        $this->authorize('view-any', Encounter::class);
+        $clinic_id = Auth::user()->clinicUsers?->clinic_id;
+        // dd($clinic_id);
+
+        $search = $request->get('search', '');
+        $status = STATUS_IN_PROGRESS; // list of students accepted by receptionist
+
+
+        // Retrieve encounters with the desired status
+        $desiredStatusEncountersQuery = Encounter::search($search)
+            ->where('status', $status);
+
+        if ($clinic_id) {
+            $desiredStatusEncountersQuery->where('clinic_id', $clinic_id);
+        }
+
+        $encounters = $desiredStatusEncountersQuery
+            ->orderBy('created_at', 'asc')
+            ->paginate(100)
+            ->withQueryString();
+
+        // $reception_id = $encounters[0]?->registered_by;
+        $rooms = Clinic::find($clinic_id)?->rooms;
+        // dd($rooms);
+
+
+        // dd($encounters);
+
+        return view('app.encounters.opened', compact('encounters', 'search', 'rooms'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -356,12 +390,14 @@ class EncounterController extends Controller
         return redirect($encounterUrl);
     }
 
-    //close encounter
+    //close encounter and call next
     public function closeEencounter(Request $request, Encounter $encounter)
     {
         // $doctors = User::whereHas('roles', function ($query) {
         //     $query->where('name', DOCTOR_ROLE);
         // })->get();
+
+
 
         $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
 
@@ -377,11 +413,16 @@ class EncounterController extends Controller
 
         $encounter->save();
 
+        if ($request->screen) {
+            return redirect()->route('encounters.opened')->with('success', 'CLosed Encounter successfully');
+        }
+
         // Find the next encounter with the same status and ID greater than the current encounter
         $nextEncounter = Encounter::where('status', STATUS_CHECKED_IN)
             ->where('id', '>', $encounter->id)
             ->first();
 
+        // dd("here");
 
         // Redirect to the next encounter's show page with the updated ID in the URL
         //dd($nextEncounter);
@@ -417,8 +458,25 @@ class EncounterController extends Controller
 
 
 
+
             return view('app.encounters.show', compact('encounter',  'doctors', 'labCategories', 'rooms', 'danger_message'));
         }
+    }
+
+
+    //close encounter and call next
+    public function termniateEencounter(Encounter $encounter)
+    {
+
+        $this->authorize('view', $encounter);
+
+        // Get the current encounter's status from the form input
+        // Update the current encounter's status to 1
+        $encounter->status = STATUS_COMPLETED;
+        $encounter->closed_at = now();
+        // dd($encounter);
+        $encounter->save();
+        return redirect()->route('encounters.index')->with('success', 'Encounter Terminated successfully');
     }
 
 

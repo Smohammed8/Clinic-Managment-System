@@ -50,8 +50,6 @@
 
                         </p> --}}
                     </div>
-
-
                 </div>
                 <div class="icon">
                     <i class="ion ion-stat text-light font-weight-bold"><span class="small text-md">

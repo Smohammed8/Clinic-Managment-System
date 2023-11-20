@@ -44,7 +44,7 @@
     <script></script>
 @endpush
 @section('content')
-    <div class="container">
+    <div class="">
         <div class="card">
 
             <div class="card-header p-0 pt-1 border-bottom-0">
@@ -221,7 +221,7 @@
                                 <tbody>
                                     @forelse($RejectedProductRequests as $RejectedRequest)
                                         <tr>
-                                            <th>{{$i++}}</th>
+                                            <th>{{ $i++ }}</th>
 
                                             <td>{{ $RejectedRequest->amount ?? '-' }}</td>
 
@@ -333,7 +333,7 @@
                                 <tbody>
                                     @forelse($RequestedProductRequests as $requestedProductRequest)
                                         <tr>
-                                        <th>{{$i++}}</th>
+                                            <th>{{ $i++ }}</th>
                                             <td>{{ $requestedProductRequest->amount ?? '-' }}</td>
                                             {{-- <td>
                                             {{ optional($productRequest->clinic)->name ??

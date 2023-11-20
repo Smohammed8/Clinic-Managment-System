@@ -46,7 +46,6 @@
 
                                             <span id="timeCounter" class="right badge badge-danger">
 
-
                                                 {{ $encounter->created_at->diffForHumans() }} 
 
                                                 {{-- @if ($encounter->created_at)

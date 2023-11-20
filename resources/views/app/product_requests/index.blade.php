@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
+    <div class="">
         <div class="card">
             <div class="card-body">
                 <div style="display: flex; justify-content: space-between;">
                     <h4 class="card-title">
-                       Product Request Lists
+                        Product Request Lists
                     </h4>
                 </div>
 
@@ -53,18 +53,16 @@
                             </th> --}}
 
                                 @can('pharmacy.*')
-
-                                <th class="text-left">
-                                   Store
-                                </th>
+                                    <th class="text-left">
+                                        Store
+                                    </th>
                                 @endcan
 
 
                                 @can('store.*')
-
-                                <th class="text-left">
-                                   Pharmacy
-                                </th>
+                                    <th class="text-left">
+                                        Pharmacy
+                                    </th>
                                 @endcan
 
                                 <th class="text-center">
@@ -74,11 +72,11 @@
                         </thead>
                         <tbody>
                             @php
-                            $i=1;
-                        @endphp
+                                $i = 1;
+                            @endphp
                             @forelse($productRequests as $productRequest)
                                 <tr>
-                                    <td>{{$i++}}</td>
+                                    <td>{{ $i++ }}</td>
                                     <td>
                                         {{ optional($productRequest->product)->name ?? '-' }}
                                     </td>
@@ -89,19 +87,18 @@
                             </td> --}}
                                     {{-- @if (Auth::user()->hasRole(App\Constants::PHARMACY_USER)) --}}
                                     @can('pharmacy.*')
-
-                                    <td>
-                                        {{ optional($productRequest->store)->name ?? '-' }}
-                                    </td>
+                                        <td>
+                                            {{ optional($productRequest->store)->name ?? '-' }}
+                                        </td>
                                     @endcan
-                                {{-- @elseif (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE)) --}}
+                                    {{-- @elseif (Auth::user()->hasRole(App\Constants::STORE_USER_ROLE)) --}}
                                     @can('store.*')
-                                    <td>
+                                        <td>
 
-                                        {{ optional($productRequest->pharmacy)->name ?? '-' }}
-                                    </td>
+                                            {{ optional($productRequest->pharmacy)->name ?? '-' }}
+                                        </td>
                                     @endcan
-                                {{-- @endif --}}
+                                    {{-- @endif --}}
                                     <td class="text-center" style="width: 134px;">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             {{-- @can('update', $productRequest) --}}
@@ -127,20 +124,22 @@
                                         </button>
                                     </a> --}}
 
-                                     @can('store.*')
+                                            @can('store.*')
+                                                <a
+                                                    href="{{ route('product-requests.approve', ['productRequest' => $productRequest]) }}">
+                                                    <button type="button" class="btn btn-primary">
+                                                        Approve
+                                                    </button>
+                                                </a>
 
-                                     <a href="{{ route('product-requests.approve', ['productRequest'=>$productRequest]) }}">
-                                         <button type="button" class="btn btn-primary">
-                                             Approve
-                                         </button>
-                                     </a>
-
-                                     <a href="{{ route('product-requests.reject', ['productRequest'=>$productRequest]) }}">
-                                         <button type="button" class="btn btn-danger" onclick="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                             Reject
-                                         </button>
-                                     </a>
-                                     {{-- <a href="#" wire:click.prevent="rejectProductRequest('{{ $productRequest->id }}')" class="btn btn-danger" onclick="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                <a
+                                                    href="{{ route('product-requests.reject', ['productRequest' => $productRequest]) }}">
+                                                    <button type="button" class="btn btn-danger"
+                                                        onclick="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                        Reject
+                                                    </button>
+                                                </a>
+                                                {{-- <a href="#" wire:click.prevent="rejectProductRequest('{{ $productRequest->id }}')" class="btn btn-danger" onclick="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                         Reject
                                     </a> --}}
                                             @endcan
@@ -155,15 +154,14 @@
                                         </form> --}}
 
                                             @can('pharmacy.*')
-
-                                            <form action="{{ route('product-requests.destroy', $productRequest) }}"
-                                                method="POST"
-                                                onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
-                                                @csrf @method('DELETE')
-                                                <button type="submit" class="btn btn-light text-danger">
-                                                    Cancel
-                                                </button>
-                                            </form>
+                                                <form action="{{ route('product-requests.destroy', $productRequest) }}"
+                                                    method="POST"
+                                                    onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                    @csrf @method('DELETE')
+                                                    <button type="submit" class="btn btn-light text-danger">
+                                                        Cancel
+                                                    </button>
+                                                </form>
                                             @endcan
 
                                             {{-- @endif --}}
