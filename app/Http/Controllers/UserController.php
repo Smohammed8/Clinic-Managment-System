@@ -172,4 +172,30 @@ class UserController extends Controller
             ->route('users.index', $user)
             ->withSuccess(__('User has been assigned to Store'));
     }
+
+
+
+    public function store_and_pharmacy_users(Request $request){
+
+        $store_users = User::whereHas('roles', function ($query) {
+            $query->where('name', Constants::STORE_USER_ROLE); // Adjust 'name' based on your actual column
+        })
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
+
+        dd($store_users[0]->storeUser());
+        $pharmacy_users = User::whereHas('roles', function ($query) {
+            $query->where('name', Constants::PHARMACY_USER); // Adjust 'name' based on your actual column
+        })
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
+
+
+
+        return view('app.store_and_pharmacy_users.index',compact('store_users','pharmacy_users'));
+
+
+    }
 }

@@ -245,6 +245,15 @@
                                             </a>
                                         </li>
                                     @endcan
+                                    @can('view-any', App\Models\StoreUser::class)
+                                        <li class="nav-item">
+                                            <a href="{{ route('store_and_pharmacy_users.index') }}"
+                                                class="nav-link {{ Request::is('clinic-users*') ? 'active' : '' }}">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Store and Pharmacy Users</p>
+                                            </a>
+                                        </li>
+                                    @endcan
 
 
                                     @can('view-any', Spatie\Permission\Models\Permission::class)
