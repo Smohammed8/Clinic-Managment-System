@@ -16,7 +16,7 @@
 
 <body>
     <section class="ftco-section">
-        <div class="">
+        <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-7 col-lg-5">
                     <div class="login-wrap p-4 p-md-5">
