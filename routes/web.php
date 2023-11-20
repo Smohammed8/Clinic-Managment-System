@@ -211,6 +211,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
     // My routes
 
+    Route::get('/store_and_pharmacy_users', [UserController::class, 'store_and_pharmacy_users'])->name('store_and_pharmacy_users.index');
     Route::get('/product-requests/approve/{productRequest}', [ProductRequestController::class, 'approve'])->name('product-requests.approve');
     Route::get('/product-requests/reject/{productRequest}', [ProductRequestController::class, 'reject'])->name('product-requests.reject');
     Route::get('/product-requests/sentRequests', [ProductRequestController::class, 'sentRequests'])->name('product-requests.sentRequests');
