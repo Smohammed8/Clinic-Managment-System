@@ -262,34 +262,6 @@
                         @endif
 
 
-                        @can('view-any', App\Models\StoreUser::class)
-                            <li class="nav-item has-treeview">
-                                <a href="#"
-                                    class="nav-link {{ Request::is('store_and_pharmacy_users*') ? 'active' : '' }}">
-                                    <i class="nav-icon icon fas fa-home"></i>
-                                    <p>Store and Pharmacy</p>
-                                    <i class="right fas fa-angle-left"></i>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    @can('store.*')
-                                        <li class="nav-item">
-                                            <a href="{{ route('store_and_pharmacy_users.index') }}" class="nav-link ">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p> Store Users </p>
-                                            </a>
-                                        </li>
-                                    @endcan
-                                    @can('pharmacy.*')
-                                        <li class="nav-item">
-                                            <a href="{{ route('store_and_pharmacy_users.index') }}" class="nav-link">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Pharmacy User</p>
-                                            </a>
-                                        </li>
-                                    @endcan
-                                </ul>
-                            </li>
-                        @endcan
 
 
                         @canany(['sync-student', 'sync-photo'])
@@ -519,6 +491,34 @@
                                 </ul>
                             </li>
                         @endcanany
+                        @can('view-any', App\Models\StoreUser::class)
+                        <li class="nav-item has-treeview">
+                            <a href="#"
+                                class="nav-link {{ Request::is('store_and_pharmacy_users*') ? 'active' : '' }}">
+                                <i class="nav-icon icon fas fa-home"></i>
+                                <p>Store and Pharmacy</p>
+                                <i class="right fas fa-angle-left"></i>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @can('store.*')
+                                    <li class="nav-item">
+                                        <a href="{{ route('store_and_pharmacy_users.index') }}" class="nav-link ">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p> Store Users </p>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('pharmacy.*')
+                                    <li class="nav-item">
+                                        <a href="{{ route('store_and_pharmacy_users.index') }}" class="nav-link">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Pharmacy User</p>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </li>
+                    @endcan
 
                         @can('view-setting')
                             <li class="nav-item has-treeview">
