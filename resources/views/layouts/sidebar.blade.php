@@ -219,27 +219,19 @@
                                             <a href="{{ route('roles.index') }}"
                                                 class="nav-link {{ Request::is('roles*') ? 'active' : '' }}">
                                                 <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Roles</p>
+                                                <p> User groups</p>
                                             </a>
                                         </li>
                                     @endcan
 
-                                    @can('view-any', Spatie\Permission\Models\Permission::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('permissions.index') }}"
-                                                class="nav-link {{ Request::is('permissions*') ? 'active' : '' }}">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Permissions</p>
-                                            </a>
-                                        </li>
-                                    @endcan
+
 
                                     @can('view-any', App\Models\User::class)
                                         <li class="nav-item">
                                             <a href="{{ route('users.index') }}"
                                                 class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
                                                 <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Users</p>
+                                                <p>List of Users</p>
                                             </a>
                                         </li>
                                     @endcan
@@ -267,6 +259,34 @@
                         @endif
 
 
+                        @can('view-any', App\Models\StoreUser::class)
+                            <li class="nav-item has-treeview">
+                                <a href="#"
+                                    class="nav-link {{ Request::is('store_and_pharmacy_users*') ? 'active' : '' }}">
+                                    <i class="nav-icon icon fas fa-home"></i>
+                                    <p>Store and Pharmacy</p>
+                                    <i class="right fas fa-angle-left"></i>
+                                </a>
+                                <ul class="nav nav-treeview">
+                                    @can('store.*')
+                                        <li class="nav-item">
+                                            <a href="{{ route('store_and_pharmacy_users.index') }}" class="nav-link ">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p> Store Users </p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('pharmacy.*')
+                                        <li class="nav-item">
+                                            <a href="{{ route('store_and_pharmacy_users.index') }}" class="nav-link">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Pharmacy User</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
+                        @endcan
 
 
                         @canany(['sync-student', 'sync-photo'])
@@ -459,18 +479,6 @@
                                         </li>
                                     @endcan
 
-                                    @can('view-any', App\Models\Encounter::class)
-                                        <li
-                                            class="nav-item {{ Route::currentRouteName() == 'encounters.opened' ? 'active' : '' }}">
-                                            <a href="{{ route('encounters.opened') }}"
-                                                class="nav-link {{ Route::is('encounters.opened*') ? 'active' : '' }}">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p> Open Encounters </p>
-                                            </a>
-                                        </li>
-                                    @endcan
-
-
                                     @can('view-lab-dispay')
                                         <li class="nav-item ">
                                             <a href="{{ route('lab-queue') }}" class="nav-link">
@@ -624,6 +632,35 @@
                         @endcan
 
 
+
+                        @canany('reporting')
+                            <li class="nav-item has-treeview ">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fa fa-print"></i>
+                                    <p>
+                                        Reporting
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link ">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p> Lab Report</p>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a href="#" class="nav-link">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>HMIS Report</p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+                        @endcanany
                         <li class="nav-item ">
                             <a href="{{ route('logout') }}" class="nav-link">
                                 <i class="nav-icon icon fa fa-sign-out-alt"></i>

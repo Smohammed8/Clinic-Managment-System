@@ -182,7 +182,7 @@ class UserController extends Controller
         ->paginate(10)
         ->withQueryString();
 
-        dd($store_users[0]->storeUser());
+        // dd($store_users[0]->storeUser());
         $pharmacy_users = User::whereHas('roles', function ($query) {
             $query->where('name', Constants::PHARMACY_USER); // Adjust 'name' based on your actual column
         })
