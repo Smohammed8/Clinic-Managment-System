@@ -397,6 +397,8 @@ class EncounterController extends Controller
         //     $query->where('name', DOCTOR_ROLE);
         // })->get();
 
+
+
         $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
 
         $this->authorize('view', $encounter);
@@ -411,11 +413,16 @@ class EncounterController extends Controller
 
         $encounter->save();
 
+        if ($request->screen) {
+            return redirect()->route('encounters.opened')->with('success', 'CLosed Encounter successfully');
+        }
+
         // Find the next encounter with the same status and ID greater than the current encounter
         $nextEncounter = Encounter::where('status', STATUS_CHECKED_IN)
             ->where('id', '>', $encounter->id)
             ->first();
 
+        // dd("here");
 
         // Redirect to the next encounter's show page with the updated ID in the URL
         //dd($nextEncounter);
@@ -448,6 +455,7 @@ class EncounterController extends Controller
             $rooms = $encounter->clinic->rooms;
             // dd($rooms);
             $danger_message = 'No more encounters available.';
+
 
 
 

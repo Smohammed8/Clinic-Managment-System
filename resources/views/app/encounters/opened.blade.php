@@ -282,6 +282,8 @@
                                                     method="POST" class="d-inline-block">
                                                     @csrf
                                                     <input type="hidden" name="status" value="{{ $encounter->status }}">
+                                                    <input type="hidden" name="screen" value="1">
+
                                                     <button type="submit" class="btn btn-sm btn-outline-danger"> <i
                                                             class="fa fa-check"></i>
                                                         Close Encounter</button>
