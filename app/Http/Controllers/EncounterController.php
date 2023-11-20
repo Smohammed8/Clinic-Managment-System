@@ -135,6 +135,9 @@ class EncounterController extends Controller
     }
 
 
+
+ 
+
     public function openedEencounter(Request $request): View
     {
         //dd(STATUS_IN_PROGRESS);
@@ -306,6 +309,31 @@ class EncounterController extends Controller
 
 
 
+
+ 
+
+    public function toggleArrival(Request $request)
+    {
+
+        $encounterId = trim($request->input('encounter_id'));
+        $encounter = Encounter::where('id',   $encounterId)->first();
+
+        if ($encounter) {
+
+            if($encounter->arrived_at == null){
+                $encounter->update(['arrived_at' => now()]);
+
+              } else{
+                $encounter->update(['arrived_at' => null ]);
+
+            }
+            return redirect()->back()->with('success', 'Patient Arrival Status changed.');
+        }
+
+        return redirect()->back()->with('error', 'Error happen while changing status.');
+    }
+
+
     public function rechecin(Request $request)
     {
 
@@ -347,8 +375,7 @@ class EncounterController extends Controller
                 ]);
             }
 
-
-            return redirect()->back()->with('success', 'Status changed successfully.');
+            return redirect()->route('encounters.index')->with('success', 'Status changed successfully.');
         }
 
         return redirect()->back()->with('error', 'Error happen while changing status.');

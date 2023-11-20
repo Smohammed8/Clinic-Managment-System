@@ -116,6 +116,10 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::post('/map-rfid', [HomeController::class, 'mapRfid'])->name('map-rfid');
     Route::post('/changeStatuss', [EncounterController::class, 'changeStatus'])->name('changeStatuss');
     Route::post('/rechecin', [EncounterController::class, 'rechecin'])->name('rechecin');
+    // routes/web.php
+
+    Route::post('/toggle-arrival', [EncounterController::class, 'toggleArrival'])->name('toggleArrival');
+
     Route::get('/encouter-list', [HomeController::class, 'getEncouter'])->name('encounter-list');
     Route::post('/autosearch-encounters', [HomeController::class, 'autoSearch'])->name('autosearch-encounters');
     Route::resource('clinic-users', ClinicUserController::class);

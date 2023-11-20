@@ -102,6 +102,9 @@ class HomeController extends Controller
 
 
     }
+
+
+
     public function mapRfid(Request $request)
     {
 

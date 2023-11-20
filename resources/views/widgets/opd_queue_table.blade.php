@@ -74,6 +74,7 @@
                         @endforeach
                     </tbody>
                 </table>
+                {{ $opdQueueToBe->links() }}
             </div>
         </div>
     </div>
