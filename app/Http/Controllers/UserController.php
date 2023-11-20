@@ -173,8 +173,6 @@ class UserController extends Controller
             ->withSuccess(__('User has been assigned to Store'));
     }
 
-
-
     public function store_and_pharmacy_users(Request $request){
 
         $store_users = User::whereHas('roles', function ($query) {
