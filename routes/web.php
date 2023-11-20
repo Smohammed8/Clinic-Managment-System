@@ -75,14 +75,14 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard'
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 
 Route::prefix('/')->middleware('auth')->group(function () {
-    Route::resource('encounters', EncounterController::class); //->middleware('redirectIfDoctor');
+    //->middleware('redirectIfDoctor');
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('appointments', AppointmentController::class);
     Route::resource('campuses', CampusController::class);
     Route::resource('clinics', ClinicController::class);
     Route::get('all-clinic-services', [ClinicServicesController::class, 'index',])->name('all-clinic-services.index');
-    Route::post('/update-status',[HomeController::class, 'closeOpenCase'])->name('update.status');
+    Route::post('/update-status', [HomeController::class, 'closeOpenCase'])->name('update.status');
     Route::post('all-clinic-services', [
         ClinicServicesController::class,
         'store',
@@ -154,6 +154,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
     Route::resource('collages', CollageController::class);
     Route::resource('diagnoses', DiagnosisController::class);
+
     Route::get('/reception', [EncounterController::class, 'reception'])->name('reception');
     Route::get('/lab-waiting', [EncounterController::class, 'labWaiting'])->name('lab.waiting');
     Route::resource('lab-catagories', LabCatagoryController::class);
@@ -184,6 +185,10 @@ Route::prefix('/')->middleware('auth')->group(function () {
     Route::resource('vital-signs', VitalSignController::class);
 
 
+    Route::get('/encounters/opened', [EncounterController::class, 'openedEencounter'])->name('encounters.opened');
+
+    Route::resource('encounters', EncounterController::class);
+
     Route::post('/encounters/{encounter}', [EncounterController::class, 'callNext'])->name('encounters.callNext');
     // Route::post('/encounters/{encounter}/call-next', 'EncounterController@callNext')->name('encounters.callNext');
     Route::post('/encounters/{encounter}/changeDoctor', [EncounterController::class, 'changeDoctor'])->name('encounters.changeDoctor');
@@ -196,6 +201,10 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
 
     Route::post('/encounters/{encounter}/close', [EncounterController::class, 'closeEencounter'])->name('encounters.closeEencounter');
+
+    Route::post('/encounters/{encounter}/terminate', [EncounterController::class, 'termniateEencounter'])->name('encounters.termniateEencounter');
+
+
 
     Route::resource('medical-sick-leaves', MedicalSickLeaveController::class);
 

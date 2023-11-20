@@ -94,46 +94,49 @@
 
 
 
-<div id="accordion">
-    <div class="card">
-        <div class="card-header" id="headingOne">
-            <h5 class="mb-0">
+                    <div id="accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
 
-                <button class="btn btn-defult btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne"
-                    aria-expanded="false" aria-controls="collapseOne" style="font-size: 15px;">
-                    <i class="fa fa-user"> </i> <u> {{ $encounter->student->fullName ?? '-' }}'s </u>Visiting Histoty[ {{ $encounter->count() }}]
-                </button>
-
-
-                <button class="btn float-right" data-toggle="collapse" data-target="#collapseOne"><i class="fa fa-angle-down"></i></button>
-
-
-            </h5>
-        </div>
+                                    <button class="btn btn-defult btn btn-link collapsed" data-toggle="collapse"
+                                        data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"
+                                        style="font-size: 15px;">
+                                        <i class="fa fa-user"> </i> <u> {{ $encounter->student->fullName ?? '-' }}'s
+                                        </u>Visiting Histoty[ {{ $encounter->count() }}]
+                                    </button>
 
 
-       
-        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-            <div class="card-body">
-                <div class="row">
-                    <div class="card col-md-12 mb-2" style="border-radius:1%; border-top-width:2px;">
-                        <div class="card-body">
-                         
-                             <div class="table-responsive">
-                               <table class="table table-hover table-sm table-condensed">
-                                -
-                            </table>
+                                    <button class="btn float-right" data-toggle="collapse" data-target="#collapseOne"><i
+                                            class="fa fa-angle-down"></i></button>
+
+
+                                </h5>
                             </div>
+
+
+
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="card col-md-12 mb-2" style="border-radius:1%; border-top-width:2px;">
+                                            <div class="card-body">
+
+                                                <div class="table-responsive">
+                                                    <table class="table table-hover table-sm table-condensed">
+                                                        -
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
                         </div>
+
                     </div>
-                </div>
-            </div>
-        </div>
-
-     
-    </div>
-
-</div>
 
                     {{-- <span class="badge {{ $statusDetails[$encounter->status]['color'] ?? 'badge-secondary' }}"> <i
                             class="fas fa-list"></i><span style="font-size: 15px;">
@@ -189,6 +192,14 @@
                                     Close Encounter</button>
                             </form>
 
+                            <form action="{{ route('encounters.termniateEencounter', ['encounter' => $encounter]) }}"
+                                method="POST" class="d-inline-block">
+                                @csrf
+                                <input type="hidden" name="status" value="{{ $encounter->status }}">
+                                <button type="submit" class="btn btn-sm btn-outline-primary"> <i class="fa fa-check"></i>
+                                    Terminate Encounter</button>
+                            </form>
+
 
                             @if ($encounter->status == 4)
                                 <button type="button" class="btn btn-sm d-inline-block btn-outline-primary mr-3"
@@ -242,10 +253,10 @@
 
                                 <ul class="list-group">
                                     <select id="doctorSelect" class="form-control" style="width: 100%;" name="room_id">
-                                        @if($rooms)
-                                        @foreach ($rooms as $room)
-                                            <option value="{{ $room->id }}">{{ $room->name }}</option>
-                                        @endforeach
+                                        @if ($rooms)
+                                            @foreach ($rooms as $room)
+                                                <option value="{{ $room->id }}">{{ $room->name }}</option>
+                                            @endforeach
                                         @endif
                                     </select>
                                 </ul>
@@ -663,7 +674,7 @@
                                         </li>
 
 
-                                      
+
                                         <li class="nav-item">
                                             <a class="nav-link" id="vert-tabs-history-tab  vert-tabs-history"
                                                 data-toggle="pill" href="#vert-tabs-history" role="tab"
@@ -744,20 +755,20 @@
 
 
                                     <div class="tab-pane fade" id="vert-tabs-history" role="tabpanel"
-                                    aria-labelledby="vert-tabs-history-tab">
+                                        aria-labelledby="vert-tabs-history-tab">
 
-                                    {{-- @can('view-any', App\Models\VitalSign::class) --}}
-                                    <div class="card mt-4">
-                                        <div class="card-body">
-                                            <h4 class="card-title w-100 mb-2">Visit History</h4><br>
-                                            <hr>
-                                            -
-                                            {{-- <livewire:encounter-vital-signs-detail :encounter="$encounter" /> --}}
+                                        {{-- @can('view-any', App\Models\VitalSign::class) --}}
+                                        <div class="card mt-4">
+                                            <div class="card-body">
+                                                <h4 class="card-title w-100 mb-2">Visit History</h4><br>
+                                                <hr>
+                                                -
+                                                {{-- <livewire:encounter-vital-signs-detail :encounter="$encounter" /> --}}
+                                            </div>
                                         </div>
-                                    </div>
-                                    {{-- @endcan --}}
+                                        {{-- @endcan --}}
 
-                                </div>
+                                    </div>
 
 
 
@@ -928,7 +939,7 @@
                                             </div>
                                         @endcan
                                     </div>
-{{-- 
+                                    {{-- 
                                     <div class="tab-pane fade" id="vert-tabs-appointment" role="tabpanel"
                                         aria-labelledby="vert-tabs-appointment-tab">
 
