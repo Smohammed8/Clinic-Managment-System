@@ -73,7 +73,8 @@ Route::get('/sync-program', [SRSController::class, 'srsData'])->name('sync.progr
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-
+Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('lab-queue');
+Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('opd-queue');
 Route::prefix('/')->middleware('auth')->group(function () {
     //->middleware('redirectIfDoctor');
     Route::resource('roles', RoleController::class);
@@ -108,8 +109,7 @@ Route::prefix('/')->middleware('auth')->group(function () {
         'destroy',
     ])->name('all-clinic-services.destroy');
 
-    Route::get('/lab-queue', [QueueController::class, 'getLabQueue'])->name('lab-queue');
-    Route::get('/opd-queue', [QueueController::class, 'getOPDQueue'])->name('opd-queue');
+
     Route::get('/opd-queue-to-be', [QueueController::class, 'TableCOntent'])->name('opd-to-be');
     Route::post('/check-in', [HomeController::class, 'checkIn'])->name('checkin');
     Route::post('/unmap-rfid', [HomeController::class, 'unmapRfid'])->name('unmap-rfid');

@@ -455,13 +455,16 @@
                                     @endcan
 
                                     @can('view-any', App\Models\Encounter::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('encounters.opened') }}" class="nav-link">
+                                        <li
+                                            class="nav-item {{ Route::currentRouteName() == 'encounters.opened' ? 'active' : '' }}">
+                                            <a href="{{ route('encounters.opened') }}"
+                                                class="nav-link {{ Route::is('encounters.opened*') ? 'active' : '' }}">
                                                 <i class="fa fa-caret-right nav-icon"></i>
                                                 <p> Open Encounters </p>
                                             </a>
                                         </li>
                                     @endcan
+
 
                                     @can('view-lab-dispay')
                                         <li class="nav-item ">
@@ -541,9 +544,6 @@
                                             </a>
                                         </li>
                                     @endcan
-
-
-
                                     @can('view-any', App\Models\Diagnosis::class)
                                         <li class="nav-item">
                                             <a href="{{ route('diagnoses.index') }}"
@@ -553,8 +553,6 @@
                                             </a>
                                         </li>
                                     @endcan
-
-
 
                                     @can('view-any', App\Models\Religion::class)
                                         <li class="nav-item">
