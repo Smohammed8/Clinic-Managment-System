@@ -21,9 +21,14 @@
 
             <style>
                 .notification-badge {
-                    animation: blinkAnimation 1s infinite; /* Blinking animation */
+                    animation: blinkAnimation 0.5s infinite; /* Blinking animation */
+
                 }
         
+
+                .notification-badge:hover {
+                    animation: none; /* Stop the animation on hover */
+                }
                 @keyframes blinkAnimation {
                     0% { opacity: 1; }
                     50% { opacity: 0; }

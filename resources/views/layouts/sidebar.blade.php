@@ -245,20 +245,17 @@
                                             </a>
                                         </li>
                                     @endcan
-
-
-                                    @can('view-any', Spatie\Permission\Models\Permission::class)
-                                    <li class="nav-item">
-                                        <a href="{{ route('permissions.index') }}"
-                                        class="nav-link {{ Request::is('permissions*') ? 'active' : '' }}">
-                                        <i class="fa fa-caret-right nav-icon"></i>
-                                        <p>Permissions</p>
-                                    </a>
-                                </li>
-                                @endcan
-
-                            </ul>
-                        </li>
+                                    @can('view-any', App\Models\User::class)
+                                        <li class="nav-item">
+                                            <a href="{{ route('users.index') }}"
+                                                class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
+                                                <i class="fa fa-caret-right nav-icon"></i>
+                                                <p>Pharmacy & Store Users</p>
+                                            </a>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </li>
                         @endif
 
 
@@ -454,15 +451,6 @@
                                         </li>
                                     @endcan
 
-                                    @can('view-any', App\Models\Encounter::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('encounters.opened') }}" class="nav-link">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p> Open Encounters </p>
-                                            </a>
-                                        </li>
-                                    @endcan
-
                                     @can('view-lab-dispay')
                                         <li class="nav-item ">
                                             <a href="{{ route('lab-queue') }}" class="nav-link">
@@ -569,9 +557,6 @@
                                             </a>
                                         </li>
                                     @endcan
-
-
-
                                     @can('view-any', App\Models\Diagnosis::class)
                                         <li class="nav-item">
                                             <a href="{{ route('diagnoses.index') }}"
@@ -581,8 +566,6 @@
                                             </a>
                                         </li>
                                     @endcan
-
-
 
                                     @can('view-any', App\Models\Religion::class)
                                         <li class="nav-item">
@@ -678,7 +661,7 @@
                                 </ul>
                             </li>
                         @endcanany
-  <li class="nav-item ">
+                        <li class="nav-item ">
                             <a href="{{ route('logout') }}" class="nav-link">
                                 <i class="nav-icon icon fa fa-sign-out-alt"></i>
                                 <p>

@@ -156,7 +156,7 @@
                                                      
                                              
                                             </td>
-                                        <td>{{ $encounter->student->rfid ?? '-' }} </td>
+                                        <td>{{ $encounter->student?->rfid ?? '-' }} </td>
         
                                             <td class="text-right">
                                                 <div role="group" aria-label="Row Actions" class="btn-group">
@@ -165,7 +165,7 @@
 
                                                  
                                                         @can('map-rfid')
-                                                        @if($encounter->student->rfid === null )
+                                                        @if($encounter->student?->rfid === null )
                                             
 
                                                             <form method="post" action="{{ route('map-rfid') }}">

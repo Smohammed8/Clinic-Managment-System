@@ -17,7 +17,8 @@ class QueueController extends Controller
     public function getOPDQueue()
     {
         // return view('app.queue.opd');
-        $opdQueueToBe = Encounter::whereIn('status', [STATUS_CHECKED_IN])->get();
+       // $opdQueueToBe = Encounter::whereIn('status', [STATUS_CHECKED_IN])->get();
+        $opdQueueToBe = Encounter::whereIn('status', [STATUS_CHECKED_IN])->paginate(8);
         return view('app.queue.opd')->with('opdQueueToBe', $opdQueueToBe);
     }
     public function getLabQueue()

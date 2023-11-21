@@ -94,6 +94,24 @@
 
 
 
+<style>
+    .notification-badge {
+        animation: blinkAnimation 0.5s infinite; /* Blinking animation */
+        color: red;
+    }
+
+    .notification-badge:hover {
+        animation: none; /* Stop the animation on hover */
+    }
+
+    @keyframes blinkAnimation {
+        0% { opacity: 1; }
+        50% { opacity: 0; }
+        100% { opacity: 1; }
+    }
+</style>
+
+
                     <div id="accordion">
                         <div class="card">
                             <div class="card-header" id="headingOne">
@@ -159,7 +177,24 @@
                         <div class="small-1 float-right d-inline-block">
                             {{-- @can('update', $encounter) --}}
                             {{-- <a href="{{ route('medical-sick-leaves.show', $encounter) }}"> --}}
-                            <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal"
+                          
+
+                                @if($encounter->arrived_at == null)
+                                <button type="button" class="btn btn-sm d-inline-block btn-outline-primary mr-3"
+                                data-toggle="modal" data-target="#confirmationModal"
+                                data-record-id="{{ $encounter->id }}"><i class="fa fa-user-minus"></i> <b>Missing? </b>
+                            </button>
+
+                               @endif
+                     @if($encounter->arrived_at != null)
+
+                            <a href="{{ route('encounters.index') }}"
+                            class="btn btn-sm d-inline-block btn-outline-primary mr-3">
+
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i>
+
+                            Back</a>
+                                <button type="button" class="btn btn-sm btn-outline-primary mx-1" data-toggle="modal"
                                 data-target="#medicalSickLeaveModal">
                                 <i class="fa fa-print"></i> Sick Leave
                             </button>
@@ -178,7 +213,6 @@
                                 <i class="fas fa-door-open"></i></i>&nbsp;Change Room
                             </button>
                             {{-- @dd($encounter->Doctor->rooms) --}}
-
                             <button type="button" class="btn btn-sm d-inline-block btn-outline-primary" data-toggle="modal"
                                 data-target="#changeDoctorModal">
                                 <i class="fas fa-exchange-alt"></i>
@@ -208,32 +242,49 @@
                                     Re-accept
                                 </button>
                             @else
-                                <button type="button" class="btn btn-sm d-inline-block btn-outline-primary mr-3"
+                                <button type="button" class="btn btn-sm d-inline-block btn-outline-primary mr-1"
                                     data-toggle="modal" data-target="#confirmationModal"
-                                    data-record-id="{{ $encounter->id }}"><i class="fa fa-user-minus"></i> Missing
+                                    data-record-id="{{ $encounter->id }}"><i class="fa fa-user-minus"></i> Missing?
                                 </button>
                             @endif
 
-
-
-
-
-                            <a href="{{ route('encounters.index') }}"
-                                class="btn btn-sm d-inline-block btn-outline-primary mr-3">
-
-                                <i class="fa fa-arrow-left" aria-hidden="true"></i>
-
-                                Close</a>
-
-
-
-
+                        @endif
+                            
+            
                         </div>
+
+                        <span>
+                            @if($encounter->arrived_at === null)
+                                <form method="post" action="{{ route('toggleArrival') }}" class="form-inline">
+                                    @csrf
+                                    <input type="hidden" name="encounter_id" value="{{ $encounter->id }}">
+
+                                    <button type="submit" class="btn btn-sm d-inline-block btn-outline-primary mr-1 notification-badge">
+                                        <i class="fa fa-wheelchair"></i><b> Did you meet patient? </b>
+                                    </button>
+
+                                    <button type="submit" class="btn btn-sm btn-primary mr-1">
+                                      <b>  <i class="fa fa-check"></i> Yes </b>
+                                    </button>
+                                </form>
+                            @else
+                                <form method="post" action="{{ route('toggleArrival') }}" class="form-inline">
+                                    @csrf
+                                    <input type="hidden" name="encounter_id" value="{{ $encounter->id }}">
+                                    <button type="submit" class="btn btn-sm btn-primary mr-1">
+                                        <i class="fa fa-wheelchair"></i> Arrived
+                                    </button>
+                                </form>
+                            @endif
+                        </span>
                     </div>
 
                 </div>
 
             </div>
+
+
+
 
             <!-- Change Room Modal Start-->
             <div class="modal fade" id="roomChangeModal" tabindex="-1" role="dialog"
@@ -603,6 +654,9 @@
                         </h3>
                     </div>
 
+
+                    @if($encounter->arrived_at != null)
+
                     <div class="card-body">
 
                         <div class="row">
@@ -685,6 +739,8 @@
                                     </ul>
                                 </div>
                             </div>
+
+                            
                             <div class="col-7 col-sm-9">
                                 <div class="tab-content" id="vert-tabs-tabContent">
 
@@ -992,6 +1048,7 @@
 
                         </div>
                         <!-- /.card -->
+                        @endif
                     </div>
                     <!-- /.card -->
 
@@ -1000,7 +1057,8 @@
 
         </div>
 
-        <!-- Bootstrap4 Duallistbox -->
+
+        {{-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> --}}
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 
@@ -1046,4 +1104,5 @@
 
             });
         </script>
+
     @endsection
