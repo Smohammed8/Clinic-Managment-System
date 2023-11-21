@@ -69,6 +69,7 @@ Auth::routes();
 
 Route::get('/sync-data', [SRSController::class, 'insert'])->name('sync');
 Route::get('/sync-program', [SRSController::class, 'srsData'])->name('sync.program');
+Route::get('/sync-products', [ProductController::class, 'sync'])->name('sync.product');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
@@ -182,6 +183,10 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
     Route::post('/user/{user}/assignPharmacy', [UserController::class, 'assignPharamacyPlace'])->name('user.assignPharamacyPlace');
     Route::post('/user/{user}/assignStore', [UserController::class, 'assignStorePlace'])->name('user.assignStorePlace');
+    Route::get('/store_and_pharmacy_users/pharmacy/assignPharmacy/{user}', [UserController::class, 'assignPharmacyView'])->name('store_and_pharmacy_users.assignPharamacyPlace');
+    Route::post('/store_and_pharmacy_users/pharmacy/assignPharmacy/{user}', [UserController::class, 'assignPharmacy'])->name('user.assignPharamacy');
+    Route::get('/store_and_pharmacy_users/store/assignStore/{user}', [UserController::class, 'assignStoreView'])->name('store_and_pharmacy_users.assignStorePlace');
+    Route::post('/store_and_pharmacy_users/store/assignStore/{user}', [UserController::class, 'assignStore'])->name('user.assignStore');
     Route::get('/pharmacy/student/history', [PharmacyController::class, 'studentHistory'])->name('pharmacy.student.history');
 
     // Route::post('/')
@@ -215,7 +220,8 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
     // My routes
 
-    Route::get('/store_and_pharmacy_users', [UserController::class, 'store_and_pharmacy_users'])->name('store_and_pharmacy_users.index');
+    Route::get('/store_and_pharmacy_users/pharmacy_users', [UserController::class, 'pharmacy_users'])->name('store_and_pharmacy_users.pharmacy');
+    Route::get('/store_and_pharmacy_users/store_users', [UserController::class, 'store_users'])->name('store_and_pharmacy_users.store');
     Route::get('/product-requests/approve/{productRequest}', [ProductRequestController::class, 'approve'])->name('product-requests.approve');
     Route::get('/product-requests/reject/{productRequest}', [ProductRequestController::class, 'reject'])->name('product-requests.reject');
     Route::get('/product-requests/sentRequests', [ProductRequestController::class, 'sentRequests'])->name('product-requests.sentRequests');

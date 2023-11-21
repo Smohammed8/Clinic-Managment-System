@@ -57,7 +57,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-borderless table-hover">
+                              <table class="table table-hover  table-sm table-condensed">
                                 <thead>
                                     <tr>
                                         <th class="text-left">
@@ -141,7 +141,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table table-borderless table-hover">
+                              <table class="table table-hover  table-sm table-condensed">
                                 <thead>
                                     <tr>
                                         <th class="text-left">

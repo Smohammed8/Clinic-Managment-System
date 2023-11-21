@@ -18,11 +18,11 @@
                     </form>
                 </div>
                 <div class="col-md-6 text-right">
-                    @can('create', App\Models\StockCategory::class)
-                        <a href="{{ route('stock-categories.create') }}" class="btn btn-primary">
+                    {{-- @can('create', App\Models\Store::class)
+                        <a href="{{ route('stores.create') }}" class="btn btn-primary">
                             <i class="icon ion-md-add"></i> @lang('crud.common.create')
                         </a>
-                    @endcan
+                    @endcan --}}
                 </div>
             </div>
         </div>
@@ -30,9 +30,7 @@
         <div class="card">
             <div class="card-body">
                 <div style="display: flex; justify-content: space-between;">
-                    <h4 class="card-title">
-                        @lang('crud.stock_categories.index_title')
-                    </h4>
+                    <h4 class="card-title">Store Users</h4>
                 </div>
 
                 <div class="table-responsive">
@@ -41,8 +39,17 @@
                             <tr>
                                 <th>#</th>
                                 <th class="text-left">
-                                    Name
+                                   User
                                 </th>
+                                <th class="text-left">
+                                   Assigned Store
+                                </th>
+                                {{-- <th class="text-left">
+                                    @lang('crud.stores.inputs.description')
+                                </th>
+                                <th class="text-left">
+                                    @lang('crud.stores.inputs.status')
+                                </th> --}}
                                 <th class="text-center">
                                     @lang('crud.common.actions')
                                 </th>
@@ -50,45 +57,51 @@
                         </thead>
                         <tbody>
                             @php
-                                $key=1
+                                $i = 1;
                             @endphp
-                            @forelse($stockCategories as  $stockCategory)
+                            @forelse($storeUsersWithStore as $user)
                                 <tr>
-
-                                    <td> {{ $key ++  }}
-                                    </td>
-                            <td>{{ $stockCategory->name ?? '-' }}</td>
-
-                                    <td class="text-center">
+                                    <th>{{ $i++ }}</th>
+                                    <td>{{ $user->name ?? '-' }}</td>
+                                    <td>{{ $user->storeUser->store->name ?? 'Not Assigned' }}</td>
+                                    {{-- <td>{{ $store->description ?? '-' }}</td>
+                                    <td>{{ $store->status ?? '-' }}</td> --}}
+                                    <td class="text-center" style="width: 134px;">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
-                                            @can('update', $stockCategory)
-                                                <a href="{{ route('stock-categories.edit', $stockCategory) }}">
-                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+
+
+                                            <a href="{{ route('store_and_pharmacy_users.assignStorePlace', $user) }}">
+                                                <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                    <i class="fa fa-tasks"></i> Assign
+                                                </button>
+                                            </a>
+                                            {{-- @can('update', $user)
+                                                <a href="{{ route('stores.edit', $user) }}">
+                                                   <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                         <i class="fa fa-edit"></i> Edit
                                                     </button>
                                                 </a>
-                                                @endcan @can('view', $stockCategory)
-                                                <a href="{{ route('stock-categories.show', $stockCategory) }}">
-                                                    <button type="button" class="btn btn-sm btn-outline-primary mx-1">
+                                                @endcan @can('view', $user)
+                                                <a href="{{ route('stores.show', $user) }}">
+                                                   <button type="button" class="btn btn-sm btn-outline-primary mx-1">
                                                         <i class="icon ion-md-eye"></i> Show
                                                     </button>
                                                 </a>
-                                                @endcan @can('delete', $stockCategory)
-                                                <form action="{{ route('stock-categories.destroy', $stockCategory) }}"
-                                                    method="POST"
+                                                @endcan @can('delete', $user)
+                                                <form action="{{ route('stores.destroy', $user) }}" method="POST"
                                                     onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
                                                     @csrf @method('DELETE')
                                                     <button type="submit" class="btn btn-sm btn-outline-danger mx-1">
                                                         <i class="icon ion-md-trash"></i> Delete
                                                     </button>
                                                 </form>
-                                            @endcan
+                                            @endcan --}}
                                         </div>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="1">
+                                    <td colspan="5">
                                         @lang('crud.common.no_items_found')
                                     </td>
                                 </tr>
@@ -96,14 +109,14 @@
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="1">
-                                    {!! $stockCategories->render() !!}
-                                </td>
+                                <td colspan="5">{!! $storeUsersWithStore->render() !!}</td>
                             </tr>
                         </tfoot>
                     </table>
                 </div>
             </div>
         </div>
+
+
     </div>
 @endsection
