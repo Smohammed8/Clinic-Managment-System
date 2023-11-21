@@ -3,6 +3,7 @@
 
 namespace App\Helper;
 
+use App\Models\Category;
 use App\Models\Product;
 use Exception;
 use App\Models\Store;
@@ -246,8 +247,8 @@ class ProductHelper{
 
         // Seed the products
         foreach ($productsData as $data) {
-            $categoryId = DB::table('categories')->where('name', $data['category'])->value('id');
-
+            $category = Category::firstOrCreate(['name' => $data['category']]);
+           $categoryId= $category->id;
     foreach ($data['products'] as $productName) {
         Product::firstOrCreate(
             [

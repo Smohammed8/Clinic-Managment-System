@@ -252,19 +252,19 @@ class ProductSeeder extends Seeder
         // }
 
 
-        foreach ($productsData as $data) {
-            $categoryId = DB::table('categories')->where('name', $data['category'])->value('id');
+//         foreach ($productsData as $data) {
+//             $categoryId = DB::table('categories')->where('name', $data['category'])->value('id');
 
-    foreach ($data['products'] as $productName) {
-        Product::firstOrCreate(
-            [
-                'name' => $productName,
-                'category_id' => $categoryId,
-                'store_id' => 1, // Replace with your store ID
-            ],
+//     foreach ($data['products'] as $productName) {
+//         Product::firstOrCreate(
+//             [
+//                 'name' => $productName,
+//                 'category_id' => $categoryId,
+//                 'store_id' => 1, // Replace with your store ID
+//             ],
 
-        );
-    }
-}
+//         );
+//     }
+// }
     }
 }
