@@ -482,7 +482,7 @@
                             <ul class="nav nav-treeview">
                                 @can('store.*')
                                     <li class="nav-item">
-                                        <a href="{{ route('store_and_pharmacy_users.store') }}" class="nav-link ">
+                                        <a href="{{ route('store_and_pharmacy_users.store') }}" class="nav-link {{ Request::is('store_and_pharmacy_users/store_users*') ? 'active' : '' }}">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p> Store Users </p>
                                         </a>
@@ -490,7 +490,7 @@
                                 @endcan
                                 @can('pharmacy.*')
                                     <li class="nav-item">
-                                        <a href="{{ route('store_and_pharmacy_users.pharmacy') }}" class="nav-link">
+                                        <a href="{{ route('store_and_pharmacy_users.pharmacy') }}" class="nav-link {{ Request::is('store_and_pharmacy_users/pharmacy_users*') ? 'active' : '' }}">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p>Pharmacy User</p>
                                         </a>
