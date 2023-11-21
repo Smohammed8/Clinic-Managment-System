@@ -260,12 +260,10 @@
                                     <input type="hidden" name="encounter_id" value="{{ $encounter->id }}">
 
                                     <button type="submit" class="btn btn-sm d-inline-block btn-outline-primary mr-1 notification-badge">
-                                        <i class="fa fa-wheelchair"></i><b> Did you meet patient? </b>
+                                        <i class="fa fa-wheelchair"></i><b> Did you meet patient?, Yes</b>
                                     </button>
 
-                                    <button type="submit" class="btn btn-sm btn-primary mr-1">
-                                      <b>  <i class="fa fa-check"></i> Yes </b>
-                                    </button>
+                                
                                 </form>
                             @else
                                 <form method="post" action="{{ route('toggleArrival') }}" class="form-inline">
