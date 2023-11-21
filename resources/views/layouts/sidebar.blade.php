@@ -92,7 +92,7 @@
                             @can('store.product.*')
                                 <li class="nav-item">
                                     <a href="{{ route('products.index') }}"
-                                        class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                                        class="nav-link {{ Request::is('products*') ? 'active' : '' }}">
                                         <i class="nav-icon icon fas fa-home"></i>
                                         <p>
                                             Products
@@ -103,7 +103,7 @@
                             @can('store.request.*')
                                 <li class="nav-item">
                                     <a href="{{ route('product-requests.index') }}"
-                                        class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                                        class="nav-link {{ Request::is('product-requests') ? 'active' : '' }}">
                                         <i class="nav-icon icon fas fa-hourglass-half"></i>
                                         <p>
                                             Requests
@@ -116,7 +116,7 @@
                             @can('store.records.*')
                                 <li class="nav-item">
                                     <a href="{{ route('product-requests.recordsOfRequests') }}"
-                                        class="nav-link                                     ">
+                                        class="nav-link    {{ Request::is('product-requests/records') ? 'active' : '' }}                                 ">
                                         <i class="nav-icon icon fas fa-folder-open"></i>
                                         <p>Records </p>
                                     </a>
@@ -127,7 +127,7 @@
                             @can('pharmacy.prescriptions.*')
                                 <li class="nav-item">
                                     <a href="{{ route('prescriptions.index') }}"
-                                        class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                                        class="nav-link {{ Request::is('prescriptions') ? 'active' : '' }}">
                                         <i class="nav-icon icon fas fa-home"></i>
                                         <p>
                                             Prescriptions
@@ -139,7 +139,7 @@
                             @can('pharmacy.history.*')
                                 <li class="nav-item">
                                     <a href="{{ route('prescriptions.history') }}"
-                                        class="nav-link {{ Request::is('store*') ? 'active' : '' }}">
+                                        class="nav-link {{ Request::is('prescriptions/history') ? 'active' : '' }}">
                                         <i class="nav-icon icon fas fa-history"></i>
                                         <p>
                                             History
@@ -173,7 +173,7 @@
 --}}
                             @can('pharmacy.products.*')
                                 <li class="nav-item">
-                                    <a href="{{ route('product-requests.sentRequests') }}" class="nav-link">
+                                    <a href="{{ route('product-requests.sentRequests') }}" class="nav-link {{Request::is('product-requests/*') ? 'active':''}}">
                                         <i class="nav-icon icon fas fa-envelope"></i>
                                         <p>
                                             Sent Requests
