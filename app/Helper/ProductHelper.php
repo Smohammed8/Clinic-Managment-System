@@ -1,24 +1,31 @@
 <?php
 
-namespace Database\Seeders;
+
+namespace App\Helper;
 
 use App\Models\Product;
-use Illuminate\Database\Seeder;
+use Exception;
+use App\Models\Store;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+// use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Hash;
+// use Illuminate\Support\Facades\Config;
+// use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
-class ProductSeeder extends Seeder
-{
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
-    {
-        // Product::factory()
-        //     ->count(5)
-        //     ->create();
+
+
+
+
+
+
+
+class ProductHelper{
+
+    function syncProducts(Store $store){
+
 
 
         $productsData = [
@@ -238,20 +245,6 @@ class ProductSeeder extends Seeder
         ];
 
         // Seed the products
-        // foreach ($productsData as $data) {
-        //     $categoryId = DB::table('categories')->where('name', $data['category'])->value('id');
-        //     foreach ($data['products'] as $productName) {
-        //         DB::table('products')->insert([
-        //             'name' => $productName,
-        //             'category_id' => $categoryId,
-        //             'store_id' => 1, // Replace with your store ID
-        //             'created_at' => now(),
-        //             'updated_at' => now(),
-        //         ]);
-        //     }
-        // }
-
-
         foreach ($productsData as $data) {
             $categoryId = DB::table('categories')->where('name', $data['category'])->value('id');
 
@@ -260,11 +253,10 @@ class ProductSeeder extends Seeder
             [
                 'name' => $productName,
                 'category_id' => $categoryId,
-                'store_id' => 1, // Replace with your store ID
+                'store_id' => $store->id, // Replace with your store ID
             ],
 
         );
     }
-}
-    }
+        }}
 }

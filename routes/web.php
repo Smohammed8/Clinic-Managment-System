@@ -69,6 +69,7 @@ Auth::routes();
 
 Route::get('/sync-data', [SRSController::class, 'insert'])->name('sync');
 Route::get('/sync-program', [SRSController::class, 'srsData'])->name('sync.program');
+Route::get('/sync-products', [ProductController::class, 'sync'])->name('sync.product');
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
