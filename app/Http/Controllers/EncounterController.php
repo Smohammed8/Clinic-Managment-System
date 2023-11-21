@@ -69,10 +69,13 @@ class EncounterController extends Controller
         $mylabs =   $pendinglabs + $labResults;
 
 
+       
+
         $currentUserId = Auth::id();
         $encounters = Encounter::where('status', 2)
             ->whereNotNull('doctor_id')
             ->where('doctor_id', $currentUserId)
+            ->whereDate('created_at',today())
             ->oldest('id') // Order by 'id' in ascending order
             ->paginate(10)
             ->withQueryString();

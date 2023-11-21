@@ -456,10 +456,22 @@
                                             <a href="{{ route('encounter-list') }}"
                                                 class="nav-link {{ Request::is('reception*') ? 'active' : '' }}">
                                                 <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Encounters </p>
+                                                <p>All encounters </p>
                                             </a>
                                         </li>
                                     @endcan
+
+                                    @can('view-any', App\Models\Encounter::class)
+                                    <li class="nav-item">
+                                        <a href="{{ route('encounters.opened') }}"
+                                            class="nav-link {{ Request::is('reception*') ? 'active' : '' }}">
+                                            <i class="fa fa-caret-right nav-icon"></i>
+                                            <p>Opened encounters </p>
+                                        </a>
+                                    </li>
+                                @endcan
+
+                                  
 
                                     @can('waiting-queue')
                                         <li class="nav-item">
@@ -478,7 +490,7 @@
                                             </a>
                                         </li>
                                     @endcan
-
+{{-- 
                                     @can('view-lab-dispay')
                                         <li class="nav-item ">
                                             <a href="{{ route('lab-queue') }}" class="nav-link">
@@ -490,7 +502,7 @@
                                             </a>
 
                                         </li>
-                                    @endcan
+                                    @endcan --}}
                                     @can('view-OPD-dispay')
                                         <li class="nav-item ">
                                             <a href="{{ route('opd-queue') }}" class="nav-link">

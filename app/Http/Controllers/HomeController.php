@@ -35,9 +35,9 @@ class HomeController extends Controller
 
         $user = Auth::user();
         if ($user) {
-            $encounters = Encounter::whereDate('created_at', now())->where('registered_by', $user->id)->where('status', 1)->orwhere('status', 4)->orderby('id','desc')->paginate(15);
+            $encounters = Encounter::whereDate('created_at', today())->where('registered_by', $user->id)->where('status', 1)->orwhere('status', 4)->orderby('id','desc')->paginate(15);
         } else {
-            $encounters = Encounter::whereDate('created_at', now())->where('status', 1)->orwhere('status', 4)->orderby('id','desc')->paginate(15);
+            $encounters = Encounter::whereDate('created_at', today())->where('status', 1)->orwhere('status', 4)->orderby('id','desc')->paginate(15);
         }
         return view('home', compact('encounters'));
     }
@@ -55,7 +55,7 @@ class HomeController extends Controller
             ->first();
 
         if ($student) {
-            $alreadyCheckedInToday = Encounter::where('student_id', $student->id)->whereDate('created_at', $now->toDateString())->count();
+            $alreadyCheckedInToday = Encounter::where('student_id', $student->id)->whereDate('created_at', today())->count();
             if ($alreadyCheckedInToday > 0) {
                 return redirect()->route('home')->with('error', 'Already checked in today!');
             } 
