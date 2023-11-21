@@ -502,7 +502,7 @@
                             <ul class="nav nav-treeview">
                                 @can('store.*')
                                     <li class="nav-item">
-                                        <a href="{{ route('store_and_pharmacy_users.index') }}" class="nav-link ">
+                                        <a href="{{ route('store_and_pharmacy_users.store') }}" class="nav-link ">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p> Store Users </p>
                                         </a>
@@ -510,7 +510,7 @@
                                 @endcan
                                 @can('pharmacy.*')
                                     <li class="nav-item">
-                                        <a href="{{ route('store_and_pharmacy_users.index') }}" class="nav-link">
+                                        <a href="{{ route('store_and_pharmacy_users.pharmacy') }}" class="nav-link">
                                             <i class="fa fa-caret-right nav-icon"></i>
                                             <p>Pharmacy User</p>
                                         </a>
