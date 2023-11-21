@@ -245,15 +245,7 @@
                                             </a>
                                         </li>
                                     @endcan
-                                    @can('view-any', App\Models\User::class)
-                                        <li class="nav-item">
-                                            <a href="{{ route('users.index') }}"
-                                                class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
-                                                <i class="fa fa-caret-right nav-icon"></i>
-                                                <p>Pharmacy & Store Users</p>
-                                            </a>
-                                        </li>
-                                    @endcan
+                                    g
                                 </ul>
                             </li>
                         @endif
