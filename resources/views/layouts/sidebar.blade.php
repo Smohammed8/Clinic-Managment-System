@@ -245,7 +245,7 @@
                                             </a>
                                         </li>
                                     @endcan
-                                    g
+                                    
                                 </ul>
                             </li>
                         @endif
