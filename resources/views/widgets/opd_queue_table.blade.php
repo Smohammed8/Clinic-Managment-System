@@ -23,7 +23,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h2>OPD Queue To Be</h2>
+                <h2>Awaiting Patients in Triage</h2>
                 <table class="table">
                     <tbody>
                         @foreach ($opdQueueToBe->chunk(4) as $chunk)
