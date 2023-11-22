@@ -341,10 +341,11 @@ class EncounterController extends Controller
         if ($encounter) {
 
             if($encounter->arrived_at == null){
-                $encounter->update(['arrived_at' => now()]);
+                $encounter->update(['arrived_at' => now(),'status'=>STATUS_IN_PROGRESS]);
 
               } else{
-                $encounter->update(['arrived_at' => null ]);
+                $encounter->update(['arrived_at' => null,'status'=>STATUS_MISSED, 'doctor_id' => null,
+                'closed_at'=>null]);
 
             }
             return redirect()->back()->with('success', 'Patient Arrival Status changed.');
@@ -364,7 +365,9 @@ class EncounterController extends Controller
 
             $encounter->update([
                 'status' => STATUS_CHECKED_IN,
-                'doctor_id' => null
+                'arrived_at' =>null,
+                'doctor_id' => null,
+                'closed_at'=>null
             ]);
 
 
@@ -386,16 +389,19 @@ class EncounterController extends Controller
         if ($encounter) {
             if ($encounter->status == STATUS_IN_PROGRESS) {
                 $encounter->update([
-                    'status' => STATUS_MISSED
+                    'status' => STATUS_MISSED,
+                    'arrived_at' => null
                 ]);
             } else {
 
                 $encounter->update([
-                    'status' => STATUS_IN_PROGRESS
+                    'status' => STATUS_IN_PROGRESS,
+                    'arrived_at' => now()
                 ]);
             }
 
             return redirect()->route('encounters.index')->with('success', 'Status changed successfully.');
+
         }
 
         return redirect()->back()->with('error', 'Error happen while changing status.');

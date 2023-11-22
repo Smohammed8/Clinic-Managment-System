@@ -1004,7 +1004,8 @@
 
 
                     @if ($encounter->arrived_at != null)
-                        <div class="card-body">
+
+                 <div class="card-body">
 
                             <div class="row">
 
