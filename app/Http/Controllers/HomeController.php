@@ -220,6 +220,8 @@ class HomeController extends Controller
   $femalePercentage = ($totalEncounters > 0) ? round(($femaleCount / $totalEncounters) * 100) : 0;
 
    
+  $closed = Encounter::where('status',STATUS_COMPLETED )->count();
+  $today = Encounter::whereDate('created_at', today())->count();
 // Retrieve data for the current month grouped by week
 $startDate = now()->startOfMonth();
 $endDate = now()->endOfMonth();
@@ -240,9 +242,12 @@ $dataPoints = Encounter::selectRaw('MONTH(created_at) as x, COUNT(id) as y')
             'programs',
             'clinic_users',
             'encounters',
+            'totalEncounters',
             'dataPoints',
             'malePercentage',
-            'femalePercentage'
+            'femalePercentage',
+            'closed',
+            'today'
 
         ));
     }
