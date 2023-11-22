@@ -23,7 +23,7 @@
                                             <div class="info-box-content">
                                                 <span class="info-box-text"> Today visits</span>
                                                 <span class="info-box-number">
-                                                    {{ $users }}
+                                                    {{ $today }}
 
                                                 </span>
                                             </div>
@@ -38,8 +38,8 @@
                                                     class="fas fa-graduation-cap"></i></span>
 
                                             <div class="info-box-content">
-                                                <span class="info-box-text"> Encounters </span>
-                                                <span class="info-box-number">{{ $encounters }}</span>
+                                                <span class="info-box-text"> Total encounters </span>
+                                                <span class="info-box-number">{{   $totalEncounters }}</span>
                                             </div>
                                             <!-- /.info-box-content -->
                                         </div>
@@ -68,7 +68,7 @@
                                             <div class="info-box-content">
                                                 <span class="info-box-text"> Closed cases</span>
                                                 <span class="info-box-number">
-                                                    0
+                                                    {{ $closed  }}
 
                                                 </span>
                                             </div>

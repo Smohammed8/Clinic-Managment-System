@@ -35,9 +35,9 @@ class HomeController extends Controller
 
         $user = Auth::user();
         if ($user) {
-            $encounters = Encounter::whereDate('created_at', now()->toDateString())->where('registered_by', $user->id)->where('status', 1)->orwhere('status', 4)->orderby('id','desc')->paginate(15);
+            $encounters = Encounter::whereDate('created_at', today())->where('registered_by', $user->id)->where('status', 1)->orwhere('status', 4)->orderby('id','desc')->paginate(15);
         } else {
-            $encounters = Encounter::whereDate('created_at', now()->toDateString())->where('status', 1)->orwhere('status', 4)->orderby('id','desc')->paginate(15);
+            $encounters = Encounter::whereDate('created_at', today())->where('status', 1)->orwhere('status', 4)->orderby('id','desc')->paginate(15);
         }
         return view('home', compact('encounters'));
     }
@@ -55,7 +55,7 @@ class HomeController extends Controller
             ->first();
 
         if ($student) {
-            $alreadyCheckedInToday = Encounter::where('student_id', $student->id)->whereDate('created_at', $now->toDateString())->count();
+            $alreadyCheckedInToday = Encounter::where('student_id', $student->id)->whereDate('created_at', today())->count();
             if ($alreadyCheckedInToday > 0) {
                 return redirect()->route('home')->with('error', 'Already checked in today!');
             } 
@@ -102,6 +102,9 @@ class HomeController extends Controller
 
 
     }
+
+
+
     public function mapRfid(Request $request)
     {
 
@@ -217,6 +220,8 @@ class HomeController extends Controller
   $femalePercentage = ($totalEncounters > 0) ? round(($femaleCount / $totalEncounters) * 100) : 0;
 
    
+  $closed = Encounter::where('status',STATUS_COMPLETED )->count();
+  $today = Encounter::whereDate('created_at', today())->count();
 // Retrieve data for the current month grouped by week
 $startDate = now()->startOfMonth();
 $endDate = now()->endOfMonth();
@@ -237,9 +242,12 @@ $dataPoints = Encounter::selectRaw('MONTH(created_at) as x, COUNT(id) as y')
             'programs',
             'clinic_users',
             'encounters',
+            'totalEncounters',
             'dataPoints',
             'malePercentage',
-            'femalePercentage'
+            'femalePercentage',
+            'closed',
+            'today'
 
         ));
     }

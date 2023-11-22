@@ -4,10 +4,7 @@
 
 <div class="">
     <div class="row justify-content-center">
-
-
-        
-        <div class="col-md-12">
+<div class="col-md-12">
      <div class="card">
              
 
@@ -74,12 +71,12 @@
 
                  
                     
-                      <form id="checkInForm" action="{{ route('autosearch-encounters') }}" method="post">
+                      <form  action="{{ route('search') }}"  method="post">
                         @csrf
                       <div class="input-group">
-                        <input type="search" autocomplete="off" id="autoSearchInput" name="student_id" class="form-control" placeholder="Enter Student ID here">
+                        <input type="search" autocomplete="off" name="student_id" class="form-control" placeholder="Enter Student ID here">
 
-                        <input type="text" id="barcodeInput" class="form-control" style="display: none;" placeholder="Scan Barcode">
+   
                         <div class="input-group-append">
                             
                             <button type="submit" class="btn btn-sm btn-outline-primary ml-2">
@@ -156,7 +153,7 @@
                                                      
                                              
                                             </td>
-                                        <td>{{ $encounter->student->rfid ?? '-' }} </td>
+                                        <td>{{ $encounter->student?->rfid ?? '-' }} </td>
         
                                             <td class="text-right">
                                                 <div role="group" aria-label="Row Actions" class="btn-group">
@@ -165,7 +162,7 @@
 
                                                  
                                                         @can('map-rfid')
-                                                        @if($encounter->student->rfid === null )
+                                                        @if($encounter->student?->rfid === null )
                                             
 
                                                             <form method="post" action="{{ route('map-rfid') }}">
@@ -258,55 +255,6 @@
     </div>
 </div>
 
-<!-- Include jQuery -->
-{{-- <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script> --}}
-
-<script>
-    $(document).ready(function () {
-        // Function to handle auto-search
-        function autoSearch(query) {
-            $.ajax({
-                url: '{{ route('autosearch-encounters') }}',
-                type: 'post',
-                data: {
-                    '_token': '{{ csrf_token() }}',
-                    'query': query
-                },
-                success: function (data) {
-                    displayResults(data);
-                },
-                error: function (xhr) {
-                    console.error(xhr.responseText);
-                }
-            });
-        }
-
-        // Function to display search results
-        function displayResults(encounterLists) {
-            var tbody = $('#encounterTableBody');
-             tbody.empty();
-
-            if (encounterLists.length > 0) {
-                encounterLists.forEach(function (encounter) {
-                    var rowHtml = '<tr>';
-                    // ... your existing row creation logic ...
-                    rowHtml += '</tr>';
-                    tbody.append(rowHtml);
-                });
-            } else {
-                tbody.append('<tr><td colspan="12" style="color:red;">No matching records found.</td></tr>');
-            }
-        }
-
-        // Attach event listener to the search input
-        $('#autoSearchInput').on('input', function () {
-            var query = $(this).val();
-            autoSearch(query);
-        });
-    });
-</script>
-
 @endsection
 
 
-WU5724/12

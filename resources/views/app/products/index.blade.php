@@ -19,6 +19,11 @@
                 </div>
                 <div class="col-md-6 text-right">
                     @can('store.product.create')
+                        <a href="{{ route('sync.product') }}" class="btn btn-success">
+                            <i class="nav-icon fa fa-sync-alt"></i>Sync
+                        </a>
+                    @endcan
+                    @can('store.product.create')
                         <a href="{{ route('products.create') }}" class="btn btn-primary">
                             <i class="icon ion-md-add"></i> @lang('crud.common.create')
                         </a>
