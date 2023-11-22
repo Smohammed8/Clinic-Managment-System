@@ -191,6 +191,9 @@ Route::prefix('/')->middleware('auth')->group(function () {
 
     Route::get('/encounters/opened', [EncounterController::class, 'openedEencounter'])->name('encounters.opened');
 
+    Route::get('/print-sick-leave/{encounterId}',[EncounterController::class, 'generateSickLeavePdf'])->name('printSickLeave');
+
+
     Route::resource('encounters', EncounterController::class);
 
     Route::post('/encounters/{encounter}', [EncounterController::class, 'callNext'])->name('encounters.callNext');

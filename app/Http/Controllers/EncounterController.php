@@ -3,23 +3,24 @@
 namespace App\Http\Controllers;
 
 
+use App\Constants;
 use App\Models\Room;
 use App\Models\User;
 use App\Models\Clinic;
 use App\Models\LabTest;
 use App\Models\Student;
+// use Barryvdh\DomPDF\PDF;
 use App\Models\Encounter;
 use Illuminate\View\View;
+use App\Models\ClinicUser;
 use App\Models\LabCatagory;
 use Illuminate\Http\Request;
+use App\Models\LabTestRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\EncounterStoreRequest;
 use App\Http\Requests\EncounterUpdateRequest;
-use App\Models\ClinicUser;
-use App\Models\LabTestRequest;
-use App\Constants;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 require_once app_path('Helper/constants.php');
 
 class EncounterController extends Controller
@@ -55,6 +56,25 @@ class EncounterController extends Controller
         // dd(Auth::user()->clinicUsers->room->clinic);
 
         return view('app.reception.index', compact('students', 'search', 'searchError', 'clinicUser'));
+    }
+
+
+    public function generateSickLeavePdf($encounterid)
+
+    {
+
+
+        $encounter = Encounter::findOrFail($encounterid);
+        // $data = [
+        //     'encounter' => $encounter,
+        // ];
+ 
+
+        $pdf = Pdf::loadView('app.encounters.sick_leave', ['encounter' =>  $encounter ]);
+
+        return $pdf->setPaper('a5')->download('sick_leave.pdf');
+
+
     }
 
 
@@ -215,31 +235,28 @@ class EncounterController extends Controller
     public function show(Request $request, Encounter $encounter): View
     {
 
-
-        // $doctors = User::whereHas('roles', function ($query) {
-        //     $query->where('name', DOCTOR_ROLE);
-        // })->get();
-        // dd(User::where('id', '!=', 10));
-
         $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
 
+         $student = Student::findOrFail($encounter->student->id);
 
+    
+        // dd($student );
+         $encounters = $student->encounter;
 
-        //dd($doctors);
+         $maindiagnosises = $encounter->mainDiagnoses;
+         $vitalSigns = $encounter->vitalSigns;
+         $labTestRequests = $encounter->labTestRequests;
+
         $this->authorize('view', $encounter);
         $labTests =  LabTest::all();
         $labCategories =  LabCatagory::all();
-
-        //get rooms that belongs to the given encounter clinic
-        // dd(Clinic::find(1)->rooms->first()->name);
-        //dd($encounter->Doctor);
         $clinc_id = $encounter->clinic?->id;
         $rooms = Room::where('clinic_id', $encounter->clinic?->id)->get();
 
-        // dd($rooms);
+        //return view('students.encounters', ['student' => $student, 'encounters' => $encounters]);
 
-
-        return view('app.encounters.show', compact('encounter',  'doctors', 'labCategories', 'rooms'));
+        return view('app.encounters.show', compact('encounter', 'encounters', 'student', 'labTestRequests', 'maindiagnosises', 'vitalSigns' ,'doctors', 'labCategories', 'rooms'));
+        
     }
 
     // call the next encounter 
@@ -423,75 +440,23 @@ class EncounterController extends Controller
     //close encounter and call next
     public function closeEencounter(Request $request, Encounter $encounter)
     {
-        // $doctors = User::whereHas('roles', function ($query) {
-        //     $query->where('name', DOCTOR_ROLE);
-        // })->get();
-
-
-
+       
         $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
-
         $this->authorize('view', $encounter);
-        //dd($encounter->status);
+      
+      
+    
+               if ($encounter) {
+                     $encounter->update(['status' => STATUS_COMPLETED,'closed_at' => now(),'arrived_at'=> now()]);
 
-        // Get the current encounter's status from the form input
-        $currentStatus = $encounter;
-        // Update the current encounter's status to 1
-        $encounter->status = STATUS_COMPLETED;
-        $encounter->closed_at = now();
-        // dd(now());
+                }
+            
+                return redirect()->route('encounters.index')->with('success', 'CLosed Encounter successfully');
+               
 
-        $encounter->save();
-
-        if ($request->screen) {
-            return redirect()->route('encounters.opened')->with('success', 'CLosed Encounter successfully');
+        
         }
-
-        // Find the next encounter with the same status and ID greater than the current encounter
-        $nextEncounter = Encounter::where('status', STATUS_CHECKED_IN)
-            ->where('id', '>', $encounter->id)
-            ->first();
-
-        // dd("here");
-
-        // Redirect to the next encounter's show page with the updated ID in the URL
-        //dd($nextEncounter);
-        if ($nextEncounter) {
-            $encounter = $nextEncounter;
-            $nextEncounterId = $nextEncounter->id;
-            $nextEncounterUrl = route('encounters.show', ['encounter' => $nextEncounterId]);
-
-            //return redirect($nextEncounterUrl)->with(compact('encounter'));
-            return redirect($nextEncounterUrl);
-        } else {
-            //dd($encounter);
-            // Redirect to a different route or display an appropriate message
-            // $doctors = User::whereHas('roles', function ($query) {
-            //     $query->where('name', DOCTOR_ROLE);
-            // })->get();
-
-
-            $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
-
-
-
-
-            //dd($doctors);
-            $this->authorize('view', $encounter);
-            $labTests =  LabTest::all();
-            $labCategories =  LabCatagory::all();
-
-            //get rooms that belongs to the given encounter clinic
-            $rooms = $encounter->clinic->rooms;
-            // dd($rooms);
-            $danger_message = 'No more encounters available.';
-
-
-
-
-            return view('app.encounters.show', compact('encounter',  'doctors', 'labCategories', 'rooms', 'danger_message'));
-        }
-    }
+    
 
 
     //close encounter and call next
