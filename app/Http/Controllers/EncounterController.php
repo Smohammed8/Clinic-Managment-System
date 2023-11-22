@@ -16,11 +16,12 @@ use App\Models\ClinicUser;
 use App\Models\LabCatagory;
 use Illuminate\Http\Request;
 use App\Models\LabTestRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\EncounterStoreRequest;
 use App\Http\Requests\EncounterUpdateRequest;
-use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 require_once app_path('Helper/constants.php');
 
 class EncounterController extends Controller
@@ -231,6 +232,33 @@ class EncounterController extends Controller
     /**
      * Display the specified resource.
      */
+
+     public function search(Request $request)
+     {
+        
+
+        try {
+         $id_number= $request->input('student_id');
+         $student = Student::where('id_number', $id_number)->firstOrFail();
+         $encounters = $student->encounter;
+         $encounter =   $student->encounter[0];
+
+         $clinc_id = $encounter->clinic?->id;
+         $rooms = Room::where('clinic_id', $encounter->clinic?->id)->get();
+         $doctors = User::where('id', '!=', Auth::user()->clinicUsers?->id)->get();
+         $labTests =  LabTest::all();
+         $labCategories =  LabCatagory::all();
+    
+
+         return view('app.encounters.show', compact('encounter','encounters','student','rooms','doctors','labCategories'));
+
+        } catch (ModelNotFoundException $exception) {
+      
+            return redirect()->back()->with('error', 'No student record found with the given ID.');
+        }
+        
+     }
+
 
     public function show(Request $request, Encounter $encounter): View
     {
