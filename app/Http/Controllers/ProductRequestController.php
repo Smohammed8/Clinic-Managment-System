@@ -97,7 +97,7 @@ class ProductRequestController extends Controller
      */
     public function create(Request $request)
     {
-        if (Auth::user()->can('pharmacy.products.*')) {
+        if (Auth::user()->can('pharmacy.products.request')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
             if($pharmacyUser==null){
                 return back()->withError('Pharmacist hasn\'t been assigned to any pharmacy yet ');
@@ -122,7 +122,7 @@ class ProductRequestController extends Controller
             );
         }
         abort(Response::HTTP_UNAUTHORIZED, 'Unauthorized access.');
-       
+
     }
 
     /**
@@ -132,7 +132,7 @@ class ProductRequestController extends Controller
     public function store(ProductRequestStoreRequest $request)
     {
 
-        if (Auth::user()->can('pharmacy.products.*')) {
+        if (Auth::user()->can('pharmacy.products.request')) {
             $pharmacyUser = PharmacyUser::where('user_id', Auth::user()->id)->first();
             if($pharmacyUser==null){
                 return back()->withError('Pharmacist hasn\'t been assigned to any pharmacy yet ');
