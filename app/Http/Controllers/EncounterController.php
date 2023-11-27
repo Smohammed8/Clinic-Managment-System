@@ -177,10 +177,9 @@ class EncounterController extends Controller
         $this->authorize('view-any', Encounter::class);
         $clinic_id = Auth::user()->clinicUsers?->clinic_id;
         $search = $request->get('search', '');
-        $status = STATUS_IN_PROGRESS; // list of students accepted by receptionist
-
+    
         $desiredStatusEncountersQuery = Encounter::search($search)
-        ->where('status', $status)
+        ->where('status', STATUS_IN_PROGRESS)
         ->whereNull('arrived_at')
         ->whereNotNull('doctor_id');
 
