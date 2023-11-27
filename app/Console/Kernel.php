@@ -18,16 +18,27 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
 {
     // Schedule the task to run every hour
+ 
     $schedule->call(function () {
-        Encounter::where('created_at', '<=', now()->subHour())
-            ->where('status', STATUS_IN_PROGRESS)
-            ->whereNull('arrived_at')
-            ->update(['status' => STATUS_MISSED]);
-    })->hourly();
+        $encController = new \App\Http\Controllers\EncounterController();
+        $encController->updateEncounterStatus();
+    })->hourly()->cron('0 * * * *'); 
+
+
+    $schedule->call(function () {
+        $srsController = new \App\Http\Controllers\SRSController();
+        $srsController->srsData();
+    })->dailyAt('18:00')->cron('0 0 * * *');
+    
+
+
 }
 
-//   0 * * * * cd /var/www/html/ju-sis && php artisan schedule:run >> /dev/null 2>&1
-//   */30 * * * * cd /var/www/html/ju-sis && php artisan schedule:run >> /dev/null 2>&1
+   //   */30 * * * * cd /var/www/html/ju-sis && php artisan schedule:run >> /dev/null 2>&1
+   
+  //   0 * * * * cd /var/www/html/ju-sis && php artisan schedule:run >> /dev/null 2>&1  #hourly
+ //    0 0 * * * cd /var/www/html/ju-sis && php artisan schedule:run >> /dev/null 2>&1  #daily mid night
+
 
 
     /**

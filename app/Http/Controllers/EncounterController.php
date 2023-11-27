@@ -173,6 +173,7 @@ class EncounterController extends Controller
 
     public function openedEencounter(Request $request): View
     {
+       
         $this->authorize('view-any', Encounter::class);
         $clinic_id = Auth::user()->clinicUsers?->clinic_id;
         $search = $request->get('search', '');
